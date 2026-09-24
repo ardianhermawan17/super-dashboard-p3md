@@ -36,9 +36,10 @@ from auth.users u
 where u.email like '%@p3md.test';
 
 -- ---------------------------------------------------------------- roles, groups, memberships
--- Not seeded yet: those tables come with migration M1 (PSI-012), which depends on this task.
--- PSI-012 must add the seed rows here: an admin role for the user above, a few groups, and one
--- role with 3 members. Keep the ids fixed (...00a1 style) so tests can use them.
+-- Nothing to seed for the basics: migration M1 (PSI-012) inserts the `admin` role, the `all-members`
+-- group and the 15 permissions itself, and its trigger puts every new user in `all-members`.
+-- PSI-012 only adds assignments here (give ...0002 the `admin` role) and, later, test roles/groups
+-- with fixed ids (e.g. a role with 3 members for the PSI-036 mail smoke test).
 
 -- ---------------------------------------------------------------- local Vault secrets
 -- Names come from docs/backend-architecture/push-notifications.md. Local values only.

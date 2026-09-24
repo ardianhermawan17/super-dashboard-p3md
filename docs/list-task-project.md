@@ -34,7 +34,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 0 — Foundation and agent ops
 
 ### PSI-001 · Fork template, fresh git history, keep LICENSE
-- status: doing
+- status: review
 - area: repo
 - owner: agent:claude-code
 - depends: —

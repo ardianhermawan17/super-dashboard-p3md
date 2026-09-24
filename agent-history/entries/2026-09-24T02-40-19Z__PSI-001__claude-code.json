@@ -1,0 +1,79 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-24T02-40-19Z__PSI-001__claude-code",
+  "task_ids": ["PSI-001"],
+  "agent": { "name": "claude-code", "model": "anthropic:claude-sonnet-5", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-24T02:40:19Z",
+    "ended_at": "2026-09-24T02:49:00Z",
+    "branch": "main",
+    "commits": ["a194aae"]
+  },
+  "intent": "PSI-001: turn the workspace into a git repository on main with a fresh history, keep the template LICENSE, add no upstream remote, and confirm the template installs and boots.",
+  "outcome": "partial",
+  "summary": "Claimed PSI-001 (owner agent:claude-code, status doing). The repo root is this folder (human choice), with the Kiranism template kept unmodified under frontend-architecture/ next to its LICENSE. Added a root .gitignore (node_modules, .env* and **/.env*, generated graphify-out and obsidian-out except its README, .hermes.md, .ecc/) and checked the staged list first: 648 files, no secrets, backend-architecture/.env excluded. git init -b main, one initial commit a194aae, no history before it. bun install works (through npx bun, because bun is not installed globally): 464 packages. bun run dev starts (Next.js 16.2.12 Turbopack, Ready in 646 ms) but every page returns HTTP 500 'Missing publishableKey' because the template still requires Clerk; that is PSI-002's job, so the template was not touched. typecheck, lint and build all pass on the untouched template. Outcome is partial because (1) pages do not render until Clerk is removed, and (2) the repo has an origin remote to https://github.com/ardianhermawan17/super-dashboard-p3md.git that this session did not add and cannot explain; it is the owner's own repo, not the Kiranism upstream, so it was left alone and nothing was pushed. Earlier work in the same chat is captured by the initial commit: four superseded monolith docs moved to docs/_archive/, obsidian-sync now mirrors docs, README_AI_AGENT.md and the graph report into obsidian-out/, a graphify graph was built, and a root package.json with ajv was added for the sync script.",
+  "changes": [
+    { "path": ".gitignore", "action": "added", "note": "Root ignore rules; the template only ignores its own folder" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-001 claimed (doing, agent:claude-code), then moved to review" },
+    { "path": "scripts/obsidian-sync.ts", "action": "modified", "note": "Mirrors docs/, README_AI_AGENT.md and the graph report into obsidian-out; recursive prune" },
+    { "path": "docs/_archive/", "action": "added", "note": "Four superseded monolith docs moved here unedited, plus a README saying where the content went" },
+    { "path": ".graphifyignore", "action": "modified", "note": "Skill copies, secrets, lockfiles, template UI, archive, first-pass scope" },
+    { "path": "package.json", "action": "added", "note": "Root file with only ajv and ajv-formats devDependencies for the sync script; no scripts yet (PSI-006)" },
+    { "path": "bun.lock", "action": "added", "note": "Root lockfile for the above" },
+    { "path": "obsidian-out/README.md", "action": "modified", "note": "Describes the mirrors and the hand-written architecture/ folder" },
+    { "path": "agent-history/entries/2026-09-24T02-40-19Z__PSI-001__claude-code.json", "action": "added", "note": "This entry" }
+  ],
+  "decisions": [
+    {
+      "decision": "Repo root is the whole workspace folder; the template stays in frontend-architecture/",
+      "reason": "The human chose it. It keeps docs, contract, agent-history, scripts and the vault in one git history, so the sync script and history entries work unchanged",
+      "alternatives": ["git init only inside frontend-architecture/", "Move the template to the repo root to match the docs' target layout"]
+    },
+    {
+      "decision": "Do not modify the template to make it boot without Clerk",
+      "reason": "Stripping Clerk is PSI-002; touching it here would blur the task boundary",
+      "alternatives": ["Add dummy Clerk keys in .env.local", "Patch the layout to skip ClerkProvider"]
+    },
+    {
+      "decision": "Leave the existing origin remote untouched and do not push",
+      "reason": "Unknown who added it, and pushing publishes the repo. It points at the owner's own repo, not the template upstream",
+      "alternatives": ["Remove the remote", "Push the initial commit"]
+    },
+    {
+      "decision": "Root .gitignore uses **/.env* with !**/.env.example",
+      "reason": "Contract C-07: backend-architecture/.env holds real-looking Supabase keys, and the template's own rules only apply inside its folder",
+      "alternatives": ["Rely on the template .gitignore"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Ran bun run dev on port 3111 through npx bun: server Ready in 646 ms, but GET /, /dashboard/overview and /auth/sign-in all returned 500 (Missing publishableKey, Clerk). typecheck (tsc --noEmit), lint (oxlint, 0 errors on 288 files) and build (next build) exit 0 on the unmodified template. Node is v24.17.0 while frontend-architecture/.nvmrc says 22. No UI page was usable, so nothing beyond 'server starts' was exercised."
+  },
+  "dependencies_added": [
+    { "name": "ajv", "version": "8.x", "reason": "Validates history entries in scripts/obsidian-sync.ts (root package.json)" },
+    { "name": "ajv-formats", "version": "3.0.1", "reason": "date-time and other formats for the same validation" }
+  ],
+  "risks": [
+    "backend-architecture/.env holds real-looking Supabase keys; git ignores it now, but rotate them if the folder was ever copied, synced or shared (C-07)",
+    "The repo has an origin remote this session did not add; check where it came from before any push",
+    "About 238 skill files under frontend-architecture/.claude and .agents, plus the backend-architecture skill copies, are committed; whether to keep them is a PSI-004/PSI-009 decision",
+    "backend-architecture/package-lock.json is an npm lockfile in a bun project",
+    "Node 24 is used locally while .nvmrc pins 22; typecheck and build passed on 24 but production parity is unchecked"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-002", "note": "Every page returns 500 'Missing publishableKey' until Clerk (and Sentry) are stripped; verify with bun run dev first" },
+    { "task_id": "PSI-006", "note": "Root package.json has no scripts; add obsidian:sync, obsidian:watch, agent:context, agent:check. Until then run: npx bun scripts/obsidian-sync.ts [--check]" },
+    { "task_id": "PSI-004", "note": "Decide whether the skill folders stay committed; wire CLAUDE.md, AGENTS.md and .hermes.md" },
+    { "task_id": "NEW", "note": "Owner: rotate the Supabase keys in backend-architecture/.env and replace the file with .env.example" },
+    { "task_id": "NEW", "note": "Owner: confirm the origin remote URL is intended before the first push, then push main" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Unexplained origin remote; 'boots' is met only for server start (pages return 500 until PSI-002); the .env key exposure needs the owner's decision"
+  }
+}

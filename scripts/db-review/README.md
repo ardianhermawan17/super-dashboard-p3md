@@ -19,3 +19,13 @@ node scripts/db-review/xref.mjs "$(pwd)" $D/audit.txt
 ```
 
 Read the output: `@@T..` lines in `behaviour.sql` say PASS/FAIL or the expected value; in `audit.sql` each `@@A..` section lists offenders (empty = good).
+
+## psi012-verify.sql
+
+Checks the real local database after `supabase db reset` against PSI-012's accept line (tables with RLS, 15 permissions, system rows, seeded users, functions, policies, no-escalation, own-profile column grants, anon access). Behaviour probes run in a transaction that is rolled back.
+
+```bash
+docker exec -i supabase_db_p3md psql -U postgres -d postgres -X -q < scripts/db-review/psi012-verify.sql
+```
+
+Each `@@N` line states the expected value. PSI-015's pgTAP tests should replace it.

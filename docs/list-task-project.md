@@ -134,9 +134,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Sending domain verified (SPF/DKIM); Supabase Auth uses Resend SMTP; Auth email rate limit raised; a test invite reaches a non-team address.
 
 ### PSI-012 · Migration M1 RBAC core
-- status: todo
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-008
 - accept: permissions, roles, role_permissions, groups, group_members, group_roles, user_roles, profiles, user_invites with RLS and resolution functions exactly as in database-architecture/m1-rbac.md; system rows (15 permissions, `admin`, `all-members`) present; `supabase/seed.sql` gives `admin@p3md.test` the `admin` role; `supabase db reset` clean; types regenerated.
 

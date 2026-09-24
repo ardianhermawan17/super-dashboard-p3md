@@ -34,13 +34,257 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      group_members: {
+        Row: {
+          added_at: string
+          group_id: string
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          group_id: string
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          group_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_roles: {
+        Row: {
+          group_id: string
+          role_id: string
+        }
+        Insert: {
+          group_id: string
+          role_id: string
+        }
+        Update: {
+          group_id?: string
+          role_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_roles_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_roles_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_system: boolean
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_system?: boolean
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_system?: boolean
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      permissions: {
+        Row: {
+          description: string
+          key: string
+          module: string
+        }
+        Insert: {
+          description: string
+          key: string
+          module: string
+        }
+        Update: {
+          description?: string
+          key?: string
+          module?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          status: string
+          timezone: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          status?: string
+          timezone?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          status?: string
+          timezone?: string
+        }
+        Relationships: []
+      }
+      role_permissions: {
+        Row: {
+          permission_key: string
+          role_id: string
+        }
+        Insert: {
+          permission_key: string
+          role_id: string
+        }
+        Update: {
+          permission_key?: string
+          role_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_permissions_permission_key_fkey"
+            columns: ["permission_key"]
+            isOneToOne: false
+            referencedRelation: "permissions"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "role_permissions_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      roles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_system: boolean
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_system?: boolean
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_system?: boolean
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      user_invites: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          group_ids: string[]
+          invited_by: string | null
+          role_ids: string[]
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          group_ids?: string[]
+          invited_by?: string | null
+          role_ids?: string[]
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          group_ids?: string[]
+          invited_by?: string | null
+          role_ids?: string[]
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          role_id: string
+          user_id: string
+        }
+        Insert: {
+          role_id: string
+          user_id: string
+        }
+        Update: {
+          role_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_grant_group: { Args: { p_group: string }; Returns: boolean }
+      can_grant_role: { Args: { p_role: string }; Returns: boolean }
+      effective_role_ids: { Args: { p_user: string }; Returns: string[] }
+      has_permission: { Args: { p_key: string }; Returns: boolean }
+      in_group: { Args: { p_group: string }; Returns: boolean }
+      my_group_ids: { Args: never; Returns: string[] }
+      my_role_ids: { Args: never; Returns: string[] }
+      users_with_permission: { Args: { p_key: string }; Returns: string[] }
     }
     Enums: {
       [_ in never]: never

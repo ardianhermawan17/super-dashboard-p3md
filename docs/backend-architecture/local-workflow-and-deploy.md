@@ -16,14 +16,20 @@ supabase functions new send-role-mail
 supabase functions serve --env-file supabase/functions/.env
 ```
 
-`package.json` scripts (PSI-008):
+`package.json` scripts (PSI-008). `supabase/` sits at the repo root, so they live in the root `package.json` and write into the app folder:
 
 ```json
 {
-  "db:types": "supabase gen types typescript --local > src/lib/supabase/database.types.ts",
+  "db:types": "supabase gen types typescript --local > frontend-architecture/src/lib/supabase/database.types.ts",
   "db:reset": "supabase db reset"
 }
 ```
+
+**Local ports.** `supabase/config.toml` moves every port to 54370-54379 (API 54371, DB 54372, Studio 54373, Inbucket 54374). On Windows the default 54321-54329 range can be reserved by Hyper-V/WSL (check with `netsh int ipv4 show excludedportrange protocol=tcp`; the 54266-54365 and 54416-54515 blocks were reserved on the first dev machine). If `supabase start` says "ports are not available", pick a free block and change the ports in `config.toml` and the `project_url` in `supabase/seed.sql`.
+
+**Known flake (Supabase CLI 2.75, Docker Desktop).** Right after the first `supabase start`, `supabase db reset` can seed correctly but exit 1 with "context deadline exceeded" on `/storage/v1/bucket`, because Kong keeps a stale address for the restarted Storage container. Run `docker restart supabase_kong_p3md` once and re-run; it then passed on repeated runs. The `vector` container may crash-loop on Docker Desktop for Windows; it only collects logs and can be ignored.
+
+**Seed (`supabase/seed.sql`).** Four fake users (`member1`, `admin`, `member2`, `member3` at `@p3md.test`, password `password123`, fixed ids `...0001` to `...0004`) and the three Vault secrets. Roles, groups and memberships are added by PSI-012 together with M1, because those tables do not exist yet.
 
 ```
 supabase/

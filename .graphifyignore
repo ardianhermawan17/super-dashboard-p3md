@@ -25,7 +25,6 @@ src/components/ui/
 **/.claude/
 **/.hermes/
 **/.zcode/
-backend-architecture/.env
 **/package-lock.json
 frontend-architecture/src/components/ui/
 frontend-architecture/public/
@@ -37,10 +36,7 @@ supabase/.branches/
 
 # first pass: P3MD docs only; stock Kiranism template + backend scaffold excluded (remove to map them)
 /frontend-architecture/
-backend-architecture/
 
-!docs/backend-architecture/
-!docs/frontend-architecture/
 
 # json config/schema files produce key-name noise in the AST pass
 package.json

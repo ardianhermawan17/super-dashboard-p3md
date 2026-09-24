@@ -83,9 +83,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Husky pre-commit runs `bun run agent:check`; a commit with an invalid history entry or task block is rejected.
 
 ### PSI-008 · Supabase local init
-- status: todo
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-002
 - accept: `supabase init` committed (config.toml, seed.sql with fake users, roles, groups and local Vault secrets); `supabase start` and `supabase db reset` succeed; `db:types` and `db:reset` scripts in package.json.
 

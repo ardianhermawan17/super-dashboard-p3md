@@ -48,7 +48,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `bun run cleanup clerk` applied; unused demos removed; kanban, chat, ai-chat, notifications kept; no `@clerk/*` in package.json; `bun run build` passes.
 
 ### PSI-003 · Add docs pack and gateway files
-- status: review
+- status: done
 - area: docs
 - owner: human:ficana
 - depends: PSI-001

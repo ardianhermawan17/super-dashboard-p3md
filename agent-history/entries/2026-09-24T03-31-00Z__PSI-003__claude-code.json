@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-24T03-31-00Z__PSI-003__claude-code",
+  "task_ids": ["PSI-003"],
+  "agent": { "name": "claude-code", "model": "anthropic:claude-sonnet-5", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-24T03:31:00Z",
+    "ended_at": "2026-09-24T03:31:41Z",
+    "branch": "task/PSI-001"
+  },
+  "intent": "Mark the earlier PSI-003 draft entry as superseded, since the docs pack it described is now committed and approved.",
+  "outcome": "done",
+  "summary": "Bookkeeping entry. The 2026-09-23T01-54-29Z entry (contract v1.0, 'docs pack not committed yet') was replaced by later work and is now fully covered by the 2026-09-24T03-30-00Z entry. It is marked superseded so Home no longer lists it under sessions waiting for a human.",
+  "changes": [
+    { "path": "agent-history/entries/2026-09-24T03-31-00Z__PSI-003__claude-code.json", "action": "added", "note": "This entry" }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "obsidian-sync --check passes with both new entries; see the 2026-09-24T03-30-00Z entry for the acceptance checks"
+  },
+  "human_review": {
+    "required": false,
+    "reason": "Bookkeeping only; the approval is recorded in the 2026-09-24T03-30-00Z entry"
+  },
+  "supersedes": "2026-09-23T01-54-29Z__PSI-003__claude-chat"
+}

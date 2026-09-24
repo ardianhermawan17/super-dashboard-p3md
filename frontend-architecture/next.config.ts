@@ -10,19 +10,11 @@ const baseConfig: NextConfig = {
         protocol: 'https',
         hostname: 'api.slingacademy.com',
         port: ''
-      },
-      {
-        protocol: 'https',
-        hostname: 'img.clerk.com',
-        port: ''
-      },
-      {
-        protocol: 'https',
-        hostname: 'clerk.com',
-        port: ''
       }
     ]
   },
+  // The repo root has its own bun.lock (docs tooling), so Next would infer the wrong workspace root.
+  turbopack: { root: process.cwd() },
   transpilePackages: ['geist'],
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production'

@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-24T10-00-00Z__PSI-001__claude-code",
+  "task_ids": ["PSI-001", "PSI-002", "PSI-006", "PSI-008", "PSI-012"],
+  "agent": { "name": "claude-code", "model": "anthropic:claude-sonnet-5", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-24T10:00:00Z",
+    "ended_at": "2026-09-24T10:09:00Z",
+    "branch": "main",
+    "commits": ["a4e1a9a", "b437d32", "f5afa60", "cd9aa2f", "cee7da8"]
+  },
+  "intent": "Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.",
+  "outcome": "done",
+  "summary": "Operator asked to push each commit to its own branch and merge orderly. Pushed task/PSI-001 (ba1919f, the PSI-003 close), task/PSI-002 and task/PSI-008; task/PSI-006 and task/PSI-012 were already on origin. Merged into local main with --no-ff, one merge commit each, in this order: PSI-001 (a4e1a9a), PSI-002 (b437d32), PSI-006 (f5afa60), PSI-008 (cd9aa2f), PSI-012 (cee7da8). No textual conflicts, but git auto-merged root package.json into a file with TWO \"scripts\" keys (agent scripts from PSI-006, db scripts from PSI-008); JSON parsers keep the last key, so the four agent:* scripts would have been silently lost. Caught by parsing the file after the merge, fixed into one scripts block and folded into the PSI-008 merge commit (unpushed at that point). Verified the final tree: main differs from task/PSI-012 only in package.json; obsidian-sync --check and agent-context --check pass (74 tasks, 10 history entries); tsc, oxlint and next build pass; supabase db reset applies the RBAC migration and psi012-verify.sql matches on all its checks. Task statuses were not changed by this session: PSI-001, 002, 006, 008 and 012 stay in review for a human to move to done after looking at the merge (contract C-13). No file content of the tasks changed during merging beyond the package.json fix.",
+  "changes": [
+    { "path": "package.json", "action": "modified", "note": "Merge fix: one scripts block with obsidian:*, agent:* and db:* scripts (git had produced two scripts keys)" },
+    { "path": "agent-history/entries/2026-09-24T10-00-00Z__PSI-001__claude-code.json", "action": "added", "note": "This entry" }
+  ],
+  "decisions": [
+    {
+      "decision": "Merge with --no-ff in dependency order (PSI-001, 002, 006, 008, 012)",
+      "reason": "One merge commit per task keeps the order visible in history; each later branch depended on the earlier ones or touched the same files (list-task-project.md, package.json)",
+      "alternatives": ["Fast-forward main to task/PSI-012 and merge PSI-006 after", "Squash each branch"]
+    },
+    {
+      "decision": "Parse package.json after every merge instead of trusting a clean auto-merge",
+      "reason": "Two branches added a scripts block in the same place; git merged them without a conflict marker but produced invalid intent (duplicate key)",
+      "alternatives": ["Trust the merge result"]
+    },
+    {
+      "decision": "Leave all task statuses at review",
+      "reason": "The operator asked for push and merge, not for sign-off; a human moves review to done",
+      "alternatives": ["Set the merged tasks to done"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "skipped",
+    "manual": "After the last merge: git diff --stat task/PSI-012 main shows only package.json; node parsed package.json with one scripts key and six scripts; obsidian-sync --check and agent-context --check exit 0 after agent:context wrote .hermes.md (11,469 characters, contract only); frontend tsc --noEmit exit 0, oxlint 0 warnings and errors, next build exit 0 (a template font-override warning is printed, not an error); supabase db reset exit 0 on branch main and scripts/db-review/psi012-verify.sql matched every expected value. supabase test db has no tests yet (PSI-015)."
+  },
+  "risks": [
+    "main on GitHub now holds all five tasks including the auth/RLS migration (C-15) and the large Clerk deletion; nothing is deployed from it, but the dashboard has no login until PSI-010",
+    "The remote has no branch protection knowledge here; main was pushed directly at the operator's request",
+    "Earlier open items still apply: hosted Supabase keys not rotated, review findings B, C, D (M9 RLS, anon-executable helpers, Google function SQL), the C-15 note on relocated skill folders"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-001", "note": "A human can now move PSI-001, PSI-002, PSI-006, PSI-008 and PSI-012 from review to done (or reject) after reading the merged main" },
+    { "task_id": "PSI-013", "note": "Next task on main: access-token hook (PSI-014 last-admin triggers and PSI-020 notifications are also unblocked)" },
+    { "task_id": "NEW", "note": "Branch cleanup: the task/* branches are merged; delete them locally and on origin when no longer needed (git branch -d, git push origin --delete)" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Confirm the merged main and move the five tasks from review to done; decide about branch cleanup"
+  }
+}

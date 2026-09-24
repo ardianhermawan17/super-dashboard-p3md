@@ -1,5 +1,7 @@
 # M9 · Talent (phase 8, outline)
 
+> **Warning: do not copy this SQL as a migration yet.** As written it creates six tables with **no RLS**, and Supabase grants table access to `anon` by default. Before use, add `enable row level security` and the policies described in the comment inside the block. Checked on 2026-09-24: with RLS missing, the anonymous role could read and delete `candidates` (C-05, C-08).
+
 > **Scope:** skill taxonomy, candidates, extracted skills, scoring view.
 > Parser: [edge-functions.md](../backend-architecture/edge-functions.md#parse-cv-psi-082-outline) · UI: [talent.md](../frontend-architecture/features/talent.md) · Index: [database-architecture/](README.md) · Gateway: [README_AI_AGENT.md](../../README_AI_AGENT.md)
 

@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p3md-social.local/agent-history/schema.json",
+  "title": "Agent history entry",
+  "description": "One entry per agent session per task. Append-only. Contract: README_AI_AGENT.md (C-12, C-13, C-14).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "task_ids",
+    "agent",
+    "session",
+    "intent",
+    "outcome",
+    "summary",
+    "changes",
+    "verification",
+    "human_review"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional pointer for editor validation, e.g. ../schema.json"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "description": "<started_at in UTC with ':' replaced by '-'>__<first task id>__<agent name>. Must equal the file name without .json",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}-\\d{2}-\\d{2}Z__PSI-\\d{3}__[a-z0-9-]+$"
+    },
+    "task_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^PSI-\\d{3}$" }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "operator"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "e.g. claude-code, codex, cursor" },
+        "model": { "type": "string", "description": "Model identifier if known" },
+        "operator": { "type": "string", "description": "Human accountable for this session" }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["started_at", "ended_at"],
+      "properties": {
+        "started_at": { "type": "string", "format": "date-time" },
+        "ended_at": { "type": "string", "format": "date-time" },
+        "branch": { "type": "string" },
+        "commits": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" }
+        }
+      }
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "What this session set out to do, one sentence"
+    },
+    "outcome": {
+      "enum": ["done", "partial", "blocked", "abandoned"],
+      "description": "done only if every accept criterion of the task is met (C-13)"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 2000,
+      "description": "What actually happened, including what did not work"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "action"],
+        "properties": {
+          "path": { "type": "string" },
+          "action": { "enum": ["added", "modified", "deleted", "renamed"] },
+          "note": { "type": "string", "maxLength": 300 }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision", "reason"],
+        "properties": {
+          "decision": { "type": "string" },
+          "reason": { "type": "string" },
+          "alternatives": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["typecheck", "lint", "build", "db_reset", "db_tests", "manual"],
+      "properties": {
+        "typecheck": { "$ref": "#/$defs/check" },
+        "lint": { "$ref": "#/$defs/check" },
+        "build": { "$ref": "#/$defs/check" },
+        "db_reset": { "$ref": "#/$defs/check" },
+        "db_tests": { "$ref": "#/$defs/check" },
+        "manual": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Which UI/API path was exercised by hand, or 'none'"
+        }
+      }
+    },
+    "migrations": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^supabase/migrations/.+\\.sql$" }
+    },
+    "dependencies_added": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "version", "reason"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "contract_deviations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rule", "why"],
+        "properties": {
+          "rule": { "type": "string", "pattern": "^C-\\d{2}$" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "follow_ups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["note"],
+        "properties": {
+          "task_id": { "type": "string", "pattern": "^(PSI-\\d{3}|NEW)$" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "reason": { "type": "string" }
+      }
+    },
+    "supersedes": {
+      "type": "string",
+      "description": "id of an earlier entry this one corrects (entries are never edited)"
+    }
+  },
+  "$defs": {
+    "check": {
+      "enum": ["pass", "fail", "skipped", "n/a"],
+      "description": "pass/fail = actually run; skipped = should have run but did not; n/a = not applicable to this change"
+    }
+  }
+}

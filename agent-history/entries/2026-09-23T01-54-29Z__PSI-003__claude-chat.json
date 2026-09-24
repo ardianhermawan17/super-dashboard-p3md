@@ -1,0 +1,94 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-23T01-54-29Z__PSI-003__claude-chat",
+  "task_ids": ["PSI-003"],
+  "agent": { "name": "claude-chat", "model": "claude-opus-5-5", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-23T01:54:29Z",
+    "ended_at": "2026-09-23T08:48:09Z"
+  },
+  "intent": "Draft the docs pack, AI gateway contract, agent-history contract and Obsidian sync script for the P3MD social integration repo.",
+  "outcome": "partial",
+  "summary": "Drafted the gateway (README_AI_AGENT.md, contract v1.0 with rules C-01 to C-18), frontend and backend architecture, focused docs for RBAC (users, groups, roles, permissions), PWA notifications and Google Drive/Calendar integration, the phased task list (69 tasks), the agent-history JSON contract with schema, the Obsidian integration guide and generator script, and the graphify pack. Mid-session the scope grew to include group-based RBAC, a notification-first PWA and Google Workspace integration; the task list and migration order (M1-M9) were renumbered before anything was committed. The sync script was exercised in a sandbox; the SQL and application code in the docs are unexecuted drafts. Nothing is committed to a repository yet, so PSI-003 is not done.",
+  "changes": [
+    { "path": "README.md", "action": "added", "note": "Points to the gateway" },
+    { "path": "README_AI_AGENT.md", "action": "added", "note": "Gateway and contract v1.0" },
+    { "path": "docs/frontend-architecture.md", "action": "added" },
+    { "path": "docs/backend-architecture.md", "action": "added" },
+    { "path": "docs/rbac-architecture.md", "action": "added", "note": "Users, groups, roles, permissions; M1" },
+    { "path": "docs/pwa-notifications.md", "action": "added", "note": "PWA shell, Web Push, notification center; M2" },
+    { "path": "docs/google-workspace-integration.md", "action": "added", "note": "Drive documents and Calendar sync; M6" },
+    { "path": "docs/list-task-project.md", "action": "added", "note": "69 tasks, PSI-001 to PSI-094" },
+    { "path": "docs/historical-agent-work.md", "action": "added" },
+    { "path": "docs/integrated-obsidian-local.md", "action": "added" },
+    { "path": "docs/graphify-architecture/README.md", "action": "added" },
+    { "path": "docs/graphify-architecture/snapshots/.gitkeep", "action": "added" },
+    { "path": "agent-history/schema.json", "action": "added", "note": "JSON Schema 2020-12" },
+    { "path": "agent-history/entries/2026-09-23T01-54-29Z__PSI-003__claude-chat.json", "action": "added", "note": "This entry" },
+    { "path": "scripts/obsidian-sync.ts", "action": "added", "note": "sync, --watch, --check" },
+    { "path": "obsidian-out/README.md", "action": "added" },
+    { "path": ".graphifyignore", "action": "added" }
+  ],
+  "decisions": [
+    {
+      "decision": "Docs live in docs/; README.md and README_AI_AGENT.md stay at the repo root",
+      "reason": "The template already has a docs/ folder and the root stays readable; the gateway links every doc",
+      "alternatives": ["Every file at the repo root"]
+    },
+    {
+      "decision": "Keep graphify-out/ at the root as engine output; docs/graphify-architecture/ holds curated exports and dated snapshots",
+      "reason": "graphify's hooks and CLAUDE.md integration expect graphify-out/",
+      "alternatives": ["Rename graphify-out to graphify-architecture", "Symlink"]
+    },
+    {
+      "decision": "One JSON file per agent session in agent-history/entries/",
+      "reason": "Parallel branches and agents never conflict",
+      "alternatives": ["Single append-only JSONL log", "Entries embedded in Markdown"]
+    },
+    {
+      "decision": "Obsidian sync is one-way from the task list and history into obsidian-out/",
+      "reason": "Avoids a second writer to the task list and merge conflicts with agent branches",
+      "alternatives": ["Two-way sync with the Kanban plugin as an editor"]
+    },
+    {
+      "decision": "Effective roles = direct roles plus roles inherited through groups; RLS reads membership tables, JWT claims only drive the UI",
+      "reason": "Revoking a role, group membership or suspending a user takes effect on the next request",
+      "alternatives": ["RLS on JWT claims (up to one token lifetime of staleness)"]
+    },
+    {
+      "decision": "Google integration through one service account; Drive metadata mirrored and files streamed after an RLS check",
+      "reason": "No per-user OAuth tokens or Google app verification; our RBAC decides who sees each document",
+      "alternatives": ["Per-user Google OAuth", "Drive /preview iframes that bypass our RBAC"]
+    },
+    {
+      "decision": "PWA scoped to install, Web Push and a notification center start page; no offline data",
+      "reason": "Covers the mobile need with little service-worker complexity and keeps email volume low",
+      "alternatives": ["Offline-first PWA", "Native mobile app"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Typecheck covers scripts/obsidian-sync.ts only (tsc --strict, bundler resolution). Ran the script under Node 22 type stripping with ajv 8 against these docs: --check passed on 69 tasks and this entry, sync generated the board, home, agent log, 69 task notes and 1 session note, a second run wrote 0 files, and a deliberately broken entry made --check exit 1. No repository, migrations or app code exist yet."
+  },
+  "risks": [
+    "SQL and TypeScript in the docs are unexecuted drafts; the first migration and feature tasks will surface errors",
+    "Third-party details flagged for verification: Resend batch cap and webhook payload, Supabase before-user-created hook payload and OAuth server method names, MCP CIMD support",
+    "The sync script type-checks under bundler resolution (Next.js default) but not under nodenext because of ajv's CommonJS default exports"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-003", "note": "Commit the pack at the linked paths; a human moves PSI-003 to done after review" },
+    { "task_id": "PSI-004", "note": "Add the README_AI_AGENT.md import to CLAUDE.md and the pointer line to AGENTS.md" },
+    { "task_id": "PSI-006", "note": "Add ajv and ajv-formats as dev dependencies and the obsidian:sync, obsidian:watch, agent:check scripts" },
+    { "task_id": "PSI-016", "note": "Decide onboarding option A (email invites) or B (Google sign-in with allowlist)" },
+    { "task_id": "PSI-060", "note": "Create the Google Cloud project and service account; share the Drive roots and calendars" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Docs pack not committed yet; contract v1.0 (C-01 to C-18) and the RBAC, PWA and Google designs need owner approval"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-23T09-31-24Z__PSI-003__claude-chat",
+  "task_ids": ["PSI-003"],
+  "agent": { "name": "claude-chat", "model": "anthropic:claude-opus-5-5", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-23T09:31:24Z",
+    "ended_at": "2026-09-23T15:46:39Z"
+  },
+  "intent": "Restructure the docs pack into frontend, backend and database layer folders and make the agent setup harness-neutral (Claude Code + Hermes) with ECC and graphify.",
+  "outcome": "partial",
+  "summary": "Split the single frontend, backend, RBAC, PWA and Google docs into three layer folders (frontend-architecture/, backend-architecture/, database-architecture/) plus system-overview.md, keeping the content and remapping every cross-reference. Added agent-operations/ (Claude Code as default builder, Hermes Agent as default operator, ECC per harness, handoffs, coordination rules), a generated .hermes.md via scripts/agent-context.ts because Hermes loads one context file and ignores @ imports, graphify install and always-on steps for both harnesses, and a provider-agnostic LLM layer so the product can use Claude or Hermes models. The contract moved to v1.1 (C-19 precedence, C-20 memories are not facts, agent configuration behind the human gate). Added tasks PSI-009 and PSI-095 to PSI-098 and updated existing task criteria to the new paths. Nothing is committed to a repository yet, so PSI-003 is still not done.",
+  "changes": [
+    { "path": "docs/frontend-architecture/", "action": "added", "note": "README + 4 files + features/ (8 files), split from docs/frontend-architecture.md, pwa-notifications.md, rbac-architecture.md, google-workspace-integration.md" },
+    { "path": "docs/backend-architecture/", "action": "added", "note": "README + 7 files, split from backend-architecture.md, rbac-architecture.md, pwa-notifications.md, google-workspace-integration.md" },
+    { "path": "docs/database-architecture/", "action": "added", "note": "README + m1-m9 + testing-pgtap.md" },
+    { "path": "docs/agent-operations/", "action": "added", "note": "README, claude-code.md, hermes.md, ecc.md" },
+    { "path": "docs/system-overview.md", "action": "added", "note": "Layer placement rule and feature x layer map" },
+    { "path": "scripts/agent-context.ts", "action": "added", "note": ".hermes.md generator with --check" },
+    { "path": "agent-history/entries/2026-09-23T09-31-24Z__PSI-003__claude-chat.json", "action": "added", "note": "This entry" },
+    { "path": "docs/frontend-architecture.md", "action": "deleted", "note": "Content moved into docs/frontend-architecture/" },
+    { "path": "docs/backend-architecture.md", "action": "deleted", "note": "Content moved into docs/backend-architecture/ and docs/database-architecture/" },
+    { "path": "docs/rbac-architecture.md", "action": "deleted", "note": "Content moved into database-architecture/m1-rbac.md and the frontend/backend folders" },
+    { "path": "docs/pwa-notifications.md", "action": "deleted", "note": "Content moved into the three layer folders" },
+    { "path": "docs/google-workspace-integration.md", "action": "deleted", "note": "Content moved into the three layer folders" },
+    { "path": "README_AI_AGENT.md", "action": "modified", "note": "Contract v1.1, harness-neutral" },
+    { "path": "README.md", "action": "modified" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "New paths; PSI-009, PSI-095 to PSI-098 added" },
+    { "path": "docs/historical-agent-work.md", "action": "modified", "note": "Harness names, model recording, history vs agent memory" },
+    { "path": "docs/integrated-obsidian-local.md", "action": "modified" },
+    { "path": "docs/graphify-architecture/README.md", "action": "modified", "note": "Claude Code and Hermes install and usage" },
+    { "path": ".graphifyignore", "action": "modified", "note": "Ignore .hermes.md and .ecc/" }
+  ],
+  "decisions": [
+    {
+      "decision": "Separate database-architecture/ next to backend-architecture/ instead of one backend folder",
+      "reason": "With Supabase most backend logic and all authorization are SQL, which has its own change rules (immutable migrations), review gates and tests (pgTAP)",
+      "alternatives": ["Everything in backend-architecture/", "database/ as a subfolder of backend-architecture/"]
+    },
+    {
+      "decision": "Claude Code is the default builder and Hermes Agent the default operator, under one contract",
+      "reason": "ECC's full feature set is stable on Claude Code and minimal on Hermes; Hermes adds always-on chat, cron, persistent memory and any model provider",
+      "alternatives": ["Both agents in identical roles", "Hermes only"]
+    },
+    {
+      "decision": "Generate .hermes.md from README_AI_AGENT.md + AGENTS.md",
+      "reason": "Hermes loads only the first matching context file and does not expand @ imports; generating keeps one source of truth",
+      "alternatives": ["Pointer line in AGENTS.md only", "Hand-maintained .hermes.md"]
+    },
+    {
+      "decision": "Product LLM calls go through provider:model specs (anthropic: or hermes:)",
+      "reason": "The request that agents should not be limited to Claude also applies to the in-app assistant, digest and CV parsing",
+      "alternatives": ["Claude only", "Hermes only"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Typecheck covers scripts/agent-context.ts and scripts/obsidian-sync.ts only (tsc --strict, bundler resolution). agent-context tested for missing, stale and current .hermes.md. obsidian-sync --check passed on 74 tasks and 2 history entries. A link checker found no broken links, missing anchors or unknown task IDs across the Markdown files. No repository, migrations or app code exist yet."
+  },
+  "risks": [
+    "ECC's Hermes adapter and graphify's Hermes integration are young; older graphify releases skip the Hermes skill file on the per-platform install",
+    "The combined .hermes.md must stay under about 20,000 characters or Hermes truncates it; the template's AGENTS.md size is unknown until the fork",
+    "SQL and TypeScript in the docs remain unexecuted drafts"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-004", "note": "Wire CLAUDE.md, AGENTS.md and the generated .hermes.md; move any CLAUDE.md-only conventions into AGENTS.md" },
+    { "task_id": "PSI-009", "note": "Install ECC once per harness and commit the project-local rules" },
+    { "task_id": "PSI-095", "note": "Set up Hermes with gateway security before connecting Telegram or Slack" },
+    { "task_id": "PSI-098", "note": "Run the Claude vs Hermes evaluation before changing any product default model" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Contract v1.1 (C-19, C-20, agent-configuration gate), the builder/operator split and the three-layer layout need owner approval; nothing committed yet"
+  }
+}

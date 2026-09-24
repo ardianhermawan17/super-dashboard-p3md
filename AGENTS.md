@@ -86,5 +86,6 @@ Built by two agents: **Claude Code** (default builder) and **Hermes Agent** (def
 3. **Read before write** — `docs/system-overview.md` first, then only the file your task touches.
 4. **Graph before grep** — `graphify query "<question>"` or skim `graphify-out/GRAPH_REPORT.md`. Grep only when the graph misses.
 5. **Write a history entry** — one JSON file in `agent-history/entries/` per session, even for failures.
-6. **Separate branch per task** — branch name: `task/PSI-NNN`. Never work on `main`.
-7. **No GCP/GCloud without permission** — never touch remote cloud infrastructure.
+6. **Branch from `master`** — default branch is `master` (not `main`). Branch name: `task/PSI-NNN`. Never work on `master` directly.
+7. **Never merge without review** — all PRs need a review file (`obsidian-out/review/PSI-NNN.md`) before merge.
+8. **No GCP/GCloud without permission** — never touch remote cloud infrastructure.

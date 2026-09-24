@@ -69,9 +69,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `graphify-out/` committed (without cost.json); Claude Code: `graphify install --project` + `graphify claude install`; Hermes: `graphify install --platform hermes` + `graphify hermes install`, then `.hermes.md` regenerated; `graphify hook install` done; first snapshot and callflow.html in docs/graphify-architecture/.
 
 ### PSI-006 · Agent ops scripts (obsidian-sync, agent-context, agent:check)
-- status: todo
+- status: review
 - area: agent-ops
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-003
 - accept: `ajv` and `ajv-formats` added as dev deps; `obsidian:sync`, `obsidian:watch`, `agent:context` and `agent:check` (= `obsidian-sync --check && agent-context --check`) scripts in package.json; sync generates Board.md; watch updates the board within ~1 s of saving this file; check exits 1 on an invalid entry or a stale `.hermes.md`.
 

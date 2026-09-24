@@ -3,7 +3,9 @@
     "obsidian:sync": "bun scripts/obsidian-sync.ts",
     "obsidian:watch": "bun scripts/obsidian-sync.ts --watch",
     "agent:context": "bun scripts/agent-context.ts",
-    "agent:check": "bun scripts/obsidian-sync.ts --check && bun scripts/agent-context.ts --check"
+    "agent:check": "bun scripts/obsidian-sync.ts --check && bun scripts/agent-context.ts --check",
+    "db:types": "supabase gen types typescript --local > frontend-architecture/src/lib/supabase/database.types.ts",
+    "db:reset": "supabase db reset"
   },
   "dependencies": {},
   "devDependencies": {

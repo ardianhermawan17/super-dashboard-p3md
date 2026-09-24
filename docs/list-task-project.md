@@ -83,11 +83,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Husky pre-commit runs `bun run agent:check`; a commit with an invalid history entry or task block is rejected.
 
 ### PSI-008 · Supabase local init
-- status: todo
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-002
-- accept: `supabase init` committed (config.toml, seed.sql with fake users, roles, groups and local Vault secrets); `supabase start` and `supabase db reset` succeed; `db:types` and `db:reset` scripts in package.json.
+- accept: `supabase init` committed (config.toml, seed.sql with fake users and local Vault secrets; M1 inserts the `admin` role and `all-members` group itself, so roles and groups are not seeded here); `supabase start` and `supabase db reset` succeed; `db:types` and `db:reset` scripts in package.json.
 
 ### PSI-009 · Install ECC for Claude Code and Hermes
 - status: todo
@@ -138,7 +138,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: db
 - owner: unassigned
 - depends: PSI-008
-- accept: permissions, roles, role_permissions, groups, group_members, group_roles, user_roles, profiles, user_invites with RLS and resolution functions exactly as in database-architecture/m1-rbac.md; system rows (15 permissions, `admin`, `all-members`) present; `supabase db reset` clean; types regenerated.
+- accept: permissions, roles, role_permissions, groups, group_members, group_roles, user_roles, profiles, user_invites with RLS and resolution functions exactly as in database-architecture/m1-rbac.md; system rows (15 permissions, `admin`, `all-members`) present; `supabase/seed.sql` gives `admin@p3md.test` the `admin` role; `supabase db reset` clean; types regenerated.
 
 ### PSI-013 · Access-token hook with roles, groups and permissions
 - status: todo
@@ -159,7 +159,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: security
 - owner: unassigned
 - depends: PSI-013, PSI-014
-- accept: Every RBAC assertion in database-architecture/testing-pgtap.md passes in `supabase test db`.
+- accept: Every RBAC assertion in database-architecture/testing-pgtap.md passes in `supabase test db`; plus a schema-wide test that every table in `public` has RLS enabled and that `anon` can read and write none of them.
 
 ### PSI-016 · Auth pages and onboarding path
 - status: todo
@@ -240,7 +240,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: db
 - owner: unassigned
 - depends: PSI-012, PSI-020
-- accept: messages (role XOR group target), message_recipients, helpers, `mail_recipients` (service_role only, includes roles held via groups), `mail_recipient_count` as in database-architecture/m3-role-mail.md; no email column in app tables; pgTAP per database-architecture/testing-pgtap.md.
+- accept: messages (role XOR group target), message_recipients, helpers, `mail_recipients` (service_role only, includes roles held via groups), `mail_recipient_count` as in database-architecture/m3-role-mail.md; no email column in the M3 tables (`user_invites.email` from M1 is intentional); pgTAP per database-architecture/testing-pgtap.md.
 
 ### PSI-031 · Resend API key and webhook secret
 - status: backlog
@@ -488,7 +488,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: db
 - owner: unassigned
 - depends: PSI-012, PSI-061
-- accept: Talent tables with RLS; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
+- accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake
 - status: backlog

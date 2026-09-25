@@ -67,7 +67,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human #agent-ops #phase-0
 - [ ] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
 - [ ] [[tasks/PSI-011|PSI-011]] Resend domain and custom SMTP for Auth · human #infra #phase-1
-- [ ] [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · 1 run #security #phase-1
 - [ ] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path #frontend #phase-1
 - [ ] [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation #frontend #phase-1
 - [ ] [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function #frontend #phase-1
@@ -82,6 +81,7 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes · 1 run #db #phase-1
 - [ ] [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes · 1 run #db #phase-1
+- [ ] [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · agent:hermes · 2 runs #security #phase-1
 
 
 ## Blocked

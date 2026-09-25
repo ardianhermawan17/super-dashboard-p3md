@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T10-35-00Z__PSI-015__hermes",
+  "task_ids": ["PSI-015"],
+  "agent": { "name": "hermes", "model": "omniroute:combo-cheaper-inference-prio", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-25T10:35:00Z",
+    "ended_at": "2026-09-25T11:10:00Z",
+    "branch": "task/PSI-015"
+  },
+  "intent": "PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.",
+  "outcome": "done",
+  "summary": "Created supabase/tests/rbac.test.sql (18 assertions) and supabase/tests/rls_schema.test.sql (7 assertions). Branch task/PSI-015 was built by merging the unmerged dependency branches task/PSI-013 and task/PSI-014 (their migrations and config apply locally; conflicts in obsidian-out sync artifacts resolved by regenerating). Iterated to green: fixtures installed as postgres while assertions switch roles; effective_role_ids/users_with_permission revoked from authenticated so data-model assertions run as postgres and §8 proves the 42501 throw; can_grant_group is true for a permission-less role so §4 gives the group's role mail.send; RLS using-clause deletes are silent (0 rows) so §6 asserts row count not throws_ok; added ::int casts for pgTAP is(bigint) and plan(18). Final: supabase test db -> Files=2, Tests=25, Result PASS. Wrote obsidian-out/review/PSI-015.md, task status todo -> review.",
+  "changes": [
+    { "path": "supabase/tests/rbac.test.sql", "action": "added", "note": "18 RBAC assertions mapping 1:1 to testing-pgtap.md" },
+    { "path": "supabase/tests/rls_schema.test.sql", "action": "added", "note": "7 schema-wide RLS + anon-lock assertions" },
+    { "path": "obsidian-out/review/PSI-015.md", "action": "added", "note": "review card with runbook; 25/25 PASS" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-015 status todo -> review, owner -> agent:hermes" }
+  ],
+  "decisions": [
+    { "decision": "Build task/PSI-015 by merging unmerged dependency branches task/PSI-013 + task/PSI-014", "reason": "PSI-015 depends on both; the hook and guard migrations must exist for the tests to exercise them. Branching off master would break the test run." },
+    { "decision": "Run fixture setup as postgres; assertions only under authenticated/anon roles", "reason": "RLS and function grants (effective_role_ids revoked from authenticated) make role-scoped assertions the only meaningful test; fixtures must bypass RLS to set up state." },
+    { "decision": "Assert silent RLS delete via row count, not throws_ok", "reason": "A using-clause that excludes the row deletes 0 rows without an exception; testing-pgtap 'cannot be deleted' is proven by post-state, not an error." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "supabase test db -> Files=2, Tests=25, Result: PASS"
+  },
+  "human_review": {
+    "required": true,
+    "reason": "PSI-015 verified green; operator stamps to done (C-21). PR raising 013+014+015 is the operator's merge call."
+  }
+}

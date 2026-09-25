@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T12-30-00Z__PSI-009__hermes",
+  "task_ids": ["PSI-009"],
+  "agent": { "name": "hermes", "model": "omniroute:combo-cheaper-inference-prio", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-25T12:30:00Z",
+    "ended_at": "2026-09-25T12:55:00Z",
+    "branch": "task/PSI-009"
+  },
+  "intent": "PSI-009: complete + verify + review the ECC install for Claude Code and Hermes, then mirror review->done per operator instruction.",
+  "outcome": "done",
+  "summary": "Verified ECC ecosystem: ecc@ecc v2.2.1 in ~/.claude/plugins/installed_plugins.json; Hermes target installed 2026-09-23 (profile minimal, repo v2.2.2 from D:\\1_software_running\\ECC) via ~/.hermes/ecc-install-state.json. Missing piece was the repo-level .claude materialization: ran --target claude-project --profile minimal from the v2.2.2 tree -> .claude/rules/ecc/{common(10),typescript(5)} + agents/commands/skills/scripts (3.6 MB, 62 files) + install-state.json. AgentShield found 4 critical prompt-defense gaps (LLM01 instruction-override + LLM06 data-leakage) in .claude/CLAUDE.md and .claude/agents/agent-evaluator.md; added the two defense blocks with scanner-matching phrasing, re-scan -> 0 critical, exit 0. Wrote review card obsidian-out/review/PSI-009.md; task status todo -> done (operator approved direct completion).",
+  "changes": [
+    { "path": ".claude/rules/ecc/common/", "action": "added", "note": "10 rule files from claude-project minimal profile" },
+    { "path": ".claude/rules/ecc/typescript/", "action": "added", "note": "5 rule files" },
+    { "path": ".claude/CLAUDE.md", "action": "modified", "note": "added instruction-override + data-leakage defenses (LLM01/LLM06)" },
+    { "path": ".claude/agents/agent-evaluator.md", "action": "modified", "note": "added same prompt defenses" },
+    { "path": ".claude/ecc/install-state.json", "action": "added", "note": "claude-project install record" },
+    { "path": "obsidian-out/review/PSI-009.md", "action": "added", "note": "review card with runbook; AgentShield 0 critical" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-009 status todo -> done" }
+  ],
+  "decisions": [
+    { "decision": "Run the claude-project install from the v2.2.2 tree (D:\\1_software_running\\ECC) not the npm ecc bin", "reason": "The npm global ecc-universal is v2.2.1, older than the user's dev clone v2.2.2 the acceptance criteria references; install-state for Hermes already records v2.2.2 from that tree." },
+    { "decision": "Fix the 4 AgentShield criticals by adding prompt-defense blocks, not by excluding findings", "reason": "Acceptance says 'no critical findings'; the gaps were real OWASP LLM01/LLM06 prompt-injection boundaries in the generated agent files, cheap to fix and aligned with the ECC security baseline." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "npx ecc-agentshield scan --path . -> 121 findings: 0 critical, 13 high, 71 medium, 37 low (exit 0)"
+  },
+  "human_review": {
+    "required": false,
+    "reason": "Operator instructed: switch to review then done after completing the missing pieces; approval given via clarify to fix the critical findings, then stamp."
+  }
+}

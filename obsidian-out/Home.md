@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 9 | 0 | 1 | 0 | 10 | 74 |
+| 54 | 8 | 0 | 2 | 0 | 10 | 74 |
 
 ## Blocked
 
@@ -21,10 +21,14 @@ _Nothing in progress._
 ## Review
 
 - [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes
+- [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-25T10-10-00Z__PSI-014__hermes|2026-09-25 17:10 WIB · hermes · PSI-014]]: PSI-014 is verified and in review; the operator stamps it done (C-21). PR to master is the operator's call.
+- [[history/2026-09-25T09-47-00Z__PSI-013__hermes|2026-09-25 16:47 WIB · hermes · PSI-013]]: PSI-013 code is done and verified; the operator stamps it to done on the board (C-21).
 - [[history/2026-09-25T09-30-00Z__PSI-010__hermes|2026-09-25 16:15 WIB · hermes · PSI-010]]: PSI-010 is in Review; the operator stamps it to done (C-21). PR #5 merge is the operator's call.
+- [[history/2026-09-25T08-12-00Z__PSI-012__hermes|2026-09-25 15:00 WIB · hermes · PSI-012]]: Gateway contract change (C-15 gate): user approved 'Proceed'; PR #6 needs merge + operator stamps PSI-012 on board
 - [[history/2026-09-25T07-00-00Z__PSI-010__hermes|2026-09-25 14:00 WIB · hermes · PSI-010]]: Operator ficana to review PR task/PSI-010 after merge; runtime redirect behavior to be manually verified against local Supabase.
 - [[history/2026-09-25T06-00-00Z__PSI-007__hermes|2026-09-25 13:10 WIB · hermes · PSI-007]]: Operator ficana verified the hook rejects invalid history entries and passes on clean state; PSI-006 gate functioning as acceptance criteria states.
 - [[history/2026-09-25T02-58-28Z__PSI-001__opencode|2026-09-25 09:58 WIB · opencode · PSI-001, PSI-002, PSI-003]]: The PSI-002/003 review cards need human sign-off, the PSI-003 card is stale, and in-flight Hermes work is uncommitted
@@ -38,13 +42,13 @@ _Nothing in progress._
 
 ## Latest AI sessions
 
+- 2026-09-25 17:10 WIB · hermes · [[tasks/PSI-014|PSI-014]] · done: [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]
+- 2026-09-25 16:47 WIB · hermes · [[tasks/PSI-013|PSI-013]] · done: [[history/2026-09-25T09-47-00Z__PSI-013__hermes|PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.]]
 - 2026-09-25 16:15 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T09-30-00Z__PSI-010__hermes|Rebase task/PSI-010 on latest master (it had drifted — master had the stub proxy and no client/server files, so PSI-010 never landed), resolve conflicts, re-verify, and push so PR #5 is merge-ready.]]
+- 2026-09-25 15:00 WIB · hermes · [[tasks/PSI-012|PSI-012]] · partial: [[history/2026-09-25T08-12-00Z__PSI-012__hermes|Review PSI-012 (M1 RBAC core) per review-workflow and encode the unstamped-card lesson into the gateway as a written rule.]]
 - 2026-09-25 14:00 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T07-00-00Z__PSI-010__hermes|PSI-010: add Supabase browser/server clients and a session-refresh proxy so unauthenticated dashboard visits redirect to /auth/sign-in while public endpoints are never redirected.]]
 - 2026-09-25 13:10 WIB · hermes · [[tasks/PSI-007|PSI-007]] · done: [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
 - 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
 - 2026-09-25 01:30 WIB · hermes · [[tasks/PSI-004|PSI-004]] · done: [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
 - 2026-09-24 17:00 WIB · claude-code · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-006|PSI-006]], [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.]]
 - 2026-09-24 16:53 WIB · claude-code · [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T09-53-00Z__PSI-012__claude-code|PSI-012: turn the 'Migration M1' section of docs/database-architecture/m1-rbac.md into the real M1 RBAC migration, seed the admin role for the fake admin user, and prove it on the local database.]]
-- 2026-09-24 14:15 WIB · claude-code · [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]], [[tasks/PSI-015|PSI-015]], [[tasks/PSI-030|PSI-030]], [[tasks/PSI-080|PSI-080]] · partial: [[history/2026-09-24T07-15-00Z__PSI-008__claude-code|Review all database docs and DB tasks against the real local Postgres (apply M1-M9 SQL, audit RLS and grants, test RBAC claims) and apply the approved wording fixes only (option A).]]
-- 2026-09-24 11:03 WIB · claude-code · [[tasks/PSI-008|PSI-008]] · partial: [[history/2026-09-24T04-03-40Z__PSI-008__claude-code|PSI-008: init Supabase locally (config, seed, db scripts), make supabase start and db reset work, and dissolve the stray top-level backend-architecture/ folder as the operator chose (option A).]]
-- 2026-09-24 10:42 WIB · claude-code · [[tasks/PSI-006|PSI-006]] · done: [[history/2026-09-24T03-42-30Z__PSI-006__claude-code|PSI-006: expose the agent-ops scripts as package.json commands (obsidian:sync, obsidian:watch, agent:context, agent:check) and prove each clause of the accept line by running it.]]

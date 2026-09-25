@@ -1,0 +1,39 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T10-10-00Z__PSI-014__hermes",
+  "task_ids": ["PSI-014"],
+  "agent": { "name": "hermes", "model": "omniroute:combo-cheaper-inference-prio", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-25T10:10:00Z",
+    "ended_at": "2026-09-25T10:30:00Z",
+    "branch": "task/PSI-014"
+  },
+  "intent": "PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.",
+  "outcome": "done",
+  "summary": "Audited M1 (PSI-012) against PSI-014's acceptance: can_grant_role/can_grant_group in insert policies, suspension (effective_role_ids/my_group_ids filter on profiles.status='active'), and profile column grants (full_name, avatar_url, timezone only) were ALREADY present in migration 20260924095408_rbac.sql. The only gap was the last-admin guard. Added new migration 20260925101000_rbac_guards.sql with public.assert_admin_remains() (plpgsql, security definer, search_path='') that raises 'At least one active user must keep roles.manage' when users_with_permission('roles.manage') is empty, plus 5 statement triggers: user_roles/group_members/group_roles/role_permissions after delete, profiles after update of status. Branch hygiene: PSI-014 must NOT stack on the unmerged task/PSI-013, so the migration was written on a fresh task/PSI-014 branch off master. Verified live (scripts/db-review/psi014-verify.sql): 5 triggers installed; deleting admin user_roles row -> exception; suspending the admin -> exception; deleting roles.manage from the admin role -> exception; removing admin from a group while they still hold the direct role -> allowed (guard is precise, DELETE 1); suspended member1 resolves to 0 effective roles. Wrote obsidian-out/review/PSI-014.md, set task status to review.",
+  "changes": [
+    { "path": "supabase/migrations/20260925101000_rbac_guards.sql", "action": "added", "note": "assert_admin_remains() + 5 last-admin statement triggers" },
+    { "path": "scripts/db-review/psi014-verify.sql", "action": "added", "note": "live guard verification (8 checks)" },
+    { "path": "obsidian-out/review/PSI-014.md", "action": "added", "note": "review card with verification runbook" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-014 status todo -> review, owner -> agent:hermes" }
+  ],
+  "decisions": [
+    { "decision": "New migration file for the last-admin guard instead of appending to M1", "reason": "M1 is stamped/applied; guard is additive and belongs in its own timestamped migration." },
+    { "decision": "Fresh branch task/PSI-014 off master rather than stacking on task/PSI-013", "reason": "PSI-013's PR #7 is still open; two feature branches must stay independent so either can merge first." },
+    { "decision": "Follow m1-rbac.md §Guards exactly (assert_admin_remains body, 5 trigger tables)", "reason": "Design doc specifies the guard contract; testing-pgtap.md (PSI-015) will assert against it." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "psi014-verify.sql 8/8; last-admin fires on all 3 removal paths + suspension; group removal correctly allowed while direct role remains"
+  },
+  "migrations": ["supabase/migrations/20260925101000_rbac_guards.sql"],
+  "human_review": {
+    "required": true,
+    "reason": "PSI-014 is verified and in review; the operator stamps it done (C-21). PR to master is the operator's call."
+  }
+}

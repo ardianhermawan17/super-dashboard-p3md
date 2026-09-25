@@ -148,9 +148,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `custom_access_token_hook` enabled in config.toml; a seeded user's JWT contains `app_roles` (including roles inherited through groups), `app_groups` and `app_permissions`; hook and `claims_for_user` not executable by `authenticated`.
 
 ### PSI-014 · RBAC guards: no escalation, last admin, suspension
-- status: todo
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012
 - accept: `can_grant_role` / `can_grant_group` in insert policies; last-admin statement triggers; suspended users resolve to no roles; users can update only their own name, avatar and timezone.
 

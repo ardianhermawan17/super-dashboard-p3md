@@ -67,7 +67,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human #agent-ops #phase-0
 - [ ] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
 - [ ] [[tasks/PSI-011|PSI-011]] Resend domain and custom SMTP for Auth · human #infra #phase-1
-- [ ] [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension #db #phase-1
 - [ ] [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · 1 run #security #phase-1
 - [ ] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path #frontend #phase-1
 - [ ] [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation #frontend #phase-1
@@ -81,7 +80,8 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes #db #phase-1
+- [ ] [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes · 1 run #db #phase-1
+- [ ] [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes · 1 run #db #phase-1
 
 
 ## Blocked
@@ -100,7 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-007|PSI-007]] Pre-commit runs agent:check · agent:hermes · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0
 - [x] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 2 runs #frontend #phase-1
-- [x] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 3 runs #db #phase-1
+- [x] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 4 runs #db #phase-1
 
 
 %% kanban:settings

@@ -1,26 +1,26 @@
 {
   "main": {
-    "id": "5fa1bb80e188d70f",
+    "id": "2141ef3df7acda84",
     "type": "split",
     "children": [
       {
-        "id": "8229b93067a2db69",
+        "id": "111829babcb1b384",
         "type": "tabs",
         "children": [
           {
-            "id": "945181db9f4ca930",
+            "id": "554bd98bb0073277",
             "type": "leaf",
             "state": {
               "type": "kanban",
               "state": {
-                "file": "Board.md",
+                "file": "review/PSI-001.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
                   "list-collapse": []
                 }
               },
               "icon": "lucide-trello",
-              "title": "Board"
+              "title": "PSI-001"
             }
           }
         ]
@@ -29,15 +29,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "29ec26b06c7881a8",
+    "id": "888c6d4fae20b193",
     "type": "split",
     "children": [
       {
-        "id": "83fb3023fdb637d5",
+        "id": "b653f28986c90a45",
         "type": "tabs",
         "children": [
           {
-            "id": "ba1e15162b00dab4",
+            "id": "aa773f6db6d23664",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -52,7 +52,7 @@
             }
           },
           {
-            "id": "25f001960c1a5e47",
+            "id": "80917ac0f3cc8770",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -69,7 +69,7 @@
             }
           },
           {
-            "id": "01f082b81c3413ff",
+            "id": "202fc907ad508363",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -88,19 +88,20 @@
     "width": 300
   },
   "right": {
-    "id": "3f0afc39a55ff2db",
+    "id": "8c3234b6e9f94b1d",
     "type": "split",
     "children": [
       {
-        "id": "c714f4908d731836",
+        "id": "ffb21750f9680fe5",
         "type": "tabs",
         "children": [
           {
-            "id": "5ce4ec334cb04974",
+            "id": "c17d1a30696e63b0",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "review/PSI-001.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,11 +115,12 @@
             }
           },
           {
-            "id": "edc4830c9a14406d",
+            "id": "29507e8146886076",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "review/PSI-001.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -127,7 +129,7 @@
             }
           },
           {
-            "id": "c7764c6336956e78",
+            "id": "b55224fe72742e5c",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -142,7 +144,7 @@
             }
           },
           {
-            "id": "21a4060f24adfb1e",
+            "id": "3d3c74f6d75aab41",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -156,11 +158,12 @@
             }
           },
           {
-            "id": "7477cd2e195345ec",
+            "id": "e5a71afc874382c9",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
+                "file": "review/PSI-001.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -170,13 +173,13 @@
             }
           },
           {
-            "id": "dd44a5972f03275f",
+            "id": "fff73a0b910f1d70",
             "type": "leaf",
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "calendar"
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
         ]
@@ -202,6 +205,20 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "945181db9f4ca930",
-  "lastOpenFiles": []
+  "active": "554bd98bb0073277",
+  "lastOpenFiles": [
+    "docs/review-rules.md",
+    "docs/review-process.md",
+    "review/PSI-003.md",
+    "history/2026-09-25T02-58-28Z__PSI-001__opencode.md",
+    "review/PSI-001.md",
+    "review/PSI-002.md",
+    "Board.md",
+    "docs/agent-operations/review-workflow.md",
+    "history/2026-09-24T18-50-00Z__PSI-004__hermes.md",
+    "graph/GRAPH_REPORT.md",
+    "graph",
+    "tasks/PSI-003.md",
+    "Home.md"
+  ]
 }

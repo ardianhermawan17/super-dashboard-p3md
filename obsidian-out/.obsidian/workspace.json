@@ -4,23 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "111829babcb1b384",
+        "id": "8c698922c892ddee",
         "type": "tabs",
         "children": [
           {
-            "id": "554bd98bb0073277",
+            "id": "4499a6fee6f23597",
             "type": "leaf",
             "state": {
               "type": "kanban",
               "state": {
-                "file": "review/PSI-003.md",
+                "file": "Board.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
                   "list-collapse": []
                 }
               },
               "icon": "lucide-trello",
-              "title": "PSI-003"
+              "title": "Board"
             }
           }
         ]
@@ -101,7 +101,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "review/PSI-003.md",
+                "file": "Board.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "review/PSI-003.md",
+                "file": "Board.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -163,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "review/PSI-003.md",
+                "file": "Board.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -205,18 +205,36 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "554bd98bb0073277",
+  "active": "4499a6fee6f23597",
   "lastOpenFiles": [
-    "history/2026-09-25T02-58-28Z__PSI-001__opencode.md",
-    "review/PSI-001.md",
-    "review/PSI-002.md",
-    "review/PSI-003.md",
+    "review/PSI-007.md",
+    "history/2026-09-25T06-00-00Z__PSI-007__hermes.md",
+    "docs/frontend-architecture/README.md",
+    "review/PSI-006.md",
+    "Agent Log.md",
     "Board.md",
-    "docs/agent-operations/review-workflow.md",
-    "history/2026-09-24T18-50-00Z__PSI-004__hermes.md",
-    "graph/GRAPH_REPORT.md",
-    "graph",
+    "docs/database-architecture/m4-calendar.md",
+    "docs/database-architecture/m3-role-mail.md",
+    "docs/database-architecture/m2-notifications.md",
+    "docs/database-architecture/m1-rbac.md",
+    "docs/database-architecture/README.md",
+    "docs/backend-architecture/push-notifications.md",
+    "docs/backend-architecture/operations-and-risks.md",
+    "docs/backend-architecture/google-integration.md",
+    "docs/backend-architecture/edge-functions.md",
+    "docs/backend-architecture/auth-and-onboarding.md",
+    "docs/backend-architecture/agent-layer-mcp.md",
+    "docs/backend-architecture/README.md",
+    "tasks/PSI-008.md",
+    "tasks/PSI-007.md",
+    "review/PSI-005.md",
+    "review/PSI-008.md",
+    "docs/graphify-architecture/snapshots/2026-09-25_phase-0.md",
+    "docs/graphify-architecture/snapshots",
     "tasks/PSI-003.md",
-    "Home.md"
+    "review/PSI-003.md",
+    "graph/GRAPH_REPORT.md",
+    "Excalidraw",
+    "graph"
   ]
 }

@@ -134,7 +134,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Sending domain verified (SPF/DKIM); Supabase Auth uses Resend SMTP; Auth email rate limit raised; a test invite reaches a non-team address.
 
 ### PSI-012 · Migration M1 RBAC core
-- status: done
+- status: review
 - area: db
 - owner: agent:claude-code
 - depends: PSI-008

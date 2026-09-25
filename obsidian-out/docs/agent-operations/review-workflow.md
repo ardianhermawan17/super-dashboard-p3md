@@ -146,36 +146,3 @@ npx --yes bun scripts/obsidian-sync.ts
 ```
 
 Confirm that the script outputs `obsidian-sync: ... files updated` with `0 problems`.
-
----
-
-## 5. Board = Source of Truth (Contract C-21)
-
-> Read this before writing any review card. It changes what `review` and `done` mean.
-
-**A task is stamped `done` only when the operator does it.** The agent never sets or un-stamps `done`. Concretely, the marker of a stamped `done` is one of:
-
-- the board shows `- [x] [[tasks/PSI-NNN|PSI-NNN]] <title> … ✅ YYYY-MM-DD` in the **Done** section, **or**
-- `docs/list-task-project.md` reads `- status: done` for that task.
-
-**What an agent may do:**
-
-| Status | Who sets it | Meaning |
-|---|---|---|
-| `backlog` / `todo` | anyone | Planned / ready, nobody claimed |
-| `doing` | the agent claiming it (C-03) | Work in progress, one agent owns it |
-| `review` | the agent finishing work | Done building, waiting for the operator |
-| `blocked` | the agent (with C-15 reason) | Needs a human decision |
-| `done` | **only the operator's stamp** | Signed off |
-
-**The mirror rule:** after the operator stamps a card, `docs/list-task-project.md` is changed to `status: done` **to match the board** — never the other way around. The review card is written as a *record of completion* (frontmatter `status: done`), not as a pending checkpoint.
-
-### Worked example — PSI-012
-
-1. Agent (claude-code) built the M1 RBAC migration, wrote `scripts/db-review/psi012-verify.sql`, proved all 17 checks on live Postgres.
-2. Agent wrote `obsidian-out/review/PSI-012.md` with the full history + runbook and set the task to `review`.
-3. **The board shows PSI-012 in `## Review` as `- [ ]` (unstamped).**
-4. → **PSI-012 is NOT done.** It stays `review` until the operator stamps it in Obsidian (moves it to Done / checks the box).
-5. Only after that stamp is `docs/list-task-project.md` mirrored to `status: done` and the card frontmatter to `status: done`.
-
-**An agent must never:** flip `review → done` itself, mark a card `[x]` in the board source, or un-stamp a done task. If the operator wants a done task re-opened, they move it back to `review` (or say so in the thread).

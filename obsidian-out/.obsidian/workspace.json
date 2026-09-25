@@ -207,6 +207,8 @@
   },
   "active": "4499a6fee6f23597",
   "lastOpenFiles": [
+    "review/PSI-010.md",
+    "docs/agent-operations/jev-ultrafast.md",
     "review/PSI-007.md",
     "history/2026-09-25T06-00-00Z__PSI-007__hermes.md",
     "docs/frontend-architecture/README.md",
@@ -232,8 +234,6 @@
     "docs/graphify-architecture/snapshots/2026-09-25_phase-0.md",
     "docs/graphify-architecture/snapshots",
     "tasks/PSI-003.md",
-    "review/PSI-003.md",
-    "graph/GRAPH_REPORT.md",
     "Excalidraw",
     "graph"
   ]

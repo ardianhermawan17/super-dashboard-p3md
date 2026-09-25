@@ -66,7 +66,6 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human #agent-ops #phase-0
 - [ ] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
-- [ ] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh #frontend #phase-1
 - [ ] [[tasks/PSI-011|PSI-011]] Resend domain and custom SMTP for Auth · human #infra #phase-1
 - [ ] [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions #db #phase-1
 - [ ] [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension #db #phase-1
@@ -79,11 +78,11 @@ kanban-plugin: board
 
 ## Doing
 
-- [ ] [[tasks/PSI-007|PSI-007]] Pre-commit runs agent:check · agent:hermes · 1 run #agent-ops #phase-0
 
 
 ## Review
 
+- [ ] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 1 run #frontend #phase-1
 - [ ] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 3 runs #db #phase-1
 
 
@@ -100,6 +99,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-004|PSI-004]] Wire the gateway into CLAUDE.md, AGENTS.md and .hermes.md · agent:hermes · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-005|PSI-005]] Install graphify for Claude Code and Hermes, first graph, hooks · agent:hermes #agent-ops #phase-0
 - [x] [[tasks/PSI-006|PSI-006]] Agent ops scripts (obsidian-sync, agent-context, agent:check) · agent:claude-code · 2 runs #agent-ops #phase-0
+- [x] [[tasks/PSI-007|PSI-007]] Pre-commit runs agent:check · agent:hermes · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0
 
 

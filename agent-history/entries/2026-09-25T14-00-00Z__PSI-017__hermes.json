@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T14-00-00Z__PSI-017__hermes",
+  "task_ids": ["PSI-017"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-25T14:00:00Z",
+    "ended_at": "2026-09-25T14:25:00Z",
+    "branch": "task/PSI-017"
+  },
+  "intent": "PSI-017: Implement getSession(), requirePermission(), and permission-filtered navigation with unit tests.",
+  "outcome": "done",
+  "summary": "Implemented server-side getSession() resolving app_roles, app_groups, and app_permissions from JWT claims, created requirePermission() for page and action authorization, and built visibleNav / useFilteredNavGroups for dynamic sidebar and kbar menu filtering. Verified with 5 unit tests in nav.test.ts, TypeScript typecheck, oxlint, Next.js build, and pgTAP suite.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/lib/auth/session.ts",
+      "action": "added",
+      "note": "Cached session getter extracting roles, groups, and permissions from JWT claims"
+    },
+    {
+      "path": "frontend-architecture/src/lib/auth/require.ts",
+      "action": "added",
+      "note": "Server-only permission guard (requirePermission)"
+    },
+    {
+      "path": "frontend-architecture/src/lib/auth/nav.ts",
+      "action": "added",
+      "note": "Navigation filtering functions based on permissions"
+    },
+    {
+      "path": "frontend-architecture/src/lib/auth/nav.test.ts",
+      "action": "added",
+      "note": "Unit tests for visibleNav and visibleNavGroups"
+    },
+    {
+      "path": "frontend-architecture/src/hooks/use-nav.ts",
+      "action": "modified",
+      "note": "Client hook retrieving user permissions and filtering nav groups"
+    },
+    {
+      "path": "frontend-architecture/src/config/nav-config.ts",
+      "action": "modified",
+      "note": "Navigation group items configured with permission requirements"
+    },
+    {
+      "path": "obsidian-out/review/PSI-017.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-017 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Use permission-based gating exclusively (C-17)",
+      "reason": "Contract forbids branching on role names; code checks permission keys like 'users.read', 'roles.manage'."
+    },
+    {
+      "decision": "Run pure navigation unit tests via Bun Test",
+      "reason": "Fast, dependency-free testing of pure permission-filtering logic."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "bun test src/lib/auth/nav.test.ts -> 5 pass; Next.js build succeeded."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-017 card."
+  }
+}

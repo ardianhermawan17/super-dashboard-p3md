@@ -174,9 +174,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Supabase UI password-auth block on Base UI primitives (no `asChild`); sign-up, sign-in, sign-out, email confirm work; onboarding option A or B from backend-architecture/auth-and-onboarding.md chosen by a human and implemented; an invited user lands with the invite's groups and roles.
 
 ### PSI-017 · getSession, requirePermission and permission-filtered navigation
-- status: todo
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-013, PSI-016
 - accept: `getSession()` returns roles, groups and permissions from claims; `requirePermission()` guards pages and actions; sidebar and kbar hide items without permission; `visibleNav` unit-tested.
 

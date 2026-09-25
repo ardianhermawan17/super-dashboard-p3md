@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-25
 
+- 17:35 · **hermes** · [[tasks/PSI-015|PSI-015]] · done (needs review): [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
 - 17:10 · **hermes** · [[tasks/PSI-014|PSI-014]] · done (needs review): [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]
 - 16:47 · **hermes** · [[tasks/PSI-013|PSI-013]] · done (needs review): [[history/2026-09-25T09-47-00Z__PSI-013__hermes|PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.]]
 - 16:15 · **hermes** · [[tasks/PSI-010|PSI-010]] · done (needs review): [[history/2026-09-25T09-30-00Z__PSI-010__hermes|Rebase task/PSI-010 on latest master (it had drifted — master had the stub proxy and no client/server files, so PSI-010 never landed), resolve conflicts, re-verify, and push so PR #5 is merge-ready.]]

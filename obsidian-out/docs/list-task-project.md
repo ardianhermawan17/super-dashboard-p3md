@@ -155,9 +155,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `can_grant_role` / `can_grant_group` in insert policies; last-admin statement triggers; suspended users resolve to no roles; users can update only their own name, avatar and timezone.
 
 ### PSI-015 · pgTAP tests for RBAC
-- status: todo
+- status: review
 - area: security
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-013, PSI-014
 - accept: Every RBAC assertion in database-architecture/testing-pgtap.md passes in `supabase test db`; plus a schema-wide test that every table in `public` has RLS enabled and that `anon` can read and write none of them.
 

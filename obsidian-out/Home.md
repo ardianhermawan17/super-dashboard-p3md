@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 8 | 0 | 2 | 0 | 10 | 74 |
+| 54 | 7 | 0 | 3 | 0 | 10 | 74 |
 
 ## Blocked
 
@@ -22,9 +22,11 @@ _Nothing in progress._
 
 - [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes
 - [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes
+- [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-25T10-35-00Z__PSI-015__hermes|2026-09-25 17:35 WIB · hermes · PSI-015]]: PSI-015 verified green; operator stamps to done (C-21). PR raising 013+014+015 is the operator's merge call.
 - [[history/2026-09-25T10-10-00Z__PSI-014__hermes|2026-09-25 17:10 WIB · hermes · PSI-014]]: PSI-014 is verified and in review; the operator stamps it done (C-21). PR to master is the operator's call.
 - [[history/2026-09-25T09-47-00Z__PSI-013__hermes|2026-09-25 16:47 WIB · hermes · PSI-013]]: PSI-013 code is done and verified; the operator stamps it to done on the board (C-21).
 - [[history/2026-09-25T09-30-00Z__PSI-010__hermes|2026-09-25 16:15 WIB · hermes · PSI-010]]: PSI-010 is in Review; the operator stamps it to done (C-21). PR #5 merge is the operator's call.
@@ -42,6 +44,7 @@ _Nothing in progress._
 
 ## Latest AI sessions
 
+- 2026-09-25 17:35 WIB · hermes · [[tasks/PSI-015|PSI-015]] · done: [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
 - 2026-09-25 17:10 WIB · hermes · [[tasks/PSI-014|PSI-014]] · done: [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]
 - 2026-09-25 16:47 WIB · hermes · [[tasks/PSI-013|PSI-013]] · done: [[history/2026-09-25T09-47-00Z__PSI-013__hermes|PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.]]
 - 2026-09-25 16:15 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T09-30-00Z__PSI-010__hermes|Rebase task/PSI-010 on latest master (it had drifted — master had the stub proxy and no client/server files, so PSI-010 never landed), resolve conflicts, re-verify, and push so PR #5 is merge-ready.]]
@@ -51,4 +54,3 @@ _Nothing in progress._
 - 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
 - 2026-09-25 01:30 WIB · hermes · [[tasks/PSI-004|PSI-004]] · done: [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
 - 2026-09-24 17:00 WIB · claude-code · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-006|PSI-006]], [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.]]
-- 2026-09-24 16:53 WIB · claude-code · [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T09-53-00Z__PSI-012__claude-code|PSI-012: turn the 'Migration M1' section of docs/database-architecture/m1-rbac.md into the real M1 RBAC migration, seed the admin role for the fake admin user, and prove it on the local database.]]

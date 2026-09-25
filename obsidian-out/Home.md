@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 10 | 0 | 1 | 0 | 9 | 74 |
+| 54 | 10 | 0 | 0 | 0 | 10 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

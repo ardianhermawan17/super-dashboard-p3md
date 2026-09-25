@@ -1,0 +1,49 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T08-12-00Z__PSI-012__hermes",
+  "task_ids": ["PSI-012"],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-25T08:00:00Z",
+    "ended_at": "2026-09-25T08:15:00Z",
+    "branch": "docs/C-21-board-stamp",
+    "commits": ["ede5d75"]
+  },
+  "intent": "Review PSI-012 (M1 RBAC core) per review-workflow and encode the unstamped-card lesson into the gateway as a written rule.",
+  "outcome": "partial",
+  "summary": "Reviewed PSI-012: M1 RBAC migration is on master; ran scripts/db-review/psi012-verify.sql against live local Postgres after clean 'supabase db reset' - all 17 checks pass (RLS 9/9, 24 policies unwrapped, 15 permissions, system rows, seed 4/4/1, member/admin/anonymous probes). Wrote obsidian-out/review/PSI-012.md with history + verification runbook. Audit found PSI-012 board card is unstamped (- [ ] in Review) while the review card implied it was done-ready - a written rule was missing. Added Contract C-21 to README_AI_AGENT.md (v1.1 -> v1.2): agents may set doing/review only, never done, never un-stamp; review->done solely via operator stamp; docs/list-task-project.md mirrors the board. Added section 5 'Board = Source of Truth (C-21)' with status matrix + PSI-012 worked example to docs/agent-operations/review-workflow.md. Regenerated .hermes.md (C-21 confirmed at line 83). Committed on branch docs/C-21-board-stamp (ede5d75) and pushed; history entry commit blocked by agent:check schema (32 errors) - rewrote to match schema.json, outcome partial until final commit lands.",
+  "changes": [
+    { "path": "obsidian-out/review/PSI-012.md", "action": "added", "note": "Review card: history + 17-check live verification runbook" },
+    { "path": "README_AI_AGENT.md", "action": "modified", "note": "v1.1 -> v1.2; new C-21 board-stamp rule" },
+    { "path": "docs/agent-operations/review-workflow.md", "action": "modified", "note": "New section 5: Board = Source of Truth (C-21) with status matrix + PSI-012 example" },
+    { "path": ".hermes.md", "action": "modified", "note": "Regenerated via bun run agent:context; C-21 in boot context" },
+    { "path": "agent-history/entries/2026-09-25T08-12-00Z__PSI-012__hermes.json", "action": "added", "note": "This entry" }
+  ],
+  "decisions": [
+    { "decision": "New rule C-21 encoded in gateway (README_AI_AGENT.md) so every agent sees it on boot", "reason": "Human asked 'make sure all Agent understand that' after the PSI-012 lesson; gateway is the single boot source wired into CLAUDE.md, AGENTS.md, .hermes.md" },
+    { "decision": "Do not set PSI-012 to done; keep review until operator stamps", "reason": "C-21 itself: agent never sets done; board card is unstamped" }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "psi012-verify.sql against supabase_db_p3md: 17/17 checks pass"
+  },
+  "migrations": ["supabase/migrations/20260924095408_rbac.sql"],
+  "contract_deviations": [
+    { "rule": "C-15", "why": "Editing README_AI_AGENT.md required a human gate; user approved with 'Proceed' at 2026-09-25T08:00Z (quoted in chat)" }
+  ],
+  "risks": [
+    "PSI-012 stays in review on the board until the operator stamps it; not done."
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Gateway contract change (C-15 gate): user approved 'Proceed'; PR #6 needs merge + operator stamps PSI-012 on board"
+  }
+}

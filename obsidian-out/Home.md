@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 10 | 0 | 0 | 0 | 10 | 74 |
+| 54 | 9 | 0 | 1 | 0 | 10 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes
 
 ## AI sessions waiting for a human
 

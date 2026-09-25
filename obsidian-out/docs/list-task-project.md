@@ -120,7 +120,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 1 — Auth and RBAC (users, groups, roles, permissions)
 
 ### PSI-010 · Supabase clients and proxy.ts session refresh
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-002, PSI-008

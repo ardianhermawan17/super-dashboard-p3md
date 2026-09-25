@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-25
 
+- 16:15 · **hermes** · [[tasks/PSI-010|PSI-010]] · done (needs review): [[history/2026-09-25T09-30-00Z__PSI-010__hermes|Rebase task/PSI-010 on latest master (it had drifted — master had the stub proxy and no client/server files, so PSI-010 never landed), resolve conflicts, re-verify, and push so PR #5 is merge-ready.]]
 - 14:00 · **hermes** · [[tasks/PSI-010|PSI-010]] · done (needs review): [[history/2026-09-25T07-00-00Z__PSI-010__hermes|PSI-010: add Supabase browser/server clients and a session-refresh proxy so unauthenticated dashboard visits redirect to /auth/sign-in while public endpoints are never redirected.]]
 - 13:10 · **hermes** · [[tasks/PSI-007|PSI-007]] · done (needs review): [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
 - 09:58 · **opencode** · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial (needs review): [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]

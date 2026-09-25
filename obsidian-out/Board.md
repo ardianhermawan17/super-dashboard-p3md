@@ -82,7 +82,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 1 run #frontend #phase-1
 - [ ] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 3 runs #db #phase-1
 
 
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-006|PSI-006]] Agent ops scripts (obsidian-sync, agent-context, agent:check) · agent:claude-code · 2 runs #agent-ops #phase-0
 - [x] [[tasks/PSI-007|PSI-007]] Pre-commit runs agent:check · agent:hermes · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0
+- [x] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 2 runs #frontend #phase-1
 
 
 %% kanban:settings

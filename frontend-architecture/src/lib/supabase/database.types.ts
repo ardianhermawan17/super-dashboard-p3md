@@ -277,8 +277,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_users: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          last_sign_in_at: string
+          status: string
+        }[]
+      }
       can_grant_group: { Args: { p_group: string }; Returns: boolean }
       can_grant_role: { Args: { p_role: string }; Returns: boolean }
+      claims_for_user: { Args: { p_user: string }; Returns: Json }
+      custom_access_token_hook: { Args: { event: Json }; Returns: Json }
       effective_role_ids: { Args: { p_user: string }; Returns: string[] }
       has_permission: { Args: { p_key: string }; Returns: boolean }
       in_group: { Args: { p_group: string }; Returns: boolean }

@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T09-47-00Z__PSI-013__hermes",
+  "task_ids": ["PSI-013"],
+  "agent": { "name": "hermes", "model": "omniroute:combo-cheaper-inference-prio", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-25T09:47:00Z",
+    "ended_at": "2026-09-25T10:05:00Z",
+    "branch": "task/PSI-013"
+  },
+  "intent": "PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.",
+  "outcome": "done",
+  "summary": "Implemented PSI-013 in a NEW migration (20260925094732_access_token_hook.sql) rather than editing the already-stamped M1 file. Added public.claims_for_user(uuid) (SQL, stable, security definer, search_path='') that resolves effective_role_ids into app_roles, group memberships into app_groups, and role_permissions into app_permissions, and public.custom_access_token_hook(jsonb) (plpgsql) that jsonb_set's the claims onto the event. Grants: only supabase_auth_admin may execute either; authenticated and anon are revoked, plus grant usage on schema public to supabase_auth_admin. Enabled [auth.hook.custom_access_token] in supabase/config.toml -> pg-functions://postgres/public/custom_access_token_hook. First db reset hit a typo (revoke ... to) which I fixed to grant ... to per m1-rbac.md:370. Verified live via two scripts: psi013-verify.sql (admin claims carry app_roles/admin, app_groups/all-members, all 15 app_permissions; authenticated/anon cannot execute either function, supabase_auth_admin can; hook merges claims into event) and psi013-group-inherit.sql (transactional, rolled back: member1 with NO direct role but in a group that holds a role resolves app_roles=['test-sr'] and app_permissions=['mail.send'] through the group edge). Wrote obsidian-out/review/PSI-013.md, set task status to review (awaiting operator stamp).",
+  "changes": [
+    { "path": "supabase/migrations/20260925094732_access_token_hook.sql", "action": "added", "note": "claims_for_user + custom_access_token_hook + hardened grants" },
+    { "path": "supabase/config.toml", "action": "modified", "note": "[auth.hook.custom_access_token] enabled with pg-functions uri" },
+    { "path": "scripts/db-review/psi013-verify.sql", "action": "added", "note": "live verification: functions, admin claims, role-privilege matrix, hook merge" },
+    { "path": "scripts/db-review/psi013-group-inherit.sql", "action": "added", "note": "transactional probe proving roles inherited through groups; rolls back" },
+    { "path": "obsidian-out/review/PSI-013.md", "action": "added", "note": "review card with verification runbook (6/6 checks pass)" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-013 status todo -> review, owner unassigned -> agent:hermes" }
+  ],
+  "decisions": [
+    { "decision": "New migration file instead of appending to the stamped M1 migration", "reason": "M1 (PSI-012) is already applied and stamped; editing it would rewrite history. A new timestamped migration is the clean additive path." },
+    { "decision": "Follow m1-rbac.md §Access-token hook verbatim (claims_for_user + custom_access_token_hook shapes, grant to supabase_auth_admin)", "reason": "The design doc specifies the exact function bodies, definer/security posture and grants; deviating would break the documented contract." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "psi013-verify.sql 6/6; psi013-group-inherit.sql proves group-inherited role (rolled back)"
+  },
+  "migrations": ["supabase/migrations/20260925094732_access_token_hook.sql"],
+  "human_review": {
+    "required": true,
+    "reason": "PSI-013 code is done and verified; the operator stamps it to done on the board (C-21)."
+  }
+}

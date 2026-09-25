@@ -141,9 +141,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: permissions, roles, role_permissions, groups, group_members, group_roles, user_roles, profiles, user_invites with RLS and resolution functions exactly as in database-architecture/m1-rbac.md; system rows (15 permissions, `admin`, `all-members`) present; `supabase/seed.sql` gives `admin@p3md.test` the `admin` role; `supabase db reset` clean; types regenerated.
 
 ### PSI-013 · Access-token hook with roles, groups and permissions
-- status: todo
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012
 - accept: `custom_access_token_hook` enabled in config.toml; a seeded user's JWT contains `app_roles` (including roles inherited through groups), `app_groups` and `app_permissions`; hook and `claims_for_user` not executable by `authenticated`.
 

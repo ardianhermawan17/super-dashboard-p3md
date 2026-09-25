@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-25
 
+- 15:00 · **hermes** · [[tasks/PSI-012|PSI-012]] · partial (needs review): [[history/2026-09-25T08-12-00Z__PSI-012__hermes|Review PSI-012 (M1 RBAC core) per review-workflow and encode the unstamped-card lesson into the gateway as a written rule.]]
 - 13:10 · **hermes** · [[tasks/PSI-007|PSI-007]] · done (needs review): [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
 - 09:58 · **opencode** · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial (needs review): [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
 - 01:30 · **hermes** · [[tasks/PSI-004|PSI-004]] · done (needs review): [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]

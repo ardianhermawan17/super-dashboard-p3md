@@ -141,24 +141,27 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: permissions, roles, role_permissions, groups, group_members, group_roles, user_roles, profiles, user_invites with RLS and resolution functions exactly as in database-architecture/m1-rbac.md; system rows (15 permissions, `admin`, `all-members`) present; `supabase/seed.sql` gives `admin@p3md.test` the `admin` role; `supabase db reset` clean; types regenerated.
 
 ### PSI-013 · Access-token hook with roles, groups and permissions
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-012
+- merged: PR #7 (2026-09-25)
 - accept: `custom_access_token_hook` enabled in config.toml; a seeded user's JWT contains `app_roles` (including roles inherited through groups), `app_groups` and `app_permissions`; hook and `claims_for_user` not executable by `authenticated`.
 
 ### PSI-014 · RBAC guards: no escalation, last admin, suspension
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-012
+- merged: PR #8 (2026-09-25)
 - accept: `can_grant_role` / `can_grant_group` in insert policies; last-admin statement triggers; suspended users resolve to no roles; users can update only their own name, avatar and timezone.
 
 ### PSI-015 · pgTAP tests for RBAC
-- status: review
+- status: done
 - area: security
 - owner: agent:hermes
 - depends: PSI-013, PSI-014
+- merged: PR #9 (2026-09-25)
 - accept: Every RBAC assertion in database-architecture/testing-pgtap.md passes in `supabase test db`; plus a schema-wide test that every table in `public` has RLS enabled and that `anon` can read and write none of them.
 
 ### PSI-016 · Auth pages and onboarding path

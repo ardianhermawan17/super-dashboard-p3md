@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 7 | 0 | 3 | 0 | 10 | 74 |
+| 54 | 7 | 0 | 0 | 0 | 13 | 74 |
 
 ## Blocked
 
@@ -20,9 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes
-- [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes
-- [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

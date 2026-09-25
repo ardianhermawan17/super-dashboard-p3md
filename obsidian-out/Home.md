@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 7 | 0 | 0 | 0 | 13 | 74 |
+| 54 | 6 | 0 | 0 | 0 | 14 | 74 |
 
 ## Blocked
 
@@ -42,6 +42,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-25 19:30 WIB · hermes · [[tasks/PSI-009|PSI-009]] · done: [[history/2026-09-25T12-30-00Z__PSI-009__hermes|PSI-009: complete + verify + review the ECC install for Claude Code and Hermes, then mirror review->done per operator instruction.]]
 - 2026-09-25 17:35 WIB · hermes · [[tasks/PSI-015|PSI-015]] · done: [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
 - 2026-09-25 17:10 WIB · hermes · [[tasks/PSI-014|PSI-014]] · done: [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]
 - 2026-09-25 16:47 WIB · hermes · [[tasks/PSI-013|PSI-013]] · done: [[history/2026-09-25T09-47-00Z__PSI-013__hermes|PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.]]
@@ -51,4 +52,3 @@ _Nothing waiting for review._
 - 2026-09-25 13:10 WIB · hermes · [[tasks/PSI-007|PSI-007]] · done: [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
 - 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
 - 2026-09-25 01:30 WIB · hermes · [[tasks/PSI-004|PSI-004]] · done: [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
-- 2026-09-24 17:00 WIB · claude-code · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-006|PSI-006]], [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.]]

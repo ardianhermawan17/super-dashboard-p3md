@@ -90,10 +90,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `supabase init` committed (config.toml, seed.sql with fake users and local Vault secrets; M1 inserts the `admin` role and `all-members` group itself, so roles and groups are not seeded here); `supabase start` and `supabase db reset` succeed; `db:types` and `db:reset` scripts in package.json.
 
 ### PSI-009 · Install ECC for Claude Code and Hermes
-- status: todo
+- status: done
 - area: agent-ops
 - owner: human
 - depends: PSI-004
+- merged: branch task/PSI-009 (direct commit to master, 2026-09-25)
 - accept: Claude Code has the `ecc@ecc` plugin (no stacked manual install); `.claude/rules/ecc/common` and `.claude/rules/ecc/typescript` committed; Hermes has ECC via `./install.sh --profile minimal --target hermes`; installed surface (`/plugin list ecc@ecc`, Hermes `/skills`) recorded in the history entry; AgentShield scan shows no critical findings.
 
 ### PSI-095 · Hermes Agent setup for this repo

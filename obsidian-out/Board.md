@@ -64,7 +64,6 @@ kanban-plugin: board
 
 ## Todo
 
-- [ ] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path #frontend #phase-1
 - [ ] [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation #frontend #phase-1
 - [ ] [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function #frontend #phase-1
 - [ ] [[tasks/PSI-019|PSI-019]] Admin: Groups, Roles, Permissions pages #frontend #phase-1
@@ -76,6 +75,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path · agent:hermes · 1 run #frontend #phase-1
 
 
 ## Blocked

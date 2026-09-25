@@ -87,5 +87,8 @@ Built by two agents: **Claude Code** (default builder) and **Hermes Agent** (def
 4. **Graph before grep** — `graphify query "<question>"` or skim `graphify-out/GRAPH_REPORT.md`. Grep only when the graph misses.
 5. **Write a history entry** — one JSON file in `agent-history/entries/` per session, even for failures.
 6. **Branch from `master`** — default branch is `master` (not `main`). Branch name: `task/PSI-NNN`. Never work on `master` directly.
-7. **Never merge without review** — all PRs need a review file (`obsidian-out/review/PSI-NNN.md`) before merge.
+7. **Review Mode & Obsidian Review Notes (`docs/agent-operations/review-workflow.md`)** — When entering review mode or reviewing a task `PSI-NNN`:
+   - Checkout `task/PSI-NNN` and rebase onto `master` (`git checkout task/PSI-NNN && git rebase master`).
+   - Create/update `obsidian-out/review/PSI-NNN.md` with: Feature Summary, Agent Historical Work & Changes, Key Decisions, Expected Output & Verification Runbook, Boundaries, and Sign-off Checklist.
+   - Run `bun scripts/obsidian-sync.ts` to sync the vault with 0 errors.
 8. **No GCP/GCloud without permission** — never touch remote cloud infrastructure.

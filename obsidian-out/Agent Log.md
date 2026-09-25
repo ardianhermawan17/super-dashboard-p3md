@@ -4,6 +4,10 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-25
+
+- 09:58 · **opencode** · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial (needs review): [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
+- 01:30 · **hermes** · [[tasks/PSI-004|PSI-004]] · done (needs review): [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
 ## 2026-09-24
 
 - 17:00 · **claude-code** · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-006|PSI-006]], [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]] · done (needs review): [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.]]

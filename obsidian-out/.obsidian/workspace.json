@@ -13,14 +13,14 @@
             "state": {
               "type": "kanban",
               "state": {
-                "file": "review/PSI-001.md",
+                "file": "review/PSI-003.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
                   "list-collapse": []
                 }
               },
               "icon": "lucide-trello",
-              "title": "PSI-001"
+              "title": "PSI-003"
             }
           }
         ]
@@ -101,7 +101,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "review/PSI-001.md",
+                "file": "review/PSI-003.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "review/PSI-001.md",
+                "file": "review/PSI-003.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -163,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "review/PSI-001.md",
+                "file": "review/PSI-003.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -207,12 +207,10 @@
   },
   "active": "554bd98bb0073277",
   "lastOpenFiles": [
-    "docs/review-rules.md",
-    "docs/review-process.md",
-    "review/PSI-003.md",
     "history/2026-09-25T02-58-28Z__PSI-001__opencode.md",
     "review/PSI-001.md",
     "review/PSI-002.md",
+    "review/PSI-003.md",
     "Board.md",
     "docs/agent-operations/review-workflow.md",
     "history/2026-09-24T18-50-00Z__PSI-004__hermes.md",

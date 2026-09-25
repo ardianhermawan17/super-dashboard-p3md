@@ -85,9 +85,9 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-001|PSI-001]] Fork template, fresh git history, keep LICENSE · agent:claude-code · 2 runs #repo #phase-0
-- [ ] [[tasks/PSI-002|PSI-002]] Strip Clerk and unused demos · agent:claude-code · 2 runs #repo #phase-0
-- [ ] [[tasks/PSI-004|PSI-004]] Wire the gateway into CLAUDE.md, AGENTS.md and .hermes.md · agent:hermes #agent-ops #phase-0
+- [ ] [[tasks/PSI-001|PSI-001]] Fork template, fresh git history, keep LICENSE · agent:claude-code · 3 runs #repo #phase-0
+- [ ] [[tasks/PSI-002|PSI-002]] Strip Clerk and unused demos · agent:claude-code · 3 runs #repo #phase-0
+- [ ] [[tasks/PSI-004|PSI-004]] Wire the gateway into CLAUDE.md, AGENTS.md and .hermes.md · agent:hermes · 1 run #agent-ops #phase-0
 - [ ] [[tasks/PSI-006|PSI-006]] Agent ops scripts (obsidian-sync, agent-context, agent:check) · agent:claude-code · 2 runs #agent-ops #phase-0
 - [ ] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0
 - [ ] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 3 runs #db #phase-1
@@ -100,7 +100,7 @@ kanban-plugin: board
 ## Done
 
 **Complete**
-- [x] [[tasks/PSI-003|PSI-003]] Add docs pack and gateway files · human:ficana · 4 runs #docs #phase-0
+- [x] [[tasks/PSI-003|PSI-003]] Add docs pack and gateway files · human:ficana · 5 runs #docs #phase-0
 
 
 %% kanban:settings

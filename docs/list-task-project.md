@@ -76,9 +76,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `ajv` and `ajv-formats` added as dev deps; `obsidian:sync`, `obsidian:watch`, `agent:context` and `agent:check` (= `obsidian-sync --check && agent-context --check`) scripts in package.json; sync generates Board.md; watch updates the board within ~1 s of saving this file; check exits 1 on an invalid entry or a stale `.hermes.md`.
 
 ### PSI-007 · Pre-commit runs agent:check
-- status: todo
+- status: doing
 - area: agent-ops
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-006
 - accept: Husky pre-commit runs `bun run agent:check`; a commit with an invalid history entry or task block is rejected.
 

@@ -76,7 +76,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `ajv` and `ajv-formats` added as dev deps; `obsidian:sync`, `obsidian:watch`, `agent:context` and `agent:check` (= `obsidian-sync --check && agent-context --check`) scripts in package.json; sync generates Board.md; watch updates the board within ~1 s of saving this file; check exits 1 on an invalid entry or a stale `.hermes.md`.
 
 ### PSI-007 · Pre-commit runs agent:check
-- status: doing
+- status: done
 - area: agent-ops
 - owner: agent:hermes
 - depends: PSI-006
@@ -120,9 +120,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 1 — Auth and RBAC (users, groups, roles, permissions)
 
 ### PSI-010 · Supabase clients and proxy.ts session refresh
-- status: todo
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-002, PSI-008
 - accept: `src/lib/supabase/{client,server,proxy}.ts` and `src/proxy.ts` as in frontend-architecture/supabase-clients-and-session.md; unauthenticated dashboard visit redirects to sign-in; `/api/mcp`, `/sw.js` and `/manifest.webmanifest` are never redirected.
 

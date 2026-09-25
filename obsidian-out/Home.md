@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 11 | 1 | 1 | 0 | 7 | 74 |
+| 54 | 10 | 0 | 2 | 0 | 8 | 74 |
 
 ## Blocked
 
@@ -16,14 +16,16 @@ _Nothing blocked._
 
 ## Doing
 
-- [[tasks/PSI-007|PSI-007]] Pre-commit runs agent:check · agent:hermes
+_Nothing in progress._
 
 ## Review
 
+- [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes
 - [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-25T07-00-00Z__PSI-010__hermes|2026-09-25 14:00 WIB · hermes · PSI-010]]: Operator ficana to review PR task/PSI-010 after merge; runtime redirect behavior to be manually verified against local Supabase.
 - [[history/2026-09-25T06-00-00Z__PSI-007__hermes|2026-09-25 13:10 WIB · hermes · PSI-007]]: Operator ficana verified the hook rejects invalid history entries and passes on clean state; PSI-006 gate functioning as acceptance criteria states.
 - [[history/2026-09-25T02-58-28Z__PSI-001__opencode|2026-09-25 09:58 WIB · opencode · PSI-001, PSI-002, PSI-003]]: The PSI-002/003 review cards need human sign-off, the PSI-003 card is stale, and in-flight Hermes work is uncommitted
 - [[history/2026-09-24T18-50-00Z__PSI-004__hermes|2026-09-25 01:30 WIB · hermes · PSI-004]]: Review root gateway files and agent context generation before merge
@@ -36,6 +38,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-25 14:00 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T07-00-00Z__PSI-010__hermes|PSI-010: add Supabase browser/server clients and a session-refresh proxy so unauthenticated dashboard visits redirect to /auth/sign-in while public endpoints are never redirected.]]
 - 2026-09-25 13:10 WIB · hermes · [[tasks/PSI-007|PSI-007]] · done: [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
 - 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
 - 2026-09-25 01:30 WIB · hermes · [[tasks/PSI-004|PSI-004]] · done: [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
@@ -45,4 +48,3 @@ _Nothing blocked._
 - 2026-09-24 11:03 WIB · claude-code · [[tasks/PSI-008|PSI-008]] · partial: [[history/2026-09-24T04-03-40Z__PSI-008__claude-code|PSI-008: init Supabase locally (config, seed, db scripts), make supabase start and db reset work, and dissolve the stray top-level backend-architecture/ folder as the operator chose (option A).]]
 - 2026-09-24 10:42 WIB · claude-code · [[tasks/PSI-006|PSI-006]] · done: [[history/2026-09-24T03-42-30Z__PSI-006__claude-code|PSI-006: expose the agent-ops scripts as package.json commands (obsidian:sync, obsidian:watch, agent:context, agent:check) and prove each clause of the accept line by running it.]]
 - 2026-09-24 10:35 WIB · claude-code · [[tasks/PSI-002|PSI-002]] · done: [[history/2026-09-24T03-35-20Z__PSI-002__claude-code|PSI-002: strip Clerk and the unused template demos, keep kanban, chat, ai-chat and notifications, and leave a template that builds and boots without any auth keys.]]
-- 2026-09-24 10:31 WIB · claude-code · [[tasks/PSI-003|PSI-003]] · done: [[history/2026-09-24T03-31-00Z__PSI-003__claude-code|Mark the earlier PSI-003 draft entry as superseded, since the docs pack it described is now committed and approved.]]

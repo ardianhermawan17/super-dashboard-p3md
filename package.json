@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "frontend-dev": "cd frontend-architecture && bun run",
     "obsidian:sync": "bun scripts/obsidian-sync.ts",
     "obsidian:watch": "bun scripts/obsidian-sync.ts --watch",
     "agent:context": "bun scripts/agent-context.ts",

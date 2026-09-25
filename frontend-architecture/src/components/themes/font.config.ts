@@ -31,7 +31,9 @@ const fontMono = Geist_Mono({
 
 const fontGoogleSansFlex = Google_Sans_Flex({
   subsets: ['latin'],
-  variable: '--font-google-sans-flex'
+  variable: '--font-google-sans-flex',
+  fallback: ['system-ui', 'sans-serif'],
+  adjustFontFallback: false
 });
 
 const fontSourceCodePro = Source_Code_Pro({

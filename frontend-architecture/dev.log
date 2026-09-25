@@ -1,0 +1,23 @@
+$ next dev
+⚠ Port 3000 is in use by process 5740, using available port 3001 instead.
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.255.7.73:3001
+✓ Ready in 1590ms
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of D:\coding\pflp\super-dashboard-p3md-architecture\bun.lock as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * D:\coding\pflp\super-dashboard-p3md-architecture\frontend-architecture\bun.lock
+
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          5740
+- Dir:          D:\coding\pflp\super-dashboard-p3md-architecture\frontend-architecture
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 5740 /F to stop it.
+[?25h
+error: script "dev" exited with code 1

@@ -10,6 +10,7 @@
 | [claude-code.md](claude-code.md) | Setting up or working in Claude Code (CLAUDE.md, ECC plugin, graphify hooks, per-task commands) |
 | [hermes.md](hermes.md) | Setting up or working in Hermes (`.hermes.md`, gateway security, cron jobs, skills) |
 | [ecc.md](ecc.md) | Installing ECC per harness, which ECC command or skill to use when, AgentShield, Memory Vault |
+| [review-workflow.md](review-workflow.md) | Mandatory protocol for task review mode: branch rebase on master, Obsidian review card generation, sync |
 | [../graphify-architecture/README.md](../graphify-architecture/README.md) | Building and querying the code graph from either agent |
 
 ## Lanes

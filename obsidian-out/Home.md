@@ -29,6 +29,8 @@ _Nothing in progress._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-25T02-58-28Z__PSI-001__opencode|2026-09-25 09:58 WIB · opencode · PSI-001, PSI-002, PSI-003]]: The PSI-002/003 review cards need human sign-off, the PSI-003 card is stale, and in-flight Hermes work is uncommitted
+- [[history/2026-09-24T18-50-00Z__PSI-004__hermes|2026-09-25 01:30 WIB · hermes · PSI-004]]: Review root gateway files and agent context generation before merge
 - [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|2026-09-24 17:00 WIB · claude-code · PSI-001, PSI-002, PSI-006, PSI-008, PSI-012]]: Confirm the merged main and move the five tasks from review to done; decide about branch cleanup
 - [[history/2026-09-24T09-53-00Z__PSI-012__claude-code|2026-09-24 16:53 WIB · claude-code · PSI-012]]: Auth, RLS, roles and permissions migration (C-15): review supabase/migrations/20260924095408_rbac.sql before merging; nothing is pushed
 - [[history/2026-09-24T07-15-00Z__PSI-008__claude-code|2026-09-24 14:15 WIB · claude-code · PSI-008, PSI-012, PSI-015, PSI-030, PSI-080]]: Approve the reworded accept lines (PSI-008 in particular), decide on the open findings (M9 RLS, anon-executable helpers, missing Google SQL), and still rotate the hosted keys
@@ -38,6 +40,8 @@ _Nothing in progress._
 
 ## Latest AI sessions
 
+- 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]
+- 2026-09-25 01:30 WIB · hermes · [[tasks/PSI-004|PSI-004]] · done: [[history/2026-09-24T18-50-00Z__PSI-004__hermes|PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.]]
 - 2026-09-24 17:00 WIB · claude-code · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-006|PSI-006]], [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T10-00-00Z__PSI-001__claude-code|Push every task branch with its own commits, then merge the five task branches into main in dependency order and push main, at the operator's request.]]
 - 2026-09-24 16:53 WIB · claude-code · [[tasks/PSI-012|PSI-012]] · done: [[history/2026-09-24T09-53-00Z__PSI-012__claude-code|PSI-012: turn the 'Migration M1' section of docs/database-architecture/m1-rbac.md into the real M1 RBAC migration, seed the admin role for the fake admin user, and prove it on the local database.]]
 - 2026-09-24 14:15 WIB · claude-code · [[tasks/PSI-008|PSI-008]], [[tasks/PSI-012|PSI-012]], [[tasks/PSI-015|PSI-015]], [[tasks/PSI-030|PSI-030]], [[tasks/PSI-080|PSI-080]] · partial: [[history/2026-09-24T07-15-00Z__PSI-008__claude-code|Review all database docs and DB tasks against the real local Postgres (apply M1-M9 SQL, audit RLS and grants, test RBAC claims) and apply the approved wording fixes only (option A).]]
@@ -46,5 +50,3 @@ _Nothing in progress._
 - 2026-09-24 10:35 WIB · claude-code · [[tasks/PSI-002|PSI-002]] · done: [[history/2026-09-24T03-35-20Z__PSI-002__claude-code|PSI-002: strip Clerk and the unused template demos, keep kanban, chat, ai-chat and notifications, and leave a template that builds and boots without any auth keys.]]
 - 2026-09-24 10:31 WIB · claude-code · [[tasks/PSI-003|PSI-003]] · done: [[history/2026-09-24T03-31-00Z__PSI-003__claude-code|Mark the earlier PSI-003 draft entry as superseded, since the docs pack it described is now committed and approved.]]
 - 2026-09-24 10:30 WIB · claude-code · [[tasks/PSI-003|PSI-003]] · done: [[history/2026-09-24T03-30-00Z__PSI-003__claude-code|Close PSI-003 after review: check its acceptance criteria against the repository and move the card from Review to Done on the human operator's instruction.]]
-- 2026-09-24 09:40 WIB · claude-code · [[tasks/PSI-001|PSI-001]] · partial: [[history/2026-09-24T02-40-19Z__PSI-001__claude-code|PSI-001: turn the workspace into a git repository on main with a fresh history, keep the template LICENSE, add no upstream remote, and confirm the template installs and boots.]]
-- 2026-09-23 16:31 WIB · claude-chat · [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-23T09-31-24Z__PSI-003__claude-chat|Restructure the docs pack into frontend, backend and database layer folders and make the agent setup harness-neutral (Claude Code + Hermes) with ECC and graphify.]]

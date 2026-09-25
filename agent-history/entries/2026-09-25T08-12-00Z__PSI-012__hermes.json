@@ -11,7 +11,7 @@
     "started_at": "2026-09-25T08:00:00Z",
     "ended_at": "2026-09-25T08:15:00Z",
     "branch": "docs/C-21-board-stamp",
-    "commits": ["ede5d75"]
+    "commits": ["ede5d75", "fd0d808"]
   },
   "intent": "Review PSI-012 (M1 RBAC core) per review-workflow and encode the unstamped-card lesson into the gateway as a written rule.",
   "outcome": "partial",

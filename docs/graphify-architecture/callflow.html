@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>super-dashboard-p3md-architecture — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>super-dashboard-p3md-architecture — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 407 nodes, 868 edges, 13 communities. Commit: unknown</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#build-graph">Graph Build</a>
+    <a href="#outputs-docs">Outputs &amp; Docs</a>
+    <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
+    <a href="#tests-fixtures">Tests &amp; Fixtures</a>
+    <a href="#three-layer-principle">Three-Layer Principle</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>46 nodes</small>")
+    class BUILD_GRAPH_321CBB04 module;
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>46 nodes</small>")
+    class OUTPUTS_DOCS_ED82387C module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>163 nodes</small>")
+    class CLI_SKILLS_9964CBB8 module;
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>116 nodes</small>")
+    class INGEST_CACHE_UPDATE_FF457338 module;
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>31 nodes</small>")
+    class TESTS_FIXTURES_B84B1DCC module;
+    THREE_LAYER_PRINCIPLE_BF18656A("Three-Layer Principle<br/><small>5 nodes</small>")
+    class THREE_LAYER_PRINCIPLE_BF18656A module;
+    INGEST_CACHE_UPDATE_FF457338 -->|references x26| CLI_SKILLS_9964CBB8
+    CLI_SKILLS_9964CBB8 -->|references x17| INGEST_CACHE_UPDATE_FF457338
+    INGEST_CACHE_UPDATE_FF457338 -->|relates x9| BUILD_GRAPH_321CBB04
+    BUILD_GRAPH_321CBB04 -->|references x8| CLI_SKILLS_9964CBB8
+    CLI_SKILLS_9964CBB8 -->|references x7| BUILD_GRAPH_321CBB04
+    TESTS_FIXTURES_B84B1DCC -->|references x6| CLI_SKILLS_9964CBB8
+    BUILD_GRAPH_321CBB04 -->|references x5| INGEST_CACHE_UPDATE_FF457338
+    INGEST_CACHE_UPDATE_FF457338 -->|references x5| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|references x5| BUILD_GRAPH_321CBB04
+    TESTS_FIXTURES_B84B1DCC -->|references x4| INGEST_CACHE_UPDATE_FF457338
+    CLI_SKILLS_9964CBB8 -->|references x2| TESTS_FIXTURES_B84B1DCC
+    OUTPUTS_DOCS_ED82387C -->|references| CLI_SKILLS_9964CBB8
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Graph Build</td><td>46</td><td><code>3, 11</code></td></tr><tr><td>Outputs &amp; Docs</td><td>46</td><td><code>2</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>163</td><td><code>1, 6, 7, 8, 9, 10</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>116</td><td><code>0, 4</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>31</td><td><code>5</code></td></tr><tr><td>Three-Layer Principle</td><td>5</td><td><code>12</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">Outputs &amp; Docs -&gt; Ingestion &amp; Updates -&gt; CLI &amp; Skill Installers -&gt; Graph Build -&gt; Tests &amp; Fixtures -&gt; Three-Layer Principle</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>407 nodes · 868 edges · 13 communities</li>
+      <li>Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 43 edges (avg confidence: 0.81)</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `List task project (PSI tasks)` - 80 edges</li>
+      <li>2. `README_AI_AGENT.md (gateway and contract)` - 58 edges</li>
+      <li>3. `Database architecture README` - 19 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Graph Build ====== -->
+<h2 id="build-graph">2. Graph Build</h2>
+<p>Graph Build groups implementation around docs, architecture, database, backend, mostly in docs/database-architecture/m3-role-mail.md, docs/database-architecture/m2-notifications.md, docs/backend-architecture/google-integration.md. This section covers 46 nodes and 77 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Graph Build (46 nodes, 77 edges)
+    subgraph build_graph_docs_database_architecture_m1_rbac_m_81a91775["docs/database-architecture/m1-rbac.md"]
+        docs_database_architecture_m1_rbac_admin_list_us_14fa4a47("admin_list_users()<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_custom_access_b405e342("custom_access_token_hook<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_users_with_pe_87282c3e("users_with_permission()<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_has_permissio_378b10cb("has_permission()<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_effective_rol_9e606bf0("effective_role_ids()<br/><small>docs/database-architecture/m1-rbac.md</small>")
+    end
+    subgraph build_graph_docs_database_architecture_m2_notifi_9ff94384["docs/database-architecture/m2-notifications.md"]
+        docs_database_architecture_m2_notifications_noti_b22a6d93("notify()<br/><small>docs/database-architecture/m2-notifications.md</small>")
+        docs_database_architecture_m2_notifications_push_1fbb64db("push_targets() / mark_pushed()<br/><small>docs/database-architecture/m2-notifications.md</small>")
+        docs_database_architecture_m2_notifications_disp_2b09a4ea("dispatch_push statement trigger<br/><small>docs/database-architecture/m2-notifications.md</small>")
+        docs_database_architecture_m2_notifications_inte_36c934dd("internal_post()<br/><small>docs/database-architecture/m2-notifications.md</small>")
+    end
+    subgraph build_graph_docs_backend_architecture_google_int_c56ffe50["docs/backend-architecture/google-integration.md"]
+        docs_backend_architecture_google_integration_goo_a68d5fbd("google-calendar Edge Function (/sync /p...<br/><small>docs/backend-architecture/google-integration.md</small>")
+        docs_backend_architecture_google_integration_sa_79756264("Service-account token helper (google.ts)<br/><small>docs/backend-architecture/google-integration.md</small>")
+        docs_backend_architecture_google_integration_goo_4f728c50("google-drive Edge Function (/sync /file...<br/><small>docs/backend-architecture/google-integration.md</small>")
+    end
+    subgraph build_graph_docs_backend_architecture_edge_funct_a790c9fc["docs/backend-architecture/edge-functions.md"]
+        docs_backend_architecture_edge_functions_send_ro_da332ea8("send-role-mail (PSI-032)<br/><small>docs/backend-architecture/edge-functions.md</small>")
+        docs_backend_architecture_edge_functions_daily_d_b789332e("daily-digest (PSI-077)<br/><small>docs/backend-architecture/edge-functions.md</small>")
+    end
+    subgraph build_graph_docs_backend_architecture_push_notif_3ef3ac00["docs/backend-architecture/push-notifications.md"]
+        docs_backend_architecture_push_notifications_flo_2f401c7d("Notification-to-push flow<br/><small>docs/backend-architecture/push-notifications.md</small>")
+        docs_backend_architecture_push_notifications_dis_05cd8c0d("/api/push/dispatch route<br/><small>docs/backend-architecture/push-notifications.md</small>")
+    end
+    docs_database_architecture_readme_scheduled_jobs_668596a2("Scheduled jobs and internal calls (pg_c...<br/><small>docs/database-architecture/README.md</small>")
+    docs_database_architecture_m3_role_mail_send_rol_946eb3c7("send-role-mail Edge Function<br/><small>docs/database-architecture/m3-role-mail.md</small>")
+    docs_backend_architecture_edge_functions_daily_d_b789332e -->|calls| docs_database_architecture_m1_rbac_users_with_pe_87282c3e
+    docs_backend_architecture_edge_functions_daily_d_b789332e -->|calls| docs_database_architecture_m2_notifications_noti_b22a6d93
+    docs_backend_architecture_edge_functions_send_ro_da332ea8 -->|calls| docs_database_architecture_m1_rbac_has_permissio_378b10cb
+    docs_backend_architecture_edge_functions_send_ro_da332ea8 -->|calls| docs_database_architecture_m2_notifications_noti_b22a6d93
+    docs_backend_architecture_google_integration_goo_a68d5fbd -->|calls| docs_backend_architecture_google_integration_sa_79756264
+    docs_backend_architecture_google_integration_goo_4f728c50 -->|calls| docs_backend_architecture_google_integration_sa_79756264
+    docs_backend_architecture_push_notifications_dis_05cd8c0d -->|calls| docs_database_architecture_m2_notifications_push_1fbb64db
+    docs_database_architecture_m1_rbac_admin_list_us_14fa4a47 -->|calls| docs_database_architecture_m1_rbac_has_permissio_378b10cb
+    docs_database_architecture_m1_rbac_custom_access_b405e342 -->|calls| docs_database_architecture_m1_rbac_effective_rol_9e606bf0
+    docs_database_architecture_m1_rbac_has_permissio_378b10cb -->|calls| docs_database_architecture_m1_rbac_effective_rol_9e606bf0
+    docs_database_architecture_m1_rbac_users_with_pe_87282c3e -->|calls| docs_database_architecture_m1_rbac_effective_rol_9e606bf0
+    docs_database_architecture_m2_notifications_disp_2b09a4ea -->|calls| docs_database_architecture_m2_notifications_inte_36c934dd
+    docs_backend_architecture_push_notifications_flo_2f401c7d -->|calls| docs_backend_architecture_push_notifications_dis_05cd8c0d
+    docs_backend_architecture_push_notifications_flo_2f401c7d -->|calls| docs_database_architecture_m2_notifications_disp_2b09a4ea
+    docs_backend_architecture_push_notifications_flo_2f401c7d -->|calls| docs_database_architecture_m2_notifications_noti_b22a6d93
+    docs_database_architecture_readme_scheduled_jobs_668596a2 -->|calls| docs_backend_architecture_edge_functions_daily_d_b789332e
+    docs_database_architecture_readme_scheduled_jobs_668596a2 -->|calls| docs_backend_architecture_google_integration_goo_a68d5fbd
+    docs_database_architecture_readme_scheduled_jobs_668596a2 -->|calls| docs_backend_architecture_google_integration_goo_4f728c50
+    docs_database_architecture_readme_scheduled_jobs_668596a2 -->|calls| docs_backend_architecture_push_notifications_dis_05cd8c0d
+    docs_database_architecture_readme_scheduled_jobs_668596a2 -->|calls| docs_database_architecture_m2_notifications_inte_36c934dd
+    %% Omitted for readability: 28 nodes, 0 edges
+    class docs_database_architecture_m1_rbac_admin_list_us_14fa4a47 function;
+    class docs_database_architecture_m1_rbac_custom_access_b405e342 ui;
+    class docs_database_architecture_m1_rbac_users_with_pe_87282c3e function;
+    class docs_database_architecture_m1_rbac_has_permissio_378b10cb function;
+    class docs_database_architecture_m1_rbac_effective_rol_9e606bf0 function;
+    class docs_database_architecture_m2_notifications_noti_b22a6d93 function;
+    class docs_database_architecture_m2_notifications_push_1fbb64db function;
+    class docs_database_architecture_m2_notifications_disp_2b09a4ea function;
+    class docs_database_architecture_m2_notifications_inte_36c934dd function;
+    class docs_backend_architecture_google_integration_goo_a68d5fbd function;
+    class docs_backend_architecture_google_integration_sa_79756264 klass;
+    class docs_backend_architecture_google_integration_goo_4f728c50 function;
+    class docs_backend_architecture_edge_functions_send_ro_da332ea8 function;
+    class docs_backend_architecture_edge_functions_daily_d_b789332e function;
+    class docs_backend_architecture_push_notifications_flo_2f401c7d klass;
+    class docs_backend_architecture_push_notifications_dis_05cd8c0d api;
+    class docs_database_architecture_readme_scheduled_jobs_668596a2 klass;
+    class docs_database_architecture_m3_role_mail_send_rol_946eb3c7 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>daily-digest (PSI-077)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Scheduled jobs and internal calls (pg_c...</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><code>Edge Function complete() adapter (llm.ts)</code><br><small style="color:var(--muted)">docs/backend-architecture/agent-layer-mcp.md</small><br><code>notify()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small><br><code>users_with_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>daily-digest (PSI-077) node in docs/backend-architecture/edge-functions.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>resend-webhook (PSI-033)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>resend-webhook (PSI-033) node in docs/backend-architecture/edge-functions.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>send-role-mail (PSI-032)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>has_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small><br><code>notify()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td>send-role-mail (PSI-032) node in docs/backend-architecture/edge-functions.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>google-calendar Edge Function (/sync /push)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Scheduled jobs and internal calls (pg_c...</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><code>Service-account token helper (google.ts)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td>google-calendar Edge Function (/sync /push) node in docs/backend-architecture/google-integration.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>google-drive Edge Function (/sync /file /search)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Scheduled jobs and internal calls (pg_c...</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><code>Service-account token helper (google.ts)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td>google-drive Edge Function (/sync /file /search) node in docs/backend-architecture/google-integration.md.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Service-account token helper (google.ts)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>google-calendar Edge Function (/sync /p...</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small><br><code>google-drive Edge Function (/sync /file...</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td>No direct outbound edge</td>
+  <td>Service-account token helper (google.ts) node in docs/backend-architecture/google-integration.md.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>/api/push/dispatch route</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>Notification-to-push flow</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small><br><code>Scheduled jobs and internal calls (pg_c...</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><code>push_targets() / mark_pushed()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td>/api/push/dispatch route node in docs/backend-architecture/push-notifications.md.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>ICS feed route /api/calendar/feed/[token]</code><br><small style="color:var(--muted)">docs/backend-architecture/README.md</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ICS feed route /api/calendar/feed/[token] node in docs/backend-architecture/README.md.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Edge Function shared modules (_shared)</code><br><small style="color:var(--muted)">docs/backend-architecture/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Edge Function shared modules (_shared) node in docs/backend-architecture/README.md.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>admin_list_users()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>has_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>admin_list_users() node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>custom_access_token_hook</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>effective_role_ids()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>custom_access_token_hook node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>effective_role_ids()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>custom_access_token_hook</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small><br><code>has_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small><br><code>users_with_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>No direct outbound edge</td>
+  <td>effective_role_ids() node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>has_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>admin-users (PSI-018)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small><br><code>admin_list_users()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small><br><code>send-role-mail (PSI-032)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td><code>effective_role_ids()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>has_permission() node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>users_with_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>assert_admin_remains() last-admin trigger</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small><br><code>daily-digest (PSI-077)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td><code>effective_role_ids()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>users_with_permission() node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>dispatch_push statement trigger</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Notification-to-push flow</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td><code>internal_post()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td>dispatch_push statement trigger node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>internal_post()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>dispatch_push statement trigger</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small><br><code>Scheduled jobs and internal calls (pg_c...</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td>No direct outbound edge</td>
+  <td>internal_post() node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>notify()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>daily-digest (PSI-077)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small><br><code>Notification-to-push flow</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small><br><code>send-role-mail (PSI-032)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small></td>
+  <td>No direct outbound edge</td>
+  <td>notify() node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>push_targets() / mark_pushed()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>/api/push/dispatch route</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td>No direct outbound edge</td>
+  <td>push_targets() / mark_pushed() node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Supabase Auth settings</code><br><small style="color:var(--muted)">docs/backend-architecture/auth-and-onboarding.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supabase Auth settings node in docs/backend-architecture/auth-and-onboarding.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Function and migration deploy (PSI-091)</code><br><small style="color:var(--muted)">docs/backend-architecture/local-workflow-and-deploy.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Function and migration deploy (PSI-091) node in docs/backend-architecture/local-workflow-and-deploy.md.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Supabase project settings</code><br><small style="color:var(--muted)">docs/backend-architecture/local-workflow-and-deploy.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supabase project settings node in docs/backend-architecture/local-workflow-and-deploy.md.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Notification-to-push flow</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>/api/push/dispatch route</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small><br><code>dispatch_push statement trigger</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small><br><code>notify()</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td>Notification-to-push flow node in docs/backend-architecture/push-notifications.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Notification types and creators</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Notification types and creators node in docs/backend-architecture/push-notifications.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Vault secrets and env variables</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Vault secrets and env variables node in docs/backend-architecture/push-notifications.md.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>notifications table</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>notifications table node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>push_subscriptions table</code><br><small style="color:var(--muted)">docs/database-architecture/m2-notifications.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>push_subscriptions table node in docs/database-architecture/m2-notifications.md.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>SQL helper function catalogue</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SQL helper function catalogue node in docs/database-architecture/README.md.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Scheduled jobs and internal calls (pg_cron)</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>/api/push/dispatch route</code><br><small style="color:var(--muted)">docs/backend-architecture/push-notifications.md</small><br><code>daily-digest (PSI-077)</code><br><small style="color:var(--muted)">docs/backend-architecture/edge-functions.md</small><br><code>google-calendar Edge Function (/sync /p...</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small><br>+2 more</td>
+  <td>Scheduled jobs and internal calls (pg_cron) node in docs/database-architecture/README.md.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>to: one-liner parser (parseOneLiner)</code><br><small style="color:var(--muted)">frontend-architecture/features/mail.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>to: one-liner parser (parseOneLiner) node in frontend-architecture/features/mail.md.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>sendRoleMail Server Action</code><br><small style="color:var(--muted)">frontend-architecture/features/mail.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>sendRoleMail Server Action node in frontend-architecture/features/mail.md.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>docs/database-architecture/m3-role-mail.md</code></td><td>8 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m2-notifications.md</code></td><td>7 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/google-integration.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/push-notifications.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m1-rbac.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/edge-functions.md</code></td><td>4 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/README.md</code></td><td>3 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/local-workflow-and-deploy.md</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x30, calls x21, relates x15, shares data with x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. Outputs & Docs ====== -->
+<h2 id="outputs-docs">3. Outputs &amp; Docs</h2>
+<p>Outputs &amp; Docs groups implementation around scripts, obsidian, syncts, agent, mostly in scripts/obsidian-sync.ts, scripts/agent-context.ts. This section covers 46 nodes and 85 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Outputs &amp; Docs (46 nodes, 85 edges)
+    subgraph outputs_docs_scripts_obsidian_sync_ts_023751cc["scripts/obsidian-sync.ts"]
+        scripts_obsidian_sync_writevault_00fcdea9("writeVault()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_renderentry_bbcb0e3d("renderEntry()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_renderagentlog_6b0d2197("renderAgentLog()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_renderhome_0bb35100("renderHome()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_rendertask_3e6f1e97("renderTask()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_run_fcd21854("run()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_cell_8a73b7a4("cell()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_oneline_c96065f6("oneLine()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_daywib_5e07937c("dayWIB()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_timewib_2baaa535("timeWIB()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_historylink_380049b7("historyLink()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_renderboard_6384cb11("renderBoard()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_tasklink_41f68329("taskLink()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_yaml_4629cf1a("yaml()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_stampwib_adfd34a9("stampWIB()<br/><small>scripts/obsidian-sync.ts</small>")
+        scripts_obsidian_sync_parsetasks_89f84d1e("parseTasks()<br/><small>scripts/obsidian-sync.ts</small>")
+    end
+    subgraph outputs_docs_scripts_agent_context_ts_4b716925["scripts/agent-context.ts"]
+        scripts_agent_context_main_9558e67b("main()<br/><small>scripts/agent-context.ts</small>")
+        scripts_agent_context_build_59109e3b("build()<br/><small>scripts/agent-context.ts</small>")
+    end
+    scripts_agent_context_main_9558e67b -->|calls| scripts_agent_context_build_59109e3b
+    scripts_obsidian_sync_cell_8a73b7a4 -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_renderagentlog_6b0d2197 -->|calls| scripts_obsidian_sync_daywib_5e07937c
+    scripts_obsidian_sync_renderagentlog_6b0d2197 -->|calls| scripts_obsidian_sync_timewib_2baaa535
+    scripts_obsidian_sync_renderagentlog_6b0d2197 -->|calls| scripts_obsidian_sync_historylink_380049b7
+    scripts_obsidian_sync_renderagentlog_6b0d2197 -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_renderboard_6384cb11 -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_renderboard_6384cb11 -->|calls| scripts_obsidian_sync_tasklink_41f68329
+    scripts_obsidian_sync_renderentry_bbcb0e3d -->|calls| scripts_obsidian_sync_yaml_4629cf1a
+    scripts_obsidian_sync_renderentry_bbcb0e3d -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_renderentry_bbcb0e3d -->|calls| scripts_obsidian_sync_stampwib_adfd34a9
+    scripts_obsidian_sync_renderentry_bbcb0e3d -->|calls| scripts_obsidian_sync_historylink_380049b7
+    scripts_obsidian_sync_renderentry_bbcb0e3d -->|calls| scripts_obsidian_sync_cell_8a73b7a4
+    scripts_obsidian_sync_renderhome_0bb35100 -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_renderhome_0bb35100 -->|calls| scripts_obsidian_sync_tasklink_41f68329
+    scripts_obsidian_sync_renderhome_0bb35100 -->|calls| scripts_obsidian_sync_historylink_380049b7
+    scripts_obsidian_sync_renderhome_0bb35100 -->|calls| scripts_obsidian_sync_stampwib_adfd34a9
+    scripts_obsidian_sync_rendertask_3e6f1e97 -->|calls| scripts_obsidian_sync_yaml_4629cf1a
+    scripts_obsidian_sync_rendertask_3e6f1e97 -->|calls| scripts_obsidian_sync_oneline_c96065f6
+    scripts_obsidian_sync_rendertask_3e6f1e97 -->|calls| scripts_obsidian_sync_historylink_380049b7
+    scripts_obsidian_sync_rendertask_3e6f1e97 -->|calls| scripts_obsidian_sync_stampwib_adfd34a9
+    scripts_obsidian_sync_run_fcd21854 -->|calls| scripts_obsidian_sync_parsetasks_89f84d1e
+    scripts_obsidian_sync_run_fcd21854 -->|calls| scripts_obsidian_sync_writevault_00fcdea9
+    scripts_obsidian_sync_stampwib_adfd34a9 -->|calls| scripts_obsidian_sync_daywib_5e07937c
+    %% Omitted for readability: 28 nodes, 6 edges
+    class scripts_obsidian_sync_writevault_00fcdea9 function;
+    class scripts_obsidian_sync_renderentry_bbcb0e3d function;
+    class scripts_obsidian_sync_renderagentlog_6b0d2197 function;
+    class scripts_obsidian_sync_renderhome_0bb35100 function;
+    class scripts_obsidian_sync_rendertask_3e6f1e97 function;
+    class scripts_obsidian_sync_run_fcd21854 function;
+    class scripts_obsidian_sync_cell_8a73b7a4 function;
+    class scripts_obsidian_sync_oneline_c96065f6 function;
+    class scripts_obsidian_sync_daywib_5e07937c function;
+    class scripts_obsidian_sync_timewib_2baaa535 function;
+    class scripts_obsidian_sync_historylink_380049b7 function;
+    class scripts_obsidian_sync_renderboard_6384cb11 function;
+    class scripts_obsidian_sync_tasklink_41f68329 function;
+    class scripts_obsidian_sync_yaml_4629cf1a function;
+    class scripts_obsidian_sync_stampwib_adfd34a9 function;
+    class scripts_obsidian_sync_parsetasks_89f84d1e function;
+    class scripts_agent_context_main_9558e67b function;
+    class scripts_agent_context_build_59109e3b function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Check</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Check node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Entry</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Entry node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Status</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Status node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Task</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Task node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>build()</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>build() node in scripts/agent-context.ts.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build()</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td>main() node in scripts/agent-context.ts.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>cell()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>cell() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>dayWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>stampWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>dayWIB() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>historyLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderHome()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>historyLink() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>loadEntries()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>loadEntries() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>cell()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderBoard()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+3 more</td>
+  <td>No direct outbound edge</td>
+  <td>oneLine() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>parseTasks()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>parseTasks() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>plural()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>plural() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>dayWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>historyLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+2 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>renderBoard()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>taskLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>renderBoard() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>cell()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>historyLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+3 more</td>
+  <td>renderEntry() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>renderHome()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>historyLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>stampWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+1 more</td>
+  <td>renderHome() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>renderTask()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>historyLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>oneLine()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>stampWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+2 more</td>
+  <td>renderTask() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>startWatch()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>loadEntries()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>parseTasks()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>plural()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+1 more</td>
+  <td>run() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>stampWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderHome()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderTask()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>dayWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>timeWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>stampWIB() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>startWatch()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>startWatch() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>taskLink()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderBoard()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+2 more</td>
+  <td>No direct outbound edge</td>
+  <td>taskLink() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>timeWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>stampWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>wib()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>timeWIB() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>wib()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>timeWIB()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>wib() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>writeIfChanged()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>writeIfChanged() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>writeVault()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><code>renderAgentLog()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderBoard()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br>+3 more</td>
+  <td>writeVault() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>yaml()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>renderEntry()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small><br><code>renderTask()</code><br><small style="color:var(--muted)">scripts/obsidian-sync.ts</small></td>
+  <td>No direct outbound edge</td>
+  <td>yaml() node in scripts/obsidian-sync.ts.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>agent-context.ts</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ref_node_fs</code><br><code>ref_node_path</code><br><code>ref_node_url</code></td>
+  <td>Module file in scripts/agent-context.ts.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>OUT</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>OUT node in scripts/agent-context.ts.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>REQUIRED</code><br><small style="color:var(--muted)">scripts/agent-context.ts</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>REQUIRED node in scripts/agent-context.ts.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>scripts/obsidian-sync.ts</code></td><td>36 nodes</td></tr>
+<tr><td><code>scripts/agent-context.ts</code></td><td>7 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x41, calls x35, imports x6, indirect call x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around docs, architecture, agent, backend, mostly in README_AI_AGENT.md, docs/graphify-architecture/README.md, docs/backend-architecture/agent-layer-mcp.md. This section covers 163 nodes and 258 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: CLI &amp; Skill Installers (163 nodes, 258 edges)
+    subgraph cli_skills_docs_backend_architecture_agent_layer_ab6f6110["docs/backend-architecture/agent-layer-mcp.md"]
+        docs_backend_architecture_agent_layer_mcp_mcp_ro_eb35c12f("/api/mcp route (mcp-handler)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_chat_r_e775866e("/api/chat route (PSI-076)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_get_ac_4aec4fbb("get_activity tool<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_nextjs_0dd7bf67("Next.js model() adapter (models.ts)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_tool_r_fefbb608("Agent tool registry (registry.ts)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_define_680b90c7("defineTool / AgentTool types (define.ts)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_edge_l_69ee348b("Edge Function complete() adapter (llm.ts)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_run_to_688c53f7("runTool (runtime.ts)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+        docs_backend_architecture_agent_layer_mcp_verify_502cf397("verifySupabaseToken (JWKS)<br/><small>docs/backend-architecture/agent-layer-mcp.md</small>")
+    end
+    subgraph cli_skills_README_AI_AGENT_md_17d2f774["README_AI_AGENT.md"]
+        readme_ai_agent_boot_sequence_6f5f440f("Boot sequence<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_claude_code_34729a95("Claude Code (default builder)<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_definition_of_done_24840519("Definition of Done<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_hermes_agent_295fd378("Hermes Agent (default operator)<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_mcp_api_02ec0c01("Read-only MCP API<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_stop_and_ask_format_94a99f1a("Stop-and-ask format<br/><small>README_AI_AGENT.md</small>")
+        readme_ai_agent_task_protocol_279ffa6f("Task protocol<br/><small>README_AI_AGENT.md</small>")
+    end
+    readme_kiranism_starter_307dfc20("Kiranism next-shadcn-dashboard-starter<br/><small>README.md</small>")
+    docs_backend_architecture_edge_functions_parse_c_0d03ede6("parse-cv (PSI-082)<br/><small>docs/backend-architecture/edge-functions.md</small>")
+    docs_backend_architecture_agent_layer_mcp_chat_r_e775866e -->|calls| docs_backend_architecture_agent_layer_mcp_nextjs_0dd7bf67
+    docs_backend_architecture_agent_layer_mcp_chat_r_e775866e -->|calls| docs_backend_architecture_agent_layer_mcp_tool_r_fefbb608
+    docs_backend_architecture_agent_layer_mcp_get_ac_4aec4fbb -->|calls| docs_backend_architecture_agent_layer_mcp_define_680b90c7
+    docs_backend_architecture_agent_layer_mcp_tool_r_fefbb608 -->|calls| docs_backend_architecture_agent_layer_mcp_define_680b90c7
+    docs_backend_architecture_edge_functions_parse_c_0d03ede6 -->|calls| docs_backend_architecture_agent_layer_mcp_edge_l_69ee348b
+    docs_backend_architecture_agent_layer_mcp_mcp_ro_eb35c12f -->|calls| docs_backend_architecture_agent_layer_mcp_run_to_688c53f7
+    docs_backend_architecture_agent_layer_mcp_mcp_ro_eb35c12f -->|calls| docs_backend_architecture_agent_layer_mcp_tool_r_fefbb608
+    docs_backend_architecture_agent_layer_mcp_mcp_ro_eb35c12f -->|calls| docs_backend_architecture_agent_layer_mcp_verify_502cf397
+    %% Omitted for readability: 145 nodes, 0 edges
+    class docs_backend_architecture_agent_layer_mcp_mcp_ro_eb35c12f api;
+    class docs_backend_architecture_agent_layer_mcp_chat_r_e775866e api;
+    class docs_backend_architecture_agent_layer_mcp_get_ac_4aec4fbb function;
+    class docs_backend_architecture_agent_layer_mcp_nextjs_0dd7bf67 klass;
+    class docs_backend_architecture_agent_layer_mcp_tool_r_fefbb608 klass;
+    class docs_backend_architecture_agent_layer_mcp_define_680b90c7 function;
+    class docs_backend_architecture_agent_layer_mcp_edge_l_69ee348b klass;
+    class docs_backend_architecture_agent_layer_mcp_run_to_688c53f7 function;
+    class docs_backend_architecture_agent_layer_mcp_verify_502cf397 function;
+    class readme_ai_agent_boot_sequence_6f5f440f klass;
+    class readme_ai_agent_claude_code_34729a95 klass;
+    class readme_ai_agent_definition_of_done_24840519 klass;
+    class readme_ai_agent_hermes_agent_295fd378 klass;
+    class readme_ai_agent_mcp_api_02ec0c01 api;
+    class readme_ai_agent_stop_and_ask_format_94a99f1a klass;
+    class readme_ai_agent_task_protocol_279ffa6f klass;
+    class readme_kiranism_starter_307dfc20 klass;
+    class docs_backend_architecture_edge_functions_parse_c_0d03ede6 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CLAUDE.md @imports of contract</code><br><small style="color:var(--muted)">docs/agent-operations/claude-code.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CLAUDE.md @imports of contract node in docs/agent-operations/claude-code.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ECC rules project-local (.claude/rules/ecc)</code><br><small style="color:var(--muted)">docs/agent-operations/claude-code.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ECC rules project-local (.claude/rules/ecc) node in docs/agent-operations/claude-code.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>graphify install and PreToolUse hook</code><br><small style="color:var(--muted)">docs/agent-operations/claude-code.md</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Builds dependency relationships and graph data.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Contract-to-command map for Claude Code</code><br><small style="color:var(--muted)">docs/agent-operations/claude-code.md</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Contract-to-command map for Claude Code node in docs/agent-operations/claude-code.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>AgentShield</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AgentShield node in docs/agent-operations/ecc.md.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>ECC command and skill map</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ECC command and skill map node in docs/agent-operations/ecc.md.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>ECC (Everything Claude Code)</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ECC (Everything Claude Code) node in docs/agent-operations/ecc.md.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>ECC Memory Vault (scratchpad handoffs)</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ECC Memory Vault (scratchpad handoffs) node in docs/agent-operations/ecc.md.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>ECC defaults vs repo precedence overlaps</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ECC defaults vs repo precedence overlaps node in docs/agent-operations/ecc.md.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Hermes gateway security (remote shell)</code><br><small style="color:var(--muted)">docs/agent-operations/hermes.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Hermes gateway security (remote shell) node in docs/agent-operations/hermes.md.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.hermes.md generated context file</code><br><small style="color:var(--muted)">docs/agent-operations/hermes.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>.hermes.md generated context file node in docs/agent-operations/hermes.md.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>When Hermes builds (per-task flow)</code><br><small style="color:var(--muted)">docs/agent-operations/hermes.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>When Hermes builds (per-task flow) node in docs/agent-operations/hermes.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Hermes standing cron jobs (PSI-096)</code><br><small style="color:var(--muted)">docs/agent-operations/hermes.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Hermes standing cron jobs (PSI-096) node in docs/agent-operations/hermes.md.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Coordination rules</code><br><small style="color:var(--muted)">docs/agent-operations/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Coordination rules node in docs/agent-operations/README.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Handoffs (governed vs scratchpad)</code><br><small style="color:var(--muted)">docs/agent-operations/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Handoffs (governed vs scratchpad) node in docs/agent-operations/README.md.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>One contract, three delivery paths</code><br><small style="color:var(--muted)">docs/agent-operations/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>One contract, three delivery paths node in docs/agent-operations/README.md.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Google Cloud setup (PSI-060)</code><br><small style="color:var(--muted)">docs/backend-architecture/google-integration.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Google Cloud setup (PSI-060) node in docs/backend-architecture/google-integration.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Adding a migration checklist</code><br><small style="color:var(--muted)">docs/database-architecture/README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Adding a migration checklist node in docs/database-architecture/README.md.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>TanStack Query SSR hydration</code><br><small style="color:var(--muted)">docs/frontend-architecture/data-layer-pattern.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>TanStack Query SSR hydration node in docs/frontend-architecture/data-layer-pattern.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Boot sequence</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Boot sequence node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Claude Code (default builder)</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Claude Code (default builder) node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Definition of Done</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Definition of Done node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Hermes Agent (default operator)</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Hermes Agent (default operator) node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Stop-and-ask format</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Stop-and-ask format node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>Task protocol</code><br><small style="color:var(--muted)">README_AI_AGENT.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Task protocol node in README_AI_AGENT.md.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>Kiranism next-shadcn-dashboard-starter</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Kiranism next-shadcn-dashboard-starter node in README.md.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Claude Code (builder lane) setup</code><br><small style="color:var(--muted)">docs/agent-operations/claude-code.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Claude Code (builder lane) setup.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>ECC (Everything Claude Code) in this repo</code><br><small style="color:var(--muted)">docs/agent-operations/ecc.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ECC (Everything Claude Code) in this repo.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Hermes Agent (operator lane) setup</code><br><small style="color:var(--muted)">docs/agent-operations/hermes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Hermes Agent (operator lane) setup.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Agent operations README</code><br><small style="color:var(--muted)">docs/agent-operations/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Agent operations README.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>README_AI_AGENT.md</code></td><td>25 nodes</td></tr>
+<tr><td><code>docs/graphify-architecture/README.md</code></td><td>15 nodes</td></tr>
+<tr><td><code>docs/backend-architecture/agent-layer-mcp.md</code></td><td>13 nodes</td></tr>
+<tr><td><code>docs/historical-agent-work.md</code></td><td>10 nodes</td></tr>
+<tr><td><code>docs/list-task-project.md</code></td><td>10 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m5-kanban.md</code></td><td>9 nodes</td></tr>
+<tr><td><code>docs/integrated-obsidian-local.md</code></td><td>9 nodes</td></tr>
+<tr><td><code>docs/agent-operations/ecc.md</code></td><td>7 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x128, relates x76, implements x16, depends on x12. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">5. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around docs, list, task, projectmd, mostly in docs/list-task-project.md, docs/database-architecture/m4-calendar.md, docs/database-architecture/m6-google.md. This section covers 116 nodes and 302 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Ingestion &amp; Updates (116 nodes, 302 edges)
+    subgraph ingest_cache_update_docs_database_architecture_m_5cad8652["docs/database-architecture/m4-calendar.md"]
+        docs_database_architecture_m4_calendar_notify_ev_f7b520ef("notify_event_invites trigger<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_event_aud_4a401b8d("event_audience_user_ids()<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_calendar_65154969("calendar_feed_tokens (ICS feed, PSI-044)<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_can_see_e_0fece7bb("can_see_event()<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_event_aud_00780afb("event_audience table (user/role/group)<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_events_ta_895b8dcf("events table<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_events_fo_a7e25feb("events_for_user()<br/><small>docs/database-architecture/m4-calendar.md</small>")
+        docs_database_architecture_m4_calendar_notify_ev_d18be924("notify_event_update trigger<br/><small>docs/database-architecture/m4-calendar.md</small>")
+    end
+    subgraph ingest_cache_update_docs_database_architecture_m_c43eaa62["docs/database-architecture/m6-google.md"]
+        docs_database_architecture_m6_google_can_see_dri_a5ef13c2("can_see_drive_root()<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_document_vi_f14d23ff("document_views (view log)<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_drive_files_c86ca9ab("drive_files (Drive mirror)<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_drive_roots_d5d04b67("drive_roots / drive_root_access<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_event_googl_d1bf6345("event_google_links table<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_google_cale_59ffaeb9("google_calendars table<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_sync_schedu_841a0887("pg_cron sync schedules (drive 30m, cale...<br/><small>docs/database-architecture/m6-google.md</small>")
+        docs_database_architecture_m6_google_queue_googl_764f958c("queue_google_push triggers (pg_net)<br/><small>docs/database-architecture/m6-google.md</small>")
+    end
+    subgraph ingest_cache_update_docs_database_architecture_m_fc33f444["docs/database-architecture/m9-talent.md"]
+        docs_database_architecture_m9_talent_skill_taxon_1a6217aa("Skill taxonomy tables<br/><small>docs/database-architecture/m9-talent.md</small>")
+        docs_database_architecture_m9_talent_candidate_g_1e07a954("candidate_group_scores view<br/><small>docs/database-architecture/m9-talent.md</small>")
+    end
+    docs_database_architecture_m4_calendar_notify_ev_f7b520ef -->|calls| docs_database_architecture_m4_calendar_event_aud_4a401b8d
+    %% Omitted for readability: 98 nodes, 0 edges
+    class docs_database_architecture_m4_calendar_notify_ev_f7b520ef function;
+    class docs_database_architecture_m4_calendar_event_aud_4a401b8d function;
+    class docs_database_architecture_m4_calendar_calendar_65154969 function;
+    class docs_database_architecture_m4_calendar_can_see_e_0fece7bb function;
+    class docs_database_architecture_m4_calendar_event_aud_00780afb function;
+    class docs_database_architecture_m4_calendar_events_ta_895b8dcf function;
+    class docs_database_architecture_m4_calendar_events_fo_a7e25feb function;
+    class docs_database_architecture_m4_calendar_notify_ev_d18be924 function;
+    class docs_database_architecture_m6_google_can_see_dri_a5ef13c2 function;
+    class docs_database_architecture_m6_google_document_vi_f14d23ff function;
+    class docs_database_architecture_m6_google_drive_files_c86ca9ab function;
+    class docs_database_architecture_m6_google_drive_roots_d5d04b67 function;
+    class docs_database_architecture_m6_google_event_googl_d1bf6345 function;
+    class docs_database_architecture_m6_google_google_cale_59ffaeb9 function;
+    class docs_database_architecture_m6_google_sync_schedu_841a0887 function;
+    class docs_database_architecture_m6_google_queue_googl_764f958c function;
+    class docs_database_architecture_m9_talent_skill_taxon_1a6217aa klass;
+    class docs_database_architecture_m9_talent_candidate_g_1e07a954 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Module: Agenda calendar</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Agenda calendar node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Module: Supabase clients and session</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Supabase clients and session node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Module: Documents (Google Drive)</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Documents (Google Drive) node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Module: Google Calendar sync</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Google Calendar sync node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Module: Kanban board</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Kanban board node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Module: Role and group mail</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Role and group mail node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Module: Agent layer (MCP)</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Agent layer (MCP) node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>Module: Notifications and push</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Notifications and push node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Module: PWA shell</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: PWA shell node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Module: RBAC access model</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: RBAC access model node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Module: Release and infra</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Release and infra node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Module: Talent screening</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module: Talent screening node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>PSI-001 Fork template</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-001 Fork template node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>PSI-002 Strip Clerk</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-002 Strip Clerk node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>PSI-008 Supabase local init</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-008 Supabase local init node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>PSI-010 Supabase clients and proxy</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-010 Supabase clients and proxy node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>PSI-011 Resend domain and SMTP</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-011 Resend domain and SMTP node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>PSI-012 Migration M1 RBAC</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-012 Migration M1 RBAC node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>PSI-013 Access-token hook</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-013 Access-token hook node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>PSI-014 RBAC guards</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-014 RBAC guards node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>PSI-015 pgTAP RBAC tests</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>PSI-016 Auth pages and onboarding</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>PSI-017 getSession and requirePermission</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-017 getSession and requirePermission node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>PSI-018 Admin Users page</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>PSI-019 Admin Groups Roles Permissions</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-019 Admin Groups Roles Permissions node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>PSI-020 Migration M2 notifications</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-020 Migration M2 notifications node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>PSI-021 PWA shell</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-021 PWA shell node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>PSI-022 Enable push on device</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-022 Enable push on device node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>PSI-023 Push dispatch route</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-023 Push dispatch route node in docs/list-task-project.md.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>PSI-024 Notification center and bell</code><br><small style="color:var(--muted)">docs/list-task-project.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PSI-024 Notification center and bell node in docs/list-task-project.md.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>docs/list-task-project.md</code></td><td>78 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m4-calendar.md</code></td><td>9 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m6-google.md</code></td><td>9 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m9-talent.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>frontend-architecture/features/calendar.md</code></td><td>4 nodes</td></tr>
+<tr><td><code>docs/database-architecture/README.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>frontend-architecture/features/documents.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>frontend-architecture/features/talent.md</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x134, depends on x92, relates x66, shares data with x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">6. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around docs, architecture, frontend, features, mostly in frontend-architecture/features/notifications-pwa.md, docs/frontend-architecture/supabase-clients-and-session.md, docs/database-architecture/m1-rbac.md. This section covers 31 nodes and 36 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tests &amp; Fixtures (31 nodes, 36 edges)
+    subgraph tests_fixtures_docs_database_architecture_m1_rba_c8a8c1d5["docs/database-architecture/m1-rbac.md"]
+        docs_database_architecture_m1_rbac_assert_admin_47ddbfcd("assert_admin_remains() last-admin trigger<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_guards_dfa18930("Guards (escalation, last admin, suspens...<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_can_grant_rol_9fafdf75("can_grant_role() / can_grant_group()<br/><small>docs/database-architecture/m1-rbac.md</small>")
+        docs_database_architecture_m1_rbac_permission_ca_9762926b("Permission catalogue<br/><small>docs/database-architecture/m1-rbac.md</small>")
+    end
+    subgraph tests_fixtures_frontend_architecture_features_ad_563c0b49["frontend-architecture/features/admin.md"]
+        docs_frontend_architecture_features_admin_e4f8edb0("admin.md")
+        docs_frontend_architecture_features_admin_admin_66682137("Admin pages (users/groups/roles/permiss...<br/><small>frontend-architecture/features/admin.md</small>")
+        docs_frontend_architecture_features_admin_admin_a6356a55("admin_list_users() helper<br/><small>frontend-architecture/features/admin.md</small>")
+        docs_frontend_architecture_features_admin_integr_2e06e4e0("Integrations page (Drive roots, calendars)<br/><small>frontend-architecture/features/admin.md</small>")
+    end
+    subgraph tests_fixtures_docs_frontend_architecture_conven_25f2e409["docs/frontend-architecture/conventions-and-testing.md"]
+        docs_frontend_architecture_conventions_and_testi_2a9e47ae("conventions-and-testing.md")
+        docs_frontend_architecture_conventions_and_testi_869dd7f4("Testing layers<br/><small>docs/frontend-architecture/conventions-and-testing.md</small>")
+        docs_frontend_architecture_conventions_and_testi_6d2c8cbc("Conventions and guardrails<br/><small>docs/frontend-architecture/conventions-and-testing.md</small>")
+    end
+    subgraph tests_fixtures_frontend_architecture_features_no_aa85e1c6["frontend-architecture/features/notifications-pwa.md"]
+        docs_frontend_architecture_features_notification_d7d01bb3("Notifications and PWA feature (frontend)<br/><small>frontend-architecture/features/notifications-pwa.md</small>")
+        docs_frontend_architecture_features_notification_10183c5e("PWA shell (manifest, sw.js)<br/><small>frontend-architecture/features/notifications-pwa.md</small>")
+        docs_frontend_architecture_features_notification_0c2887af("Device support and QA<br/><small>frontend-architecture/features/notifications-pwa.md</small>")
+    end
+    subgraph tests_fixtures_docs_frontend_architecture_supaba_cbca6d48["docs/frontend-architecture/supabase-clients-and-session.md"]
+        docs_frontend_architecture_supabase_clients_and_f4ca55e3("Supabase clients and session<br/><small>docs/frontend-architecture/supabase-clients-and-session.md</small>")
+        docs_frontend_architecture_supabase_clients_and_6d37ba45("Session proxy (src/proxy.ts, updateSess...<br/><small>docs/frontend-architecture/supabase-clients-and-session.md</small>")
+    end
+    docs_database_architecture_testing_pgtap_rbac_te_f91c1ef8("rbac.test.sql assertions<br/><small>docs/database-architecture/testing-pgtap.md</small>")
+    docs_frontend_architecture_setup_and_structure_9f873707("Setup and structure (frontend)<br/><small>docs/frontend-architecture/setup-and-structure.md</small>")
+    docs_database_architecture_m1_rbac_assert_admin_47ddbfcd -->|implements| docs_database_architecture_m1_rbac_guards_dfa18930
+    docs_database_architecture_m1_rbac_can_grant_rol_9fafdf75 -->|implements| docs_database_architecture_m1_rbac_guards_dfa18930
+    docs_frontend_architecture_features_admin_admin_66682137 -->|references| docs_frontend_architecture_features_admin_admin_a6356a55
+    docs_frontend_architecture_features_notification_10183c5e -->|references| docs_frontend_architecture_supabase_clients_and_6d37ba45
+    docs_frontend_architecture_conventions_and_testi_2a9e47ae -->|references| docs_frontend_architecture_conventions_and_testi_6d2c8cbc
+    docs_frontend_architecture_conventions_and_testi_2a9e47ae -->|references| docs_frontend_architecture_conventions_and_testi_869dd7f4
+    docs_frontend_architecture_conventions_and_testi_2a9e47ae -->|references| docs_frontend_architecture_features_notification_d7d01bb3
+    docs_frontend_architecture_features_admin_e4f8edb0 -->|references| docs_frontend_architecture_features_admin_admin_a6356a55
+    docs_frontend_architecture_features_admin_e4f8edb0 -->|references| docs_frontend_architecture_features_admin_admin_66682137
+    docs_frontend_architecture_features_admin_e4f8edb0 -->|references| docs_frontend_architecture_features_admin_integr_2e06e4e0
+    docs_frontend_architecture_features_notification_d7d01bb3 -->|references| docs_frontend_architecture_features_notification_0c2887af
+    docs_frontend_architecture_features_notification_d7d01bb3 -->|references| docs_frontend_architecture_features_notification_10183c5e
+    docs_frontend_architecture_features_notification_d7d01bb3 -->|references| docs_frontend_architecture_supabase_clients_and_f4ca55e3
+    docs_frontend_architecture_setup_and_structure_9f873707 -->|references| docs_frontend_architecture_features_admin_e4f8edb0
+    docs_frontend_architecture_supabase_clients_and_f4ca55e3 -->|references| docs_frontend_architecture_supabase_clients_and_6d37ba45
+    %% Omitted for readability: 13 nodes, 0 edges
+    class docs_database_architecture_m1_rbac_assert_admin_47ddbfcd async;
+    class docs_database_architecture_m1_rbac_guards_dfa18930 klass;
+    class docs_database_architecture_m1_rbac_can_grant_rol_9fafdf75 function;
+    class docs_database_architecture_m1_rbac_permission_ca_9762926b klass;
+    class docs_frontend_architecture_features_admin_e4f8edb0 concept;
+    class docs_frontend_architecture_features_admin_admin_66682137 klass;
+    class docs_frontend_architecture_features_admin_admin_a6356a55 function;
+    class docs_frontend_architecture_features_admin_integr_2e06e4e0 klass;
+    class docs_frontend_architecture_conventions_and_testi_2a9e47ae concept;
+    class docs_frontend_architecture_conventions_and_testi_869dd7f4 test;
+    class docs_frontend_architecture_conventions_and_testi_6d2c8cbc test;
+    class docs_frontend_architecture_features_notification_d7d01bb3 concept;
+    class docs_frontend_architecture_features_notification_10183c5e klass;
+    class docs_frontend_architecture_features_notification_0c2887af klass;
+    class docs_frontend_architecture_supabase_clients_and_f4ca55e3 concept;
+    class docs_frontend_architecture_supabase_clients_and_6d37ba45 klass;
+    class docs_database_architecture_testing_pgtap_rbac_te_f91c1ef8 test;
+    class docs_frontend_architecture_setup_and_structure_9f873707 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>assert_admin_remains() last-admin trigger</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>users_with_permission()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td>assert_admin_remains() last-admin trigger node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>can_grant_role() / can_grant_group()</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>can_grant_role() / can_grant_group() node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Guards (escalation, last admin, suspension, system rows)</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Guards (escalation, last admin, suspension, system rows) node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Permission catalogue</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Permission catalogue node in docs/database-architecture/m1-rbac.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>rbac.test.sql assertions</code><br><small style="color:var(--muted)">docs/database-architecture/testing-pgtap.md</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Conventions and guardrails</code><br><small style="color:var(--muted)">docs/frontend-architecture/conventions-and-testing.md</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Conventions and guardrails node in docs/frontend-architecture/conventions-and-testing.md.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Testing layers</code><br><small style="color:var(--muted)">docs/frontend-architecture/conventions-and-testing.md</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>admin_list_users() helper</code><br><small style="color:var(--muted)">frontend-architecture/features/admin.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>admin_list_users() helper node in frontend-architecture/features/admin.md.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Admin pages (users/groups/roles/permissions)</code><br><small style="color:var(--muted)">frontend-architecture/features/admin.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Integrations page (Drive roots, calendars)</code><br><small style="color:var(--muted)">frontend-architecture/features/admin.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Device support and QA</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Device support and QA node in frontend-architecture/features/notifications-pwa.md.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>enablePush device opt-in</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>enablePush device opt-in node in frontend-architecture/features/notifications-pwa.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Notification center and bell</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Notification center and bell node in frontend-architecture/features/notifications-pwa.md.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Notification-first PWA decision</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Notification-first PWA decision node in frontend-architecture/features/notifications-pwa.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>PWA shell (manifest, sw.js)</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>PWA shell (manifest, sw.js) node in frontend-architecture/features/notifications-pwa.md.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Environment variables</code><br><small style="color:var(--muted)">docs/frontend-architecture/setup-and-structure.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Environment variables node in docs/frontend-architecture/setup-and-structure.md.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Target folder structure</code><br><small style="color:var(--muted)">docs/frontend-architecture/setup-and-structure.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Target folder structure node in docs/frontend-architecture/setup-and-structure.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Fork Kiranism next-shadcn-dashboard-starter</code><br><small style="color:var(--muted)">docs/frontend-architecture/setup-and-structure.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Fork Kiranism next-shadcn-dashboard-starter node in docs/frontend-architecture/setup-and-structure.md.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Permission-filtered navigation (visibleNav)</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Permission-filtered navigation (visibleNav) node in docs/frontend-architecture/supabase-clients-and-session.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>requirePermission guard</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>requirePermission guard node in docs/frontend-architecture/supabase-clients-and-session.md.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Session claims (getSession)</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Session claims (getSession) node in docs/frontend-architecture/supabase-clients-and-session.md.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Session proxy (src/proxy.ts, updateSession)</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Session proxy (src/proxy.ts, updateSession) node in docs/frontend-architecture/supabase-clients-and-session.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Browser and server Supabase clients</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Browser and server Supabase clients node in docs/frontend-architecture/supabase-clients-and-session.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>M1 RBAC migration doc</code><br><small style="color:var(--muted)">docs/database-architecture/m1-rbac.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing M1 RBAC migration doc.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>testing-pgtap.md</code><br><small style="color:var(--muted)">docs/database-architecture/testing-pgtap.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing testing-pgtap.md.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>conventions-and-testing.md</code><br><small style="color:var(--muted)">docs/frontend-architecture/conventions-and-testing.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing conventions-and-testing.md.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>admin.md</code><br><small style="color:var(--muted)">frontend-architecture/features/admin.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing admin.md.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Notifications and PWA feature (frontend)</code><br><small style="color:var(--muted)">frontend-architecture/features/notifications-pwa.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Notifications and PWA feature (frontend).</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Setup and structure (frontend)</code><br><small style="color:var(--muted)">docs/frontend-architecture/setup-and-structure.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Setup and structure (frontend).</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Supabase clients and session</code><br><small style="color:var(--muted)">docs/frontend-architecture/supabase-clients-and-session.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Supabase clients and session.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>frontend-architecture/features/notifications-pwa.md</code></td><td>6 nodes</td></tr>
+<tr><td><code>docs/frontend-architecture/supabase-clients-and-session.md</code></td><td>6 nodes</td></tr>
+<tr><td><code>docs/database-architecture/m1-rbac.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>frontend-architecture/features/admin.md</code></td><td>4 nodes</td></tr>
+<tr><td><code>docs/frontend-architecture/setup-and-structure.md</code></td><td>4 nodes</td></tr>
+<tr><td><code>docs/database-architecture/testing-pgtap.md</code></td><td>3 nodes</td></tr>
+<tr><td><code>docs/frontend-architecture/conventions-and-testing.md</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x32, implements x2, relates x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Three-Layer Principle ====== -->
+<h2 id="three-layer-principle">7. Three-Layer Principle</h2>
+<p>Three-Layer Principle groups implementation around docs, system, overviewmd, layer, mostly in docs/system-overview.md. This section covers 5 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Three-Layer Principle (5 nodes, 4 edges)
+    docs_system_overview_three_layers_cc602220("Three layers: frontend, backend, database<br/><small>docs/system-overview.md</small>")
+    docs_system_overview_database_layer_15be6582("Database layer (Postgres, RLS, triggers...<br/><small>docs/system-overview.md</small>")
+    docs_system_overview_internal_post_bb386b67("internal_post() / pg_net dispatch<br/><small>docs/system-overview.md</small>")
+    docs_system_overview_backend_layer_25e58236("Backend layer (Edge Functions, route ha...<br/><small>docs/system-overview.md</small>")
+    docs_system_overview_frontend_layer_e6abc8da("Frontend layer (Next.js Server Componen...<br/><small>docs/system-overview.md</small>")
+    docs_system_overview_database_layer_15be6582 -->|references| docs_system_overview_internal_post_bb386b67
+    docs_system_overview_three_layers_cc602220 -->|references| docs_system_overview_backend_layer_25e58236
+    docs_system_overview_three_layers_cc602220 -->|references| docs_system_overview_database_layer_15be6582
+    docs_system_overview_three_layers_cc602220 -->|references| docs_system_overview_frontend_layer_e6abc8da
+    class docs_system_overview_three_layers_cc602220 klass;
+    class docs_system_overview_database_layer_15be6582 klass;
+    class docs_system_overview_internal_post_bb386b67 function;
+    class docs_system_overview_backend_layer_25e58236 api;
+    class docs_system_overview_frontend_layer_e6abc8da ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Backend layer (Edge Functions, route handlers, Auth config)</code><br><small style="color:var(--muted)">docs/system-overview.md</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Database layer (Postgres, RLS, triggers, pg_cron)</code><br><small style="color:var(--muted)">docs/system-overview.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Database layer (Postgres, RLS, triggers, pg_cron) node in docs/system-overview.md.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Frontend layer (Next.js Server Components, Server Actions, PWA)</code><br><small style="color:var(--muted)">docs/system-overview.md</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Frontend layer (Next.js Server Components, Server Actions, PWA) node in docs/system-overview.md.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>internal_post() / pg_net dispatch</code><br><small style="color:var(--muted)">docs/system-overview.md</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>internal_post() / pg_net dispatch node in docs/system-overview.md.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Three layers: frontend, backend, database</code><br><small style="color:var(--muted)">docs/system-overview.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Three layers: frontend, backend, database node in docs/system-overview.md.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>docs/system-overview.md</code></td><td>5 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="hyperedges">Group Relationships (Hyperedges)</h2>
+<div class="grid">
+
+  <div class="card">
+    <h4>Trigger-fed activity log</h4>
+    <p><code>participate_in</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_database_architecture_m7_activity_log_activity_log_table</code></li>
+      <li><code>docs_database_architecture_m7_activity_log_log_triggers</code></li>
+      <li><code>docs_database_architecture_m5_kanban_tasks_table</code></li>
+      <li><code>docs_database_architecture_m4_calendar_events_table</code></li>
+      <li><code>docs_database_architecture_m3_role_mail_messages_table</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Shared agent tool layer (MCP + chat)</h4>
+    <p><code>participate_in</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_backend_architecture_agent_layer_mcp_tool_registry</code></li>
+      <li><code>docs_backend_architecture_agent_layer_mcp_mcp_route</code></li>
+      <li><code>docs_backend_architecture_agent_layer_mcp_chat_route</code></li>
+      <li><code>docs_backend_architecture_agent_layer_mcp_run_tool</code></li>
+      <li><code>docs_backend_architecture_agent_layer_mcp_verify_supabase_token</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Task list, history and Obsidian tracking loop</h4>
+    <p><code>form</code> — 4 participants</p>
+    <ul>
+      <li><code>docs_list_task_project</code></li>
+      <li><code>docs_historical_agent_work</code></li>
+      <li><code>docs_integrated_obsidian_local</code></li>
+      <li><code>scripts_obsidian_sync</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Contract delivery to Claude Code, Hermes and other agents</h4>
+    <p><code>participate_in</code> — 4 participants</p>
+    <ul>
+      <li><code>readme_ai_agent</code></li>
+      <li><code>docs_agent_operations_claude_code_claude_md_imports</code></li>
+      <li><code>docs_agent_operations_hermes_hermes_md</code></li>
+      <li><code>docs_agent_operations_readme_three_delivery_paths</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Task list and agent history to Obsidian vault</h4>
+    <p><code>form</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_list_task_project</code></li>
+      <li><code>docs_historical_agent_work_entry_contract</code></li>
+      <li><code>docs_integrated_obsidian_local_obsidian_sync_script</code></li>
+      <li><code>docs_integrated_obsidian_local_kanban_board</code></li>
+      <li><code>docs_integrated_obsidian_local_agent_log</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Calendar event to Google push flow</h4>
+    <p><code>participate_in</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_database_architecture_m4_calendar_events_table</code></li>
+      <li><code>docs_database_architecture_m4_calendar_event_audience_table</code></li>
+      <li><code>docs_database_architecture_m6_google_event_google_links</code></li>
+      <li><code>docs_database_architecture_m6_google_queue_google_push</code></li>
+      <li><code>docs_database_architecture_m6_google_google_calendars_table</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Notification to Web Push pipeline</h4>
+    <p><code>form</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_database_architecture_m2_notifications_notify</code></li>
+      <li><code>docs_database_architecture_m2_notifications_dispatch_push</code></li>
+      <li><code>docs_database_architecture_m2_notifications_internal_post</code></li>
+      <li><code>docs_backend_architecture_push_notifications_dispatch_route</code></li>
+      <li><code>docs_database_architecture_m2_notifications_push_targets</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Role/group mail send flow</h4>
+    <p><code>participate_in</code> — 5 participants</p>
+    <ul>
+      <li><code>docs_database_architecture_m3_role_mail_messages_table</code></li>
+      <li><code>docs_database_architecture_m3_role_mail_message_recipients_table</code></li>
+      <li><code>docs_database_architecture_m3_role_mail_mail_recipients_fn</code></li>
+      <li><code>docs_database_architecture_m3_role_mail_send_role_mail</code></li>
+      <li><code>docs_database_architecture_m3_role_mail_mail_recipient_count_fn</code></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>407</td></tr>
+      <tr><td>Edges</td><td>868</td></tr>
+      <tr><td>Hyperedges</td><td>8</td></tr>
+      <tr><td>Communities</td><td>13</td></tr>
+      <tr><td>Documented Sections</td><td>6</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>825</td></tr>
+      <tr><td>INFERRED</td><td>43</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>super-dashboard-p3md-architecture — Architecture Documentation</p>
+  <p>Generated: 2026-09-25 04:19 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>

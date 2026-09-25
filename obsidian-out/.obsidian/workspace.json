@@ -81,8 +81,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -208,6 +207,13 @@
   },
   "active": "4499a6fee6f23597",
   "lastOpenFiles": [
+    "tasks/PSI-095.md",
+    "Board.md",
+    "tasks/PSI-011.md",
+    "Agent Log.md",
+    "graph/GRAPH_REPORT.md",
+    "review/PSI-009.md",
+    "history/2026-09-25T12-30-00Z__PSI-009__hermes.md",
     "docs/frontend-architecture/features/admin.md",
     "docs/frontend-architecture/data-layer-pattern.md",
     "docs/frontend-architecture/conventions-and-testing.md",
@@ -216,12 +222,8 @@
     "docs/database-architecture/m7-activity-log.md",
     "docs/database-architecture/m6-google.md",
     "docs/database-architecture/m5-kanban.md",
-    "history/2026-09-25T12-30-00Z__PSI-009__hermes.md",
-    "review/PSI-009.md",
     "tasks/PSI-009.md",
-    "Board.md",
     "tasks/PSI-003.md",
-    "tasks/PSI-095.md",
     "review/PSI-015.md",
     "history/2026-09-25T10-35-00Z__PSI-015__hermes.md",
     "review/PSI-014.md",
@@ -231,9 +233,6 @@
     "review/PSI-013.md",
     "tasks/PSI-013.md",
     "history/2026-09-25T09-30-00Z__PSI-010__hermes.md",
-    "review/PSI-012.md",
-    "review/PSI-010.md",
-    "history/2026-09-25T07-00-00Z__PSI-010__hermes.md",
     "docs/graphify-architecture/snapshots",
     "Excalidraw",
     "graph"

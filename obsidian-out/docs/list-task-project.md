@@ -98,7 +98,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Claude Code has the `ecc@ecc` plugin (no stacked manual install); `.claude/rules/ecc/common` and `.claude/rules/ecc/typescript` committed; Hermes has ECC via `./install.sh --profile minimal --target hermes`; installed surface (`/plugin list ecc@ecc`, Hermes `/skills`) recorded in the history entry; AgentShield scan shows no critical findings.
 
 ### PSI-095 · Hermes Agent setup for this repo
-- status: todo
+- status: done
 - area: agent-ops
 - owner: human
 - depends: PSI-004, PSI-005, PSI-009
@@ -128,7 +128,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `src/lib/supabase/{client,server,proxy}.ts` and `src/proxy.ts` as in frontend-architecture/supabase-clients-and-session.md; unauthenticated dashboard visit redirects to sign-in; `/api/mcp`, `/sw.js` and `/manifest.webmanifest` are never redirected.
 
 ### PSI-011 · Resend domain and custom SMTP for Auth
-- status: todo
+- status: done
 - area: infra
 - owner: human
 - depends: —

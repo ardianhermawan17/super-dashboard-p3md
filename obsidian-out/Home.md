@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 3 | 0 | 0 | 0 | 17 | 74 |
+| 54 | 2 | 0 | 1 | 0 | 17 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-25T14-00-00Z__PSI-017__hermes|2026-09-25 21:00 WIB · hermes · PSI-017]]: Awaiting human operator review stamp on PSI-017 card.
 - [[history/2026-09-25T13-30-00Z__PSI-016__hermes|2026-09-25 20:30 WIB · hermes · PSI-016]]: Awaiting human operator review stamp on PSI-016 card.
 - [[history/2026-09-25T10-35-00Z__PSI-015__hermes|2026-09-25 17:35 WIB · hermes · PSI-015]]: PSI-015 verified green; operator stamps to done (C-21). PR raising 013+014+015 is the operator's merge call.
 - [[history/2026-09-25T10-10-00Z__PSI-014__hermes|2026-09-25 17:10 WIB · hermes · PSI-014]]: PSI-014 is verified and in review; the operator stamps it done (C-21). PR to master is the operator's call.
@@ -43,6 +44,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-25 21:00 WIB · hermes · [[tasks/PSI-017|PSI-017]] · done: [[history/2026-09-25T14-00-00Z__PSI-017__hermes|PSI-017: Implement getSession(), requirePermission(), and permission-filtered navigation with unit tests.]]
 - 2026-09-25 20:30 WIB · hermes · [[tasks/PSI-016|PSI-016]] · done: [[history/2026-09-25T13-30-00Z__PSI-016__hermes|PSI-016: Implement Next.js 16 authentication pages and routes (sign-in, sign-up, forgot-password, reset-password, confirm, sign-out) with Base UI primitives and Onboarding Option A.]]
 - 2026-09-25 19:30 WIB · hermes · [[tasks/PSI-009|PSI-009]] · done: [[history/2026-09-25T12-30-00Z__PSI-009__hermes|PSI-009: complete + verify + review the ECC install for Claude Code and Hermes, then mirror review->done per operator instruction.]]
 - 2026-09-25 17:35 WIB · hermes · [[tasks/PSI-015|PSI-015]] · done: [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
@@ -52,4 +54,3 @@ _Nothing waiting for review._
 - 2026-09-25 15:00 WIB · hermes · [[tasks/PSI-012|PSI-012]] · partial: [[history/2026-09-25T08-12-00Z__PSI-012__hermes|Review PSI-012 (M1 RBAC core) per review-workflow and encode the unstamped-card lesson into the gateway as a written rule.]]
 - 2026-09-25 14:00 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T07-00-00Z__PSI-010__hermes|PSI-010: add Supabase browser/server clients and a session-refresh proxy so unauthenticated dashboard visits redirect to /auth/sign-in while public endpoints are never redirected.]]
 - 2026-09-25 13:10 WIB · hermes · [[tasks/PSI-007|PSI-007]] · done: [[history/2026-09-25T06-00-00Z__PSI-007__hermes|PSI-007: add a Husky pre-commit hook so bun run agent:check runs on every commit and rejects commits with an invalid history entry or stale .hermes.md.]]
-- 2026-09-25 09:58 WIB · opencode · [[tasks/PSI-001|PSI-001]], [[tasks/PSI-002|PSI-002]], [[tasks/PSI-003|PSI-003]] · partial: [[history/2026-09-25T02-58-28Z__PSI-001__opencode|Review P3MD task cards PSI-001/002/003 under docs/agent-operations/review-workflow.md and give OpenCode the same model + memory setup as Hermes.]]

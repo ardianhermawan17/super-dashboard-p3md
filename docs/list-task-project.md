@@ -55,7 +55,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: README.md, README_AI_AGENT.md, docs/ (system-overview.md, frontend-architecture/, backend-architecture/, database-architecture/, agent-operations/, graphify-architecture/, task list, history and Obsidian docs), agent-history/*, scripts/*.ts, obsidian-out/README.md and .graphifyignore committed at the paths the gateway links to.
 
 ### PSI-004 · Wire the gateway into CLAUDE.md, AGENTS.md and .hermes.md
-- status: review
+- status: done
 - area: agent-ops
 - owner: agent:hermes
 - depends: PSI-003, PSI-006

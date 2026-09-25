@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 2 | 0 | 1 | 0 | 17 | 74 |
+| 54 | 2 | 0 | 0 | 0 | 18 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

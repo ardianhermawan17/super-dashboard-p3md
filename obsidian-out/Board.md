@@ -75,7 +75,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path · agent:hermes · 1 run #frontend #phase-1
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-013|PSI-013]] Access-token hook with roles, groups and permissions · agent:hermes · 1 run #db #phase-1
 - [x] [[tasks/PSI-014|PSI-014]] RBAC guards: no escalation, last admin, suspension · agent:hermes · 1 run #db #phase-1
 - [x] [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · agent:hermes · 2 runs #security #phase-1
+- [x] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path · agent:hermes · 1 run #frontend #phase-1
 
 
 %% kanban:settings

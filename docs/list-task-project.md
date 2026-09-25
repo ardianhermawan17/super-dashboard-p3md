@@ -166,10 +166,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Every RBAC assertion in database-architecture/testing-pgtap.md passes in `supabase test db`; plus a schema-wide test that every table in `public` has RLS enabled and that `anon` can read and write none of them.
 
 ### PSI-016 · Auth pages and onboarding path
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-010, PSI-011
+- merged: PR #11 (2026-09-25)
 - accept: Supabase UI password-auth block on Base UI primitives (no `asChild`); sign-up, sign-in, sign-out, email confirm work; onboarding option A or B from backend-architecture/auth-and-onboarding.md chosen by a human and implemented; an invited user lands with the invite's groups and roles.
 
 ### PSI-017 · getSession, requirePermission and permission-filtered navigation

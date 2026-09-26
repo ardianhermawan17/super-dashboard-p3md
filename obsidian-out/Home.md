@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 46 | 0 | 0 | 1 | 0 | 27 | 74 |
+| 46 | 0 | 0 | 0 | 0 | 28 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-040|PSI-040]] Migration M4 calendar · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

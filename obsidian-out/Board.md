@@ -46,7 +46,6 @@ kanban-plugin: board
 
 ## Todo
 
-- [ ] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes #db #phase-7
 
 
 ## Doing
@@ -55,6 +54,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7
 
 
 ## Blocked

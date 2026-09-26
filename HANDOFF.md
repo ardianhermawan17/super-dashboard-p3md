@@ -1,56 +1,63 @@
 ---
-updated: 2026-09-26 13:45
+updated: 2026-09-26 19:05
 project: super-dashboard-p3md-architecture
 ---
 
-## ⏸️ STOPPED — Operator is making a manual change
-
-The agent stopped here at the operator's request. **Nothing is in flight.** No branch is
-half-built, no PR is open, no card sits in In Progress or Review. Safe to resume cold.
-
 ## Current Card
 
-*(none — board has an empty Todo / Doing / Review)*
+**None in progress.** Three cards landed to Review this session (all PRs open, awaiting merge):
 
-Last completed: `PSI-070 · Migration M7 activity log` → **done**, merged as `4b2f083`.
+| PR | Task | What it landed | Verification |
+|----|-----|----------------|--------------|
+| [#37](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/37) | PSI-071 · M8 agent layer | `agent_board_status/agenda/inbox/documents` security_invoker views + `agent_audit_log` + `digests`; `20260926060000_m8_agent_layer.sql` | 8 files / 76 tests PASS (17 in agent_layer.test.sql) |
+| [#38](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/38) | PSI-072 · Agent tool registry | `frontend-architecture/src/agent/` — define/registry/runtime/links + 5 read tools + 8 unit tests | lint 0/0, typecheck clean, build pass, 13/13 frontend tests |
+| [#39](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/39) | PSI-080 · M9 talent | `20260926070000_m9_talent.sql` — 6 tables + RLS inline, private `cvs` bucket, `candidate_group_scores` security_invoker | 17/17 talent.test.sql, 8 files / 76 tests PASS |
+
+Previous open PRs on the same board:
+- **#36** (PSI-065 `/sync`) — open since earlier, untouched this session.
+- **#35** (PSI-099) — merged `0cb2229`, stamped done by operator.
+
+## Board State (lanes)
+
+35 backlog / 0 todo / 1 doing (PSI-060, yours) / 1 review (PSI-065) + 3 new review / 0 blocked / 38 done.
+Wait — PSI-071/072/080 are now `review` in the source, so Review lane will show 4 once vault syncs.
 
 ## Master State
 
-`master` = `origin/master` = **`4b2f083`** — clean, no open PRs, no unmerged branches.
+`master` = `origin/master` = **`876f871`**. PRs #36–#39 are open on top, not merged.
 
-## Merged This Session
+## Next Ready Cards (dependency-ordered, all code-implementable)
 
-| PR | Task | Merge Commit | What it landed |
-|---|---|---|---|
-| [#32](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/32) | PSI-060 block + board fix | `4be3b8d` | Board alignment on master |
-| [#31](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/31) | PSI-061 Migration M6 Google | `2ad66fc` | Drive/Calendar schema, RLS, triggers, pgTAP tests |
-| [#33](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/33) | PSI-067 Admin Integrations page | `5ff95a8` | `/dashboard/admin/integrations`, rules, tutorial |
-| [#34](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/34) | PSI-070 Migration M7 activity log | `4b2f083` | `activity_log` table, RLS, 3 trigger sets, retention cron, 9 pgTAP assertions |
+1. **PSI-081** (Consent & CV intake — backend; depends PSI-080 ✅ done)
+2. **PSI-097** (AgentShield in CI — security workflow; depends PSI-009 ✅ done)
+3. **PSI-096** (Hermes standing jobs — agent-ops; depends PSI-095 ✅, PSI-006 ✅)
+4. **PSI-042** (Event form with audience picker — frontend; depends PSI-041 ✅)
+5. **PSI-073** (MCP endpoint — backend; depends PSI-072 — **blocked until #38 merges**)
 
-## Next Card
-
-**`PSI-071 · Migration M8 agent views, audit log, digests`** — `backlog`, deps PSI-070 ✅ + PSI-061 ✅ → **fully unblocked**, no Google dependency.
-
-Parallel track (blocked on human): `PSI-060` → `PSI-065` / `PSI-062`.
+Human-blocked: PSI-025 (device QA), PSI-031 (Resend key), PSI-090 (Vercel), PSI-062/063/064/066 (need PSI-060 calendar/drive sharing), PSI-074+ (OAuth hosted config).
 
 ## Test Status
 
-unit: n/a · full suite: **pass** (7 pgTAP files / 59 tests, verified on master) ·
-lint: pass (0 warnings, 0 errors on 282 files) · typecheck: pass · build: pass (25 routes) ·
-`bun run agent:check`: ok (74 tasks, 42 history entries)
+unit: 8/8 (agent) · 13/13 (frontend total) · full pgTAP suite: **8 files / 76 tests PASS** ·
+lint: 0 warnings 0 errors · typecheck: clean · build: pass ·
+`bun run agent:check`: ok (75 tasks, 44 history entries)
 
-## Open Items for the Human
+## Recurring Gotchas (learned this session — port to a skill)
 
-1. **PSI-060 · Google Cloud** — still `blocked`. Three things left, all human-only:
-   - Share each target calendar with `p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com` (SA currently sees **0 calendars** → blocks PSI-065/066).
-   - **Enable the Google Drive API** on project `566787048974` — live check returns `403 accessNotConfigured` → blocks PSI-062/063/064.
-     → https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=566787048974
-   - `supabase secrets set GOOGLE_SA_KEY_B64=...`, then delete `service-key-p3md-coding-squid.json` and empty the Trash.
-2. **Graphify is degraded.** `bunx graphify .` fails: `OLLAMA_BASE_URL` points at `0.0.0.0` (refused as link-local) and the `openai` package is missing for the Ollama backend, so semantic extraction produces 0 nodes. AST extraction still works. Fix: `uv tool install "graphifyy[ollama]" --force`, then set a real `OLLAMA_BASE_URL`. Graph is **stale since before PSI-070**.
+- **`.gitignore` plugins rule keeps vanishing**: `obsidian-out/.obsidian/plugins/` must be in `.gitignore`,
+  but it only exists on branches that added it. Master never got it because #36/#37/#38 carry it.
+  Until one of those merges, EVERY branch cut from master re-sweeps third-party plugin code
+  (remotely-save bundles a Google OAuth client id+secret) and GitHub Push Protection rejects the push.
+  Fix pattern: add the line to `.gitignore` on the new branch before `git add -A`.
+- **`supabase db reset` exits 502** after migrations apply cleanly: `supabase_vector_p3md` crash-loops
+  against the Docker socket. Not a migration failure — verify in psql via `docker exec supabase_db_p3md`.
+- **`server-only` throws under `bun test`**: stub with `mock.module('server-only', () => ({}))` before
+  dynamic-importing the runtime.
+- **View columns come back nullable** in `database.types.ts`: default/filter at the call site, don't cast.
+- Schema: `changes[].action` enum is `added/modified/deleted/renamed`; `migrations[]` wants the full
+  repo path (`supabase/migrations/….sql`).
 
-## Known Cosmetic Issue (pre-existing, not a regression)
+## Exact Next Action
 
-`obsidian-out/README.md` claims only its own README is committed, but `.gitignore` has the
-`obsidian-out/*` rules commented out — 243 files in that folder are tracked by design.
-Harmless; the README is the stale part. Leave alone unless the operator wants the ignore
-rules re-enabled.
+Pull **PSI-081** (Consent & CV intake) onto a branch off master — builds directly on M9.
+Or if the operator wants PRs merged first: merge #37 → #38 → #39 in dependency order, then rebase.

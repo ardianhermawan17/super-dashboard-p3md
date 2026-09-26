@@ -1,0 +1,65 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T18-45-00Z__PSI-080__hermes",
+  "task_ids": ["PSI-080"],
+  "agent": { "name": "hermes", "model": "omniroute:combo", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-26T18:05:00Z",
+    "ended_at": "2026-09-26T18:50:00Z",
+    "branch": "task/PSI-080"
+  },
+  "intent": "Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.",
+  "outcome": "done",
+  "summary": "Added supabase/migrations/20260926070000_m9_talent.sql: six tables (skill_groups, skills, skill_aliases, skill_group_skills, candidates, candidate_skills) with RLS enabled and policies in the same transaction, a private cvs bucket with per-user folder policies, and candidate_group_scores as a security_invoker view. supabase/tests/talent.test.sql proves 17 assertions including the documented regression (anon could read and delete candidates) and that the scoring view respects the caller's RLS. Full suite 8 files / 76 tests PASS.",
+  "changes": [
+    { "path": "supabase/migrations/20260926070000_m9_talent.sql", "action": "added", "note": "M9: 6 tables + RLS + talent.read/manage policies + scoring view + private cvs bucket" },
+    { "path": "supabase/tests/talent.test.sql", "action": "added", "note": "17 pgTAP assertions incl. anon lockout and per-owner isolation" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-080 backlog -> review" }
+  ],
+  "decisions": [
+    {
+      "decision": "RLS enabled in the same migration as the tables, with an explicit revoke from anon",
+      "reason": "The M9 outline carries its own warning: as written it had no RLS, Supabase grants table access to anon by default, and on 2026-09-24 the anonymous role could read and delete candidates. Creating the tables and their policies in one transaction removes the window where a table exists unprotected."
+    },
+    {
+      "decision": "candidate_group_scores uses security_invoker = true",
+      "reason": "Without it a view runs as its owner and would hand every candidate's score to anyone who can select the view, bypassing the owner-own-row policy entirely. With it, the caller's RLS decides which candidate rows feed the score, so a member sees only their own."
+    },
+    {
+      "decision": "Added candidates_cv_source_matches: a storage source requires cv_path, a drive source requires cv_drive_file_id",
+      "reason": "The outline allowed both columns to be null together, which would produce a candidate row with no CV anywhere and a parser with nothing to read. The constraint makes the invariant explicit in the schema instead of in the intake code."
+    },
+    {
+      "decision": "Taxonomy is readable by any authenticated user, writable only with talent.manage",
+      "reason": "Skill names are not personal data and the screening UI needs them for everyone, but letting any member rewrite the taxonomy would let them change how every candidate scores. The do-loop creates the four pairs of identical policies once instead of twelve near-copies."
+    },
+    {
+      "decision": "CV bucket policies are created inside an existence guard",
+      "reason": "The storage.objects policies live outside the migration's own schema, so re-running the migration after a partial failure would otherwise abort on a duplicate policy name."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "bunx supabase db reset applied 20260926070000_m9_talent.sql with no errors; bunx supabase test db supabase/tests/talent.test.sql -> 17/17 PASS; full suite bunx supabase test db -> 8 files / 76 tests PASS. Independently confirmed in psql: all 7 relations present, relrowsecurity = true on all six tables, storage.buckets.cvs.public = false."
+  },
+  "migrations": ["supabase/migrations/20260926070000_m9_talent.sql"],
+  "risks": [
+    "The local analytics container (supabase_vector_p3md) crash-loops against the Docker socket, so `supabase db reset` exits with a 502 after the migrations and seed have already applied. The migration itself is verified in the database; the 502 is a pre-existing local environment issue, not a schema failure.",
+    "candidate_skills.evidence is capped at 160 characters but not otherwise filtered. The parser must not write contact details into it (C-08); the column comment states the rule but nothing enforces it beyond the length.",
+    "Talent permissions are granted to admin only by the RBAC seed, so out of the box no HR-style role can score candidates. Any real screening deployment needs a role that carries talent.read."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-081", "note": "Consent and CV intake now has its tables, the cvs bucket and the candidate constraint to write against." },
+    { "task_id": "PSI-082", "note": "parse-cv can populate candidate_skills once intake lands." },
+    { "task_id": "PSI-084", "note": "agent_talent_overview will read candidate_group_scores; it must expose group, score, meets_required and skill names only." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "This is the schema that stores CVs and candidate data. A human should confirm the retention story (cv_path is meant to be nulled after parsing, but nothing enforces it), who is expected to hold talent.read, and that admin-only talent.manage is the intended gate on the taxonomy."
+  }
+}

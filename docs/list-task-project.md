@@ -466,10 +466,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: agent_board_status, agent_agenda, agent_inbox, agent_documents with `security_invoker = true`; agent_audit_log insert-as-self; digests readable with `digest.receive`; pgTAP proves a non-member sees no rows through the views.
 
 ### PSI-072 · Agent tool registry, runtime and read tools
-- status: backlog
+- status: review
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-071
+- pr: PR #38 (open — awaiting merge)
 - accept: src/agent/{define,registry,runtime}.ts; get_activity, get_board, get_agenda, get_inbox, search_documents; every call audited; outputs capped and deep-linked; no PII or document content in outputs.
 
 ### PSI-073 · MCP endpoint with mcp-handler 2.x

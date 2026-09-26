@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T17-18-00Z__PSI-071__hermes",
+  "task_ids": ["PSI-071"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-26T17:00:00Z",
+    "ended_at": "2026-09-26T17:30:00Z",
+    "branch": "task/PSI-071"
+  },
+  "intent": "Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.",
+  "outcome": "done",
+  "summary": "Added supabase/migrations/20260926060000_m8_agent_layer.sql creating agent_board_status, agent_agenda, agent_inbox and agent_documents as security_invoker views so the caller's RLS applies, plus agent_audit_log (insert-as-self, own-calls-readable) and digests (readable only with digest.receive or agent.audit). Added supabase/tests/agent_layer.test.sql with 17 assertions; the decisive one proves a non-member reads zero rows through all four views. Full pgTAP suite now 8 files / 76 tests, all passing.",
+  "changes": [
+    { "path": "supabase/migrations/20260926060000_m8_agent_layer.sql", "action": "added", "note": "M8: 4 security_invoker views + agent_audit_log + digests, RLS and grants" },
+    { "path": "supabase/tests/agent_layer.test.sql", "action": "added", "note": "17 pgTAP assertions incl. non-member sees nothing through the views" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-071 backlog -> review" }
+  ],
+  "decisions": [
+    {
+      "decision": "Explicitly granted sequence usage on agent_audit_log_id_seq to authenticated",
+      "reason": "The id column is `generated always as identity`; without the sequence grant the first insert succeeds as owner but later inserts under the authenticated role fail on nextval permission. Caught by reading the generated DDL rather than assuming the table grant was sufficient."
+    },
+    {
+      "decision": "No insert/update/delete policy on digests, and no update/delete policy on agent_audit_log",
+      "reason": "Audit trail and digests are written server-side only; a client-facing write policy would let a caller forge history. Absence of a policy is the enforcement, not an omission."
+    },
+    {
+      "decision": "Duplicated the group-by columns explicitly instead of relying on grouping by primary key",
+      "reason": "Spec groups by e.id / b.id only. Grouping by the PK is sufficient in Postgres, but listing the columns keeps the views portable and reviewable without needing to know that rule."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "bunx supabase db reset applied the migration with no errors; bunx supabase test db supabase/tests/agent_layer.test.sql -> 17/17 pass; full suite bunx supabase test db -> 8 files / 76 tests PASS."
+  },
+  "migrations": ["supabase/migrations/20260926060000_m8_agent_layer.sql"],
+  "risks": [
+    "Views are read-only surfaces in v1; no write path for agents was added deliberately (out of scope for PSI-071).",
+    "agent_audit_log.args stores raw tool arguments; tools must not put secrets or personal data in arguments, since the log is readable by the caller and by anyone with agent.audit."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-072", "note": "Tool registry and runtime now have their backing views; implement src/agent/{define,registry,runtime}.ts and the five read tools." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "New RLS surface (four views plus two tables) on the agent read path. A human should confirm the security_invoker property is the intended isolation model and that no client write policy is wanted on digests, before this is relied on by the MCP layer."
+  }
+}

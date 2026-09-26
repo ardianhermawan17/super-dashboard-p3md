@@ -459,10 +459,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - review: obsidian-out/review/PSI-070.md
 
 ### PSI-071 · Migration M8 agent views, audit log, digests
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-070, PSI-061
+- pr: PR #37 (open — awaiting merge)
 - accept: agent_board_status, agent_agenda, agent_inbox, agent_documents with `security_invoker = true`; agent_audit_log insert-as-self; digests readable with `digest.receive`; pgTAP proves a non-member sees no rows through the views.
 
 ### PSI-072 · Agent tool registry, runtime and read tools

@@ -59,3 +59,40 @@ export type PermissionCatalogueItem = {
   description: string;
   grantingRoles: { id: string; name: string; slug: string }[];
 };
+
+// ============ Google Integrations (PSI-067) ============
+
+export type DriveRootItem = {
+  id: string;
+  folder_id: string;
+  name: string;
+  enabled: boolean;
+  last_synced_at: string | null;
+  last_error: string | null;
+  accessRoles: RoleItem[];
+  accessGroups: GroupItem[];
+};
+
+export type GoogleCalendarItem = {
+  id: string;
+  calendar_id: string;
+  name: string;
+  direction: 'pull' | 'push' | 'both';
+  role_id: string | null;
+  group_id: string | null;
+  role: RoleItem | null;
+  group: GroupItem | null;
+  enabled: boolean;
+  last_synced_at: string | null;
+  last_error: string | null;
+};
+
+export type AdminIntegrationsData = {
+  saEmail: string;
+  driveRoots: DriveRootItem[];
+  calendars: GoogleCalendarItem[];
+  allRoles: RoleItem[];
+  allGroups: GroupItem[];
+  canManageIntegrations: boolean;
+  canManageDocuments: boolean;
+};

@@ -21,7 +21,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
 - [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) #integration #phase-6
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push #integration #phase-6
-- [ ] [[tasks/PSI-067|PSI-067]] Admin: Integrations page #frontend #phase-6
 - [ ] [[tasks/PSI-070|PSI-070]] Migration M7 activity log #db #phase-7
 - [ ] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests #db #phase-7
 - [ ] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools #backend #phase-7
@@ -57,6 +56,7 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6
+- [ ] [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes · 1 run #frontend #phase-6
 
 
 ## Blocked

@@ -42,9 +42,19 @@ PSI-060. Nothing here is automatable by an agent (contract C-15).
 2. IAM → Service accounts → create `p3md-sync` → Keys → add JSON key.
    - If key creation is blocked, an org policy (`iam.disableServiceAccountKeyCreation`) is enforced; a Workspace admin must allow it for this project.
 3. Store the key as a Supabase secret, base64-encoded, and delete the downloaded file:
-   ```bash
-   supabase secrets set GOOGLE_SA_KEY_B64="$(base64 -w0 p3md-sync-key.json)"
-   ```
+ ```bash
+ supabase secrets set GOOGLE_SA_KEY_B64="$(base64 -w0 p3md-sync-key.json)"
+ ```
+ Windows (no `-w0`; these produce the same single-line value):
+ ```powershell
+ # Git Bash / WSL
+ supabase secrets set GOOGLE_SA_KEY_B64="$(base64 -w0 p3md-sync-key.json)"
+ # PowerShell
+ $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes("$PWD\p3md-sync-key.json"))
+ supabase secrets set "GOOGLE_SA_KEY_B64=$b64"
+ ```
+ Verify without printing the key: `supabase secrets list` shows names only.
+ Local dev: the same value goes in `supabase/functions/.env` (`supabase secrets set --env-file`) so `supabase functions serve` can read it.
 4. **Drive:** share each document root folder with the SA email (`p3md-sync@<project>.iam.gserviceaccount.com`) as **Viewer**. For a Shared Drive, add the SA as a member with Viewer.
 5. **Calendar:** share each calendar with the SA email:
    - pull-only (e.g. the official program calendar) → "See all event details"

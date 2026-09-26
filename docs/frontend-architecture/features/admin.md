@@ -17,6 +17,9 @@ All under `/dashboard/admin/`, built with the template's data-table and TanStack
 | **Groups** | `groups.manage` | Create/edit; members (add, remove, paste a list of emails); roles the group grants (needs `roles.manage`) |
 | **Roles** | `roles.manage` | Create/edit; permission matrix grouped by module (checkboxes you can't grant are disabled); holders count (direct + via groups) |
 | **Permissions** | `roles.manage` | Read-only catalogue: key, module, description, which roles grant it |
+| **Integrations** | `integrations.manage` or `documents.manage` (view), `integrations.manage` (act) | Service Account email with copy-to-clipboard, because operators must share Drive folders and calendars with it. Drive Roots tab: name, folder id, granted roles/groups, enabled, last sync, last error; add/edit/delete and per-root sync. Linked Calendars tab: calendar id, direction (`pull`/`push`/`both`), one bound role **or** group, enabled, last sync; link/edit/delete and per-calendar sync. See [documents.md](documents.md) and [calendar.md](calendar.md) |
+
+The Integrations page re-checks `integrations.manage` inside every mutating Server Action rather than relying on the page-level gate, and mirrors the schema's XOR rule (a Drive root access grant and a calendar binding each target exactly one role or one group). Its "Sync now" buttons post to the Edge Functions owned by PSI-062/065/066 and currently no-op while those are undeployed. Source: [m6-google.md](../../database-architecture/m6-google.md).
 
 Every page shows the note: *changes apply immediately to data access; menus update after the user's next token refresh.*
 

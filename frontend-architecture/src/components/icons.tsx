@@ -53,6 +53,7 @@ import {
   IconLogin,
   IconLogout,
   IconMail,
+  IconMapPin,
   IconMessage,
   IconMinus,
   IconMoon,
@@ -170,6 +171,7 @@ export const Icons = {
   login: IconLogin,
   logout: IconLogout,
   mail: IconMail,
+  mapPin: IconMapPin,
   gripVertical: IconGripVertical,
 
   // Shapes / Indicators

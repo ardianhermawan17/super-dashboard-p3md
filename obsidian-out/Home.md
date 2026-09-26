@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 46 | 0 | 0 | 0 | 0 | 28 | 74 |
+| 45 | 0 | 0 | 1 | 0 | 28 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T06-00-00Z__PSI-041__hermes|2026-09-26 13:00 WIB · hermes · PSI-041]]: Awaiting human operator review stamp on PSI-041 card.
 - [[history/2026-09-26T05-30-00Z__PSI-040__hermes|2026-09-26 12:30 WIB · hermes · PSI-040]]: Awaiting human operator review stamp on PSI-040 card.
 - [[history/2026-09-26T05-00-00Z__PSI-034__hermes|2026-09-26 12:00 WIB · hermes · PSI-034]]: Awaiting human operator review stamp on PSI-034 card.
 - [[history/2026-09-26T04-30-00Z__PSI-030__hermes|2026-09-26 11:30 WIB · hermes · PSI-030]]: Awaiting human operator review stamp on PSI-030 card.
@@ -54,6 +55,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 13:00 WIB · hermes · [[tasks/PSI-041|PSI-041]] · done: [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]
 - 2026-09-26 12:30 WIB · hermes · [[tasks/PSI-040|PSI-040]] · done: [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
 - 2026-09-26 12:00 WIB · hermes · [[tasks/PSI-034|PSI-034]] · done: [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]
 - 2026-09-26 11:30 WIB · hermes · [[tasks/PSI-030|PSI-030]] · done: [[history/2026-09-26T04-30-00Z__PSI-030__hermes|PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.]]
@@ -63,4 +65,3 @@ _Nothing waiting for review._
 - 2026-09-26 09:30 WIB · hermes · [[tasks/PSI-021|PSI-021]] · done: [[history/2026-09-26T02-30-00Z__PSI-021__hermes|PSI-021: Setup PWA shell: manifest, icons, and service worker.]]
 - 2026-09-26 09:00 WIB · hermes · [[tasks/PSI-020|PSI-020]] · done: [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]
 - 2026-09-25 22:00 WIB · hermes · [[tasks/PSI-019|PSI-019]] · done: [[history/2026-09-25T15-00-00Z__PSI-019__hermes|PSI-019: Implement Admin Groups, Roles, and Permissions pages.]]
-- 2026-09-25 21:30 WIB · hermes · [[tasks/PSI-018|PSI-018]] · done: [[history/2026-09-25T14-30-00Z__PSI-018__hermes|PSI-018: Build Admin Users page (/dashboard/admin/users) and admin-users Edge Function.]]

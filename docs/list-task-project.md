@@ -310,9 +310,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: events (with `source`), event_audience (user XOR role XOR group), `can_see_event`, `event_audience_user_ids`, invite and update notification triggers, RLS and pgTAP (creator, direct invitee, role holder via group, group member see it; outsider does not).
 
 ### PSI-041 · Port big-calendar onto Base UI
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-040
 - accept: Only `src/calendar/` copied; no Radix `components/ui` imported; no `asChild`; no react-dnd; month/week/day/agenda views render events from Supabase.
 

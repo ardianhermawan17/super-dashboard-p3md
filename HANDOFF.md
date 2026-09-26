@@ -1,63 +1,52 @@
 ---
-updated: 2026-09-26 19:05
+updated: 2026-09-26 16:20
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**None in progress.** Three cards landed to Review this session (all PRs open, awaiting merge):
+`PSI-065 · google-calendar /sync (pull)` — **review**.
+- Implementation: `supabase/functions/google-calendar/index.ts` + `mapper.ts`
+- Shared helpers: `supabase/functions/_shared/google.ts` (RS256 JWT SA signer) + `_shared/internal.ts` (bearer authentication)
+- Unit tests: `supabase/functions/google-calendar/sync.test.ts` (6/6 pass)
+- Database tests: `supabase/tests/google.test.sql` (13/13 pass, 64 total across suite)
+- Branch: `task/PSI-065`
+- PR: **#36** (open, awaiting merge) — head `d36ce8a`
 
-| PR | Task | What it landed | Verification |
-|----|-----|----------------|--------------|
-| [#37](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/37) | PSI-071 · M8 agent layer | `agent_board_status/agenda/inbox/documents` security_invoker views + `agent_audit_log` + `digests`; `20260926060000_m8_agent_layer.sql` | 8 files / 76 tests PASS (17 in agent_layer.test.sql) |
-| [#38](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/38) | PSI-072 · Agent tool registry | `frontend-architecture/src/agent/` — define/registry/runtime/links + 5 read tools + 8 unit tests | lint 0/0, typecheck clean, build pass, 13/13 frontend tests |
-| [#39](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/39) | PSI-080 · M9 talent | `20260926070000_m9_talent.sql` — 6 tables + RLS inline, private `cvs` bucket, `candidate_group_scores` security_invoker | 17/17 talent.test.sql, 8 files / 76 tests PASS |
+## Board State (after operator stamp)
 
-Previous open PRs on the same board:
-- **#36** (PSI-065 `/sync`) — open since earlier, untouched this session.
-- **#35** (PSI-099) — merged `0cb2229`, stamped done by operator.
+`PSI-099 · Hermes compute observability` — **done**, stamped by operator 2026-09-26
+(merged as PR #35, `0cb2229`). Mirrored into `docs/list-task-project.md` and regenerated
+into the vault. Lanes: 35 backlog / 0 todo / 1 doing / 1 review / 0 blocked / 38 done.
 
-## Board State (lanes)
+## Parallel Human Card
 
-35 backlog / 0 todo / 1 doing (PSI-060, yours) / 1 review (PSI-065) + 3 new review / 0 blocked / 38 done.
-Wait — PSI-071/072/080 are now `review` in the source, so Review lane will show 4 once vault syncs.
+`PSI-060 · Google Cloud project, service account, sharing` — **doing**.
+- Project + SA: `p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com`
+- APIs: Calendar API **HTTP 200**, Drive API **HTTP 200** (both active).
+- **Waiting on human:** Share target calendar with the SA email. Currently SA sees 0 calendars.
 
-## Master State
+## Next Card
 
-`master` = `origin/master` = **`876f871`**. PRs #36–#39 are open on top, not merged.
-
-## Next Ready Cards (dependency-ordered, all code-implementable)
-
-1. **PSI-081** (Consent & CV intake — backend; depends PSI-080 ✅ done)
-2. **PSI-097** (AgentShield in CI — security workflow; depends PSI-009 ✅ done)
-3. **PSI-096** (Hermes standing jobs — agent-ops; depends PSI-095 ✅, PSI-006 ✅)
-4. **PSI-042** (Event form with audience picker — frontend; depends PSI-041 ✅)
-5. **PSI-073** (MCP endpoint — backend; depends PSI-072 — **blocked until #38 merges**)
-
-Human-blocked: PSI-025 (device QA), PSI-031 (Resend key), PSI-090 (Vercel), PSI-062/063/064/066 (need PSI-060 calendar/drive sharing), PSI-074+ (OAuth hosted config).
+1. **`PSI-066 · google-calendar /push`** (depends on PSI-065). Route `/push` already stubbed
+   in `index.ts`; `_shared/google.ts` already scopes `calendar.events`.
+2. Follow-up: **`PSI-071 · Migration M8 agent views, audit log, digests`** (Phase 7, unblocked).
 
 ## Test Status
 
-unit: 8/8 (agent) · 13/13 (frontend total) · full pgTAP suite: **8 files / 76 tests PASS** ·
-lint: 0 warnings 0 errors · typecheck: clean · build: pass ·
+unit: 6 passed (sync.test.ts) · full suite: **pass** (7 pgTAP files / 64 tests) ·
+lint: pass (0 warnings, 0 errors on 282 files) · typecheck: pass · build: pass (all 25 routes) ·
 `bun run agent:check`: ok (75 tasks, 44 history entries)
 
-## Recurring Gotchas (learned this session — port to a skill)
+## In-flight Assumptions / Gotchas
 
-- **`.gitignore` plugins rule keeps vanishing**: `obsidian-out/.obsidian/plugins/` must be in `.gitignore`,
-  but it only exists on branches that added it. Master never got it because #36/#37/#38 carry it.
-  Until one of those merges, EVERY branch cut from master re-sweeps third-party plugin code
-  (remotely-save bundles a Google OAuth client id+secret) and GitHub Push Protection rejects the push.
-  Fix pattern: add the line to `.gitignore` on the new branch before `git add -A`.
-- **`supabase db reset` exits 502** after migrations apply cleanly: `supabase_vector_p3md` crash-loops
-  against the Docker socket. Not a migration failure — verify in psql via `docker exec supabase_db_p3md`.
-- **`server-only` throws under `bun test`**: stub with `mock.module('server-only', () => ({}))` before
-  dynamic-importing the runtime.
-- **View columns come back nullable** in `database.types.ts`: default/filter at the call site, don't cast.
-- Schema: `changes[].action` enum is `added/modified/deleted/renamed`; `migrations[]` wants the full
-  repo path (`supabase/migrations/….sql`).
-
-## Exact Next Action
-
-Pull **PSI-081** (Consent & CV intake) onto a branch off master — builds directly on M9.
-Or if the operator wants PRs merged first: merge #37 → #38 → #39 in dependency order, then rebase.
+- `docs/list-task-project.md` is the **source of truth**; `obsidian-out/` is generated.
+  Editing the vault by hand is fine, but re-running `scripts/obsidian-sync.ts` overwrites it —
+  so a hand-edit must be mirrored into the source file or it is lost on the next sync.
+- The generator **strips the `✅ YYYY-MM-DD`** completion stamp the Kanban plugin adds.
+  It emits `- [x] <title>` only. The stamp is not part of the generator's contract.
+- `obsidian-out/.obsidian/plugins/` is now **gitignored**. Do not commit plugin `main.js`
+  files: third-party plugins bundle vendor credentials (`remotely-save` carries a Google
+  OAuth client id + secret) and GitHub Push Protection rejects the push.
+- `scripts/obsidian-sync.ts --check` compares task **counts**, not lane assignment. A
+  hand-moved card passes `--check` even when source and vault disagree on status.

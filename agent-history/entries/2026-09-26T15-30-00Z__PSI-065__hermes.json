@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T15-30-00Z__PSI-065__hermes",
+  "task_ids": ["PSI-065"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T15:20:00Z",
+    "ended_at": "2026-09-26T15:55:00Z",
+    "branch": "task/PSI-065"
+  },
+  "intent": "PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.",
+  "outcome": "done",
+  "summary": "Implemented supabase/functions/google-calendar/index.ts and mapper.ts for the 15-minute cron pull sync. Added supabase/functions/_shared/google.ts for RS256 JWT service account token generation and _shared/internal.ts for bearer authentication. Handles singleEvents recurrence expansion, all-day conversion (+07:00), cancellation filtering, loop prevention via p3md_event_id check, upsert_google_event RPC, and prune_google_events RPC. Added Bun unit tests (6/6 pass) and expanded pgTAP tests in supabase/tests/google.test.sql (13/13 pass, 64 total across suite).",
+  "changes": [
+    {
+      "path": "supabase/functions/_shared/google.ts",
+      "action": "added",
+      "note": "Service account RS256 JWT token signer and gfetch helper"
+    },
+    {
+      "path": "supabase/functions/_shared/internal.ts",
+      "action": "added",
+      "note": "Bearer authentication check against INTERNAL_FN_SECRET"
+    },
+    {
+      "path": "supabase/functions/google-calendar/mapper.ts",
+      "action": "added",
+      "note": "Google Calendar event mapping and loop prevention filter"
+    },
+    {
+      "path": "supabase/functions/google-calendar/index.ts",
+      "action": "added",
+      "note": "Edge function for /sync pull cron and /push routing"
+    },
+    {
+      "path": "supabase/functions/google-calendar/sync.test.ts",
+      "action": "added",
+      "note": "Unit tests for mapper, recurrence, all-day and filters"
+    },
+    {
+      "path": "supabase/tests/google.test.sql",
+      "action": "modified",
+      "note": "pgTAP assertions for upsert_google_event and RLS audience visibility"
+    },
+    {
+      "path": "obsidian-out/review/PSI-065.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-065 moved to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Extract pure event mapper into mapper.ts",
+      "reason": "Allows fast Bun unit tests without requiring Deno npm: import specifier shims."
+    },
+    {
+      "decision": "Filter out events carrying extendedProperties.private.p3md_event_id",
+      "reason": "Prevents sync loops where events pushed by our app get re-imported as new Google events."
+    },
+    {
+      "decision": "Map all-day event start dates to 00:00:00+07:00 (Asia/Jakarta)",
+      "reason": "Aligns with the application standard timezone specification for agenda displays."
+    }
+  ],
+  "dependencies_added": [],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Ran bun test supabase/functions/google-calendar/sync.test.ts (6 pass); bunx supabase test db (7 files, 64 tests PASS); bun run lint (0 warnings/errors); bun run typecheck (exit 0); bun run build (25/25 routes)."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-065 card."
+  }
+}

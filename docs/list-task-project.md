@@ -383,12 +383,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 6 — Google Workspace (Drive documents, Calendar)
 
 ### PSI-060 · Google Cloud project, service account, sharing
-- status: blocked
+- status: doing
 - area: integration
 - owner: human
 - depends: —
 - blocks: PSI-062, PSI-065, PSI-066
-- blocked: partially advanced 2026-09-26. DONE: project + SA created (`p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com`), JSON key obtained (`service-key-p3md-coding-squid.json`, gitignored), Calendar API enabled and verified live (HTTP 200 from `calendarList`), local `GOOGLE_SA_KEY_B64` written to `supabase/functions/.env`. REMAINING (all human): (1) share each target calendar with the SA email; (2) enable Google Drive API on project `566787048974` — currently returns 403 accessNotConfigured, blocks PSI-062/063/064; (3) set the remote secret `supabase secrets set GOOGLE_SA_KEY_B64=...` and delete the key file + empty Trash.
+- blocked: verified live 2026-09-26 by read-only probe (SA token → `calendar/v3/users/me/calendarList` + `drive/v3/about`). DONE: project + SA `p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com`; JSON key on disk (`service-key-p3md-coding-squid.json`, gitignored); Calendar API live (HTTP 200); **Drive API live (HTTP 200 — was 403 accessNotConfigured, now enabled)**; local `GOOGLE_SA_KEY_B64` in `supabase/functions/.env`. REMAINING (all human): (1) **share each target calendar with the SA email** — the SA still sees **0 calendars**, so `google_calendars` has nothing to sync and this gates PSI-065/066 acceptance; (2) set the remote secret `supabase secrets set GOOGLE_SA_KEY_B64=...`; (3) delete the key file and empty the Trash.
 - accept: Drive API and Calendar API enabled; service-account key stored as `GOOGLE_SA_KEY_B64` secret and the file deleted; document roots and calendars shared with the SA email per backend-architecture/google-integration.md.
 - runbook: docs/agent-operations/tutorial-google-calendar-api.md (calendar) · docs/backend-architecture/google-integration.md § "Google Cloud setup (human, once)" (Drive)
 
@@ -423,9 +423,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: /dashboard/documents shows visible roots, folder tree, table with name filter and "search inside documents"; /dashboard/documents/[id] renders PDFs inline on desktop and via "Open" on phones; 415 shows "Open in Google Drive".
 
 ### PSI-065 · google-calendar /sync (pull)
-- status: backlog
+- status: doing
 - area: integration
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-060, PSI-061
 - accept: Events from pull calendars appear in the agenda within 15 min, read-only, badged, with the calendar's role/group audience; cancelled and removed events disappear; our own pushed events are not re-imported; imports never notify.
 

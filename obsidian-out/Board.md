@@ -19,7 +19,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
-- [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) #integration #phase-6
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push #integration #phase-6
 - [ ] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests #db #phase-7
 - [ ] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools #backend #phase-7
@@ -50,6 +49,8 @@ kanban-plugin: board
 
 ## Doing
 
+- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
+- [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes #integration #phase-6
 
 
 ## Review
@@ -59,7 +60,6 @@ kanban-plugin: board
 
 ## Blocked
 
-- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
 
 
 ## Done

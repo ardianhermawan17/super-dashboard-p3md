@@ -8,15 +8,16 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 36 | 0 | 0 | 1 | 1 | 37 | 75 |
+| 35 | 0 | 2 | 1 | 0 | 37 | 75 |
 
 ## Blocked
 
-- [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
+_Nothing blocked._
 
 ## Doing
 
-_Nothing in progress._
+- [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
+- [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes
 
 ## Review
 

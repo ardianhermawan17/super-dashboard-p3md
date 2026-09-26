@@ -200,9 +200,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 2 — Notifications and PWA
 
 ### PSI-020 · Migration M2 notifications and push
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012
 - accept: pg_net, pg_cron, `internal_post`, notifications, push_subscriptions, notification_prefs, notify, register_push_subscription, push_targets, mark_pushed, statement-level dispatch trigger, retention job, realtime publication as in database-architecture/m2-notifications.md.
 

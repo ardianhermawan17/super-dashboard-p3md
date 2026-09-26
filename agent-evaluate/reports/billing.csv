@@ -1,0 +1,4 @@
+provider,period,billed_requests,billed_tokens,billed_usd,list_usd,expected_usd,actual_usd_per_1m,expected_usd_per_1m,actual_vs_expected_pct,delivered_requests,delivered_tokens,failed_attempts,likely_billed_failed,usd_per_1m_delivered,paid_for_undelivered_pct,flags
+cheaperinference,2026-09-24,147,8257594,0.707718,1.233032,0.920002,0.085705,0.111413,-23.07,105,6104653,53,53,0.115931,35.27,paid_for_undelivered
+cheaperinference,2026-09-25,945,94904492,3.58519,6.46559,8.365519,0.037777,0.088147,-57.14,863,84084757,113,113,0.042638,12.87,paid_for_undelivered
+cheaperinference,total,1092,103162086,4.292908,7.698622,9.285521,0.041613,0.090009,-53.77,968,90189410,166,166,0.047599,14.38,paid_for_undelivered

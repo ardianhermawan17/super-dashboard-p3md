@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 36 | 0 | 0 | 0 | 1 | 37 | 74 |
+| 36 | 0 | 0 | 1 | 1 | 37 | 75 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code
 
 ## AI sessions waiting for a human
 
@@ -38,6 +38,7 @@ _Nothing waiting for review._
 - [[history/2026-09-26T04-30-00Z__PSI-030__hermes|2026-09-26 11:30 WIB · hermes · PSI-030]]: Awaiting human operator review stamp on PSI-030 card.
 - [[history/2026-09-26T04-00-00Z__PSI-024__hermes|2026-09-26 11:00 WIB · hermes · PSI-024]]: Awaiting human operator review stamp on PSI-024 card.
 - [[history/2026-09-26T03-30-00Z__PSI-023__hermes|2026-09-26 10:30 WIB · hermes · PSI-023]]: Awaiting human operator review stamp on PSI-023 card.
+- [[history/2026-09-26T03-03-30Z__PSI-099__claude-code|2026-09-26 10:03 WIB · claude-code · PSI-099]]: No independent code review completed (the review agent hit a rate limit), so a human review of agent-evaluate/ is needed. Confirm prices and the success definition, read the report's findings, decide on phase B (agent config, C-15). Changes are on branch task/PSI-099 for PR review.
 - [[history/2026-09-26T03-00-00Z__PSI-022__hermes|2026-09-26 10:00 WIB · hermes · PSI-022]]: Awaiting human operator review stamp on PSI-022 card.
 - [[history/2026-09-26T02-30-00Z__PSI-021__hermes|2026-09-26 09:30 WIB · hermes · PSI-021]]: Awaiting human operator review stamp on PSI-021 card.
 - [[history/2026-09-26T02-00-00Z__PSI-020__hermes|2026-09-26 09:00 WIB · hermes · PSI-020]]: Awaiting human operator review stamp on PSI-020 card.

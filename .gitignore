@@ -17,6 +17,9 @@ node_modules/
 # graphify leaves transient backup files during its replace step
 graphify-out/cache/.gfy-replace-bak-*.tmp
 .ecc/
+# agent-evaluate: per-step telemetry and raw billing exports stay local (reports/ is committed)
+agent-evaluate/out/
+agent-evaluate/data/
 # obsidian-out: only its README is committed (see obsidian-out/README.md)
 # obsidian-out/*
 # !obsidian-out/README.md

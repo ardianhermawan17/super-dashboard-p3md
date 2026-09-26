@@ -54,6 +54,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0
 
 
 ## Blocked

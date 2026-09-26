@@ -1,0 +1,68 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T04-30-00Z__PSI-030__hermes",
+  "task_ids": ["PSI-030"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T04:30:00Z",
+    "ended_at": "2026-09-26T04:55:00Z",
+    "branch": "task/PSI-030"
+  },
+  "intent": "PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.",
+  "outcome": "done",
+  "summary": "Applied migration M3 (20260926023837_role_and_group_mail.sql) creating messages and message_recipients tables with role XOR group check constraint, security definer cycle-breaking helpers is_message_sender and is_message_recipient, service-role-only mail_recipients function with group inheritance resolution, and public mail_recipient_count function. Added pgTAP tests in supabase/tests/role_mail.test.sql.",
+  "changes": [
+    {
+      "path": "supabase/migrations/20260926023837_role_and_group_mail.sql",
+      "action": "added",
+      "note": "Migration M3 mail schema"
+    },
+    {
+      "path": "supabase/tests/role_mail.test.sql",
+      "action": "added",
+      "note": "pgTAP assertions for role mail"
+    },
+    {
+      "path": "frontend-architecture/src/lib/supabase/database.types.ts",
+      "action": "modified",
+      "note": "Regenerated database types"
+    },
+    {
+      "path": "obsidian-out/review/PSI-030.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-030 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "No email columns in messages or message_recipients tables",
+      "reason": "Follows privacy architecture: email addresses are resolved strictly on-demand by service-role send-role-mail function."
+    },
+    {
+      "decision": "Use security definer helper functions to break RLS recursion",
+      "reason": "Avoids infinite recursion errors when messages and message_recipients policies reference each other."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified pgTAP test suite with 30 assertions passing cleanly."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-030 card."
+  }
+}

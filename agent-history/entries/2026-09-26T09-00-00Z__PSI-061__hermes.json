@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T09-00-00Z__PSI-061__hermes",
+  "task_ids": ["PSI-061"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T09:00:00Z",
+    "ended_at": "2026-09-26T09:40:00Z",
+    "branch": "task/PSI-061"
+  },
+  "intent": "PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.",
+  "outcome": "done",
+  "summary": "Implemented supabase/migrations/20260926040000_m6_google.sql with drive_roots, drive_root_access, drive_files (pg_trgm GIN index), document_views, google_calendars, event_google_links, can_see_drive_root() RLS helper, google push triggers via pg_net, upsert_google_event() and prune_google_events() service-role helpers, and pg_cron schedules. Added supabase/tests/google.test.sql (8 pgTAP assertions) proving a user without root access sees zero roots or files.",
+  "changes": [
+    {
+      "path": "supabase/migrations/20260926040000_m6_google.sql",
+      "action": "added",
+      "note": "M6 Google Workspace migration"
+    },
+    {
+      "path": "supabase/tests/google.test.sql",
+      "action": "added",
+      "note": "pgTAP suite for Drive/Calendar RLS"
+    },
+    {
+      "path": "frontend-architecture/src/lib/supabase/database.types.ts",
+      "action": "modified",
+      "note": "Regenerated database types"
+    },
+    {
+      "path": "obsidian-out/review/PSI-061.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-061 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Use pg_trgm GIN index on drive_files.name in the extensions schema",
+      "reason": "Enables fast substring and fuzzy document search without external search infrastructure."
+    },
+    {
+      "decision": "Enforce XOR (num_nonnulls = 1) on drive_root_access and google_calendars",
+      "reason": "Guarantees each access grant or calendar maps to exactly one role or one group, keeping RLS resolution deterministic."
+    },
+    {
+      "decision": "Capture event_google_links in a BEFORE DELETE trigger",
+      "reason": "The link rows cascade away with the event, so the delete push payload must be built before the cascade runs."
+    }
+  ],
+  "dependencies_added": [],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified database migration and 8 pgTAP assertions for Google Workspace RLS and constraints."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-061 card."
+  }
+}

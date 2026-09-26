@@ -64,7 +64,6 @@ kanban-plugin: board
 
 ## Todo
 
-- [ ] [[tasks/PSI-019|PSI-019]] Admin: Groups, Roles, Permissions pages #frontend #phase-1
 
 
 ## Doing
@@ -73,6 +72,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-019|PSI-019]] Admin: Groups, Roles, Permissions pages · agent:hermes · 1 run #frontend #phase-1
 
 
 ## Blocked

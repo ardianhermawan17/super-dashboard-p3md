@@ -224,9 +224,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Permission asked only after a tap; subscription stored via `register_push_subscription`; iOS shows the install hint when not standalone; per-type mute toggles and device list in settings.
 
 ### PSI-023 · Push dispatch route
-- status: backlog
+- status: review
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-020
 - accept: `/api/push/dispatch` rejects calls without `INTERNAL_FN_SECRET`; sends through web-push with VAPID and a concurrency pool; deletes 404/410 subscriptions; marks notifications pushed.
 

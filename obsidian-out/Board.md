@@ -8,7 +8,6 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs #agent-ops #phase-0
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI #security #phase-0
-- [ ] [[tasks/PSI-023|PSI-023]] Push dispatch route #backend #phase-2
 - [ ] [[tasks/PSI-024|PSI-024]] Notification center and live bell #frontend #phase-2
 - [ ] [[tasks/PSI-025|PSI-025]] Device QA for install and push · human #frontend #phase-2
 - [ ] [[tasks/PSI-030|PSI-030]] Migration M3 role and group mail · 1 run #db #phase-3
@@ -69,6 +68,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-023|PSI-023]] Push dispatch route · agent:hermes · 1 run #backend #phase-2
 
 
 ## Blocked

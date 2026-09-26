@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 51 | 0 | 0 | 0 | 0 | 23 | 74 |
+| 50 | 0 | 0 | 1 | 0 | 23 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-023|PSI-023]] Push dispatch route · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T03-30-00Z__PSI-023__hermes|2026-09-26 10:30 WIB · hermes · PSI-023]]: Awaiting human operator review stamp on PSI-023 card.
 - [[history/2026-09-26T03-00-00Z__PSI-022__hermes|2026-09-26 10:00 WIB · hermes · PSI-022]]: Awaiting human operator review stamp on PSI-022 card.
 - [[history/2026-09-26T02-30-00Z__PSI-021__hermes|2026-09-26 09:30 WIB · hermes · PSI-021]]: Awaiting human operator review stamp on PSI-021 card.
 - [[history/2026-09-26T02-00-00Z__PSI-020__hermes|2026-09-26 09:00 WIB · hermes · PSI-020]]: Awaiting human operator review stamp on PSI-020 card.
@@ -49,6 +50,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 10:30 WIB · hermes · [[tasks/PSI-023|PSI-023]] · done: [[history/2026-09-26T03-30-00Z__PSI-023__hermes|PSI-023: Implement push dispatch route.]]
 - 2026-09-26 10:00 WIB · hermes · [[tasks/PSI-022|PSI-022]] · done: [[history/2026-09-26T03-00-00Z__PSI-022__hermes|PSI-022: Implement push enablement hook, explicit activation UI, and notification preferences.]]
 - 2026-09-26 09:30 WIB · hermes · [[tasks/PSI-021|PSI-021]] · done: [[history/2026-09-26T02-30-00Z__PSI-021__hermes|PSI-021: Setup PWA shell: manifest, icons, and service worker.]]
 - 2026-09-26 09:00 WIB · hermes · [[tasks/PSI-020|PSI-020]] · done: [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]
@@ -58,4 +60,3 @@ _Nothing waiting for review._
 - 2026-09-25 20:30 WIB · hermes · [[tasks/PSI-016|PSI-016]] · done: [[history/2026-09-25T13-30-00Z__PSI-016__hermes|PSI-016: Implement Next.js 16 authentication pages and routes (sign-in, sign-up, forgot-password, reset-password, confirm, sign-out) with Base UI primitives and Onboarding Option A.]]
 - 2026-09-25 19:30 WIB · hermes · [[tasks/PSI-009|PSI-009]] · done: [[history/2026-09-25T12-30-00Z__PSI-009__hermes|PSI-009: complete + verify + review the ECC install for Claude Code and Hermes, then mirror review->done per operator instruction.]]
 - 2026-09-25 17:35 WIB · hermes · [[tasks/PSI-015|PSI-015]] · done: [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
-- 2026-09-25 17:10 WIB · hermes · [[tasks/PSI-014|PSI-014]] · done: [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]

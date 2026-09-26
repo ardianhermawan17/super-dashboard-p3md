@@ -34,6 +34,70 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_log: {
+        Row: {
+          actor_id: string | null
+          board_id: string | null
+          entity_id: string
+          entity_type: string
+          group_id: string | null
+          id: number
+          meta: Json
+          occurred_at: string
+          role_id: string | null
+          summary: string
+          verb: string
+        }
+        Insert: {
+          actor_id?: string | null
+          board_id?: string | null
+          entity_id: string
+          entity_type: string
+          group_id?: string | null
+          id?: never
+          meta?: Json
+          occurred_at?: string
+          role_id?: string | null
+          summary: string
+          verb: string
+        }
+        Update: {
+          actor_id?: string | null
+          board_id?: string | null
+          entity_id?: string
+          entity_type?: string
+          group_id?: string | null
+          id?: never
+          meta?: Json
+          occurred_at?: string
+          role_id?: string | null
+          summary?: string
+          verb?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "activity_log_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "activity_log_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       board_columns: {
         Row: {
           board_id: string

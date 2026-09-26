@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T13-00-00Z__PSI-070__hermes",
+  "task_ids": ["PSI-070"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T12:50:00Z",
+    "ended_at": "2026-09-26T13:30:00Z",
+    "branch": "task/PSI-070"
+  },
+  "intent": "PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.",
+  "outcome": "done",
+  "summary": "Implemented supabase/migrations/20260926050000_m7_activity_log.sql with public.activity_log table, RLS policy enforcing entity visibility (actor, board, role, group, event), triggers on tasks (inserts, updates, moves, deletes with position-only suppression), triggers on messages (sent/failed status), triggers on events (app-only source, Google imports skipped), and 180-day retention cron schedule. Added supabase/tests/activity_log.test.sql (9 pgTAP assertions).",
+  "changes": [
+    {
+      "path": "supabase/migrations/20260926050000_m7_activity_log.sql",
+      "action": "added",
+      "note": "M7 Activity log migration"
+    },
+    {
+      "path": "supabase/tests/activity_log.test.sql",
+      "action": "added",
+      "note": "pgTAP suite for activity triggers and RLS"
+    },
+    {
+      "path": "frontend-architecture/src/lib/supabase/database.types.ts",
+      "action": "modified",
+      "note": "Regenerated database types"
+    },
+    {
+      "path": "obsidian-out/review/PSI-070.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-070 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Suppress task reordering within a column by checking business columns",
+      "reason": "Kanban drag-and-drop fires frequent position-only updates that would flood the log with noise."
+    },
+    {
+      "decision": "Exclude external Google calendar events (source = 'google') from activity logging",
+      "reason": "External imports arrive in bulk during sync; skipping prevents noise and avoids sync cycles."
+    },
+    {
+      "decision": "Do not expose an INSERT policy on activity_log to authenticated users",
+      "reason": "Activity log is an immutable trigger-fed audit trail; clients must not fabricate log entries."
+    }
+  ],
+  "dependencies_added": [],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified database migration and 9 pgTAP assertions for activity triggers, reorder suppression, Google exclusion, and RLS."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-070 card."
+  }
+}

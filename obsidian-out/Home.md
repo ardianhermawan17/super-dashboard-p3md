@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 36 | 1 | 0 | 0 | 1 | 36 | 74 |
+| 36 | 0 | 0 | 1 | 1 | 36 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T13-00-00Z__PSI-070__hermes|2026-09-26 19:50 WIB · hermes · PSI-070]]: Awaiting human operator review stamp on PSI-070 card.
 - [[history/2026-09-26T10-30-00Z__PSI-067__hermes|2026-09-26 17:10 WIB · hermes · PSI-067]]: PSI-067 is a user-facing admin page awaiting the operator's visual review and manual stamp to done in Obsidian. Also confirm open question 1: whether the not-yet-functional Sync buttons should be hidden until PSI-062/065/066 deploy.
 - [[history/2026-09-26T09-00-00Z__PSI-061__hermes|2026-09-26 16:00 WIB · hermes · PSI-061]]: Awaiting human operator review stamp on PSI-061 card.
 - [[history/2026-09-26T08-30-00Z__PSI-053__hermes|2026-09-26 15:30 WIB · hermes · PSI-053]]: Awaiting human operator review stamp on PSI-053 card.
@@ -62,6 +63,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 19:50 WIB · hermes · [[tasks/PSI-070|PSI-070]] · done: [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]
 - 2026-09-26 17:10 WIB · hermes · [[tasks/PSI-067|PSI-067]] · done: [[history/2026-09-26T10-30-00Z__PSI-067__hermes|PSI-067: Admin: Integrations page — show the Service Account email, register Drive roots with role/group access, and link Google Calendars with a direction and audience.]]
 - 2026-09-26 16:00 WIB · hermes · [[tasks/PSI-061|PSI-061]] · done: [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
 - 2026-09-26 15:30 WIB · hermes · [[tasks/PSI-053|PSI-053]] · done: [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
@@ -71,4 +73,3 @@ _Nothing waiting for review._
 - 2026-09-26 13:30 WIB · hermes · [[tasks/PSI-044|PSI-044]] · done: [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
 - 2026-09-26 13:00 WIB · hermes · [[tasks/PSI-041|PSI-041]] · done: [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]
 - 2026-09-26 12:30 WIB · hermes · [[tasks/PSI-040|PSI-040]] · done: [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
-- 2026-09-26 12:00 WIB · hermes · [[tasks/PSI-034|PSI-034]] · done: [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]

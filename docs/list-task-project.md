@@ -182,10 +182,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `getSession()` returns roles, groups and permissions from claims; `requirePermission()` guards pages and actions; sidebar and kbar hide items without permission; `visibleNav` unit-tested.
 
 ### PSI-018 · Admin: Users page and admin-users Edge Function
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-017
+- merged: PR #13 (2026-09-25)
 - accept: Users table via `admin_list_users()` with direct and inherited roles; invite one, CSV import, suspend and reactivate work through `admin-users`; role/group edits are RLS-checked Server Actions; escalation attempts fail with a readable error.
 
 ### PSI-019 · Admin: Groups, Roles, Permissions pages

@@ -73,7 +73,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function · agent:hermes · 1 run #frontend #phase-1
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-015|PSI-015]] pgTAP tests for RBAC · agent:hermes · 2 runs #security #phase-1
 - [x] [[tasks/PSI-016|PSI-016]] Auth pages and onboarding path · agent:hermes · 1 run #frontend #phase-1
 - [x] [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation · agent:hermes · 1 run #frontend #phase-1
+- [x] [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function · agent:hermes · 1 run #frontend #phase-1
 
 
 %% kanban:settings

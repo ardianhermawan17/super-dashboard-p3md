@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 1 | 0 | 1 | 0 | 18 | 74 |
+| 54 | 1 | 0 | 0 | 0 | 19 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

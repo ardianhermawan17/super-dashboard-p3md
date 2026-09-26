@@ -34,6 +34,112 @@ export type Database = {
   }
   public: {
     Tables: {
+      board_columns: {
+        Row: {
+          board_id: string
+          id: string
+          is_done: boolean
+          position: string
+          title: string
+        }
+        Insert: {
+          board_id: string
+          id?: string
+          is_done?: boolean
+          position: string
+          title: string
+        }
+        Update: {
+          board_id?: string
+          id?: string
+          is_done?: boolean
+          position?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_columns_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      board_groups: {
+        Row: {
+          board_id: string
+          group_id: string
+        }
+        Insert: {
+          board_id: string
+          group_id: string
+        }
+        Update: {
+          board_id?: string
+          group_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_groups_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "board_groups_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      board_members: {
+        Row: {
+          board_id: string
+          user_id: string
+        }
+        Insert: {
+          board_id: string
+          user_id: string
+        }
+        Update: {
+          board_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_members_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      boards: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       calendar_feed_tokens: {
         Row: {
           created_at: string
@@ -495,6 +601,66 @@ export type Database = {
         }
         Relationships: []
       }
+      tasks: {
+        Row: {
+          assignee_id: string | null
+          board_id: string
+          column_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          due_date: string | null
+          id: string
+          position: string
+          priority: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee_id?: string | null
+          board_id: string
+          column_id: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          position: string
+          priority?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee_id?: string | null
+          board_id?: string
+          column_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          position?: string
+          priority?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_column_id_fkey"
+            columns: ["column_id"]
+            isOneToOne: false
+            referencedRelation: "board_columns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_invites: {
         Row: {
           accepted_at: string | null
@@ -599,6 +765,8 @@ export type Database = {
         Args: { p_body?: Json; p_path: string; p_target: string }
         Returns: number
       }
+      is_board_member: { Args: { p_board: string }; Returns: boolean }
+      is_board_owner: { Args: { p_board: string }; Returns: boolean }
       is_event_creator: { Args: { p_event: string }; Returns: boolean }
       is_message_recipient: { Args: { p_message: string }; Returns: boolean }
       is_message_sender: { Args: { p_message: string }; Returns: boolean }

@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 44 | 0 | 0 | 0 | 0 | 30 | 74 |
+| 43 | 0 | 0 | 1 | 0 | 30 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T07-00-00Z__PSI-050__hermes|2026-09-26 14:00 WIB · hermes · PSI-050]]: Awaiting human operator review stamp on PSI-050 card.
 - [[history/2026-09-26T06-30-00Z__PSI-044__hermes|2026-09-26 13:30 WIB · hermes · PSI-044]]: Awaiting human operator review stamp on PSI-044 card.
 - [[history/2026-09-26T06-00-00Z__PSI-041__hermes|2026-09-26 13:00 WIB · hermes · PSI-041]]: Awaiting human operator review stamp on PSI-041 card.
 - [[history/2026-09-26T05-30-00Z__PSI-040__hermes|2026-09-26 12:30 WIB · hermes · PSI-040]]: Awaiting human operator review stamp on PSI-040 card.
@@ -56,6 +57,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 14:00 WIB · hermes · [[tasks/PSI-050|PSI-050]] · done: [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]
 - 2026-09-26 13:30 WIB · hermes · [[tasks/PSI-044|PSI-044]] · done: [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
 - 2026-09-26 13:00 WIB · hermes · [[tasks/PSI-041|PSI-041]] · done: [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]
 - 2026-09-26 12:30 WIB · hermes · [[tasks/PSI-040|PSI-040]] · done: [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
@@ -65,4 +67,3 @@ _Nothing waiting for review._
 - 2026-09-26 10:30 WIB · hermes · [[tasks/PSI-023|PSI-023]] · done: [[history/2026-09-26T03-30-00Z__PSI-023__hermes|PSI-023: Implement push dispatch route.]]
 - 2026-09-26 10:00 WIB · hermes · [[tasks/PSI-022|PSI-022]] · done: [[history/2026-09-26T03-00-00Z__PSI-022__hermes|PSI-022: Implement push enablement hook, explicit activation UI, and notification preferences.]]
 - 2026-09-26 09:30 WIB · hermes · [[tasks/PSI-021|PSI-021]] · done: [[history/2026-09-26T02-30-00Z__PSI-021__hermes|PSI-021: Setup PWA shell: manifest, icons, and service worker.]]
-- 2026-09-26 09:00 WIB · hermes · [[tasks/PSI-020|PSI-020]] · done: [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]

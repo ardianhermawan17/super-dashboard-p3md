@@ -3,7 +3,47 @@
 import { createClient } from '@/lib/supabase/server';
 import { getSession } from '@/lib/auth/session';
 import { revalidatePath } from 'next/cache';
-import type { NotificationPref, PushSubscriptionDevice } from './types';
+import type { NotificationItem, NotificationPref, PushSubscriptionDevice } from './types';
+
+export async function getNotificationsAction(options?: {
+  limit?: number;
+  unreadOnly?: boolean;
+}): Promise<{ notifications: NotificationItem[]; unreadCount: number }> {
+  const session = await getSession();
+  if (!session) return { notifications: [], unreadCount: 0 };
+  const supabase = await createClient();
+
+  let query = supabase
+    .from('notifications')
+    .select('*')
+    .eq('user_id', session.userId)
+    .order('created_at', { ascending: false });
+
+  if (options?.unreadOnly) {
+    query = query.is('read_at', null);
+  }
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  const [{ data, error }, { count }] = await Promise.all([
+    query,
+    supabase
+      .from('notifications')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', session.userId)
+      .is('read_at', null)
+  ]);
+
+  if (error) {
+    return { notifications: [], unreadCount: 0 };
+  }
+
+  return {
+    notifications: (data ?? []) as unknown as NotificationItem[],
+    unreadCount: count ?? 0
+  };
+}
 
 export async function getNotificationSettingsAction(): Promise<{
   prefs: NotificationPref[];

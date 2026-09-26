@@ -52,6 +52,7 @@ import {
   IconLock,
   IconLogin,
   IconLogout,
+  IconMail,
   IconMessage,
   IconMinus,
   IconMoon,
@@ -167,6 +168,7 @@ export const Icons = {
   share: IconShare,
   login: IconLogin,
   logout: IconLogout,
+  mail: IconMail,
   gripVertical: IconGripVertical,
 
   // Shapes / Indicators

@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T04-00-00Z__PSI-024__hermes",
+  "task_ids": ["PSI-024"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T04:00:00Z",
+    "ended_at": "2026-09-26T04:30:00Z",
+    "branch": "task/PSI-024"
+  },
+  "intent": "PSI-024: Implement Notification center and live bell.",
+  "outcome": "done",
+  "summary": "Built mobile-first notifications page (/dashboard/notifications) with time-grouped notifications (Today/Earlier), category filters, mark read, mark all read, quick shortcuts to Agenda/Mail/Kanban, and header bell component with live Supabase Realtime CDC subscription. Verified with tsc, oxlint, and next build.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/notifications/api/keys.ts",
+      "action": "added",
+      "note": "Notification query keys"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/hooks/use-notification-feed.ts",
+      "action": "added",
+      "note": "Supabase Realtime notification channel hook"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/utils/store.ts",
+      "action": "modified",
+      "note": "Zustand store with optimistic unread count and batch sync"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/components/notification-center.tsx",
+      "action": "modified",
+      "note": "Integrated live bell with Realtime feed"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/components/notifications-page.tsx",
+      "action": "modified",
+      "note": "Grouped list, category select filter, shortcuts bar"
+    },
+    {
+      "path": "frontend-architecture/src/components/icons.tsx",
+      "action": "modified",
+      "note": "Added IconMail icon"
+    },
+    {
+      "path": "obsidian-out/review/PSI-024.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-024 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Group notifications by Today and Earlier with category filters",
+      "reason": "Provides clean mobile triage interface without cluttering users with stale notifications."
+    },
+    {
+      "decision": "Use Supabase Realtime postgres_changes filter user_id=eq.{userId}",
+      "reason": "Live updates bell count immediately when a notification insert trigger runs."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified Realtime hook, grouped notifications rendering, and clean build."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-024 card."
+  }
+}

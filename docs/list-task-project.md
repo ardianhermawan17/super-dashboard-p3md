@@ -232,9 +232,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `/api/push/dispatch` rejects calls without `INTERNAL_FN_SECRET`; sends through web-push with VAPID and a concurrency pool; deletes 404/410 subscriptions; marks notifications pushed.
 
 ### PSI-024 · Notification center and live bell
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-020
 - accept: Mobile-first `/dashboard/notifications` (unread first, filters, mark read, mark all); header bell count updates via Realtime without reload; every item deep-links.
 

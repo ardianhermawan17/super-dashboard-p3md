@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 44 | 0 | 0 | 1 | 0 | 29 | 74 |
+| 44 | 0 | 0 | 0 | 0 | 30 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-044|PSI-044]] ICS subscription feed · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

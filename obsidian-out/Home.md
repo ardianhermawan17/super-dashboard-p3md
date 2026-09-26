@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 50 | 0 | 0 | 1 | 0 | 23 | 74 |
+| 50 | 0 | 0 | 0 | 0 | 24 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-023|PSI-023]] Push dispatch route · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

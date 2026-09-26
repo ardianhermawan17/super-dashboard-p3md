@@ -67,7 +67,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-024|PSI-024]] Notification center and live bell · agent:hermes · 1 run #frontend #phase-2
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-021|PSI-021]] PWA shell: manifest, icons, service worker · agent:hermes · 1 run #frontend #phase-2
 - [x] [[tasks/PSI-022|PSI-022]] Enable push on a device and notification preferences · agent:hermes · 1 run #frontend #phase-2
 - [x] [[tasks/PSI-023|PSI-023]] Push dispatch route · agent:hermes · 1 run #backend #phase-2
+- [x] [[tasks/PSI-024|PSI-024]] Notification center and live bell · agent:hermes · 1 run #frontend #phase-2
 
 
 %% kanban:settings

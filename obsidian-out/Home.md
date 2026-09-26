@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 35 | 0 | 2 | 1 | 0 | 37 | 75 |
+| 34 | 0 | 2 | 2 | 0 | 37 | 75 |
 
 ## Blocked
 
@@ -22,6 +22,7 @@ _Nothing blocked._
 ## Review
 
 - [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code
+- [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes
 
 ## AI sessions waiting for a human
 

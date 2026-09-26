@@ -68,6 +68,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-27 05:05 WIB · hermes · [[tasks/PSI-065|PSI-065]], [[tasks/PSI-071|PSI-071]], [[tasks/PSI-072|PSI-072]], [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T22-45-00Z__PSI-065__hermes|Merge the four open PRs to master in dependency order, record the board truthfully, close the AI Session recording gap with a contract rule, and resume the task queue.]]
 - 2026-09-27 01:05 WIB · hermes · [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]
 - 2026-09-27 00:30 WIB · hermes · [[tasks/PSI-072|PSI-072]] · done: [[history/2026-09-26T17-45-00Z__PSI-072__hermes|Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.]]
 - 2026-09-27 00:00 WIB · hermes · [[tasks/PSI-071|PSI-071]] · done: [[history/2026-09-26T17-18-00Z__PSI-071__hermes|Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.]]
@@ -77,4 +78,3 @@ _Nothing waiting for review._
 - 2026-09-26 16:00 WIB · hermes · [[tasks/PSI-061|PSI-061]] · done: [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
 - 2026-09-26 15:30 WIB · hermes · [[tasks/PSI-053|PSI-053]] · done: [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
 - 2026-09-26 15:00 WIB · hermes · [[tasks/PSI-052|PSI-052]] · done: [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
-- 2026-09-26 14:30 WIB · hermes · [[tasks/PSI-051|PSI-051]] · done: [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]

@@ -117,6 +117,60 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_prefs: {
+        Row: {
+          push: boolean
+          type: string
+          user_id: string
+        }
+        Insert: {
+          push?: boolean
+          type: string
+          user_id?: string
+        }
+        Update: {
+          push?: boolean
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          link: string | null
+          pushed_at: string | null
+          read_at: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          pushed_at?: string | null
+          read_at?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          pushed_at?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       permissions: {
         Row: {
           description: string
@@ -159,6 +213,39 @@ export type Database = {
           id?: string
           status?: string
           timezone?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          last_success_at: string | null
+          p256dh: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          last_success_at?: string | null
+          p256dh: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          last_success_at?: string | null
+          p256dh?: string
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -295,8 +382,45 @@ export type Database = {
       effective_role_ids: { Args: { p_user: string }; Returns: string[] }
       has_permission: { Args: { p_key: string }; Returns: boolean }
       in_group: { Args: { p_group: string }; Returns: boolean }
+      internal_post: {
+        Args: { p_body?: Json; p_path: string; p_target: string }
+        Returns: number
+      }
+      mark_pushed: { Args: { p_ids: string[] }; Returns: undefined }
       my_group_ids: { Args: never; Returns: string[] }
       my_role_ids: { Args: never; Returns: string[] }
+      notify: {
+        Args: {
+          p_body: string
+          p_link: string
+          p_title: string
+          p_type: string
+          p_users: string[]
+        }
+        Returns: undefined
+      }
+      push_targets: {
+        Args: { p_ids: string[] }
+        Returns: {
+          auth: string
+          body: string
+          endpoint: string
+          link: string
+          notification_id: string
+          p256dh: string
+          subscription_id: string
+          title: string
+        }[]
+      }
+      register_push_subscription: {
+        Args: {
+          p_auth: string
+          p_endpoint: string
+          p_p256dh: string
+          p_user_agent: string
+        }
+        Returns: undefined
+      }
       users_with_permission: { Args: { p_key: string }; Returns: string[] }
     }
     Enums: {

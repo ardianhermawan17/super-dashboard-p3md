@@ -4,6 +4,9 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-26
+
+- 09:00 · **hermes** · [[tasks/PSI-020|PSI-020]] · done (needs review): [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]
 ## 2026-09-25
 
 - 22:00 · **hermes** · [[tasks/PSI-019|PSI-019]] · done (needs review): [[history/2026-09-25T15-00-00Z__PSI-019__hermes|PSI-019: Implement Admin Groups, Roles, and Permissions pages.]]

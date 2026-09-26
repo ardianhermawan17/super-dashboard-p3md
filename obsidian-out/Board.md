@@ -8,7 +8,6 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs #agent-ops #phase-0
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI #security #phase-0
-- [ ] [[tasks/PSI-020|PSI-020]] Migration M2 notifications and push #db #phase-2
 - [ ] [[tasks/PSI-021|PSI-021]] PWA shell: manifest, icons, service worker #frontend #phase-2
 - [ ] [[tasks/PSI-022|PSI-022]] Enable push on a device and notification preferences #frontend #phase-2
 - [ ] [[tasks/PSI-023|PSI-023]] Push dispatch route #backend #phase-2
@@ -72,6 +71,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-020|PSI-020]] Migration M2 notifications and push · agent:hermes · 1 run #db #phase-2
 
 
 ## Blocked

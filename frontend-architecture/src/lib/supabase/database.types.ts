@@ -79,6 +79,13 @@ export type Database = {
             foreignKeyName: "activity_log_board_id_fkey"
             columns: ["board_id"]
             isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["board_id"]
+          },
+          {
+            foreignKeyName: "activity_log_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
             referencedRelation: "boards"
             referencedColumns: ["id"]
           },
@@ -97,6 +104,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      agent_audit_log: {
+        Row: {
+          args: Json
+          client_id: string
+          duration_ms: number | null
+          error: string | null
+          id: number
+          occurred_at: string
+          rows_returned: number | null
+          tool: string
+          user_id: string
+        }
+        Insert: {
+          args?: Json
+          client_id: string
+          duration_ms?: number | null
+          error?: string | null
+          id?: never
+          occurred_at?: string
+          rows_returned?: number | null
+          tool: string
+          user_id?: string
+        }
+        Update: {
+          args?: Json
+          client_id?: string
+          duration_ms?: number | null
+          error?: string | null
+          id?: never
+          occurred_at?: string
+          rows_returned?: number | null
+          tool?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       board_columns: {
         Row: {
@@ -125,6 +168,13 @@ export type Database = {
             foreignKeyName: "board_columns_board_id_fkey"
             columns: ["board_id"]
             isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["board_id"]
+          },
+          {
+            foreignKeyName: "board_columns_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
             referencedRelation: "boards"
             referencedColumns: ["id"]
           },
@@ -144,6 +194,13 @@ export type Database = {
           group_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "board_groups_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["board_id"]
+          },
           {
             foreignKeyName: "board_groups_board_id_fkey"
             columns: ["board_id"]
@@ -174,6 +231,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "board_members_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["board_id"]
+          },
           {
             foreignKeyName: "board_members_board_id_fkey"
             columns: ["board_id"]
@@ -219,6 +283,33 @@ export type Database = {
           created_at?: string
           token?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      digests: {
+        Row: {
+          content_md: string
+          created_at: string
+          id: string
+          model: string
+          period_end: string
+          period_start: string
+        }
+        Insert: {
+          content_md: string
+          created_at?: string
+          id?: string
+          model: string
+          period_end: string
+          period_start: string
+        }
+        Update: {
+          content_md?: string
+          created_at?: string
+          id?: string
+          model?: string
+          period_end?: string
+          period_start?: string
         }
         Relationships: []
       }
@@ -384,6 +475,13 @@ export type Database = {
             foreignKeyName: "event_audience_event_id_fkey"
             columns: ["event_id"]
             isOneToOne: false
+            referencedRelation: "agent_agenda"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_audience_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
             referencedRelation: "events"
             referencedColumns: ["id"]
           },
@@ -426,6 +524,13 @@ export type Database = {
           synced_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "event_google_links_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "agent_agenda"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "event_google_links_event_id_fkey"
             columns: ["event_id"]
@@ -634,6 +739,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "message_recipients_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "agent_inbox"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "message_recipients_message_id_fkey"
             columns: ["message_id"]
@@ -934,8 +1046,22 @@ export type Database = {
             foreignKeyName: "tasks_board_id_fkey"
             columns: ["board_id"]
             isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["board_id"]
+          },
+          {
+            foreignKeyName: "tasks_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
             referencedRelation: "boards"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_column_id_fkey"
+            columns: ["column_id"]
+            isOneToOne: false
+            referencedRelation: "agent_board_status"
+            referencedColumns: ["column_id"]
           },
           {
             foreignKeyName: "tasks_column_id_fkey"
@@ -1001,7 +1127,58 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      agent_agenda: {
+        Row: {
+          all_day: boolean | null
+          audience_groups: string[] | null
+          audience_roles: string[] | null
+          direct_invitees: number | null
+          ends_at: string | null
+          id: string | null
+          location: string | null
+          rrule: string | null
+          source: string | null
+          starts_at: string | null
+          title: string | null
+        }
+        Relationships: []
+      }
+      agent_board_status: {
+        Row: {
+          board: string | null
+          board_id: string | null
+          column_id: string | null
+          column_title: string | null
+          is_done: boolean | null
+          overdue_count: number | null
+          position: string | null
+          task_count: number | null
+        }
+        Relationships: []
+      }
+      agent_documents: {
+        Row: {
+          id: string | null
+          mime_type: string | null
+          modified_at: string | null
+          name: string | null
+          path: string | null
+          root: string | null
+        }
+        Relationships: []
+      }
+      agent_inbox: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          sent_at: string | null
+          snippet: string | null
+          status: Database["public"]["Enums"]["mail_status"] | null
+          subject: string | null
+          target: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_list_users: {

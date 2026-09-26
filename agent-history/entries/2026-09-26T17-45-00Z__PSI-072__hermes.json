@@ -1,0 +1,77 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T17-45-00Z__PSI-072__hermes",
+  "task_ids": ["PSI-072"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-26T17:30:00Z",
+    "ended_at": "2026-09-26T18:05:00Z",
+    "branch": "task/PSI-072"
+  },
+  "intent": "Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.",
+  "outcome": "done",
+  "summary": "Added src/agent/ with define.ts (types + defineTool), links.ts (deep links to real dashboard routes), registry.ts (the single tool list), runtime.ts (validate -> run -> audit in finally), and five tools: get_activity, get_board, get_agenda, get_inbox, search_documents. Regenerated database.types.ts so the M8 views are typed. Eight Bun unit tests cover registry shape, the audit write, validation failures still auditing, audit-failure isolation, output caps and deep-link shape. lint 0/0, typecheck clean, build passes, full frontend suite 13/13.",
+  "changes": [
+    { "path": "frontend-architecture/src/agent/define.ts", "action": "added", "note": "AgentTool/AgentCtx types + defineTool; imports no tools (avoids registry cycle)" },
+    { "path": "frontend-architecture/src/agent/runtime.ts", "action": "added", "note": "runTool: zod parse -> run -> audit in finally; audit failure never masks the result" },
+    { "path": "frontend-architecture/src/agent/links.ts", "action": "added", "note": "deepLink/boardLink against verified dashboard routes" },
+    { "path": "frontend-architecture/src/agent/registry.ts", "action": "added", "note": "agentTools: the one list both adapters read" },
+    { "path": "frontend-architecture/src/agent/tools/get-activity.ts", "action": "added", "note": "activity_log summarizer, cap 100, deep-linked" },
+    { "path": "frontend-architecture/src/agent/tools/get-board.ts", "action": "added", "note": "agent_board_status, per-column and overdue counts" },
+    { "path": "frontend-architecture/src/agent/tools/get-agenda.ts", "action": "added", "note": "agent_agenda with timeframe filter in WIB, cap 50" },
+    { "path": "frontend-architecture/src/agent/tools/get-inbox.ts", "action": "added", "note": "agent_inbox, 280-char snippets, role/group slugs only" },
+    { "path": "frontend-architecture/src/agent/tools/search-documents.ts", "action": "added", "note": "agent_documents metadata only, no content or web link (C-18)" },
+    { "path": "frontend-architecture/src/agent/agent.test.ts", "action": "added", "note": "8 Bun tests: registry, audit, validation, cap, deep links" },
+    { "path": "frontend-architecture/src/lib/supabase/database.types.ts", "action": "modified", "note": "regenerated from local after M8; adds agent_* views, agent_audit_log, digests" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-072 backlog -> review" },
+    { "path": ".gitignore", "action": "modified", "note": "ignore obsidian-out/.obsidian/plugins/ (rule only existed on unmerged branches)" }
+  ],
+  "decisions": [
+    {
+      "decision": "Ported the obsidian-out/.obsidian/plugins/ ignore rule onto this branch",
+      "reason": "The rule lived only on unmerged task/PSI-065 and task/PSI-071. Without it, git add -A on any branch cut from master sweeps bundled third-party plugin code (including credentials) into the index, which GitHub Push Protection then rejects. This was the second occurrence; the rule belongs on master, not on one feature branch."
+    },
+    {
+      "decision": "Treat view columns as nullable in the tools and default at the call site",
+      "reason": "Postgres type generation marks view columns nullable because it cannot prove otherwise, and typecheck rejected the direct property access. Filtering out null ids and defaulting the rest is correct for a view and satisfies the compiler without casting."
+    },
+    {
+      "decision": "Mock the supabase client with a chainable PromiseLike class in tests, with one targeted lint suppression",
+      "reason": "Tools do `await builder`, so the mock must be a thenable; oxlint's unicorn/no-thenable flags that as an error. The suppression is scoped to one line with a reason, matching existing precedent in src/components/ui for rule conflicts."
+    },
+    {
+      "decision": "Deep links carry the entity id as a query param to the module route",
+      "reason": "The dashboard has no per-entity route yet, so a fictional /dashboard/tasks/<id> would 404. Kept the links valid today and confined the path map to links.ts so real detail routes are a one-file change."
+    },
+    {
+      "decision": "Removed `import 'server-only'` need not be permanent: kept it in runtime.ts and stubbed it in the test",
+      "reason": "runtime.ts is server-only code and the repo convention imports it (five existing files do). 'server-only' throws unconditionally outside a Next build, so the test stubs the module before dynamically importing the runtime rather than weakening the source."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "bun run lint -> 0 warnings 0 errors (292 files); bun run typecheck -> clean; bun run build -> succeeds; bun test src/agent/agent.test.ts -> 8/8; bun test (full frontend) -> 13/13."
+  },
+  "migrations": [],
+  "risks": [
+    "The tools query the M8 views, which land in supabase/migrations/20260926060000_m8_agent_layer.sql. That migration is on task/PSI-071 (PR #37). PSI-072 must not reach an environment without PSI-071 or every tool fails with 'relation does not exist'.",
+    "runtime.ts swallows audit-insert failures by design (logs to console). If audit writes start failing systematically, calls still succeed and the trail silently thins — needs a monitor if this becomes load-bearing."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-073", "note": "MCP endpoint: registerTool loop over agentTools plus the JWKS bearer verification." },
+    { "task_id": "PSI-076", "note": "In-app chat adapter over the same registry via toAiSdkTools." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "New server-side agent surface that reads on behalf of a user. A human should confirm the audit contract is what they want (which arguments are stored in agent_audit_log.args) and that the deep-link query-param convention is acceptable until real detail routes exist."
+  }
+}

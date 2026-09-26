@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
+import { CalendarFeedDialog } from './calendar-feed-dialog';
 import type { CalendarViewType } from '../types';
 
 export function CalendarHeader({
@@ -60,6 +61,7 @@ export function CalendarHeader({
       </div>
 
       <div className='flex items-center gap-2'>
+        <CalendarFeedDialog />
         <Tabs value={view} onValueChange={(v) => onViewChange((v ?? 'month') as CalendarViewType)}>
           <TabsList className='h-8'>
             <TabsTrigger value='month' className='text-xs px-2.5'>

@@ -93,3 +93,64 @@ export async function deleteEventAction(eventId: string) {
 
   return { ok: true };
 }
+
+function generateSecureToken(): string {
+  const array = new Uint8Array(24);
+  crypto.getRandomValues(array);
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+export async function getCalendarFeedTokenAction(): Promise<{ token: string | null; error?: string }> {
+  const session = await getSession();
+  if (!session) return { token: null, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { data: existing } = await supabase
+    .from('calendar_feed_tokens')
+    .select('token')
+    .eq('user_id', session.userId)
+    .maybeSingle();
+
+  if (existing?.token) {
+    return { token: existing.token };
+  }
+
+  const newToken = generateSecureToken();
+  const { error: insertError } = await supabase
+    .from('calendar_feed_tokens')
+    .insert({
+      user_id: session.userId,
+      token: newToken
+    });
+
+  if (insertError) {
+    return { token: null, error: insertError.message };
+  }
+
+  return { token: newToken };
+}
+
+export async function rotateCalendarFeedTokenAction(): Promise<{ token: string | null; error?: string }> {
+  const session = await getSession();
+  if (!session) return { token: null, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  await supabase
+    .from('calendar_feed_tokens')
+    .delete()
+    .eq('user_id', session.userId);
+
+  const newToken = generateSecureToken();
+  const { error: insertError } = await supabase
+    .from('calendar_feed_tokens')
+    .insert({
+      user_id: session.userId,
+      token: newToken
+    });
+
+  if (insertError) {
+    return { token: null, error: insertError.message };
+  }
+
+  return { token: newToken };
+}

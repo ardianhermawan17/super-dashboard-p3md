@@ -27,6 +27,7 @@ import {
   IconClock,
   IconCode,
   IconCommand,
+  IconCopy,
   IconCreditCard,
   IconDeviceLaptop,
   IconDots,
@@ -66,6 +67,7 @@ import {
   IconPlus,
   IconProps,
   IconRosetteDiscountCheck,
+  IconRss,
   IconSearch,
   IconSelector,
   IconSend,
@@ -105,6 +107,7 @@ export const Icons = {
   close: IconX,
   clock: IconClock,
   code: IconCode,
+  copy: IconCopy,
   dots: IconDots,
   ellipsis: IconDotsVertical,
   externalLink: IconExternalLink,
@@ -172,6 +175,7 @@ export const Icons = {
   logout: IconLogout,
   mail: IconMail,
   mapPin: IconMapPin,
+  rss: IconRss,
   gripVertical: IconGripVertical,
 
   // Shapes / Indicators

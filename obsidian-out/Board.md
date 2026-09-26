@@ -48,8 +48,6 @@ kanban-plugin: board
 
 ## Todo
 
-- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
-- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes #db #phase-6
 
 
 ## Doing
@@ -58,10 +56,12 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes #db #phase-6
 
 
 ## Blocked
 
+- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
 
 
 ## Done

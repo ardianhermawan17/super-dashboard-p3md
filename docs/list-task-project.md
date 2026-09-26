@@ -381,9 +381,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - owner: human
 - depends: —
 - blocks: PSI-062, PSI-065, PSI-066
-- blocked: awaiting human Google Cloud setup — operator deferred it (2026-09-26). Unblocks PSI-062/065/066.
+- blocked: partially advanced 2026-09-26. DONE: project + SA created (`p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com`), JSON key obtained (`service-key-p3md-coding-squid.json`, gitignored), Calendar API enabled and verified live (HTTP 200 from `calendarList`), local `GOOGLE_SA_KEY_B64` written to `supabase/functions/.env`. REMAINING (all human): (1) share each target calendar with the SA email; (2) enable Google Drive API on project `566787048974` — currently returns 403 accessNotConfigured, blocks PSI-062/063/064; (3) set the remote secret `supabase secrets set GOOGLE_SA_KEY_B64=...` and delete the key file + empty Trash.
 - accept: Drive API and Calendar API enabled; service-account key stored as `GOOGLE_SA_KEY_B64` secret and the file deleted; document roots and calendars shared with the SA email per backend-architecture/google-integration.md.
-- runbook: docs/backend-architecture/google-integration.md § "Google Cloud setup (human, once)"
+- runbook: docs/agent-operations/tutorial-google-calendar-api.md (calendar) · docs/backend-architecture/google-integration.md § "Google Cloud setup (human, once)" (Drive)
 
 ### PSI-061 · Migration M6 Google
 - status: review
@@ -391,7 +391,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - owner: agent:hermes
 - depends: PSI-012, PSI-040, PSI-020
 - blocks: PSI-062, PSI-063, PSI-067
-- pr: PR #31 (open, unmerged — human reviews manually)
+- pr: PR #31 (merged to master as 2ad66fc)
 - accept: drive_roots, drive_root_access, drive_files (trigram index), document_views, google_calendars, event_google_links, push triggers, `upsert_google_event`, `prune_google_events`, cron jobs as in database-architecture/m6-google.md; pgTAP proves a user without root access sees no files.
 
 ### PSI-062 · google-drive /sync
@@ -434,6 +434,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-061
+- pr: PR #33 (merged to master as 5ff95a8)
 - accept: Shows the SA email; add/edit Drive roots (folder URL or id, access roles/groups) and calendars (id, direction, role/group); last sync, last error and "Sync now" per item; guarded by `integrations.manage` / `documents.manage`.
 - review: obsidian-out/review/PSI-067.md
 - note: Sync buttons post to Edge Functions owned by PSI-062/065/066 (not yet deployed) — they no-op gracefully for now.

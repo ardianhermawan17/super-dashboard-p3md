@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 52 | 0 | 0 | 1 | 0 | 21 | 74 |
+| 52 | 0 | 0 | 0 | 0 | 22 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-021|PSI-021]] PWA shell: manifest, icons, service worker · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

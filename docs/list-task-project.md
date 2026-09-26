@@ -208,10 +208,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: pg_net, pg_cron, `internal_post`, notifications, push_subscriptions, notification_prefs, notify, register_push_subscription, push_targets, mark_pushed, statement-level dispatch trigger, retention job, realtime publication as in database-architecture/m2-notifications.md.
 
 ### PSI-021 · PWA shell: manifest, icons, service worker
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-010
+- merged: PR #16 (2026-09-26)
 - accept: `/manifest.webmanifest` valid with start_url `/dashboard/notifications`; icons incl. maskable; `public/sw.js` served with the no-cache headers; Lighthouse reports the app installable.
 
 ### PSI-022 · Enable push on a device and notification preferences

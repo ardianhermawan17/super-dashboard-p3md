@@ -1,0 +1,92 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-24T18-50-00Z__PSI-004__hermes",
+  "task_ids": ["PSI-004"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-24T18:30:00Z",
+    "ended_at": "2026-09-24T18:50:00Z",
+    "branch": "task/PSI-004"
+  },
+  "intent": "PSI-004: wire root CLAUDE.md, AGENTS.md and regenerate .hermes.md so every AI agent (Claude Code, Hermes) sees the project gateway and conventions on session boot.",
+  "outcome": "done",
+  "summary": "Created root CLAUDE.md (two @-references to README_AI_AGENT.md and AGENTS.md), root AGENTS.md (line 1 points to gateway, merged template conventions from frontend-architecture/CLAUDE.md plus P3MD agent rules), regenerated .hermes.md via agent:context. Removed .hermes.md from .gitignore per acceptance criteria (committed). Committed to task/PSI-004. Set PSI-004 to review.",
+  "changes": [
+    {
+      "path": "CLAUDE.md",
+      "action": "added",
+      "note": "Root Claude Code entry: @README_AI_AGENT.md + @AGENTS.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "action": "added",
+      "note": "Root agent conventions: gateway pointer, full tech stack table, conventions (React Query, TanStack Forms, nuqs, icons, page headers, formatting), repo structure diagram, agent rules (C-03, branch-per-task, graph-before-grep, no-GCP)"
+    },
+    {
+      "path": ".hermes.md",
+      "action": "added",
+      "note": "Regenerated via agent:context — merges README_AI_AGENT.md + new AGENTS.md inline (16,262 chars)"
+    },
+    {
+      "path": ".gitignore",
+      "action": "modified",
+      "note": "Removed .hermes.md from gitignore so the generated file is tracked and committed"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-004: status doing → review, owner agent:hermes"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Root CLAUDE.md uses @-include syntax for Claude Code inline expansion",
+      "reason": "Avoids inline content duplication"
+    },
+    {
+      "decision": "AGENTS.md merges template conventions plus P3MD-specific rules",
+      "reason": "Provides a single source of truth for all agents"
+    },
+    {
+      "decision": ".hermes.md removed from .gitignore",
+      "reason": "Acceptance criteria requires it committed; .graphifyignore still excludes it from code graph"
+    },
+    {
+      "decision": "Used npx bun to run agent:context",
+      "reason": "bun is not installed globally on host PATH"
+    }
+  ],
+  "verification": {
+    "typecheck": "skipped",
+    "lint": "skipped",
+    "build": "skipped",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "bun run agent:context wrote .hermes.md (16262 chars); head -5 confirms both <!-- README_AI_AGENT.md --> and <!-- AGENTS.md --> included; git diff --stat: 5 files changed, 343 insertions, 3 deletions"
+  },
+  "contract_deviations": [],
+  "risks": [],
+  "follow_ups": [
+    {
+      "task_id": "PSI-005",
+      "note": "Install graphify, first graph, hooks — unblocks graphify-out/ and graph query"
+    },
+    {
+      "task_id": "PSI-007",
+      "note": "Pre-commit hooks — unblocks agent:check on every commit"
+    },
+    {
+      "task_id": "PSI-009",
+      "note": "Install ECC — unblocks AgentShield scan (PSI-004 accept criteria references ecc-agentshield but ECC is not installed yet)"
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Review root gateway files and agent context generation before merge"
+  }
+}

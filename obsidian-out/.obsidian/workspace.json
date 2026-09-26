@@ -1,0 +1,240 @@
+{
+  "main": {
+    "id": "2141ef3df7acda84",
+    "type": "split",
+    "children": [
+      {
+        "id": "8c698922c892ddee",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4499a6fee6f23597",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "Board.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": []
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "Board"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "888c6d4fae20b193",
+    "type": "split",
+    "children": [
+      {
+        "id": "b653f28986c90a45",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aa773f6db6d23664",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "80917ac0f3cc8770",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "202fc907ad508363",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "8c3234b6e9f94b1d",
+    "type": "split",
+    "children": [
+      {
+        "id": "ffb21750f9680fe5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c17d1a30696e63b0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Board.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "29507e8146886076",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Board.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "b55224fe72742e5c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "3d3c74f6d75aab41",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e5a71afc874382c9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Board.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "fff73a0b910f1d70",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "templater-obsidian:Templater": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian-kanban:Create new board": false
+    }
+  },
+  "active": "4499a6fee6f23597",
+  "lastOpenFiles": [
+    "review/PSI-053.md",
+    "review/PSI-052.md",
+    "review/PSI-051.md",
+    "review/PSI-050.md",
+    "history/2026-09-26T08-30-00Z__PSI-053__hermes.md",
+    "history/2026-09-26T08-00-00Z__PSI-052__hermes.md",
+    "history/2026-09-26T07-30-00Z__PSI-051__hermes.md",
+    "history/2026-09-26T07-00-00Z__PSI-050__hermes.md",
+    "tasks/PSI-050.md",
+    "Board.md",
+    "review/PSI-044.md",
+    "history/2026-09-26T06-30-00Z__PSI-044__hermes.md",
+    "review/PSI-041.md",
+    "history/2026-09-26T06-00-00Z__PSI-041__hermes.md",
+    "review/PSI-040.md",
+    "history/2026-09-26T05-30-00Z__PSI-040__hermes.md",
+    "review/PSI-034.md",
+    "history/2026-09-26T05-00-00Z__PSI-034__hermes.md",
+    "review/PSI-030.md",
+    "history/2026-09-26T04-30-00Z__PSI-030__hermes.md",
+    "review/PSI-024.md",
+    "history/2026-09-26T04-00-00Z__PSI-024__hermes.md",
+    "review/PSI-023.md",
+    "history/2026-09-26T03-30-00Z__PSI-023__hermes.md",
+    "review/PSI-022.md",
+    "history/2026-09-26T03-00-00Z__PSI-022__hermes.md",
+    "docs/graphify-architecture/snapshots",
+    "Excalidraw",
+    "graph"
+  ]
+}

@@ -27,6 +27,7 @@ import {
   IconClock,
   IconCode,
   IconCommand,
+  IconCopy,
   IconCreditCard,
   IconDeviceLaptop,
   IconDots,
@@ -52,6 +53,8 @@ import {
   IconLock,
   IconLogin,
   IconLogout,
+  IconMail,
+  IconMapPin,
   IconMessage,
   IconMinus,
   IconMoon,
@@ -64,6 +67,7 @@ import {
   IconPlus,
   IconProps,
   IconRosetteDiscountCheck,
+  IconRss,
   IconSearch,
   IconSelector,
   IconSend,
@@ -103,6 +107,7 @@ export const Icons = {
   close: IconX,
   clock: IconClock,
   code: IconCode,
+  copy: IconCopy,
   dots: IconDots,
   ellipsis: IconDotsVertical,
   externalLink: IconExternalLink,
@@ -136,6 +141,7 @@ export const Icons = {
   employee: IconUserX,
   userPen: IconUserEdit,
   teams: IconUsers,
+  users: IconUsers,
 
   // Brand
   github: IconBrandGithub,
@@ -167,6 +173,9 @@ export const Icons = {
   share: IconShare,
   login: IconLogin,
   logout: IconLogout,
+  mail: IconMail,
+  mapPin: IconMapPin,
+  rss: IconRss,
   gripVertical: IconGripVertical,
 
   // Shapes / Indicators

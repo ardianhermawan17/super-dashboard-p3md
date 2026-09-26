@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T03-00-00Z__PSI-022__hermes",
+  "task_ids": ["PSI-022"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T03:00:00Z",
+    "ended_at": "2026-09-26T03:30:00Z",
+    "branch": "task/PSI-022"
+  },
+  "intent": "PSI-022: Implement push enablement hook, explicit activation UI, and notification preferences.",
+  "outcome": "done",
+  "summary": "Built push subscription helpers in features/notifications/lib/push.ts calling register_push_subscription RPC, usePushSubscription hook, EnablePushButton component with iOS installation detection, NotificationPrefsForm component for toggling per-category alert preferences, and Server Actions for preference synchronization. Verified with tsc, oxlint, and next build.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/notifications/types.ts",
+      "action": "added",
+      "note": "Notification and push data types"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/lib/push.ts",
+      "action": "added",
+      "note": "Push registration logic, VAPID decoding, iOS check"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/actions.ts",
+      "action": "added",
+      "note": "Server Actions for preferences and subscription management"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/hooks/use-push-subscription.ts",
+      "action": "added",
+      "note": "Push subscription React hook"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/components/enable-push-button.tsx",
+      "action": "added",
+      "note": "Push activation banner"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/components/notification-prefs-form.tsx",
+      "action": "added",
+      "note": "Notification preferences and device management form"
+    },
+    {
+      "path": "frontend-architecture/src/features/notifications/components/notifications-page.tsx",
+      "action": "modified",
+      "note": "Integrated push enablement and preferences tab"
+    },
+    {
+      "path": "obsidian-out/review/PSI-022.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-022 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Explicit user tap for notification request",
+      "reason": "Avoids browser permission fatigue and adheres to PWA best practices."
+    },
+    {
+      "decision": "Detect iOS non-standalone mode and guide user to Home Screen install",
+      "reason": "Web Push on iOS is only functional when the app has been added to the Home Screen."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified push hooks, preferences form, and compilation of notification dashboard."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-022 card."
+  }
+}

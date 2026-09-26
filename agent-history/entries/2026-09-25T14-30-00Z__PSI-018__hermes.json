@@ -1,0 +1,103 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T14-30-00Z__PSI-018__hermes",
+  "task_ids": ["PSI-018"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-25T14:30:00Z",
+    "ended_at": "2026-09-25T14:55:00Z",
+    "branch": "task/PSI-018"
+  },
+  "intent": "PSI-018: Build Admin Users page (/dashboard/admin/users) and admin-users Edge Function.",
+  "outcome": "done",
+  "summary": "Added migration 20260925234449_admin_list_users.sql, implemented Deno Edge Function supabase/functions/admin-users/index.ts for user invites and suspension, created Server Actions in features/admin/actions.ts for listing users and editing memberships, and built the Users management view with search, role badges, single invite dialog, CSV bulk import, and edit dialogs. Verified with tsc, oxlint, next build, and pgTAP test suite.",
+  "changes": [
+    {
+      "path": "supabase/migrations/20260925234449_admin_list_users.sql",
+      "action": "added",
+      "note": "Exposes admin_list_users() RPC helper for user directory"
+    },
+    {
+      "path": "supabase/functions/_shared/http.ts",
+      "action": "added",
+      "note": "Shared CORS and JSON helper for Edge Functions"
+    },
+    {
+      "path": "supabase/functions/admin-users/index.ts",
+      "action": "added",
+      "note": "Deno Edge Function handling user invites and suspensions"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/types.ts",
+      "action": "added",
+      "note": "Type definitions for admin users, roles, and groups"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/actions.ts",
+      "action": "added",
+      "note": "Server Actions for fetching users, invites, and membership updates"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/users-table.tsx",
+      "action": "added",
+      "note": "Interactive users table with status and role badges"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/invite-user-dialog.tsx",
+      "action": "added",
+      "note": "Single user invitation modal"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/csv-import-dialog.tsx",
+      "action": "added",
+      "note": "Bulk CSV invitation modal"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/edit-user-dialog.tsx",
+      "action": "added",
+      "note": "User roles and groups editor modal"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/admin/users/page.tsx",
+      "action": "added",
+      "note": "Guarded admin users page component"
+    },
+    {
+      "path": "obsidian-out/review/PSI-018.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-018 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Use admin_list_users() for querying auth user metadata",
+      "reason": "PostgREST cannot directly query auth.users; security-definer helper exposes only safe metadata guarded by permissions."
+    },
+    {
+      "decision": "Perform role and group assignments via Server Actions",
+      "reason": "Direct user role updates run as the authenticated user, allowing RLS to enforce no-escalation rules and last-admin triggers."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified /dashboard/admin/users page builds cleanly and renders."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-018 card."
+  }
+}

@@ -1,0 +1,112 @@
+# Setup and structure
+
+> **Scope:** forking and stripping the template, packages, the target folder tree, environment variables.
+> Index: [frontend-architecture/](README.md) · Gateway: [README_AI_AGENT.md](../../README_AI_AGENT.md)
+
+## Day 0: fork and strip the template
+
+```bash
+git clone --depth 1 https://github.com/Kiranism/next-shadcn-dashboard-starter.git p3md-social
+cd p3md-social
+rm -rf .git && git init -b main          # fresh history; LICENSE stays (MIT requires it)
+bun install
+cp env.example.txt .env.local
+
+bun run cleanup --list                   # see what the cleanup script can remove
+bun run cleanup clerk                    # removes Clerk + organizations + billing
+bun run cleanup --interactive            # drop demos we don't need (products, users, react-query demo, …)
+bun run dev                              # must still boot
+```
+
+**Keep:** `kanban` (becomes our board), `chat` (its multi-panel layout becomes the role-mail inbox), `ai-chat` (real `useChat` lifecycle; we swap the scripted transport for a real route), `notifications` (becomes the notification center UI).
+
+**Then add, each in the task that needs it:**
+
+```bash
+bun add @supabase/supabase-js @supabase/ssr                 # PSI-010
+bun add fractional-indexing                                 # PSI-051
+bun add rrule date-fns @date-fns/tz                         # PSI-041
+bun add web-push && bun add -d @types/web-push              # PSI-023
+bun add ai @ai-sdk/react @ai-sdk/anthropic @ai-sdk/openai-compatible   # PSI-076 / PSI-098 (Claude + Hermes)
+bun add -d vitest @playwright/test                          # PSI-036
+```
+
+Record every added package in your history entry (`dependencies_added`, contract C-10).
+
+## Target folder structure
+
+Only the parts we add or change are shown; everything else stays as the template ships it.
+
+```
+public/
+├── sw.js                            # push-only service worker ([notifications-pwa.md](features/notifications-pwa.md#pwa-shell))
+└── icons/                           # 192, 512, maskable 512, badge 72
+src/
+├── proxy.ts                         # Next.js 16 session refresh (was middleware.ts)
+├── app/
+│   ├── manifest.ts                  # PWA manifest → /manifest.webmanifest
+│   ├── auth/
+│   │   ├── sign-in/ · sign-up/      # Supabase UI password block (+ Google button, [auth-and-onboarding.md](../backend-architecture/auth-and-onboarding.md))
+│   │   ├── confirm/route.ts         # email confirmation / invite / magic-link exchange
+│   │   └── consent/page.tsx         # OAuth 2.1 consent screen for MCP clients
+│   ├── dashboard/
+│   │   ├── notifications/           # PWA start page: notification center
+│   │   ├── overview/                # template analytics, later fed by agent views + digest
+│   │   ├── mail/                    # role/group mail inbox + compose
+│   │   ├── calendar/                # agenda (ported big-calendar, Google events badged)
+│   │   ├── kanban/                  # template board, now on Supabase
+│   │   ├── documents/               # Drive library + [id] viewer
+│   │   ├── talent/                  # phase 8
+│   │   ├── ai-chat/                 # template page, real /api/chat
+│   │   ├── admin/
+│   │   │   ├── users/ · groups/ · roles/ · permissions/     # [admin.md](features/admin.md)
+│   │   │   └── integrations/        # Google Drive roots + calendars
+│   │   └── settings/
+│   │       ├── notifications/       # push on this device, per-type toggles
+│   │       └── connected-apps/      # list / revoke OAuth grants
+│   ├── api/
+│   │   ├── mcp/route.ts             # MCP server ([agent-layer-mcp.md](../backend-architecture/agent-layer-mcp.md))
+│   │   ├── chat/route.ts            # in-app AI chat ([agent-layer-mcp.md](../backend-architecture/agent-layer-mcp.md))
+│   │   ├── push/dispatch/route.ts   # web-push sender, called by the DB ([push-notifications.md](../backend-architecture/push-notifications.md#dispatch-route))
+│   │   └── calendar/feed/[token]/route.ts   # ICS subscription feed
+│   └── .well-known/oauth-protected-resource/route.ts
+├── agent/                           # tool registry shared by MCP + in-app chat ([agent-layer-mcp.md](../backend-architecture/agent-layer-mcp.md))
+├── features/
+│   ├── rbac/  notifications/  role-mail/  calendar/  kanban/  documents/  talent/  ai-chat/
+│   │   (each feature:)
+│   │   ├── api/keys.ts              # query-key factory
+│   │   ├── api/queries.ts           # read functions taking an injected Supabase client
+│   │   ├── api/actions.ts           # 'use server' mutations
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── schemas/                 # Zod, shared by form + action
+│   │   └── lib/                     # pure helpers (unit-tested)
+├── lib/
+│   ├── supabase/
+│   │   ├── client.ts                # browser client
+│   │   ├── server.ts                # server client (cookies)
+│   │   ├── proxy.ts                 # updateSession() used by src/proxy.ts
+│   │   └── database.types.ts        # GENERATED by `bun run db:types`, never hand-edit
+│   └── auth/
+│       ├── session.ts               # getSession(): claims → { userId, roles, groups, permissions }
+│       └── require.ts               # requirePermission(key)
+└── config/                          # template nav config gains a `permission` field (supabase-clients-and-session.md)
+```
+
+## Environment variables
+
+| Variable | Visible to | Notes |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | browser + server | Project URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | browser + server | Publishable (anon) key only |
+| `NEXT_PUBLIC_SITE_URL` | browser + server | Deep links, OAuth redirect, ICS URLs |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | browser + server | Web Push public key |
+| `VAPID_PRIVATE_KEY` · `VAPID_SUBJECT` | **server only** | Push dispatch route |
+| `INTERNAL_FN_SECRET` | **server only** | Authenticates DB → `/api/push/dispatch`; same value in Vault and Edge Function secrets |
+| `SUPABASE_SECRET_KEY` | **server only** | Only the ICS feed and push dispatch routes; import from a `server-only` module |
+| `ANTHROPIC_API_KEY` | **server only** | Claude models for `/api/chat` |
+| `HERMES_BASE_URL` · `HERMES_API_KEY` | **server only** | OpenAI-compatible endpoint for Hermes models (Nous Portal or OpenRouter) |
+| `CHAT_MODEL` | server | `provider:model`, default `anthropic:claude-sonnet-5`; e.g. `hermes:<model id>` |
+| `SENTRY_*` | template | Keep or remove with the cleanup script |
+
+Resend keys and the Google service-account key live in **Edge Function secrets**, never in the Next.js env (contract C-18).

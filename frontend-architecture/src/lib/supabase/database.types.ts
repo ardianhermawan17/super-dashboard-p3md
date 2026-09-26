@@ -34,6 +34,215 @@ export type Database = {
   }
   public: {
     Tables: {
+      board_columns: {
+        Row: {
+          board_id: string
+          id: string
+          is_done: boolean
+          position: string
+          title: string
+        }
+        Insert: {
+          board_id: string
+          id?: string
+          is_done?: boolean
+          position: string
+          title: string
+        }
+        Update: {
+          board_id?: string
+          id?: string
+          is_done?: boolean
+          position?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_columns_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      board_groups: {
+        Row: {
+          board_id: string
+          group_id: string
+        }
+        Insert: {
+          board_id: string
+          group_id: string
+        }
+        Update: {
+          board_id?: string
+          group_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_groups_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "board_groups_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      board_members: {
+        Row: {
+          board_id: string
+          user_id: string
+        }
+        Insert: {
+          board_id: string
+          user_id: string
+        }
+        Update: {
+          board_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_members_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      boards: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      calendar_feed_tokens: {
+        Row: {
+          created_at: string
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          token?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          token?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      event_audience: {
+        Row: {
+          event_id: string
+          group_id: string | null
+          role_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          event_id: string
+          group_id?: string | null
+          role_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          event_id?: string
+          group_id?: string | null
+          role_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_audience_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_audience_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_audience_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          all_day: boolean
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          location: string | null
+          rrule: string | null
+          source: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          all_day?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at: string
+          id?: string
+          location?: string | null
+          rrule?: string | null
+          source?: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          all_day?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string
+          id?: string
+          location?: string | null
+          rrule?: string | null
+          source?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
       group_members: {
         Row: {
           added_at: string
@@ -117,6 +326,146 @@ export type Database = {
         }
         Relationships: []
       }
+      message_recipients: {
+        Row: {
+          delivery_status: string
+          message_id: string
+          provider_message_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          delivery_status?: string
+          message_id: string
+          provider_message_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          delivery_status?: string
+          message_id?: string
+          provider_message_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_recipients_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body_md: string
+          created_at: string
+          id: string
+          is_system: boolean
+          sender_id: string | null
+          sent_at: string | null
+          status: Database["public"]["Enums"]["mail_status"]
+          subject: string
+          to_group_id: string | null
+          to_role_id: string | null
+        }
+        Insert: {
+          body_md?: string
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          sender_id?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["mail_status"]
+          subject: string
+          to_group_id?: string | null
+          to_role_id?: string | null
+        }
+        Update: {
+          body_md?: string
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          sender_id?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["mail_status"]
+          subject?: string
+          to_group_id?: string | null
+          to_role_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_to_group_id_fkey"
+            columns: ["to_group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_to_role_id_fkey"
+            columns: ["to_role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_prefs: {
+        Row: {
+          push: boolean
+          type: string
+          user_id: string
+        }
+        Insert: {
+          push?: boolean
+          type: string
+          user_id?: string
+        }
+        Update: {
+          push?: boolean
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          link: string | null
+          pushed_at: string | null
+          read_at: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          pushed_at?: string | null
+          read_at?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          pushed_at?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       permissions: {
         Row: {
           description: string
@@ -159,6 +508,39 @@ export type Database = {
           id?: string
           status?: string
           timezone?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          last_success_at: string | null
+          p256dh: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          last_success_at?: string | null
+          p256dh: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          last_success_at?: string | null
+          p256dh?: string
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -219,6 +601,66 @@ export type Database = {
         }
         Relationships: []
       }
+      tasks: {
+        Row: {
+          assignee_id: string | null
+          board_id: string
+          column_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          due_date: string | null
+          id: string
+          position: string
+          priority: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee_id?: string | null
+          board_id: string
+          column_id: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          position: string
+          priority?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee_id?: string | null
+          board_id?: string
+          column_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          position?: string
+          priority?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_column_id_fkey"
+            columns: ["column_id"]
+            isOneToOne: false
+            referencedRelation: "board_columns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_invites: {
         Row: {
           accepted_at: string | null
@@ -277,17 +719,107 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_users: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          last_sign_in_at: string
+          status: string
+        }[]
+      }
       can_grant_group: { Args: { p_group: string }; Returns: boolean }
       can_grant_role: { Args: { p_role: string }; Returns: boolean }
+      can_see_event: { Args: { p_event: string }; Returns: boolean }
+      claims_for_user: { Args: { p_user: string }; Returns: Json }
+      custom_access_token_hook: { Args: { event: Json }; Returns: Json }
       effective_role_ids: { Args: { p_user: string }; Returns: string[] }
+      event_audience_user_ids: { Args: { p_event: string }; Returns: string[] }
+      events_for_user: {
+        Args: { p_from: string; p_to: string; p_user: string }
+        Returns: {
+          all_day: boolean
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          location: string | null
+          rrule: string | null
+          source: string
+          starts_at: string
+          title: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "events"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       has_permission: { Args: { p_key: string }; Returns: boolean }
       in_group: { Args: { p_group: string }; Returns: boolean }
+      internal_post: {
+        Args: { p_body?: Json; p_path: string; p_target: string }
+        Returns: number
+      }
+      is_board_member: { Args: { p_board: string }; Returns: boolean }
+      is_board_owner: { Args: { p_board: string }; Returns: boolean }
+      is_event_creator: { Args: { p_event: string }; Returns: boolean }
+      is_message_recipient: { Args: { p_message: string }; Returns: boolean }
+      is_message_sender: { Args: { p_message: string }; Returns: boolean }
+      mail_recipient_count: {
+        Args: { p_group_id: string; p_role_id: string }
+        Returns: number
+      }
+      mail_recipients: {
+        Args: { p_group_id: string; p_role_id: string }
+        Returns: {
+          email: string
+          user_id: string
+        }[]
+      }
+      mark_pushed: { Args: { p_ids: string[] }; Returns: undefined }
       my_group_ids: { Args: never; Returns: string[] }
       my_role_ids: { Args: never; Returns: string[] }
+      notify: {
+        Args: {
+          p_body: string
+          p_link: string
+          p_title: string
+          p_type: string
+          p_users: string[]
+        }
+        Returns: undefined
+      }
+      push_targets: {
+        Args: { p_ids: string[] }
+        Returns: {
+          auth: string
+          body: string
+          endpoint: string
+          link: string
+          notification_id: string
+          p256dh: string
+          subscription_id: string
+          title: string
+        }[]
+      }
+      register_push_subscription: {
+        Args: {
+          p_auth: string
+          p_endpoint: string
+          p_p256dh: string
+          p_user_agent: string
+        }
+        Returns: undefined
+      }
       users_with_permission: { Args: { p_key: string }; Returns: string[] }
     }
     Enums: {
-      [_ in never]: never
+      mail_status: "draft" | "queued" | "sending" | "sent" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -417,7 +949,9 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      mail_status: ["draft", "queued", "sending", "sent", "failed"],
+    },
   },
 } as const
 

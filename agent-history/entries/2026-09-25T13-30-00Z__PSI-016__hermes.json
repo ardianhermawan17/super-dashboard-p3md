@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T13-30-00Z__PSI-016__hermes",
+  "task_ids": ["PSI-016"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-25T13:30:00Z",
+    "ended_at": "2026-09-25T13:55:00Z",
+    "branch": "task/PSI-016"
+  },
+  "intent": "PSI-016: Implement Next.js 16 authentication pages and routes (sign-in, sign-up, forgot-password, reset-password, confirm, sign-out) with Base UI primitives and Onboarding Option A.",
+  "outcome": "done",
+  "summary": "Built full auth UI suite on Next.js 16 App Router using TanStack Form + Zod, Base UI primitives (no asChild), and Supabase SSR client. Implemented Option A onboarding (Email invites + Password Auth) backed by the database on_auth_user_created trigger for automated group and role assignment. Verified with TypeScript typecheck, oxlint, Next.js build, and pgTAP DB tests.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/app/auth/layout.tsx",
+      "action": "added",
+      "note": "Branded authentication layout wrapper"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/sign-in/page.tsx",
+      "action": "added",
+      "note": "Sign in page with email and password"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/sign-up/page.tsx",
+      "action": "added",
+      "note": "Sign up page with full name, email, password confirmation"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/forgot-password/page.tsx",
+      "action": "added",
+      "note": "Password recovery request page"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/reset-password/page.tsx",
+      "action": "added",
+      "note": "New password setter page"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/confirm/route.ts",
+      "action": "added",
+      "note": "Route handler for OTP tokens and auth code exchanges"
+    },
+    {
+      "path": "frontend-architecture/src/app/auth/sign-out/route.ts",
+      "action": "added",
+      "note": "Route handler for Supabase user sign out"
+    },
+    {
+      "path": "obsidian-out/review/PSI-016.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-016 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Selected Option A (Email Invites + Password Auth) for onboarding",
+      "reason": "Chosen by human operator. Backed by custom Resend SMTP from PSI-011 and database trigger on_auth_user_created."
+    },
+    {
+      "decision": "Use Base UI render composition and TanStack Form without asChild",
+      "reason": "Strict compliance with repository UI conventions (AGENTS.md / conventions-and-testing.md)."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified all 6 auth routes build dynamically in Next.js production build."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-016 card."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-25T15-00-00Z__PSI-019__hermes",
+  "task_ids": ["PSI-019"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-25T15:00:00Z",
+    "ended_at": "2026-09-25T15:30:00Z",
+    "branch": "task/PSI-019"
+  },
+  "intent": "PSI-019: Implement Admin Groups, Roles, and Permissions pages.",
+  "outcome": "done",
+  "summary": "Built full administration interfaces for Groups (/dashboard/admin/groups), Roles (/dashboard/admin/roles), and Permissions (/dashboard/admin/permissions). Added Server Actions in features/admin/actions.ts for managing group memberships (with batch email pasting) and role permission matrices (with modular grouping and ungrantable checkbox protection). Verified with tsc, oxlint, next build, and pgTAP suite.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/admin/types.ts",
+      "action": "modified",
+      "note": "Added GroupDetail, RoleDetail, and PermissionCatalogueItem types"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/actions.ts",
+      "action": "modified",
+      "note": "Added Server Actions for Groups, Roles, and Permissions catalogue"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/groups-view.tsx",
+      "action": "added",
+      "note": "Group management view with member & role editors"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/admin/groups/page.tsx",
+      "action": "added",
+      "note": "Guarded groups page component"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/roles-view.tsx",
+      "action": "added",
+      "note": "Role management view with module permission matrix"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/admin/roles/page.tsx",
+      "action": "added",
+      "note": "Guarded roles page component"
+    },
+    {
+      "path": "frontend-architecture/src/features/admin/components/permissions-view.tsx",
+      "action": "added",
+      "note": "Searchable permissions catalogue view"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/admin/permissions/page.tsx",
+      "action": "added",
+      "note": "Guarded permissions page component"
+    },
+    {
+      "path": "obsidian-out/review/PSI-019.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-019 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Structure permission matrix by functional module (rbac, mail, agenda, etc.)",
+      "reason": "Allows administrators to quickly configure capability groups without scanning a flat list of permissions."
+    },
+    {
+      "decision": "Disable permission checkboxes the user cannot grant",
+      "reason": "Prevents unauthorized privilege escalation at the UI layer while RLS enforces it in the database."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified all 3 admin routes compiled and rendered in Next.js production build."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-019 card."
+  }
+}

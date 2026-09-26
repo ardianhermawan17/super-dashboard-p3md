@@ -1,0 +1,308 @@
+{
+  "agent-history/schema.json": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "d05b546b08ff4d42e10b54ae9489b5c7",
+    "semantic_hash": "d05b546b08ff4d42e10b54ae9489b5c7"
+  },
+  "package.json": {
+    "mtime": 1790215129.304187,
+    "seen": 1790215803.4713628,
+    "ast_hash": "ca13533cd17e140932be516c8c335c45",
+    "semantic_hash": "ca13533cd17e140932be516c8c335c45"
+  },
+  "scripts/agent-context.ts": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "30795e5517c39d5ada60dfd65ca441f1",
+    "semantic_hash": "30795e5517c39d5ada60dfd65ca441f1"
+  },
+  "scripts/obsidian-sync.ts": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "42b9105df6e0e253476c911bd44329dd",
+    "semantic_hash": "42b9105df6e0e253476c911bd44329dd"
+  },
+  "README.md": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "a946b3362ed2df5bd1c3bd1ea4f955e7",
+    "semantic_hash": "a946b3362ed2df5bd1c3bd1ea4f955e7"
+  },
+  "README_AI_AGENT.md": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "e4f80bba49f98880b76ba190e8744656",
+    "semantic_hash": "e4f80bba49f98880b76ba190e8744656"
+  },
+  "docs/agent-operations/README.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "3bc9f3fe5621144d5635424067459ac1",
+    "semantic_hash": "3bc9f3fe5621144d5635424067459ac1"
+  },
+  "docs/agent-operations/claude-code.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "3b90995eb102b38ddd2016f02d6df5e3",
+    "semantic_hash": "3b90995eb102b38ddd2016f02d6df5e3"
+  },
+  "docs/agent-operations/ecc.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "e81f87485a1dbffab1f30e192bef91f8",
+    "semantic_hash": "e81f87485a1dbffab1f30e192bef91f8"
+  },
+  "docs/agent-operations/hermes.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "04190c83d6bdab6c6e45201c3052b9b3",
+    "semantic_hash": "04190c83d6bdab6c6e45201c3052b9b3"
+  },
+  "docs/backend-architecture/README.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "e5d48748eda09d5219c0602e3cd41b6b",
+    "semantic_hash": "e5d48748eda09d5219c0602e3cd41b6b"
+  },
+  "docs/backend-architecture/agent-layer-mcp.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "0dd27b01c67eec3e0143858a627306c9",
+    "semantic_hash": "0dd27b01c67eec3e0143858a627306c9"
+  },
+  "docs/backend-architecture/auth-and-onboarding.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "51d9bb0c4fa0ea0d84898cd0343aedff",
+    "semantic_hash": "51d9bb0c4fa0ea0d84898cd0343aedff"
+  },
+  "docs/backend-architecture/edge-functions.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "8c338f8b1e4e209dc33028b3548b8649",
+    "semantic_hash": "8c338f8b1e4e209dc33028b3548b8649"
+  },
+  "docs/backend-architecture/google-integration.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "29a9586c852be26b223591a71105441e",
+    "semantic_hash": "29a9586c852be26b223591a71105441e"
+  },
+  "docs/backend-architecture/local-workflow-and-deploy.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "4d6446a0ac7e2f433db924483c826dce",
+    "semantic_hash": "4d6446a0ac7e2f433db924483c826dce"
+  },
+  "docs/backend-architecture/operations-and-risks.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "50e40862f0c347f17cc94ec10b9566b2",
+    "semantic_hash": "50e40862f0c347f17cc94ec10b9566b2"
+  },
+  "docs/backend-architecture/push-notifications.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "e1b17de02c293484a031222d3adc8808",
+    "semantic_hash": "e1b17de02c293484a031222d3adc8808"
+  },
+  "docs/database-architecture/README.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "bec3c706745742b10bbd437cf23b88e1",
+    "semantic_hash": "bec3c706745742b10bbd437cf23b88e1"
+  },
+  "docs/database-architecture/m1-rbac.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "2bf03e88a365a5d979f356061c5032c9",
+    "semantic_hash": "2bf03e88a365a5d979f356061c5032c9"
+  },
+  "docs/database-architecture/m2-notifications.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "272f89e464f3a6d2ad69b0688ffde46c",
+    "semantic_hash": "272f89e464f3a6d2ad69b0688ffde46c"
+  },
+  "docs/database-architecture/m3-role-mail.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "4eb5ac183a987fa22932ab7a19d0a990",
+    "semantic_hash": "4eb5ac183a987fa22932ab7a19d0a990"
+  },
+  "docs/database-architecture/m4-calendar.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "fa6d40d746689c60aec58d543067eb78",
+    "semantic_hash": "fa6d40d746689c60aec58d543067eb78"
+  },
+  "docs/database-architecture/m5-kanban.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "f30ec7d371baefcbc4a0a532a4bac39f",
+    "semantic_hash": "f30ec7d371baefcbc4a0a532a4bac39f"
+  },
+  "docs/database-architecture/m6-google.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "c1cabef90efb91b6b177d50d101d8de9",
+    "semantic_hash": "c1cabef90efb91b6b177d50d101d8de9"
+  },
+  "docs/database-architecture/m7-activity-log.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "f02e219112c06b53dbc445683ba6e4f3",
+    "semantic_hash": "f02e219112c06b53dbc445683ba6e4f3"
+  },
+  "docs/database-architecture/m8-agent-layer.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "d969e4f4f15a53a9d1ce628287a7f490",
+    "semantic_hash": "d969e4f4f15a53a9d1ce628287a7f490"
+  },
+  "docs/database-architecture/m9-talent.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "457cfe8a5a2a70f30ee7f5cc036deb65",
+    "semantic_hash": "457cfe8a5a2a70f30ee7f5cc036deb65"
+  },
+  "docs/database-architecture/testing-pgtap.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "ef8b0467a46d6b4a800b4593126b9a32",
+    "semantic_hash": "ef8b0467a46d6b4a800b4593126b9a32"
+  },
+  "docs/frontend-architecture.md": {
+    "mtime": 1790153290.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "edf93e78438db365c3aca70144dc2f24",
+    "semantic_hash": "edf93e78438db365c3aca70144dc2f24"
+  },
+  "docs/frontend-architecture/README.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "3538fd3cc8c566dff1a90889a6137ef0",
+    "semantic_hash": "3538fd3cc8c566dff1a90889a6137ef0"
+  },
+  "docs/frontend-architecture/conventions-and-testing.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "f87344865a1499ef2d8130686838091b",
+    "semantic_hash": "f87344865a1499ef2d8130686838091b"
+  },
+  "docs/frontend-architecture/data-layer-pattern.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "c72240024f4c7a3169a439fed78fcd3d",
+    "semantic_hash": "c72240024f4c7a3169a439fed78fcd3d"
+  },
+  "docs/frontend-architecture/features/admin.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "9cea8307f9532d89ae9d6594164f3119",
+    "semantic_hash": "9cea8307f9532d89ae9d6594164f3119"
+  },
+  "docs/frontend-architecture/features/ai-chat.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "93d6bd121a63c02f3715a18345a9e487",
+    "semantic_hash": "93d6bd121a63c02f3715a18345a9e487"
+  },
+  "docs/frontend-architecture/features/calendar.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "78f61ae637694c1879da77b9a60efd86",
+    "semantic_hash": "78f61ae637694c1879da77b9a60efd86"
+  },
+  "docs/frontend-architecture/features/documents.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "35c712abab45d7fd0a049f7782fcf6c8",
+    "semantic_hash": "35c712abab45d7fd0a049f7782fcf6c8"
+  },
+  "docs/frontend-architecture/features/kanban.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "a481b12f92cbf1ee09f783c30f876a07",
+    "semantic_hash": "a481b12f92cbf1ee09f783c30f876a07"
+  },
+  "docs/frontend-architecture/features/mail.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "4b33518f80c917667d176f66cd547de0",
+    "semantic_hash": "4b33518f80c917667d176f66cd547de0"
+  },
+  "docs/frontend-architecture/features/notifications-pwa.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "f7c67a6bd65faf213994dc071530159c",
+    "semantic_hash": "f7c67a6bd65faf213994dc071530159c"
+  },
+  "docs/frontend-architecture/features/talent.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "8fbd3016d0b8a468de7f5bafd77b1dac",
+    "semantic_hash": "8fbd3016d0b8a468de7f5bafd77b1dac"
+  },
+  "docs/frontend-architecture/setup-and-structure.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "7ff0387f7770f5edfdbe2d742ceeea74",
+    "semantic_hash": "7ff0387f7770f5edfdbe2d742ceeea74"
+  },
+  "docs/frontend-architecture/supabase-clients-and-session.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "3729ad48643e22c693bb737b706d8db2",
+    "semantic_hash": "3729ad48643e22c693bb737b706d8db2"
+  },
+  "docs/google-workspace-integration.md": {
+    "mtime": 1790160408.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "dd80ac0a82c0978299563e3199204e1b",
+    "semantic_hash": "dd80ac0a82c0978299563e3199204e1b"
+  },
+  "docs/graphify-architecture/README.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "000cdc8dc77c245dd6860b277c6ff567",
+    "semantic_hash": "000cdc8dc77c245dd6860b277c6ff567"
+  },
+  "docs/historical-agent-work.md": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "545fc188dc1e34847341f4bc63615b94",
+    "semantic_hash": "545fc188dc1e34847341f4bc63615b94"
+  },
+  "docs/integrated-obsidian-local.md": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "7d7e64ec0e26f33ef8d6fe8c61f09bc1",
+    "semantic_hash": "7d7e64ec0e26f33ef8d6fe8c61f09bc1"
+  },
+  "docs/list-task-project.md": {
+    "mtime": 1790178414.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "7fbfbcda6219b881be9b407fb6cd3598",
+    "semantic_hash": "7fbfbcda6219b881be9b407fb6cd3598"
+  },
+  "docs/pwa-notifications.md": {
+    "mtime": 1790160408.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "2a1acf0e194d4b3076fe15869090d686",
+    "semantic_hash": "2a1acf0e194d4b3076fe15869090d686"
+  },
+  "docs/rbac-architecture.md": {
+    "mtime": 1790160408.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "1e44724d49f44b00b371696b6c8af2ba",
+    "semantic_hash": "1e44724d49f44b00b371696b6c8af2ba"
+  },
+  "docs/system-overview.md": {
+    "mtime": 1790178413.0,
+    "seen": 1790215803.4713628,
+    "ast_hash": "2fc8505a578f8df40e2d6ea60e8a55bd",
+    "semantic_hash": "2fc8505a578f8df40e2d6ea60e8a55bd"
+  }
+}

@@ -23,6 +23,7 @@ agent-evaluate/data/
 # obsidian-out: only its README is committed (see obsidian-out/README.md)
 # obsidian-out/*
 # !obsidian-out/README.md
+obsidian-out/.obsidian/plugins/
 
 # OS / editor
 .DS_Store

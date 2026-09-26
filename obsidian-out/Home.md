@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 35 | 0 | 2 | 1 | 0 | 37 | 75 |
+| 35 | 0 | 1 | 1 | 0 | 38 | 75 |
 
 ## Blocked
 
@@ -17,14 +17,14 @@ _Nothing blocked._
 ## Doing
 
 - [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
-- [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes
 
 ## Review
 
-- [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code
+- [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T15-30-00Z__PSI-065__hermes|2026-09-26 22:20 WIB · hermes · PSI-065]]: Awaiting human operator review stamp on PSI-065 card.
 - [[history/2026-09-26T13-00-00Z__PSI-070__hermes|2026-09-26 19:50 WIB · hermes · PSI-070]]: Awaiting human operator review stamp on PSI-070 card.
 - [[history/2026-09-26T10-30-00Z__PSI-067__hermes|2026-09-26 17:10 WIB · hermes · PSI-067]]: PSI-067 is a user-facing admin page awaiting the operator's visual review and manual stamp to done in Obsidian. Also confirm open question 1: whether the not-yet-functional Sync buttons should be hidden until PSI-062/065/066 deploy.
 - [[history/2026-09-26T09-00-00Z__PSI-061__hermes|2026-09-26 16:00 WIB · hermes · PSI-061]]: Awaiting human operator review stamp on PSI-061 card.
@@ -65,6 +65,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-26 22:20 WIB · hermes · [[tasks/PSI-065|PSI-065]] · done: [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]
 - 2026-09-26 19:50 WIB · hermes · [[tasks/PSI-070|PSI-070]] · done: [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]
 - 2026-09-26 17:10 WIB · hermes · [[tasks/PSI-067|PSI-067]] · done: [[history/2026-09-26T10-30-00Z__PSI-067__hermes|PSI-067: Admin: Integrations page — show the Service Account email, register Drive roots with role/group access, and link Google Calendars with a direction and audience.]]
 - 2026-09-26 16:00 WIB · hermes · [[tasks/PSI-061|PSI-061]] · done: [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
@@ -74,4 +75,3 @@ _Nothing blocked._
 - 2026-09-26 14:00 WIB · hermes · [[tasks/PSI-050|PSI-050]] · done: [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]
 - 2026-09-26 13:30 WIB · hermes · [[tasks/PSI-044|PSI-044]] · done: [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
 - 2026-09-26 13:00 WIB · hermes · [[tasks/PSI-041|PSI-041]] · done: [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]
-- 2026-09-26 12:30 WIB · hermes · [[tasks/PSI-040|PSI-040]] · done: [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]

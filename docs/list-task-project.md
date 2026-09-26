@@ -376,17 +376,19 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 6 — Google Workspace (Drive documents, Calendar)
 
 ### PSI-060 · Google Cloud project, service account, sharing
-- status: backlog
+- status: todo
 - area: integration
 - owner: human
 - depends: —
+- blocks: PSI-062, PSI-065, PSI-066
 - accept: Drive API and Calendar API enabled; service-account key stored as `GOOGLE_SA_KEY_B64` secret and the file deleted; document roots and calendars shared with the SA email per backend-architecture/google-integration.md.
 
 ### PSI-061 · Migration M6 Google
-- status: backlog
+- status: todo
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-040, PSI-020
+- blocks: PSI-062, PSI-063, PSI-067
 - accept: drive_roots, drive_root_access, drive_files (trigram index), document_views, google_calendars, event_google_links, push triggers, `upsert_google_event`, `prune_google_events`, cron jobs as in database-architecture/m6-google.md; pgTAP proves a user without root access sees no files.
 
 ### PSI-062 · google-drive /sync

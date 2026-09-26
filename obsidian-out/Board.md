@@ -16,8 +16,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
 - [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display #frontend #phase-4
 - [ ] [[tasks/PSI-043|PSI-043]] Optional role mail for invitations #backend #phase-4
-- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
-- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google #db #phase-6
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
@@ -50,6 +48,8 @@ kanban-plugin: board
 
 ## Todo
 
+- [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
+- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes #db #phase-6
 
 
 ## Doing

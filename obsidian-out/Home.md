@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 40 | 0 | 0 | 0 | 0 | 34 | 74 |
+| 38 | 2 | 0 | 0 | 0 | 34 | 74 |
 
 ## Blocked
 

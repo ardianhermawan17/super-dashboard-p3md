@@ -1,54 +1,46 @@
 ---
-updated: 2026-09-26 10:55
+updated: 2026-09-26 12:45
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-`PSI-067 · Admin: Integrations page` — **review**. Code complete: lint/typecheck/build/DB
-tests all green. Branch `task/PSI-067`, commit `7cdbd86`, PR **#33** (open, CLEAN/MERGEABLE).
-Card waits for the operator's manual stamp to `done` in Obsidian.
+`PSI-060 · Google Cloud project, service account, sharing` — **partially unblocked / ready for closeout**.
+- The service-account key `service-key-p3md-coding-squid.json` is on disk (`.gitignored`, never committed).
+- SA identity: `p3md-sync@project-c3a74e7a-ee76-4908-963.iam.gserviceaccount.com`.
+- Google Calendar API tested & confirmed **active / reachable (HTTP 200)**.
+- `supabase/functions/.env` written with `GOOGLE_SA_KEY_B64` + `GOOGLE_SA_EMAIL` (ignored).
+- `frontend-architecture/.env.local` written with `GOOGLE_SA_EMAIL` (ignored).
+- Human tutorial added: `docs/agent-operations/tutorial-google-calendar-api.md`.
+- **Waiting on:** human sharing target calendar with the SA email. Once shared, operator moves PSI-060 → `done` in Obsidian.
 
-`PSI-061 · Migration M6 Google` remains in **review** — PR **#31** open, now rebased onto
-master and CLEAN/MERGEABLE (was CONFLICTING). Commit `ec2547c`.
+## Merged to Master (this session)
 
-**Operator decision 2026-09-26 (still in force):** PSI-061 stays in `review`; the human
-reviews PRs manually. Never move a card to `done` — only the operator does that.
+| PR | Task | Merge Commit | What it landed |
+|---|---|---|---|
+| [#32](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/32) | PSI-060 block + board fix | `4be3b8d` | Board alignment on master |
+| [#31](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/31) | PSI-061 Migration M6 Google | `2ad66fc` | Drive/Calendar schema, RLS, triggers, pgTAP tests |
+| [#33](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/33) | PSI-067 Admin Integrations page | `5ff95a8` | `/dashboard/admin/integrations`, rules, tutorial, graphify update |
 
 ## Next Card
 
-Nothing is claimable until a dependency clears. Phase 6 is exhausted for agent work:
-every remaining card needs either PSI-061's schema merged or PSI-060's GCP setup.
-→ Phase 7 (MCP read API, `PSI-070+`) is the next workable track once the operator decides.
+Once the operator moves `PSI-060` to `done` in Obsidian:
+1. `PSI-065 · google-calendar /pull` — branch `task/PSI-065` (pull cron sync function).
+2. `PSI-066 · google-calendar /push` — branch `task/PSI-066` (push trigger function).
+3. `PSI-062 · google-drive /sync` — needs Google Drive API enabled on project `566787048974` first.
 
-`PSI-062 · google-drive /sync` — **blocked on PSI-060** (human: Google Cloud project,
-service account, `GOOGLE_SA_KEY_B64` secret, Drive + Calendar APIs enabled, document
-roots/calendars shared with the SA email). Runbook: `docs/backend-architecture/google-integration.md`
-§ "Google Cloud setup (human, once)". No agent may touch GCP; contract C-15.
-
-`PSI-063` depends on PSI-062. `PSI-064` depends on PSI-063. `PSI-065`/`PSI-066` depend on PSI-060.
+Alternative if calendar sharing is still in progress:
+- Phase 7 (Agent MCP read API): `PSI-070 · Migration M7 activity log`.
 
 ## Last Commit
 
-`7cdbd86` — feat(admin): add Google Workspace Integrations page [card: PSI-067]
-
-## Pull Requests
-
-| PR | Task | Branch | State |
-|---|---|---|---|
-| [#32](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/32) | PSI-060 blocked + board corrections | `task/PSI-060` | ✅ **MERGED** (`4be3b8d`) |
-| [#31](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/31) | PSI-061 Migration M6 Google | `task/PSI-061` | OPEN, CLEAN/MERGEABLE (rebased) |
-| [#33](https://github.com/ardianhermawan17/super-dashboard-p3md/pull/33) | PSI-067 Admin Integrations page | `task/PSI-067` | OPEN, CLEAN/MERGEABLE |
+`5ff95a8` — Merge pull request #33 from ardianhermawan17/task/PSI-067
 
 ## Test Status
 
 unit: n/a · full suite: **pass** (6 pgTAP files / 50 tests) ·
-lint: pass (0 warnings, 0 errors) · typecheck: pass · build: pass ·
-`bun run agent:check`: ok (74 tasks, 41 history entries) · acceptance: n/a
-
-No browser acceptance run for PSI-067: the page needs a signed-in user holding
-`integrations.manage`, and `jev-ultrafast` was not running this session. That is the one
-gap in PSI-067's verification — note it as a Jev N/A, not an app bug.
+lint: pass (0 warnings, 0 errors on 282 files) · typecheck: pass · build: pass (all 25 routes registered) ·
+`bun run agent:check`: ok (74 tasks, 41 history entries)
 
 ## In-flight Assumptions
 

@@ -342,9 +342,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 5 — Kanban on Supabase
 
 ### PSI-050 · Migration M5 kanban
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-020
 - accept: boards, board_members, board_groups, board_columns, tasks with `position text collate "C"`; membership via users or groups; creator auto-member trigger; assignee notification trigger; realtime publication; pgTAP tests.
 

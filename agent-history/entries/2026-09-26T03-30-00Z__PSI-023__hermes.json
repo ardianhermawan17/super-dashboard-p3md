@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T03-30-00Z__PSI-023__hermes",
+  "task_ids": ["PSI-023"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T03:30:00Z",
+    "ended_at": "2026-09-26T03:55:00Z",
+    "branch": "task/PSI-023"
+  },
+  "intent": "PSI-023: Implement push dispatch route.",
+  "outcome": "done",
+  "summary": "Built POST /api/push/dispatch on Node.js runtime using web-push with VAPID signing, internal secret authentication, push_targets RPC fetching, 20-worker concurrency queue, automatic 404/410 push subscription pruning, and mark_pushed RPC execution. Verified with tsc, oxlint, and next build.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/app/api/push/dispatch/route.ts",
+      "action": "added",
+      "note": "Push dispatch route handler with secret guard and worker pool"
+    },
+    {
+      "path": "frontend-architecture/package.json",
+      "action": "modified",
+      "note": "Added web-push and @types/web-push dependencies"
+    },
+    {
+      "path": "obsidian-out/review/PSI-023.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-023 status updated to review"
+    }
+  ],
+  "dependencies_added": [
+    {
+      "name": "web-push",
+      "version": "^3.6.7",
+      "reason": "VAPID Web Push delivery from Next.js server route"
+    },
+    {
+      "name": "@types/web-push",
+      "version": "^3.6.4",
+      "reason": "TypeScript definitions for web-push"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Lazy Supabase admin client initialization inside handler",
+      "reason": "Prevents static page collection failures during production build when runtime secrets are not yet injected."
+    },
+    {
+      "decision": "Automatic deletion of 404/410 response targets",
+      "reason": "Keeps the push_subscriptions database clean when devices unsubscribe or tokens expire."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified route compilation and Next.js static collection."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-023 card."
+  }
+}

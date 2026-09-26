@@ -356,9 +356,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Template board uses queries and Server Actions instead of mock data; moves write one row using fractional positions; order survives reload.
 
 ### PSI-052 · Realtime board sync
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-051
 - accept: A move in one browser appears in another within ~2 s; channel removed on unmount.
 

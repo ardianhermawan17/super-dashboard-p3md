@@ -1,0 +1,60 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T08-00-00Z__PSI-052__hermes",
+  "task_ids": ["PSI-052"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T08:00:00Z",
+    "ended_at": "2026-09-26T08:20:00Z",
+    "branch": "task/PSI-052"
+  },
+  "intent": "PSI-052: Implement Realtime board synchronization across multiple client sessions.",
+  "outcome": "done",
+  "summary": "Implemented useBoardRealtime hook in src/features/kanban/hooks/use-board-realtime.ts subscribing to postgres_changes on tasks and board_columns for board:${boardId}, invalidating TanStack Query cache on updates and cleaning up channel on unmount. Wired the hook into KanbanBoard component.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/kanban/hooks/use-board-realtime.ts",
+      "action": "added",
+      "note": "Supabase Realtime hook for task and column changes"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-board.tsx",
+      "action": "modified",
+      "note": "Wired useBoardRealtime hook into board view"
+    },
+    {
+      "path": "obsidian-out/review/PSI-052.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-052 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Subscribe to Realtime changes on tasks and board_columns filtering by board_id",
+      "reason": "Allows instantaneous multi-user collaboration while isolating updates strictly to the active board."
+    }
+  ],
+  "dependencies_added": [],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified hook subscription and Next.js /dashboard/kanban production build."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-052 card."
+  }
+}

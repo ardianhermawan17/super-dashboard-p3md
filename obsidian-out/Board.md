@@ -16,7 +16,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
 - [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display #frontend #phase-4
 - [ ] [[tasks/PSI-043|PSI-043]] Optional role mail for invitations #backend #phase-4
-- [ ] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase #frontend #phase-5
 - [ ] [[tasks/PSI-052|PSI-052]] Realtime board sync #frontend #phase-5
 - [ ] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups #frontend #phase-5
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
@@ -62,6 +61,7 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes · 1 run #db #phase-5
+- [ ] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes · 1 run #frontend #phase-5
 
 
 ## Blocked

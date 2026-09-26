@@ -1,0 +1,101 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T07-30-00Z__PSI-051__hermes",
+  "task_ids": ["PSI-051"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T07:30:00Z",
+    "ended_at": "2026-09-26T07:55:00Z",
+    "branch": "task/PSI-051"
+  },
+  "intent": "PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.",
+  "outcome": "done",
+  "summary": "Replaced mock Kanban data with Supabase queries and Server Actions. Implemented fractional indexing via positionBetween in src/features/kanban/lib/position.ts, added getBoardAction, createTaskAction, moveTaskAction, deleteTaskAction, and updateTaskAction in src/features/kanban/actions.ts, wired KanbanBoard with TanStack Query and optimistic drag-and-drop single-row position updates, and updated NewTaskDialog to create tasks directly in PostgreSQL.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/kanban/lib/position.ts",
+      "action": "added",
+      "note": "Fractional position indexing helper"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/types.ts",
+      "action": "added",
+      "note": "Kanban data types and interfaces"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/api/keys.ts",
+      "action": "added",
+      "note": "Kanban query key factory"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/actions.ts",
+      "action": "added",
+      "note": "Server Actions for Kanban board, task creation, and move operations"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-board.tsx",
+      "action": "modified",
+      "note": "TanStack Query board with optimistic drag-and-drop and fractional indexing updates"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/new-task-dialog.tsx",
+      "action": "modified",
+      "note": "Dialog for creating tasks in database"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/task-card.tsx",
+      "action": "modified",
+      "note": "Updated task card presentation"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/board-column.tsx",
+      "action": "modified",
+      "note": "Dynamic column component"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-view-page.tsx",
+      "action": "modified",
+      "note": "Page container with dynamic column mapping for new task dialog"
+    },
+    {
+      "path": "obsidian-out/review/PSI-051.md",
+      "action": "added",
+      "note": "Review card and verification runbook"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-051 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Use fractional-indexing generateKeyBetween with TanStack Query optimistic updates",
+      "reason": "Allows single-row DB writes during drag-and-drop moves while ensuring instantaneous UI response and rollback safety."
+    }
+  ],
+  "dependencies_added": [
+    {
+      "name": "fractional-indexing",
+      "version": "^4.0.0",
+      "reason": "Fractional index generation for drag-and-drop list ordering"
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified optimistic move calculations and Next.js /dashboard/kanban compilation."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-051 card."
+  }
+}

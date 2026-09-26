@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 14:30 · **hermes** · [[tasks/PSI-051|PSI-051]] · done (needs review): [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]
 - 14:00 · **hermes** · [[tasks/PSI-050|PSI-050]] · done (needs review): [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]
 - 13:30 · **hermes** · [[tasks/PSI-044|PSI-044]] · done (needs review): [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
 - 13:00 · **hermes** · [[tasks/PSI-041|PSI-041]] · done (needs review): [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]

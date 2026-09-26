@@ -6,13 +6,18 @@ project: super-dashboard-p3md-architecture
 ## Current Card
 
 `PSI-061 · Migration M6 Google` — **review** (PR #31 open, mergeable, CLEAN).
-Branch `task/PSI-061`, commit `fd9dda2`.
+Branch `task/PSI-061`, commit `fc01a46`.
+
+**Operator decision 2026-09-26: PSI-061 stays in `review`. Do NOT merge PR #31 and do NOT
+move the card to `done`. The human reviews the PR manually later.** Same treatment applies to
+any card the operator has not explicitly authorised.
 
 ## Next Card
 
 `PSI-062 · google-drive /sync` — **blocked on PSI-060** (human: Google Cloud project,
 service account, `GOOGLE_SA_KEY_B64` secret, Drive + Calendar APIs enabled, document
-roots/calendars shared with the SA email).
+roots/calendars shared with the SA email). Runbook: `docs/backend-architecture/google-integration.md`
+§ "Google Cloud setup (human, once)". No agent may touch GCP; contract C-15.
 
 Unblocked fallback if PSI-060 stays open: `PSI-067 · Admin: Integrations page`
 (depends only on PSI-061) — frontend, can be built against the M6 schema now.

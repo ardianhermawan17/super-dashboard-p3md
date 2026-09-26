@@ -524,10 +524,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 8 — Talent screening
 
 ### PSI-080 · Migration M9 talent schema and CV sources
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-061
+- pr: PR #39 (open — awaiting merge)
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake

@@ -190,9 +190,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Users table via `admin_list_users()` with direct and inherited roles; invite one, CSV import, suspend and reactivate work through `admin-users`; role/group edits are RLS-checked Server Actions; escalation attempts fail with a readable error.
 
 ### PSI-019 · Admin: Groups, Roles, Permissions pages
-- status: todo
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-017
 - accept: Groups (members, group roles), Roles (permission matrix by module, ungrantable boxes disabled, holder counts), Permissions (read-only catalogue with granting roles); each page shows the token-refresh note.
 

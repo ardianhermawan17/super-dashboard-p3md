@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-25
 
+- 22:00 · **hermes** · [[tasks/PSI-019|PSI-019]] · done (needs review): [[history/2026-09-25T15-00-00Z__PSI-019__hermes|PSI-019: Implement Admin Groups, Roles, and Permissions pages.]]
 - 21:30 · **hermes** · [[tasks/PSI-018|PSI-018]] · done (needs review): [[history/2026-09-25T14-30-00Z__PSI-018__hermes|PSI-018: Build Admin Users page (/dashboard/admin/users) and admin-users Edge Function.]]
 - 21:00 · **hermes** · [[tasks/PSI-017|PSI-017]] · done (needs review): [[history/2026-09-25T14-00-00Z__PSI-017__hermes|PSI-017: Implement getSession(), requirePermission(), and permission-filtered navigation with unit tests.]]
 - 20:30 · **hermes** · [[tasks/PSI-016|PSI-016]] · done (needs review): [[history/2026-09-25T13-30-00Z__PSI-016__hermes|PSI-016: Implement Next.js 16 authentication pages and routes (sign-in, sign-up, forgot-password, reset-password, confirm, sign-out) with Base UI primitives and Onboarding Option A.]]

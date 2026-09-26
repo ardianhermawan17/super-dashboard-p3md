@@ -39,3 +39,23 @@ export type InvitePayload = {
   role_ids: string[];
   group_ids: string[];
 };
+
+export type GroupDetail = GroupItem & {
+  memberCount: number;
+  memberIds: string[];
+  roleIds: string[];
+};
+
+export type RoleDetail = RoleItem & {
+  permissionKeys: string[];
+  directHolderCount: number;
+  inheritedHolderCount: number;
+  totalHoldersCount: number;
+};
+
+export type PermissionCatalogueItem = {
+  key: string;
+  module: string;
+  description: string;
+  grantingRoles: { id: string; name: string; slug: string }[];
+};

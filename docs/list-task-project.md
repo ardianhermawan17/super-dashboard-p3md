@@ -464,17 +464,19 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - review: obsidian-out/review/PSI-070.md
 
 ### PSI-071 · Migration M8 agent views, audit log, digests
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-070, PSI-061
+- pr: PR #37 (open — awaiting merge)
 - accept: agent_board_status, agent_agenda, agent_inbox, agent_documents with `security_invoker = true`; agent_audit_log insert-as-self; digests readable with `digest.receive`; pgTAP proves a non-member sees no rows through the views.
 
 ### PSI-072 · Agent tool registry, runtime and read tools
-- status: backlog
+- status: review
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-071
+- pr: PR #38 (open — awaiting merge)
 - accept: src/agent/{define,registry,runtime}.ts; get_activity, get_board, get_agenda, get_inbox, search_documents; every call audited; outputs capped and deep-linked; no PII or document content in outputs.
 
 ### PSI-073 · MCP endpoint with mcp-handler 2.x
@@ -529,10 +531,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 8 — Talent screening
 
 ### PSI-080 · Migration M9 talent schema and CV sources
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-061
+- pr: PR #39 (open — awaiting merge)
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake

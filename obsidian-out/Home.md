@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 53 | 0 | 0 | 0 | 0 | 21 | 74 |
+| 52 | 0 | 0 | 1 | 0 | 21 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-021|PSI-021]] PWA shell: manifest, icons, service worker · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T02-30-00Z__PSI-021__hermes|2026-09-26 09:30 WIB · hermes · PSI-021]]: Awaiting human operator review stamp on PSI-021 card.
 - [[history/2026-09-26T02-00-00Z__PSI-020__hermes|2026-09-26 09:00 WIB · hermes · PSI-020]]: Awaiting human operator review stamp on PSI-020 card.
 - [[history/2026-09-25T15-00-00Z__PSI-019__hermes|2026-09-25 22:00 WIB · hermes · PSI-019]]: Awaiting human operator review stamp on PSI-019 card.
 - [[history/2026-09-25T14-30-00Z__PSI-018__hermes|2026-09-25 21:30 WIB · hermes · PSI-018]]: Awaiting human operator review stamp on PSI-018 card.
@@ -47,6 +48,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 09:30 WIB · hermes · [[tasks/PSI-021|PSI-021]] · done: [[history/2026-09-26T02-30-00Z__PSI-021__hermes|PSI-021: Setup PWA shell: manifest, icons, and service worker.]]
 - 2026-09-26 09:00 WIB · hermes · [[tasks/PSI-020|PSI-020]] · done: [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]
 - 2026-09-25 22:00 WIB · hermes · [[tasks/PSI-019|PSI-019]] · done: [[history/2026-09-25T15-00-00Z__PSI-019__hermes|PSI-019: Implement Admin Groups, Roles, and Permissions pages.]]
 - 2026-09-25 21:30 WIB · hermes · [[tasks/PSI-018|PSI-018]] · done: [[history/2026-09-25T14-30-00Z__PSI-018__hermes|PSI-018: Build Admin Users page (/dashboard/admin/users) and admin-users Edge Function.]]
@@ -56,4 +58,3 @@ _Nothing waiting for review._
 - 2026-09-25 17:35 WIB · hermes · [[tasks/PSI-015|PSI-015]] · done: [[history/2026-09-25T10-35-00Z__PSI-015__hermes|PSI-015: write the pgTAP tests that prove the full RBAC contract (all testing-pgtap.md assertions + schema-wide RLS / anon lock) so supabase test db passes.]]
 - 2026-09-25 17:10 WIB · hermes · [[tasks/PSI-014|PSI-014]] · done: [[history/2026-09-25T10-10-00Z__PSI-014__hermes|PSI-014: add the missing last-admin RBAC guard (assert_admin_remains + statement triggers) and verify the full guard set: no escalation, suspension-to-no-roles, limited profile column edits.]]
 - 2026-09-25 16:47 WIB · hermes · [[tasks/PSI-013|PSI-013]] · done: [[history/2026-09-25T09-47-00Z__PSI-013__hermes|PSI-013: custom access-token hook so every JWT carries app_roles (incl. group-inherited), app_groups and app_permissions; lock the hook down from authenticated/anon.]]
-- 2026-09-25 16:15 WIB · hermes · [[tasks/PSI-010|PSI-010]] · done: [[history/2026-09-25T09-30-00Z__PSI-010__hermes|Rebase task/PSI-010 on latest master (it had drifted — master had the stub proxy and no client/server files, so PSI-010 never landed), resolve conflicts, re-verify, and push so PR #5 is merge-ready.]]

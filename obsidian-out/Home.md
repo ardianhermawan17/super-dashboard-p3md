@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 54 | 0 | 0 | 1 | 0 | 19 | 74 |
+| 54 | 0 | 0 | 0 | 0 | 20 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-019|PSI-019]] Admin: Groups, Roles, Permissions pages · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

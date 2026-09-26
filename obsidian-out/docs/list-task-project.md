@@ -349,9 +349,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: boards, board_members, board_groups, board_columns, tasks with `position text collate "C"`; membership via users or groups; creator auto-member trigger; assignee notification trigger; realtime publication; pgTAP tests.
 
 ### PSI-051 · Board reads and writes through Supabase
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-050
 - accept: Template board uses queries and Server Actions instead of mock data; moves write one row using fractional positions; order survives reload.
 

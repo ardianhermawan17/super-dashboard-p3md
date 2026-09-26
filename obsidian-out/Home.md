@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 37 | 0 | 0 | 2 | 1 | 34 | 74 |
+| 36 | 1 | 0 | 0 | 1 | 36 | 74 |
 
 ## Blocked
 
@@ -20,8 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes
-- [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

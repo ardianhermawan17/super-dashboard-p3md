@@ -386,12 +386,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - runbook: docs/agent-operations/tutorial-google-calendar-api.md (calendar) · docs/backend-architecture/google-integration.md § "Google Cloud setup (human, once)" (Drive)
 
 ### PSI-061 · Migration M6 Google
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-012, PSI-040, PSI-020
 - blocks: PSI-062, PSI-063, PSI-067
-- pr: PR #31 (merged to master as 2ad66fc)
+- merged: PR #31 (2026-09-26, 2ad66fc)
 - accept: drive_roots, drive_root_access, drive_files (trigram index), document_views, google_calendars, event_google_links, push triggers, `upsert_google_event`, `prune_google_events`, cron jobs as in database-architecture/m6-google.md; pgTAP proves a user without root access sees no files.
 
 ### PSI-062 · google-drive /sync
@@ -430,11 +430,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: App events whose audience includes a linked role/group appear in that Google calendar within a minute; edits and deletes propagate; deterministic event ids make repeated calls idempotent.
 
 ### PSI-067 · Admin: Integrations page
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-061
-- pr: PR #33 (merged to master as 5ff95a8)
+- merged: PR #33 (2026-09-26, 5ff95a8)
 - accept: Shows the SA email; add/edit Drive roots (folder URL or id, access roles/groups) and calendars (id, direction, role/group); last sync, last error and "Sync now" per item; guarded by `integrations.manage` / `documents.manage`.
 - review: obsidian-out/review/PSI-067.md
 - note: Sync buttons post to Edge Functions owned by PSI-062/065/066 (not yet deployed) — they no-op gracefully for now.
@@ -442,9 +442,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 7 — Agent layer (MCP read API)
 
 ### PSI-070 · Migration M7 activity log
-- status: backlog
+- status: todo
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-030, PSI-040, PSI-050
 - accept: activity_log with RLS following entity visibility (boards, roles, groups, events); triggers on tasks, messages, events; reorders and Google imports not logged; summaries contain no personal data; retention cron scheduled.
 

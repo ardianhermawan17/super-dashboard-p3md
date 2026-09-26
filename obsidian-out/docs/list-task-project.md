@@ -118,6 +118,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - depends: PSI-009
 - accept: CI runs `npx ecc-agentshield scan --path .` on PRs that touch CLAUDE.md, AGENTS.md, .hermes.md, .claude/, .mcp.json or hooks; critical findings fail the build.
 
+### PSI-099 · Hermes compute observability: wasted vs successful compute, expected vs actual cost
+- status: review
+- area: agent-ops
+- owner: agent:claude-code
+- depends: PSI-095
+- accept: `bun run agent:evaluate` reads Hermes `state.db`, OmniRoute `call_logs`, agent-history entries, this task list and provider billing CSVs read-only and writes `agent-evaluate/out/steps.jsonl` (run_id, task_id, step, timestamp, provider, model, prompt/cached/completion tokens, cost_estimate, tool_name, tool_args_hash, tool_status, error, retry_count, loop_flag, waste_flags, outcome; no raw tool arguments, outputs or credentials); loop, retry, budget and tool-error detectors and the cost calculator are covered by `bun test`; `agent-evaluate/reports/hermes_observability_report.md` plus CSVs report wasted vs successful compute, cost per successful task, pass@1/pass@k, retry, loop, tool-error and cache-hit rates, and per-provider actual vs expected cost per token with >10% flags; metrics that cannot be computed are marked not available.
+
 ## Phase 1 — Auth and RBAC (users, groups, roles, permissions)
 
 ### PSI-010 · Supabase clients and proxy.ts session refresh

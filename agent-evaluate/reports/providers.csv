@@ -1,0 +1,69 @@
+provider,model,attempts,ok,failed,failure_rate,likely_billed_failed,prompt_tokens,cached_tokens,completion_tokens,cache_hit_rate,est_failed_tokens,cost_ok_usd,cost_failed_est_usd,price_source
+antigravity,gemini-3.7-flash-high,2747,2719,28,0.0102,18,44245003,240907630,1074825,0.8448,857111,0,0,"assumed subscription, $0 per call"
+cheaperinference,deepseek-v4-flash-0731,701,622,79,0.1127,79,10453955,54351587,225297,0.8387,366692,4.354973,0.045785,example rate from the task brief (unconfirmed)
+cheaperinference,deepseek-v4.1-flash,475,316,159,0.3347,159,15511350,8959953,149217,0.3661,25030289,3.520355,2.198177,example rate from the task brief (unconfirmed)
+cheaperinference,deepseek-v4-flash,286,258,28,0.0979,28,7136805,11682536,94608,0.6208,848228,1.932506,0.159077,example rate from the task brief (unconfirmed)
+grok-cli,grok-4.6,157,85,72,0.4586,3,1964965,1416064,73377,0.4188,52411,0,0,"assumed subscription, $0 per call"
+antigravity,claude-opus-4-6-thinking,150,126,24,0.16,2,2831004,7301893,59271,0.7206,0,0,0,"assumed subscription, $0 per call"
+antigravity,gemini-pro-agent,70,61,9,0.1286,5,3202882,3008955,21970,0.4844,287647,0,0,"assumed subscription, $0 per call"
+cheaperinference,gpt-5.6-luna,69,42,27,0.3913,27,2569186,880657,15944,0.2553,816351,0.555441,0.152571,example rate from the task brief (unconfirmed)
+grok-cli,grok-composer-2.5-fast,56,7,49,0.875,0,424912,21632,10165,0.0484,0,0,0,"assumed subscription, $0 per call"
+grok-cli,grok-4.5,55,14,41,0.7455,0,561592,200192,17443,0.2628,0,0,0,"assumed subscription, $0 per call"
+claude,claude-opus-4-5-20251101,48,0,48,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-4o-2024-11-20,45,23,22,0.4889,0,186317,399232,3801,0.6818,0,0,0,"assumed subscription, $0 per call"
+claude,claude-sonnet-5,44,43,1,0.0227,0,20515,2749217,39938,0.9926,0,0,0,"assumed subscription, $0 per call"
+github,claude-opus-4.6,44,0,44,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.3-codex,38,0,38,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-opus-4.8-fast,34,0,34,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-sonnet-4.6,31,0,31,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+antigravity,gemini-3.1-pro-low,30,26,4,0.1333,1,2072854,32401,7961,0.0154,125042,0,0,"assumed subscription, $0 per call"
+claude,claude-fable-5,29,0,29,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-sonnet-5,27,0,27,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-opus-4.8,26,0,26,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-opus-4-5-20251101,26,0,26,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-sonnet-4.5,24,0,24,1,1,0,0,0,0,132565,0,0,"assumed subscription, $0 per call"
+github,claude-opus-4.7,24,0,24,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-4o-mini,24,7,17,0.7083,2,299286,141056,2933,0.3203,70328,0,0,"assumed subscription, $0 per call"
+github,gemini-3.1-pro-preview,21,0,21,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,claude-opus-5,18,0,18,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.4-nano,18,1,17,0.9444,0,155315,0,210,0,0,0,0,"assumed subscription, $0 per call"
+github,kimi-k2.7-code,16,0,16,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,grok-4.6,16,0,16,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+cheaperinference,glm-5.2,16,10,6,0.375,6,975107,75122,2096,0.0715,156362,0.198865,0.020171,example rate from the task brief (unconfirmed)
+cheaperinference,glm-5.3-flash,16,6,10,0.625,10,449131,0,456,0,517400,0.090009,0.102271,example rate from the task brief (unconfirmed)
+github,claude-fable-5,15,0,15,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+opencode,deepseek-v4-flash-free,13,0,13,1,0,0,0,0,0,0,0,0,not priced
+github,gpt-4-0125-preview,13,0,13,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,mai-code-1-flash,13,0,13,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,mai-code-1-flash-picker,13,0,13,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+opencode,north-mini-code-free,12,0,12,1,0,0,0,0,0,0,0,0,not priced
+antigravity,claude-sonnet-4-6,12,9,3,0.25,0,309069,127537,1299,0.2921,0,0,0,"assumed subscription, $0 per call"
+github,grok-4.5,10,0,10,1,1,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+opencode,nemotron-3-ultra-free,9,0,9,1,0,0,0,0,0,0,0,0,not priced
+github,claude-haiku-4.5,9,0,9,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+cheaperinference,gpt-oss-120b,9,3,6,0.6667,6,184414,431,1321,0.0023,250123,0.037428,0.050117,example rate from the task brief (unconfirmed)
+github,gemini-3.6-flash,9,0,9,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gemini-3.5-flash,9,0,9,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.6-sol,9,0,9,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.6-terra,9,0,9,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+opencode,muse-spark-1.2,8,0,8,1,0,0,0,0,0,0,0,0,not priced
+github,gpt-5.6-luna,8,0,8,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.5,8,0,8,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.4,7,0,7,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5.4-mini,7,0,7,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,mai-code-1.1-flash,7,0,7,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,oswe-vscode-prime,6,0,6,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gpt-5-mini,6,0,6,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+github,gemini-3.7-flash,6,0,6,1,0,0,0,0,0,0,0,0,"assumed subscription, $0 per call"
+kimi-coding,k3,4,0,4,1,0,0,0,0,0,0,0,0,not priced
+claude,claude-sonnet-4-5-20250929,3,3,0,0,0,11023,0,4684,0,0,0,0,"assumed subscription, $0 per call"
+claude,claude-opus-5,3,3,0,0,0,902,37147,4842,0.9763,0,0,0,"assumed subscription, $0 per call"
+openference,GLM-5.2,2,0,2,1,0,0,0,0,0,0,0,0,not priced
+opencode,hy3-free,2,0,2,1,0,0,0,0,0,0,0,0,not priced
+claude,claude-haiku-4-5-20251001,2,2,0,0,0,281,0,1009,0,0,0,0,"assumed subscription, $0 per call"
+cheaperinference,claude-sonnet-5,2,1,1,0.5,1,132412,0,153,0,0,0.026544,0,example rate from the task brief (unconfirmed)
+opencode,mimo-v2.5-free,2,0,2,1,0,0,0,0,0,0,0,0,not priced
+opencode,big-pickle,2,0,2,1,0,0,0,0,0,0,0,0,not priced
+claude,claude-sonnet-4-6,1,1,0,0,0,129,0,182,0,0,0,0,"assumed subscription, $0 per call"
+antigravity,gemini-3.7-flash-tiered,1,1,0,0,0,126234,0,1410,0,0,0,0,"assumed subscription, $0 per call"
+cheaperinference,aion-labs.aion-2-0,1,0,1,1,1,0,0,0,0,0,0,0,example rate from the task brief (unconfirmed)

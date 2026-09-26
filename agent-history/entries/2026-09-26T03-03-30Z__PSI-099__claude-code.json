@@ -1,0 +1,123 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T03-03-30Z__PSI-099__claude-code",
+  "task_ids": ["PSI-099"],
+  "agent": { "name": "claude-code", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-26T03:03:30Z",
+    "ended_at": "2026-09-26T14:54:16Z",
+    "branch": "task/PSI-099"
+  },
+  "intent": "Build a read-only measurement layer for Hermes that splits wasted vs successful compute and compares billed vs expected cost per token.",
+  "outcome": "done",
+  "summary": "Hermes runs outside the repo (%LOCALAPPDATA%\\hermes) and sends every LLM call through a local OmniRoute gateway; its state.db has token counts but no cost (cost_status unknown) and no link to tasks. Added agent-evaluate/ (kept separate from agent-history/): `bun run agent:evaluate` reads Hermes state.db (932 compaction duplicates dropped), OmniRoute call_logs (~4.8k upstream attempts on production-key), agent-history outcomes, the task list and the Cheaper Inference billing export, all read-only, and writes out/steps.jsonl (gitignored; hashes and error classes only), runs/tasks/providers/billing CSVs and reports/hermes_observability_report.md. Findings on 19-26 Sep: 29% of tokens successful, 5.6% wasted, 57% overhead outside task branches; pass@1 90.9% over 22 resolved Hermes tasks. Cheaper Inference billed $4.29 (the brief's example rate would give $9.29) but for 14.4% more tokens than OmniRoute received (flagged): OmniRoute gives up after ~17 s while successful calls take up to ~28 s (p95), and deepseek-v4-flash-0731 has exactly as many extra billed requests as timeouts (74). github, grok-cli, claude and opencode fail most of their fallback attempts. 16 of 20 Hermes history entries claim session times that do not overlap Hermes' real activity on the task branch. Built in a temporary worktree, then moved into the main folder at the operator's request and replayed on master 383b61f. By then Hermes had deleted its main CLI session (20260925_102231_0062d7), so the committed report attributes 31% of tokens to no turn; the figures above are from the 05:04Z run.",
+  "changes": [
+    {
+      "path": "agent-evaluate/observability/analyze.ts",
+      "action": "added",
+      "note": "Pure logic: parsing, run segmentation by task-branch checkouts, time-based call-to-turn join, loop/retry/budget/tool-error detectors, cost calculator, outcomes, pass@k, billing reconciliation"
+    },
+    {
+      "path": "agent-evaluate/observability/ingest.ts",
+      "action": "added",
+      "note": "Read-only readers for Hermes state.db, OmniRoute call_logs and agent-history entries; no secret columns, no message text"
+    },
+    { "path": "agent-evaluate/observability/report.ts", "action": "added", "note": "CLI writing out/steps.jsonl, reports/*.csv and the markdown report" },
+    { "path": "agent-evaluate/observability/analyze.test.ts", "action": "added", "note": "19 bun tests" },
+    { "path": "agent-evaluate/config.json", "action": "added", "note": "Prices, Hermes API key name, retry threshold, budget, flag threshold, billing files" },
+    { "path": "agent-evaluate/README.md", "action": "added", "note": "How to run, files, privacy rules, JSONL fields" },
+    { "path": "agent-evaluate/reports/hermes_observability_report.md", "action": "added", "note": "Generated report, aggregates only" },
+    { "path": "agent-evaluate/reports/runs.csv", "action": "added" },
+    { "path": "agent-evaluate/reports/tasks.csv", "action": "added" },
+    { "path": "agent-evaluate/reports/providers.csv", "action": "added" },
+    { "path": "agent-evaluate/reports/billing.csv", "action": "added" },
+    { "path": "package.json", "action": "modified", "note": "agent:evaluate and agent:evaluate:test scripts" },
+    { "path": ".gitignore", "action": "modified", "note": "agent-evaluate/out/ and agent-evaluate/data/ stay local" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-099 added and claimed" },
+    { "path": "agent-history/entries/2026-09-26T03-03-30Z__PSI-099__claude-code.json", "action": "added", "note": "This entry" }
+  ],
+  "decisions": [
+    {
+      "decision": "Measure from Hermes' and OmniRoute's existing stores, read-only, instead of changing Hermes",
+      "reason": "Hermes is a third-party install outside the repo that already records every turn, tool call and API attempt; a live Hermes plugin is agent configuration (C-15) and waits for approval",
+      "alternatives": ["Hermes plugin on the post_llm_call/on_session_end hooks (phase B)", "Patch the installed hermes-agent code"]
+    },
+    {
+      "decision": "A successful call belongs to the Hermes turn stored within 3 s after it, a failed attempt to the turn within 10 min; otherwise to the run active when it ended",
+      "reason": "OmniRoute's timestamp is the call end: 2,564 of 3,680 successful calls precede a Hermes turn by under 0.25 s",
+      "alternatives": ["Run-level time windows only", "Session totals only"]
+    },
+    {
+      "decision": "Give timed-out attempts (5xx/499) the token counts of the successful retry",
+      "reason": "OmniRoute logs them with 0 tokens, yet Cheaper Inference billed 124 more requests than were delivered on the billed models",
+      "alternatives": ["Count failed attempts as 0 tokens"]
+    },
+    {
+      "decision": "Split successful runs (flagged turns and failed attempts are wasted, the rest successful) and keep unclassifiable compute in separate buckets",
+      "reason": "The brief's definitions leave a successful run with waste flags unassigned; this was the stated default and the operator did not object",
+      "alternatives": ["All-or-nothing per run"]
+    },
+    {
+      "decision": "Expected price = the brief's example Cheaper Inference rate; subscription providers $0 per call; both labelled unconfirmed/assumed",
+      "reason": "No contracted prices were given; the report shows billed = 0.46x that rate so the gap is visible",
+      "alternatives": ["Mark expected cost as not available"]
+    },
+    {
+      "decision": "Work in a separate git worktree (D:/coding/pflp/p3md-psi-099) on task/PSI-099",
+      "reason": "Hermes was switching branches and committing in the main checkout during this session",
+      "alternatives": ["Work in the main checkout"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "bun run agent:evaluate against the live Hermes state.db and OmniRoute storage.sqlite, report read end to end; Hermes activity windows match git merge times (PSI-040 ends 02:56Z vs merge 02:56:58Z, PSI-041 03:06Z vs 03:06:10Z); privacy scan of steps.jsonl (longest string 50 chars, error field holds classes only); bun test 19/19. The independent review sub-agent stopped early on an API rate limit; a self-review instead found and fixed two issues (a '|' inside a markdown table cell broke the task table; a zero-token billing day would divide by zero), with a test for the second. Typecheck = strict tsc on the four new .ts files with @types/bun in a scratch directory (the app is untouched, its tsc not re-run). Lint = oxlint 0 warnings/errors and oxfmt --check clean on agent-evaluate/. agent:check: obsidian-sync --check passes; agent-context --check fails in this fresh worktree only, from CRLF drift in the committed .hermes.md (the same commit passes in the main checkout; see follow_ups)."
+  },
+  "contract_deviations": [
+    {
+      "rule": "C-01",
+      "why": "PSI-099 was created and claimed in the same session instead of being appended as backlog/owner human and stopping, because the operator asked for this work directly in the session and supplied the billing export."
+    }
+  ],
+  "risks": [
+    "Dollar figures use an unconfirmed example rate for cheaperinference and $0 for subscription providers; replace them in agent-evaluate/config.json",
+    "The call-to-turn join is time-based (84% of prompt tokens tie to a turn; 290 calls had candidates in two sessions), so per-turn numbers are estimates until phase B",
+    "production-key is assumed to be used only by Hermes",
+    "The report is a snapshot of live stores; re-running it changes the numbers"
+  ],
+  "follow_ups": [
+    {
+      "task_id": "NEW",
+      "note": "Phase B (C-15, agent config): a Hermes plugin on post_llm_call/on_session_end that writes the same JSONL live with exact usage and branch, plus a dedicated OmniRoute API key for Hermes"
+    },
+    {
+      "task_id": "NEW",
+      "note": "OmniRoute: raise the upstream timeout for cheaperinference above the ~28 s p95 success latency (timeouts fire at ~17 s and are still billed); drop the failing github, grok-cli, claude and opencode entries from Hermes' fallback chains"
+    },
+    {
+      "task_id": "NEW",
+      "note": "Hermes history entries: take session.started_at/ended_at (and the Hermes session id) from the real session instead of writing them by hand"
+    },
+    {
+      "task_id": "NEW",
+      "note": "scripts/agent-context.ts --check compares bytes exactly (line 58); the committed .hermes.md has mixed line endings, so a fresh Windows checkout with core.autocrlf=true reports it stale. Normalize CRLF in the check or pin eol for .hermes.md"
+    },
+    { "task_id": "NEW", "note": "OmniRoute listens on 0.0.0.0:20128; bind it to 127.0.0.1 or confirm every request needs a key" },
+    {
+      "task_id": "NEW",
+      "note": "Hermes prunes sessions from state.db (the main PSI work session disappeared within hours), so schedule `bun run agent:evaluate` and keep out/steps.jsonl snapshots, or do phase B, before measurements are lost"
+    },
+    {
+      "task_id": "NEW",
+      "note": "Hermes smart approval auto-approved 4 git force pushes and 20 recursive deletes in the recorded sessions, while docs/agent-operations/README.md expects command approval on"
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "No independent code review completed (the review agent hit a rate limit), so a human review of agent-evaluate/ is needed. Confirm prices and the success definition, read the report's findings, decide on phase B (agent config, C-15). Changes are on branch task/PSI-099 for PR review."
+  }
+}

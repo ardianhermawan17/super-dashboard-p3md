@@ -1,0 +1,45 @@
+{
+  "agent_name": "hermes",
+  "hermes_api_key_name": "production-key",
+  "retry_threshold": 3,
+  "budget_usd_per_run": null,
+  "overspend_threshold_pct": 10,
+  "pricing_usd_per_1m": {
+    "cheaperinference": {
+      "input": 0.2,
+      "cached": 0.04,
+      "output": 0.4,
+      "source": "example rate from the task brief (unconfirmed)"
+    },
+    "antigravity": {
+      "input": 0,
+      "cached": 0,
+      "output": 0,
+      "source": "assumed subscription, $0 per call"
+    },
+    "claude": {
+      "input": 0,
+      "cached": 0,
+      "output": 0,
+      "source": "assumed subscription, $0 per call"
+    },
+    "github": {
+      "input": 0,
+      "cached": 0,
+      "output": 0,
+      "source": "assumed subscription, $0 per call"
+    },
+    "grok-cli": {
+      "input": 0,
+      "cached": 0,
+      "output": 0,
+      "source": "assumed subscription, $0 per call"
+    }
+  },
+  "billing": [
+    {
+      "provider": "cheaperinference",
+      "file": "data/billing/cheaperinference-2026-08-30_2026-09-26.csv"
+    }
+  ]
+}

@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 47 | 0 | 0 | 1 | 0 | 26 | 74 |
+| 47 | 0 | 0 | 0 | 0 | 27 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

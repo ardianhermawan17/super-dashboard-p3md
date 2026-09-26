@@ -278,10 +278,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Invalid signature returns 400; delivered/bounced/complained events update `message_recipients.delivery_status`.
 
 ### PSI-034 · Inbox UI on the chat layout
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-030, PSI-017
+- merged: PR #21 (2026-09-26)
 - accept: /dashboard/mail lists messages sent or received, grouped by target role or group; detail view shows per-recipient delivery status; no email addresses rendered.
 
 ### PSI-035 · Compose, one-liner and command palette action

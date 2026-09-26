@@ -65,7 +65,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes · 1 run #frontend #phase-3
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-023|PSI-023]] Push dispatch route · agent:hermes · 1 run #backend #phase-2
 - [x] [[tasks/PSI-024|PSI-024]] Notification center and live bell · agent:hermes · 1 run #frontend #phase-2
 - [x] [[tasks/PSI-030|PSI-030]] Migration M3 role and group mail · agent:hermes · 2 runs #db #phase-3
+- [x] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes · 1 run #frontend #phase-3
 
 
 %% kanban:settings

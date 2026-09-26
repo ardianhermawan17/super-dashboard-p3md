@@ -37,6 +37,8 @@ type Task = {
   owner: string;
   depends: string[];
   accept: string;
+  /** Completion date (YYYY-MM-DD) parsed from a `- merged:` line. Absent for most cards. */
+  mergedDate?: string;
   line: number;
 };
 
@@ -68,10 +70,14 @@ const LANE: Record<Status, string> = {
 };
 const AREAS = new Set(['repo', 'docs', 'agent-ops', 'frontend', 'backend', 'db', 'integration', 'infra', 'security']);
 const FIELDS = ['status', 'area', 'owner', 'depends', 'accept'];
+// `merged` is optional and not part of FIELDS: it records a card's completion date
+// (`- merged: PR #34 (2026-09-26, 4b2f083)`) and only some done cards carry it.
+const OPTIONAL_FIELDS = ['merged'];
+const DATE_RE = /\b(20\d{2}-\d{2}-\d{2})\b/;
 const OWNER_RE = /^(unassigned|human|human:[a-z0-9._-]+|agent:[a-z0-9._-]+)$/;
 const TASK_ID_RE = /^PSI-\d{3}$/;
 const HEADING_RE = /^###\s+(PSI-\d{3})\s+[·:—-]\s+(.+?)\s*$/;
-const FIELD_RE = /^-\s+(status|area|owner|depends|accept):\s*(.*)$/;
+const FIELD_RE = /^-\s+(status|area|owner|depends|accept|merged):\s*(.*)$/;
 const PHASE_RE = /^##\s+(Phase\s+(\d+)\b.*)$/;
 const FENCE_RE = /^\s*(```|~~~)/;
 
@@ -162,9 +168,15 @@ function parseTasks(md: string): { tasks: Task[]; errors: string[] } {
         }
         break;
       case 'accept':
-        current.accept = value;
-        break;
-    }
+            current.accept = value;
+            break;
+          case 'merged': {
+            // Any ISO date on the line wins; the exact prose around it is free-form.
+            const d = value.match(DATE_RE);
+            if (d) current.mergedDate = d[1];
+            break;
+          }
+          }
   });
   finish();
 
@@ -241,6 +253,27 @@ const dayWIB = (iso: string) =>
 const timeWIB = (iso: string) => wib(iso, { hour: '2-digit', minute: '2-digit' });
 const stampWIB = (iso: string) => `${dayWIB(iso)} ${timeWIB(iso)} WIB`;
 
+/**
+ * The `✅ YYYY-MM-DD` suffix the Obsidian Kanban plugin writes on completed cards.
+ *
+ * Regenerating Board.md would otherwise drop it, so the date is re-derived from durable
+ * sources, in order: the card's `- merged:` line, then the newest session that ended
+ * `done`. Cards with neither (no merge line, no done session) get no stamp rather than
+ * an invented one.
+ */
+function completionStamp(t: Task, runs: Entry[], status: Status): string {
+  if (status !== 'done') return '';
+  // `merged` is already a human-written calendar date; session timestamps need WIB conversion
+  // (a 18:00Z session is the next day in Jakarta, and every other vault timestamp is WIB).
+  const latestDone = runs
+    .filter((e) => e.outcome === 'done')
+    .map((e) => e.session.started_at)
+    .sort()
+    .at(-1);
+  const day = t.mergedDate ?? (latestDone ? dayWIB(latestDone) : undefined);
+  return day ? ` ✅ ${day}` : '';
+}
+
 // ---------------------------------------------------------------- renderers
 
 function renderBoard(tasks: Task[], runs: Map<string, Entry[]>): string {
@@ -254,7 +287,11 @@ function renderBoard(tasks: Task[], runs: Map<string, Entry[]>): string {
       if (t.owner !== 'unassigned') parts.push(t.owner);
       if (n) parts.push(`${n} run${n === 1 ? '' : 's'}`);
       const tags = [t.area && `#${t.area}`, t.phaseNo && `#phase-${t.phaseNo}`].filter(Boolean).join(' ');
-      out.push(`- [${status === 'done' ? 'x' : ' '}] ${parts.join(' · ')}${tags ? ` ${tags}` : ''}`);
+      // The Kanban plugin appends `✅ YYYY-MM-DD` to completed cards. Regenerating the board
+      // strips it unless we re-emit it, so derive the date from durable data instead:
+      // the `- merged:` line, else the latest session that ended `done`.
+      const stamp = status === 'done' ? completionStamp(t, runs.get(t.id) ?? [], status) : '';
+      out.push(`- [${status === 'done' ? 'x' : ' '}] ${parts.join(' · ')}${tags ? ` ${tags}` : ''}${stamp}`);
     }
     out.push('', '');
   }

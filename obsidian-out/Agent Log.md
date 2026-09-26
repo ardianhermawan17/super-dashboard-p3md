@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 13:30 · **hermes** · [[tasks/PSI-044|PSI-044]] · done (needs review): [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
 - 13:00 · **hermes** · [[tasks/PSI-041|PSI-041]] · done (needs review): [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]
 - 12:30 · **hermes** · [[tasks/PSI-040|PSI-040]] · done (needs review): [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
 - 12:00 · **hermes** · [[tasks/PSI-034|PSI-034]] · done (needs review): [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]

@@ -332,9 +332,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Opt-in checkbox sends one mail per invited role or group through send-role-mail; the message links the event.
 
 ### PSI-044 · ICS subscription feed
-- status: backlog
+- status: review
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-040
 - accept: calendar_feed_tokens + `events_for_user` (service_role only, includes groups); /api/calendar/feed/<token> returns a valid VCALENDAR; reset link rotates the token.
 

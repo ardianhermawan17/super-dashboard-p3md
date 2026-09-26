@@ -200,10 +200,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 2 — Notifications and PWA
 
 ### PSI-020 · Migration M2 notifications and push
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-012
+- merged: PR #15 (2026-09-26)
 - accept: pg_net, pg_cron, `internal_post`, notifications, push_subscriptions, notification_prefs, notify, register_push_subscription, push_targets, mark_pushed, statement-level dispatch trigger, retention job, realtime publication as in database-architecture/m2-notifications.md.
 
 ### PSI-021 · PWA shell: manifest, icons, service worker

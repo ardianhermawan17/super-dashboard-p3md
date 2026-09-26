@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 53 | 0 | 0 | 1 | 0 | 20 | 74 |
+| 53 | 0 | 0 | 0 | 0 | 21 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-020|PSI-020]] Migration M2 notifications and push · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

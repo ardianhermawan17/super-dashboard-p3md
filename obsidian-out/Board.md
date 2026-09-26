@@ -71,7 +71,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-020|PSI-020]] Migration M2 notifications and push · agent:hermes · 1 run #db #phase-2
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-017|PSI-017]] getSession, requirePermission and permission-filtered navigation · agent:hermes · 1 run #frontend #phase-1
 - [x] [[tasks/PSI-018|PSI-018]] Admin: Users page and admin-users Edge Function · agent:hermes · 1 run #frontend #phase-1
 - [x] [[tasks/PSI-019|PSI-019]] Admin: Groups, Roles, Permissions pages · agent:hermes · 1 run #frontend #phase-1
+- [x] [[tasks/PSI-020|PSI-020]] Migration M2 notifications and push · agent:hermes · 1 run #db #phase-2
 
 
 %% kanban:settings

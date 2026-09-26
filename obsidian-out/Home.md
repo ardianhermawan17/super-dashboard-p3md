@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 48 | 0 | 0 | 0 | 0 | 26 | 74 |
+| 47 | 0 | 0 | 1 | 0 | 26 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,11 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T05-00-00Z__PSI-034__hermes|2026-09-26 12:00 WIB · hermes · PSI-034]]: Awaiting human operator review stamp on PSI-034 card.
 - [[history/2026-09-26T04-30-00Z__PSI-030__hermes|2026-09-26 11:30 WIB · hermes · PSI-030]]: Awaiting human operator review stamp on PSI-030 card.
 - [[history/2026-09-26T04-00-00Z__PSI-024__hermes|2026-09-26 11:00 WIB · hermes · PSI-024]]: Awaiting human operator review stamp on PSI-024 card.
 - [[history/2026-09-26T03-30-00Z__PSI-023__hermes|2026-09-26 10:30 WIB · hermes · PSI-023]]: Awaiting human operator review stamp on PSI-023 card.
@@ -52,6 +53,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-26 12:00 WIB · hermes · [[tasks/PSI-034|PSI-034]] · done: [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]
 - 2026-09-26 11:30 WIB · hermes · [[tasks/PSI-030|PSI-030]] · done: [[history/2026-09-26T04-30-00Z__PSI-030__hermes|PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.]]
 - 2026-09-26 11:00 WIB · hermes · [[tasks/PSI-024|PSI-024]] · done: [[history/2026-09-26T04-00-00Z__PSI-024__hermes|PSI-024: Implement Notification center and live bell.]]
 - 2026-09-26 10:30 WIB · hermes · [[tasks/PSI-023|PSI-023]] · done: [[history/2026-09-26T03-30-00Z__PSI-023__hermes|PSI-023: Implement push dispatch route.]]
@@ -61,4 +63,3 @@ _Nothing waiting for review._
 - 2026-09-25 22:00 WIB · hermes · [[tasks/PSI-019|PSI-019]] · done: [[history/2026-09-25T15-00-00Z__PSI-019__hermes|PSI-019: Implement Admin Groups, Roles, and Permissions pages.]]
 - 2026-09-25 21:30 WIB · hermes · [[tasks/PSI-018|PSI-018]] · done: [[history/2026-09-25T14-30-00Z__PSI-018__hermes|PSI-018: Build Admin Users page (/dashboard/admin/users) and admin-users Edge Function.]]
 - 2026-09-25 21:00 WIB · hermes · [[tasks/PSI-017|PSI-017]] · done: [[history/2026-09-25T14-00-00Z__PSI-017__hermes|PSI-017: Implement getSession(), requirePermission(), and permission-filtered navigation with unit tests.]]
-- 2026-09-25 20:30 WIB · hermes · [[tasks/PSI-016|PSI-016]] · done: [[history/2026-09-25T13-30-00Z__PSI-016__hermes|PSI-016: Implement Next.js 16 authentication pages and routes (sign-in, sign-up, forgot-password, reset-password, confirm, sign-out) with Base UI primitives and Onboarding Option A.]]

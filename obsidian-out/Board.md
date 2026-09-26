@@ -12,7 +12,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-031|PSI-031]] Resend API key and webhook secret · human #infra #phase-3
 - [ ] [[tasks/PSI-032|PSI-032]] Edge Function send-role-mail #backend #phase-3
 - [ ] [[tasks/PSI-033|PSI-033]] Edge Function resend-webhook #backend #phase-3
-- [ ] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout #frontend #phase-3
 - [ ] [[tasks/PSI-035|PSI-035]] Compose, one-liner and command palette action #frontend #phase-3
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
 - [ ] [[tasks/PSI-040|PSI-040]] Migration M4 calendar #db #phase-4
@@ -66,6 +65,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes · 1 run #frontend #phase-3
 
 
 ## Blocked

@@ -63,7 +63,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes · 1 run #frontend #phase-4
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-030|PSI-030]] Migration M3 role and group mail · agent:hermes · 2 runs #db #phase-3
 - [x] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes · 1 run #frontend #phase-3
 - [x] [[tasks/PSI-040|PSI-040]] Migration M4 calendar · agent:hermes · 1 run #db #phase-4
+- [x] [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes · 1 run #frontend #phase-4
 
 
 %% kanban:settings

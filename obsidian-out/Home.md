@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 45 | 0 | 0 | 1 | 0 | 28 | 74 |
+| 45 | 0 | 0 | 0 | 0 | 29 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

@@ -430,11 +430,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: App events whose audience includes a linked role/group appear in that Google calendar within a minute; edits and deletes propagate; deterministic event ids make repeated calls idempotent.
 
 ### PSI-067 · Admin: Integrations page
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-061
 - accept: Shows the SA email; add/edit Drive roots (folder URL or id, access roles/groups) and calendars (id, direction, role/group); last sync, last error and "Sync now" per item; guarded by `integrations.manage` / `documents.manage`.
+- review: obsidian-out/review/PSI-067.md
+- note: Sync buttons post to Edge Functions owned by PSI-062/065/066 (not yet deployed) — they no-op gracefully for now.
 
 ## Phase 7 — Agent layer (MCP read API)
 

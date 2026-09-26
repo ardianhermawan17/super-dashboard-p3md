@@ -66,6 +66,7 @@ import {
   IconPizza,
   IconPlus,
   IconProps,
+  IconRefresh,
   IconRosetteDiscountCheck,
   IconRss,
   IconSearch,
@@ -176,6 +177,7 @@ export const Icons = {
   mail: IconMail,
   mapPin: IconMapPin,
   rss: IconRss,
+  refresh: IconRefresh,
   gripVertical: IconGripVertical,
 
   // Shapes / Indicators

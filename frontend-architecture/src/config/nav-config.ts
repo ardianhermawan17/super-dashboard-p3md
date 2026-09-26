@@ -85,6 +85,15 @@ export const navGroups: NavGroup[] = [
           permission: 'roles.manage'
         },
         items: []
+      },
+      {
+        title: 'Integrations',
+        url: '/dashboard/admin/integrations',
+        icon: 'settings',
+        access: {
+          permission: 'integrations.manage'
+        },
+        items: []
       }
     ]
   },

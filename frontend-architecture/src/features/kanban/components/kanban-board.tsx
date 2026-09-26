@@ -13,6 +13,7 @@ import { TaskCard } from './task-card';
 import { getBoardAction, moveTaskAction } from '../actions';
 import { kanbanKeys } from '../api/keys';
 import { positionBetween } from '../lib/position';
+import { useBoardRealtime } from '../hooks/use-board-realtime';
 import type { KanbanBoardData, KanbanTask } from '../types';
 
 interface KanbanBoardProps {
@@ -37,6 +38,8 @@ export function KanbanBoard({ boardId, initialBoard }: KanbanBoardProps) {
   });
 
   const board = data;
+
+  useBoardRealtime(board?.id);
 
   const columnsRecord = useMemo(() => {
     const rec: Record<string, KanbanTask[]> = {};

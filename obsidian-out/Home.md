@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 42 | 0 | 0 | 2 | 0 | 30 | 74 |
+| 41 | 0 | 0 | 3 | 0 | 30 | 74 |
 
 ## Blocked
 
@@ -22,9 +22,11 @@ _Nothing in progress._
 
 - [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes
 - [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes
+- [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T08-00-00Z__PSI-052__hermes|2026-09-26 15:00 WIB · hermes · PSI-052]]: Awaiting human operator review stamp on PSI-052 card.
 - [[history/2026-09-26T07-30-00Z__PSI-051__hermes|2026-09-26 14:30 WIB · hermes · PSI-051]]: Awaiting human operator review stamp on PSI-051 card.
 - [[history/2026-09-26T07-00-00Z__PSI-050__hermes|2026-09-26 14:00 WIB · hermes · PSI-050]]: Awaiting human operator review stamp on PSI-050 card.
 - [[history/2026-09-26T06-30-00Z__PSI-044__hermes|2026-09-26 13:30 WIB · hermes · PSI-044]]: Awaiting human operator review stamp on PSI-044 card.
@@ -59,6 +61,7 @@ _Nothing in progress._
 
 ## Latest AI sessions
 
+- 2026-09-26 15:00 WIB · hermes · [[tasks/PSI-052|PSI-052]] · done: [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
 - 2026-09-26 14:30 WIB · hermes · [[tasks/PSI-051|PSI-051]] · done: [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]
 - 2026-09-26 14:00 WIB · hermes · [[tasks/PSI-050|PSI-050]] · done: [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]
 - 2026-09-26 13:30 WIB · hermes · [[tasks/PSI-044|PSI-044]] · done: [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
@@ -68,4 +71,3 @@ _Nothing in progress._
 - 2026-09-26 11:30 WIB · hermes · [[tasks/PSI-030|PSI-030]] · done: [[history/2026-09-26T04-30-00Z__PSI-030__hermes|PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.]]
 - 2026-09-26 11:00 WIB · hermes · [[tasks/PSI-024|PSI-024]] · done: [[history/2026-09-26T04-00-00Z__PSI-024__hermes|PSI-024: Implement Notification center and live bell.]]
 - 2026-09-26 10:30 WIB · hermes · [[tasks/PSI-023|PSI-023]] · done: [[history/2026-09-26T03-30-00Z__PSI-023__hermes|PSI-023: Implement push dispatch route.]]
-- 2026-09-26 10:00 WIB · hermes · [[tasks/PSI-022|PSI-022]] · done: [[history/2026-09-26T03-00-00Z__PSI-022__hermes|PSI-022: Implement push enablement hook, explicit activation UI, and notification preferences.]]

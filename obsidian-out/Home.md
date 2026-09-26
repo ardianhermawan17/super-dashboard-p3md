@@ -8,11 +8,11 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 38 | 2 | 0 | 0 | 0 | 34 | 74 |
+| 38 | 0 | 0 | 1 | 1 | 34 | 74 |
 
 ## Blocked
 
-_Nothing blocked._
+- [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
 
 ## Doing
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes
 
 ## AI sessions waiting for a human
 

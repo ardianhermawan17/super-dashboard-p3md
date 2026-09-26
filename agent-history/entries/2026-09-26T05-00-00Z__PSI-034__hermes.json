@@ -1,0 +1,78 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T05-00-00Z__PSI-034__hermes",
+  "task_ids": ["PSI-034"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo-cheaper-inference-prio",
+    "operator": "ficana"
+  },
+  "session": {
+    "started_at": "2026-09-26T05:00:00Z",
+    "ended_at": "2026-09-26T05:25:00Z",
+    "branch": "task/PSI-034"
+  },
+  "intent": "PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.",
+  "outcome": "done",
+  "summary": "Implemented Role and Group mail inbox at /dashboard/mail with audience channels sidebar grouped by target role or group, message viewer with Markdown body, per-recipient delivery statuses (pending, sent, delivered, bounced, failed), and strict privacy compliance omitting raw email addresses. Verified with tsc, oxlint, and next build.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/mail/types.ts",
+      "action": "added",
+      "note": "Mail and delivery status types"
+    },
+    {
+      "path": "frontend-architecture/src/features/mail/actions.ts",
+      "action": "added",
+      "note": "Server Actions for messages and recipient delivery status"
+    },
+    {
+      "path": "frontend-architecture/src/features/mail/components/mail-inbox-view.tsx",
+      "action": "added",
+      "note": "Split-view mailbox component"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/mail/page.tsx",
+      "action": "added",
+      "note": "Role mail inbox page route"
+    },
+    {
+      "path": "frontend-architecture/src/components/icons.tsx",
+      "action": "modified",
+      "note": "Added users icon mapping"
+    },
+    {
+      "path": "obsidian-out/review/PSI-034.md",
+      "action": "added",
+      "note": "Review card and verification report"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-034 status updated to review"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Group messages into audience channels by role and group targets",
+      "reason": "Mirrors team chat channels and keeps role-directed communications organized."
+    },
+    {
+      "decision": "Display profile names and omit raw email addresses from UI",
+      "reason": "Complies with C-08 / C-18 privacy rules where emails are resolved solely at delivery time by backend."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "Verified inbox split view and route compilation."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Awaiting human operator review stamp on PSI-034 card."
+  }
+}

@@ -54,7 +54,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0
 - [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 1 run #integration #phase-6
 
 
@@ -75,6 +74,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0
 - [x] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
+- [x] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0
 - [x] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 2 runs #frontend #phase-1
 - [x] [[tasks/PSI-011|PSI-011]] Resend domain and custom SMTP for Auth · human #infra #phase-1
 - [x] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 4 runs #db #phase-1

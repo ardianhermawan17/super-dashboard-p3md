@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 35 | 0 | 1 | 2 | 0 | 37 | 75 |
+| 35 | 0 | 1 | 1 | 0 | 38 | 75 |
 
 ## Blocked
 
@@ -20,7 +20,6 @@ _Nothing blocked._
 
 ## Review
 
-- [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code
 - [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes
 
 ## AI sessions waiting for a human

@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 35 | 0 | 1 | 1 | 0 | 38 | 75 |
+| 32 | 0 | 1 | 0 | 0 | 42 | 75 |
 
 ## Blocked
 
@@ -20,10 +20,13 @@ _Nothing blocked._
 
 ## Review
 
-- [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T18-45-00Z__PSI-080__hermes|2026-09-27 01:05 WIB · hermes · PSI-080]]: This is the schema that stores CVs and candidate data. A human should confirm the retention story (cv_path is meant to be nulled after parsing, but nothing enforces it), who is expected to hold talent.read, and that admin-only talent.manage is the intended gate on the taxonomy.
+- [[history/2026-09-26T17-45-00Z__PSI-072__hermes|2026-09-27 00:30 WIB · hermes · PSI-072]]: New server-side agent surface that reads on behalf of a user. A human should confirm the audit contract is what they want (which arguments are stored in agent_audit_log.args) and that the deep-link query-param convention is acceptable until real detail routes exist.
+- [[history/2026-09-26T17-18-00Z__PSI-071__hermes|2026-09-27 00:00 WIB · hermes · PSI-071]]: New RLS surface (four views plus two tables) on the agent read path. A human should confirm the security_invoker property is the intended isolation model and that no client write policy is wanted on digests, before this is relied on by the MCP layer.
 - [[history/2026-09-26T15-30-00Z__PSI-065__hermes|2026-09-26 22:20 WIB · hermes · PSI-065]]: Awaiting human operator review stamp on PSI-065 card.
 - [[history/2026-09-26T13-00-00Z__PSI-070__hermes|2026-09-26 19:50 WIB · hermes · PSI-070]]: Awaiting human operator review stamp on PSI-070 card.
 - [[history/2026-09-26T10-30-00Z__PSI-067__hermes|2026-09-26 17:10 WIB · hermes · PSI-067]]: PSI-067 is a user-facing admin page awaiting the operator's visual review and manual stamp to done in Obsidian. Also confirm open question 1: whether the not-yet-functional Sync buttons should be hidden until PSI-062/065/066 deploy.
@@ -65,6 +68,9 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-27 01:05 WIB · hermes · [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]
+- 2026-09-27 00:30 WIB · hermes · [[tasks/PSI-072|PSI-072]] · done: [[history/2026-09-26T17-45-00Z__PSI-072__hermes|Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.]]
+- 2026-09-27 00:00 WIB · hermes · [[tasks/PSI-071|PSI-071]] · done: [[history/2026-09-26T17-18-00Z__PSI-071__hermes|Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.]]
 - 2026-09-26 22:20 WIB · hermes · [[tasks/PSI-065|PSI-065]] · done: [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]
 - 2026-09-26 19:50 WIB · hermes · [[tasks/PSI-070|PSI-070]] · done: [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]
 - 2026-09-26 17:10 WIB · hermes · [[tasks/PSI-067|PSI-067]] · done: [[history/2026-09-26T10-30-00Z__PSI-067__hermes|PSI-067: Admin: Integrations page — show the Service Account email, register Drive roots with role/group access, and link Google Calendars with a direction and audience.]]
@@ -72,6 +78,3 @@ _Nothing blocked._
 - 2026-09-26 15:30 WIB · hermes · [[tasks/PSI-053|PSI-053]] · done: [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
 - 2026-09-26 15:00 WIB · hermes · [[tasks/PSI-052|PSI-052]] · done: [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
 - 2026-09-26 14:30 WIB · hermes · [[tasks/PSI-051|PSI-051]] · done: [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]
-- 2026-09-26 14:00 WIB · hermes · [[tasks/PSI-050|PSI-050]] · done: [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]
-- 2026-09-26 13:30 WIB · hermes · [[tasks/PSI-044|PSI-044]] · done: [[history/2026-09-26T06-30-00Z__PSI-044__hermes|PSI-044: Implement ICS subscription feed route and token rotation UI.]]
-- 2026-09-26 13:00 WIB · hermes · [[tasks/PSI-041|PSI-041]] · done: [[history/2026-09-26T06-00-00Z__PSI-041__hermes|PSI-041: Port calendar onto Base UI and Next.js 16 with month, week, day, and agenda views.]]

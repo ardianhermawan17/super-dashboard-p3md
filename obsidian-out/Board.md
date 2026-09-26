@@ -20,7 +20,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push #integration #phase-6
-- [ ] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools #backend #phase-7
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x #backend #phase-7
 - [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata #security #phase-7
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
@@ -28,7 +27,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
-- [ ] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · 1 run #db #phase-8
 - [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake #frontend #phase-8
 - [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv #backend #phase-8
 - [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
@@ -53,7 +51,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 1 run #integration #phase-6
 
 
 ## Blocked
@@ -99,8 +96,12 @@ kanban-plugin: board
 - [x] [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
 - [x] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
 - [x] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6 ✅ 2026-09-26
+- [x] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 1 run #integration #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes · 1 run #frontend #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7 ✅ 2026-09-26
+- [x] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes · 1 run #db #phase-7 ✅ 2026-09-26
+- [x] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools · agent:hermes · 1 run #backend #phase-7 ✅ 2026-09-26
+- [x] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · agent:hermes · 2 runs #db #phase-8 ✅ 2026-09-26
 
 
 %% kanban:settings

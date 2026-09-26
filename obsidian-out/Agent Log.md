@@ -4,6 +4,11 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-27
+
+- 01:05 · **hermes** · [[tasks/PSI-080|PSI-080]] · done (needs review): [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]
+- 00:30 · **hermes** · [[tasks/PSI-072|PSI-072]] · done (needs review): [[history/2026-09-26T17-45-00Z__PSI-072__hermes|Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.]]
+- 00:00 · **hermes** · [[tasks/PSI-071|PSI-071]] · done (needs review): [[history/2026-09-26T17-18-00Z__PSI-071__hermes|Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.]]
 ## 2026-09-26
 
 - 22:20 · **hermes** · [[tasks/PSI-065|PSI-065]] · done (needs review): [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]

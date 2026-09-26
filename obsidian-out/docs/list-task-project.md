@@ -425,12 +425,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: /dashboard/documents shows visible roots, folder tree, table with name filter and "search inside documents"; /dashboard/documents/[id] renders PDFs inline on desktop and via "Open" on phones; 415 shows "Open in Google Drive".
 
 ### PSI-065 · google-calendar /sync (pull)
-- status: review
+- status: done
 - area: integration
 - owner: agent:hermes
 - depends: PSI-060, PSI-061
 - blocks: PSI-066
-- pr: PR #36 (open — awaiting merge)
+- merged: PR #36 (2026-09-26, b14abea)
 - accept: Events from pull calendars appear in the agenda within 15 min, read-only, badged, with the calendar's role/group audience; cancelled and removed events disappear; our own pushed events are not re-imported; imports never notify.
 - review: obsidian-out/review/PSI-065.md
 
@@ -464,18 +464,19 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - review: obsidian-out/review/PSI-070.md
 
 ### PSI-071 · Migration M8 agent views, audit log, digests
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-070, PSI-061
-- pr: PR #37 (open — awaiting merge)
+- merged: PR #37 (2026-09-26, 1d3ccad)
 - accept: agent_board_status, agent_agenda, agent_inbox, agent_documents with `security_invoker = true`; agent_audit_log insert-as-self; digests readable with `digest.receive`; pgTAP proves a non-member sees no rows through the views.
 
 ### PSI-072 · Agent tool registry, runtime and read tools
-- status: backlog
+- status: done
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-071
+- merged: PR #38 (2026-09-26, 034b181)
 - accept: src/agent/{define,registry,runtime}.ts; get_activity, get_board, get_agenda, get_inbox, search_documents; every call audited; outputs capped and deep-linked; no PII or document content in outputs.
 
 ### PSI-073 · MCP endpoint with mcp-handler 2.x
@@ -530,10 +531,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 8 — Talent screening
 
 ### PSI-080 · Migration M9 talent schema and CV sources
-- status: backlog
+- status: done
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-061
+- merged: PR #39 (2026-09-26, 35b1e3d)
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake

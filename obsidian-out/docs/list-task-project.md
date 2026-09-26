@@ -216,9 +216,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `/manifest.webmanifest` valid with start_url `/dashboard/notifications`; icons incl. maskable; `public/sw.js` served with the no-cache headers; Lighthouse reports the app installable.
 
 ### PSI-022 · Enable push on a device and notification preferences
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-020, PSI-021
 - accept: Permission asked only after a tap; subscription stored via `register_push_subscription`; iOS shows the install hint when not standalone; per-type mute toggles and device list in settings.
 

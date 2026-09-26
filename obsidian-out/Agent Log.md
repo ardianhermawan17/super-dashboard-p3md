@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 10:00 · **hermes** · [[tasks/PSI-022|PSI-022]] · done (needs review): [[history/2026-09-26T03-00-00Z__PSI-022__hermes|PSI-022: Implement push enablement hook, explicit activation UI, and notification preferences.]]
 - 09:30 · **hermes** · [[tasks/PSI-021|PSI-021]] · done (needs review): [[history/2026-09-26T02-30-00Z__PSI-021__hermes|PSI-021: Setup PWA shell: manifest, icons, and service worker.]]
 - 09:00 · **hermes** · [[tasks/PSI-020|PSI-020]] · done (needs review): [[history/2026-09-26T02-00-00Z__PSI-020__hermes|PSI-020: Deploy Migration M2 notifications and push infrastructure.]]
 ## 2026-09-25

@@ -1,12 +1,17 @@
 'use client';
 
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
 import { Icons } from '@/components/icons';
 import PageContainer from '@/components/layout/page-container';
 import { Button } from '@/components/ui/button';
 import { NotificationCard } from '@/components/ui/notification-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useRouter } from 'next/navigation';
 import { useNotificationStore } from '../utils/store';
+import { EnablePushButton } from './enable-push-button';
+import { NotificationPrefsForm } from './notification-prefs-form';
+import { getNotificationSettingsAction } from '../actions';
+import type { NotificationPref, PushSubscriptionDevice } from '../types';
 
 const actionRoutes: Record<string, string> = {
   view: '/dashboard/overview',
@@ -20,6 +25,17 @@ export default function NotificationsPage() {
   const { notifications, markAsRead, markAllAsRead, unreadCount } = useNotificationStore();
   const router = useRouter();
   const count = unreadCount();
+
+  const [settings, setSettings] = React.useState<{
+    prefs: NotificationPref[];
+    devices: PushSubscriptionDevice[];
+  }>({ prefs: [], devices: [] });
+
+  React.useEffect(() => {
+    getNotificationSettingsAction().then((res) => {
+      setSettings(res);
+    });
+  }, []);
 
   const unreadNotifications = notifications.filter((n) => n.status === 'unread');
   const readNotifications = notifications.filter((n) => n.status === 'read');
@@ -45,7 +61,7 @@ export default function NotificationsPage() {
             status={notification.status}
             createdAt={notification.createdAt}
             actions={notification.actions}
-            onMarkAsRead={markAsRead}
+            onMarkAsRead={(id) => markAsRead(id)}
             onAction={(notifId, actionId) => {
               const route = actionRoutes[actionId];
               if (route) {
@@ -62,7 +78,7 @@ export default function NotificationsPage() {
   return (
     <PageContainer
       pageTitle='Notifications'
-      pageDescription='View and manage all your notifications.'
+      pageDescription='View notifications and manage your device push preferences.'
       pageHeaderAction={
         count > 0 ? (
           <Button variant='outline' size='sm' onClick={markAllAsRead}>
@@ -71,22 +87,30 @@ export default function NotificationsPage() {
         ) : undefined
       }
     >
-      <Tabs defaultValue='all'>
-        <TabsList>
-          <TabsTrigger value='all'>All ({notifications.length})</TabsTrigger>
-          <TabsTrigger value='unread'>Unread ({unreadNotifications.length})</TabsTrigger>
-          <TabsTrigger value='read'>Read ({readNotifications.length})</TabsTrigger>
-        </TabsList>
-        <TabsContent value='all' className='mt-4'>
-          {renderList(notifications)}
-        </TabsContent>
-        <TabsContent value='unread' className='mt-4'>
-          {renderList(unreadNotifications)}
-        </TabsContent>
-        <TabsContent value='read' className='mt-4'>
-          {renderList(readNotifications)}
-        </TabsContent>
-      </Tabs>
+      <div className='space-y-6'>
+        <EnablePushButton />
+
+        <Tabs defaultValue='all'>
+          <TabsList>
+            <TabsTrigger value='all'>All ({notifications.length})</TabsTrigger>
+            <TabsTrigger value='unread'>Unread ({unreadNotifications.length})</TabsTrigger>
+            <TabsTrigger value='read'>Read ({readNotifications.length})</TabsTrigger>
+            <TabsTrigger value='preferences'>Preferences & Devices</TabsTrigger>
+          </TabsList>
+          <TabsContent value='all' className='mt-4'>
+            {renderList(notifications)}
+          </TabsContent>
+          <TabsContent value='unread' className='mt-4'>
+            {renderList(unreadNotifications)}
+          </TabsContent>
+          <TabsContent value='read' className='mt-4'>
+            {renderList(readNotifications)}
+          </TabsContent>
+          <TabsContent value='preferences' className='mt-4'>
+            <NotificationPrefsForm prefs={settings.prefs} devices={settings.devices} />
+          </TabsContent>
+        </Tabs>
+      </div>
     </PageContainer>
   );
 }

@@ -34,6 +34,109 @@ export type Database = {
   }
   public: {
     Tables: {
+      calendar_feed_tokens: {
+        Row: {
+          created_at: string
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          token?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          token?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      event_audience: {
+        Row: {
+          event_id: string
+          group_id: string | null
+          role_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          event_id: string
+          group_id?: string | null
+          role_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          event_id?: string
+          group_id?: string | null
+          role_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_audience_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_audience_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_audience_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          all_day: boolean
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          location: string | null
+          rrule: string | null
+          source: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          all_day?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at: string
+          id?: string
+          location?: string | null
+          rrule?: string | null
+          source?: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          all_day?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string
+          id?: string
+          location?: string | null
+          rrule?: string | null
+          source?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
       group_members: {
         Row: {
           added_at: string
@@ -463,15 +566,40 @@ export type Database = {
       }
       can_grant_group: { Args: { p_group: string }; Returns: boolean }
       can_grant_role: { Args: { p_role: string }; Returns: boolean }
+      can_see_event: { Args: { p_event: string }; Returns: boolean }
       claims_for_user: { Args: { p_user: string }; Returns: Json }
       custom_access_token_hook: { Args: { event: Json }; Returns: Json }
       effective_role_ids: { Args: { p_user: string }; Returns: string[] }
+      event_audience_user_ids: { Args: { p_event: string }; Returns: string[] }
+      events_for_user: {
+        Args: { p_from: string; p_to: string; p_user: string }
+        Returns: {
+          all_day: boolean
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          location: string | null
+          rrule: string | null
+          source: string
+          starts_at: string
+          title: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "events"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       has_permission: { Args: { p_key: string }; Returns: boolean }
       in_group: { Args: { p_group: string }; Returns: boolean }
       internal_post: {
         Args: { p_body?: Json; p_path: string; p_target: string }
         Returns: number
       }
+      is_event_creator: { Args: { p_event: string }; Returns: boolean }
       is_message_recipient: { Args: { p_message: string }; Returns: boolean }
       is_message_sender: { Args: { p_message: string }; Returns: boolean }
       mail_recipient_count: {

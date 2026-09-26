@@ -1,4 +1,5 @@
 import Providers from '@/components/layout/providers';
+import { ServiceWorkerRegister } from '@/components/layout/service-worker-register';
 import { Toaster } from '@/components/ui/sonner';
 import { fontVariables } from '@/components/themes/font.config';
 import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
@@ -92,6 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           >
             <Providers activeThemeValue={themeToApply}>
               <Toaster />
+              <ServiceWorkerRegister />
               {children}
             </Providers>
           </ThemeProvider>

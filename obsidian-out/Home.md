@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 48 | 0 | 0 | 1 | 0 | 25 | 74 |
+| 48 | 0 | 0 | 0 | 0 | 26 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-030|PSI-030]] Migration M3 role and group mail · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

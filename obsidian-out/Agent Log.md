@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 15:30 · **hermes** · [[tasks/PSI-053|PSI-053]] · done (needs review): [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
 - 15:00 · **hermes** · [[tasks/PSI-052|PSI-052]] · done (needs review): [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
 - 14:30 · **hermes** · [[tasks/PSI-051|PSI-051]] · done (needs review): [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]
 - 14:00 · **hermes** · [[tasks/PSI-050|PSI-050]] · done (needs review): [[history/2026-09-26T07-00-00Z__PSI-050__hermes|PSI-050: Migration M5 kanban schema, triggers, RLS policies, realtime publication, and pgTAP tests.]]

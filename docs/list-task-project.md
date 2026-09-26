@@ -363,9 +363,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: A move in one browser appears in another within ~2 s; channel removed on unmount.
 
 ### PSI-053 · Board sharing with users and groups
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-051
 - accept: Board owner adds/removes individual members and whole groups; a new member of a shared group sees the board without further action.
 

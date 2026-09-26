@@ -274,3 +274,145 @@ export async function updateTaskAction(
   }
   return { ok: true };
 }
+
+export interface BoardSharingData {
+  isOwner: boolean;
+  members: { user_id: string; full_name: string | null; avatar_url: string | null }[];
+  groups: { group_id: string; name: string; slug: string }[];
+  allProfiles: { id: string; full_name: string | null; avatar_url: string | null }[];
+  allGroups: { id: string; name: string; slug: string }[];
+}
+
+export async function getBoardSharingAction(boardId: string): Promise<{ data: BoardSharingData | null; error?: string }> {
+  const session = await getSession();
+  if (!session) return { data: null, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { data: board, error: boardError } = await supabase
+    .from('boards')
+    .select('id, created_by')
+    .eq('id', boardId)
+    .single();
+
+  if (boardError || !board) {
+    return { data: null, error: boardError?.message ?? 'Board not found' };
+  }
+
+  const isOwner = board.created_by === session.userId;
+
+  const [
+    { data: memberRows },
+    { data: groupRows },
+    { data: allProfiles },
+    { data: allGroups }
+  ] = await Promise.all([
+    supabase.from('board_members').select('user_id').eq('board_id', boardId),
+    supabase.from('board_groups').select('group_id').eq('board_id', boardId),
+    supabase.from('profiles').select('id, full_name, avatar_url').eq('status', 'active'),
+    supabase.from('groups').select('id, name, slug')
+  ]);
+
+  const memberIds = (memberRows || []).map((m) => m.user_id);
+  const groupIds = (groupRows || []).map((g) => g.group_id);
+
+  const profilesMap = new Map((allProfiles || []).map((p) => [p.id, p]));
+  const groupsMap = new Map((allGroups || []).map((g) => [g.id, g]));
+
+  const members = memberIds.map((uid) => ({
+    user_id: uid,
+    full_name: profilesMap.get(uid)?.full_name ?? null,
+    avatar_url: profilesMap.get(uid)?.avatar_url ?? null
+  }));
+
+  const groups = groupIds.map((gid) => ({
+    group_id: gid,
+    name: groupsMap.get(gid)?.name ?? gid,
+    slug: groupsMap.get(gid)?.slug ?? gid
+  }));
+
+  return {
+    data: {
+      isOwner,
+      members,
+      groups,
+      allProfiles: allProfiles || [],
+      allGroups: allGroups || []
+    }
+  };
+}
+
+export async function addBoardMemberAction(
+  boardId: string,
+  userId: string
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from('board_members')
+    .insert({ board_id: boardId, user_id: userId });
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+  return { ok: true };
+}
+
+export async function removeBoardMemberAction(
+  boardId: string,
+  userId: string
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from('board_members')
+    .delete()
+    .eq('board_id', boardId)
+    .eq('user_id', userId);
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+  return { ok: true };
+}
+
+export async function addBoardGroupAction(
+  boardId: string,
+  groupId: string
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from('board_groups')
+    .insert({ board_id: boardId, group_id: groupId });
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+  return { ok: true };
+}
+
+export async function removeBoardGroupAction(
+  boardId: string,
+  groupId: string
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: 'Unauthorized' };
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from('board_groups')
+    .delete()
+    .eq('board_id', boardId)
+    .eq('group_id', groupId);
+
+  if (error) {
+    return { ok: false, error: error.message };
+  }
+  return { ok: true };
+}

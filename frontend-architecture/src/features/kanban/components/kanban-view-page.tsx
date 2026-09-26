@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import PageContainer from '@/components/layout/page-container';
 import { KanbanBoard } from './kanban-board';
 import NewTaskDialog from './new-task-dialog';
+import { BoardShareDialog } from './board-share-dialog';
 import { getBoardAction } from '../actions';
 import { kanbanKeys } from '../api/keys';
 
@@ -24,10 +25,13 @@ export default function KanbanViewPage() {
       pageDescription='Manage tasks with drag and drop'
       pageHeaderAction={
         board ? (
-          <NewTaskDialog
-            boardId={board.id}
-            columns={board.columns.map((c) => ({ id: c.id, title: c.title }))}
-          />
+          <div className='flex items-center gap-2'>
+            <BoardShareDialog boardId={board.id} />
+            <NewTaskDialog
+              boardId={board.id}
+              columns={board.columns.map((c) => ({ id: c.id, title: c.title }))}
+            />
+          </div>
         ) : null
       }
     >

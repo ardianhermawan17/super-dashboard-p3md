@@ -58,10 +58,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes · 1 run #db #phase-5
-- [ ] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes · 1 run #frontend #phase-5
-- [ ] [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes · 1 run #frontend #phase-5
-- [ ] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes · 1 run #frontend #phase-5
 
 
 ## Blocked
@@ -101,6 +97,10 @@ kanban-plugin: board
 - [x] [[tasks/PSI-040|PSI-040]] Migration M4 calendar · agent:hermes · 1 run #db #phase-4
 - [x] [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes · 1 run #frontend #phase-4
 - [x] [[tasks/PSI-044|PSI-044]] ICS subscription feed · agent:hermes · 1 run #backend #phase-4
+- [x] [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes · 1 run #db #phase-5
+- [x] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes · 1 run #frontend #phase-5
+- [x] [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes · 1 run #frontend #phase-5
+- [x] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes · 1 run #frontend #phase-5
 
 
 %% kanban:settings

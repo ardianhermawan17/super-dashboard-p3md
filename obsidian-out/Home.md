@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 40 | 0 | 0 | 4 | 0 | 30 | 74 |
+| 40 | 0 | 0 | 0 | 0 | 34 | 74 |
 
 ## Blocked
 
@@ -20,10 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes
-- [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes
-- [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes
-- [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

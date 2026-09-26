@@ -342,31 +342,35 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 5 — Kanban on Supabase
 
 ### PSI-050 · Migration M5 kanban
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-012, PSI-020
+- merged: PR #25 (2026-09-26)
 - accept: boards, board_members, board_groups, board_columns, tasks with `position text collate "C"`; membership via users or groups; creator auto-member trigger; assignee notification trigger; realtime publication; pgTAP tests.
 
 ### PSI-051 · Board reads and writes through Supabase
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-050
+- merged: PR #26 (2026-09-26)
 - accept: Template board uses queries and Server Actions instead of mock data; moves write one row using fractional positions; order survives reload.
 
 ### PSI-052 · Realtime board sync
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-051
+- merged: PR #27 (2026-09-26)
 - accept: A move in one browser appears in another within ~2 s; channel removed on unmount.
 
 ### PSI-053 · Board sharing with users and groups
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-051
+- merged: PR #28 (2026-09-26)
 - accept: Board owner adds/removes individual members and whole groups; a new member of a shared group sees the board without further action.
 
 ## Phase 6 — Google Workspace (Drive documents, Calendar)

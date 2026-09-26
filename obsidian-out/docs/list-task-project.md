@@ -442,12 +442,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 7 — Agent layer (MCP read API)
 
 ### PSI-070 · Migration M7 activity log
-- status: review
+- status: done
 - area: db
 - owner: agent:hermes
 - depends: PSI-030, PSI-040, PSI-050
 - blocks: PSI-071
-- pr: PR #34 (open — awaiting merge)
+- merged: PR #34 (2026-09-26, 4b2f083)
 - accept: activity_log with RLS following entity visibility (boards, roles, groups, events); triggers on tasks, messages, events; reorders and Google imports not logged; summaries contain no personal data; retention cron scheduled.
 - review: obsidian-out/review/PSI-070.md
 

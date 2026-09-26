@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 36 | 0 | 0 | 1 | 1 | 36 | 74 |
+| 36 | 0 | 0 | 0 | 1 | 37 | 74 |
 
 ## Blocked
 
@@ -20,7 +20,7 @@ _Nothing in progress._
 
 ## Review
 
-- [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

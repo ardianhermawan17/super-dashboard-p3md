@@ -54,7 +54,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7
 
 
 ## Blocked
@@ -101,6 +100,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes · 1 run #frontend #phase-5
 - [x] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6
 - [x] [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes · 1 run #frontend #phase-6
+- [x] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7
 
 
 %% kanban:settings

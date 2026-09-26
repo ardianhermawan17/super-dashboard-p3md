@@ -249,9 +249,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 3 — Role and group mail (one-liner)
 
 ### PSI-030 · Migration M3 role and group mail
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-020
 - accept: messages (role XOR group target), message_recipients, helpers, `mail_recipients` (service_role only, includes roles held via groups), `mail_recipient_count` as in database-architecture/m3-role-mail.md; no email column in the M3 tables (`user_invites.email` from M1 is intentional); pgTAP per database-architecture/testing-pgtap.md.
 

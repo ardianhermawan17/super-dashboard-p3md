@@ -117,6 +117,92 @@ export type Database = {
         }
         Relationships: []
       }
+      message_recipients: {
+        Row: {
+          delivery_status: string
+          message_id: string
+          provider_message_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          delivery_status?: string
+          message_id: string
+          provider_message_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          delivery_status?: string
+          message_id?: string
+          provider_message_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_recipients_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body_md: string
+          created_at: string
+          id: string
+          is_system: boolean
+          sender_id: string | null
+          sent_at: string | null
+          status: Database["public"]["Enums"]["mail_status"]
+          subject: string
+          to_group_id: string | null
+          to_role_id: string | null
+        }
+        Insert: {
+          body_md?: string
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          sender_id?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["mail_status"]
+          subject: string
+          to_group_id?: string | null
+          to_role_id?: string | null
+        }
+        Update: {
+          body_md?: string
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          sender_id?: string | null
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["mail_status"]
+          subject?: string
+          to_group_id?: string | null
+          to_role_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_to_group_id_fkey"
+            columns: ["to_group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_to_role_id_fkey"
+            columns: ["to_role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notification_prefs: {
         Row: {
           push: boolean
@@ -386,6 +472,19 @@ export type Database = {
         Args: { p_body?: Json; p_path: string; p_target: string }
         Returns: number
       }
+      is_message_recipient: { Args: { p_message: string }; Returns: boolean }
+      is_message_sender: { Args: { p_message: string }; Returns: boolean }
+      mail_recipient_count: {
+        Args: { p_group_id: string; p_role_id: string }
+        Returns: number
+      }
+      mail_recipients: {
+        Args: { p_group_id: string; p_role_id: string }
+        Returns: {
+          email: string
+          user_id: string
+        }[]
+      }
       mark_pushed: { Args: { p_ids: string[] }; Returns: undefined }
       my_group_ids: { Args: never; Returns: string[] }
       my_role_ids: { Args: never; Returns: string[] }
@@ -424,7 +523,7 @@ export type Database = {
       users_with_permission: { Args: { p_key: string }; Returns: string[] }
     }
     Enums: {
-      [_ in never]: never
+      mail_status: "draft" | "queued" | "sending" | "sent" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -554,7 +653,9 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      mail_status: ["draft", "queued", "sending", "sent", "failed"],
+    },
   },
 } as const
 

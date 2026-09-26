@@ -302,9 +302,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 4 — Agenda calendar
 
 ### PSI-040 · Migration M4 calendar
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-012, PSI-020
 - accept: events (with `source`), event_audience (user XOR role XOR group), `can_see_event`, `event_audience_user_ids`, invite and update notification triggers, RLS and pgTAP (creator, direct invitee, role holder via group, group member see it; outsider does not).
 

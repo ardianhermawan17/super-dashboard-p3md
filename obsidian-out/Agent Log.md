@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 12:30 · **hermes** · [[tasks/PSI-040|PSI-040]] · done (needs review): [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
 - 12:00 · **hermes** · [[tasks/PSI-034|PSI-034]] · done (needs review): [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]
 - 11:30 · **hermes** · [[tasks/PSI-030|PSI-030]] · done (needs review): [[history/2026-09-26T04-30-00Z__PSI-030__hermes|PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.]]
 - 11:00 · **hermes** · [[tasks/PSI-024|PSI-024]] · done (needs review): [[history/2026-09-26T04-00-00Z__PSI-024__hermes|PSI-024: Implement Notification center and live bell.]]

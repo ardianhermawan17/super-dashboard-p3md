@@ -14,7 +14,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-033|PSI-033]] Edge Function resend-webhook #backend #phase-3
 - [ ] [[tasks/PSI-035|PSI-035]] Compose, one-liner and command palette action #frontend #phase-3
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
-- [ ] [[tasks/PSI-040|PSI-040]] Migration M4 calendar #db #phase-4
 - [ ] [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI #frontend #phase-4
 - [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display #frontend #phase-4
 - [ ] [[tasks/PSI-043|PSI-043]] Optional role mail for invitations #backend #phase-4
@@ -65,6 +64,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-040|PSI-040]] Migration M4 calendar · agent:hermes · 1 run #db #phase-4
 
 
 ## Blocked

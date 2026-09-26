@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 16:00 · **hermes** · [[tasks/PSI-061|PSI-061]] · done (needs review): [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
 - 15:30 · **hermes** · [[tasks/PSI-053|PSI-053]] · done (needs review): [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
 - 15:00 · **hermes** · [[tasks/PSI-052|PSI-052]] · done (needs review): [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
 - 14:30 · **hermes** · [[tasks/PSI-051|PSI-051]] · done (needs review): [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]

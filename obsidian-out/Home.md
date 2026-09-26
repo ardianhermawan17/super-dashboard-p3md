@@ -24,6 +24,7 @@ _Nothing in progress._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-26T09-00-00Z__PSI-061__hermes|2026-09-26 16:00 WIB · hermes · PSI-061]]: Awaiting human operator review stamp on PSI-061 card.
 - [[history/2026-09-26T08-30-00Z__PSI-053__hermes|2026-09-26 15:30 WIB · hermes · PSI-053]]: Awaiting human operator review stamp on PSI-053 card.
 - [[history/2026-09-26T08-00-00Z__PSI-052__hermes|2026-09-26 15:00 WIB · hermes · PSI-052]]: Awaiting human operator review stamp on PSI-052 card.
 - [[history/2026-09-26T07-30-00Z__PSI-051__hermes|2026-09-26 14:30 WIB · hermes · PSI-051]]: Awaiting human operator review stamp on PSI-051 card.
@@ -60,6 +61,7 @@ _Nothing in progress._
 
 ## Latest AI sessions
 
+- 2026-09-26 16:00 WIB · hermes · [[tasks/PSI-061|PSI-061]] · done: [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
 - 2026-09-26 15:30 WIB · hermes · [[tasks/PSI-053|PSI-053]] · done: [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]
 - 2026-09-26 15:00 WIB · hermes · [[tasks/PSI-052|PSI-052]] · done: [[history/2026-09-26T08-00-00Z__PSI-052__hermes|PSI-052: Implement Realtime board synchronization across multiple client sessions.]]
 - 2026-09-26 14:30 WIB · hermes · [[tasks/PSI-051|PSI-051]] · done: [[history/2026-09-26T07-30-00Z__PSI-051__hermes|PSI-051: Wire Kanban board to Supabase queries and Server Actions with fractional indexing moves.]]
@@ -69,4 +71,3 @@ _Nothing in progress._
 - 2026-09-26 12:30 WIB · hermes · [[tasks/PSI-040|PSI-040]] · done: [[history/2026-09-26T05-30-00Z__PSI-040__hermes|PSI-040: Deploy Migration M4 calendar schema, triggers, and pgTAP test assertions.]]
 - 2026-09-26 12:00 WIB · hermes · [[tasks/PSI-034|PSI-034]] · done: [[history/2026-09-26T05-00-00Z__PSI-034__hermes|PSI-034: Implement Inbox UI on the chat layout for Role and Group mail.]]
 - 2026-09-26 11:30 WIB · hermes · [[tasks/PSI-030|PSI-030]] · done: [[history/2026-09-26T04-30-00Z__PSI-030__hermes|PSI-030: Deploy Migration M3 role and group mail schema and pgTAP tests.]]
-- 2026-09-26 11:00 WIB · hermes · [[tasks/PSI-024|PSI-024]] · done: [[history/2026-09-26T04-00-00Z__PSI-024__hermes|PSI-024: Implement Notification center and live bell.]]

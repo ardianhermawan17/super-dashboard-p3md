@@ -56,7 +56,7 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes #db #phase-6
+- [ ] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6
 
 
 ## Blocked

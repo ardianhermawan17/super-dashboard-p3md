@@ -158,6 +158,144 @@ export type Database = {
         }
         Relationships: []
       }
+      document_views: {
+        Row: {
+          file_id: string
+          id: number
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          file_id: string
+          id?: never
+          user_id?: string
+          viewed_at?: string
+        }
+        Update: {
+          file_id?: string
+          id?: never
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: []
+      }
+      drive_files: {
+        Row: {
+          id: string
+          mime_type: string
+          modified_at: string | null
+          name: string
+          parent_id: string | null
+          path: string
+          root_id: string
+          size_bytes: number | null
+          synced_at: string
+          web_view_link: string | null
+        }
+        Insert: {
+          id: string
+          mime_type: string
+          modified_at?: string | null
+          name: string
+          parent_id?: string | null
+          path: string
+          root_id: string
+          size_bytes?: number | null
+          synced_at?: string
+          web_view_link?: string | null
+        }
+        Update: {
+          id?: string
+          mime_type?: string
+          modified_at?: string | null
+          name?: string
+          parent_id?: string | null
+          path?: string
+          root_id?: string
+          size_bytes?: number | null
+          synced_at?: string
+          web_view_link?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drive_files_root_id_fkey"
+            columns: ["root_id"]
+            isOneToOne: false
+            referencedRelation: "drive_roots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      drive_root_access: {
+        Row: {
+          group_id: string | null
+          role_id: string | null
+          root_id: string
+        }
+        Insert: {
+          group_id?: string | null
+          role_id?: string | null
+          root_id: string
+        }
+        Update: {
+          group_id?: string | null
+          role_id?: string | null
+          root_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drive_root_access_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "drive_root_access_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "drive_root_access_root_id_fkey"
+            columns: ["root_id"]
+            isOneToOne: false
+            referencedRelation: "drive_roots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      drive_roots: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          folder_id: string
+          id: string
+          last_error: string | null
+          last_synced_at: string | null
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          folder_id: string
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          name: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          folder_id?: string
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
       event_audience: {
         Row: {
           event_id: string
@@ -197,6 +335,38 @@ export type Database = {
             columns: ["role_id"]
             isOneToOne: false
             referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_google_links: {
+        Row: {
+          event_id: string
+          google_calendar_id: string
+          google_event_id: string
+          html_link: string | null
+          synced_at: string
+        }
+        Insert: {
+          event_id: string
+          google_calendar_id: string
+          google_event_id: string
+          html_link?: string | null
+          synced_at?: string
+        }
+        Update: {
+          event_id?: string
+          google_calendar_id?: string
+          google_event_id?: string
+          html_link?: string | null
+          synced_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_google_links_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
             referencedColumns: ["id"]
           },
         ]
@@ -242,6 +412,57 @@ export type Database = {
           title?: string
         }
         Relationships: []
+      }
+      google_calendars: {
+        Row: {
+          calendar_id: string
+          direction: string
+          enabled: boolean
+          group_id: string | null
+          id: string
+          last_error: string | null
+          last_synced_at: string | null
+          name: string
+          role_id: string | null
+        }
+        Insert: {
+          calendar_id: string
+          direction: string
+          enabled?: boolean
+          group_id?: string | null
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          name: string
+          role_id?: string | null
+        }
+        Update: {
+          calendar_id?: string
+          direction?: string
+          enabled?: boolean
+          group_id?: string | null
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          name?: string
+          role_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_calendars_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "google_calendars_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       group_members: {
         Row: {
@@ -732,6 +953,7 @@ export type Database = {
       }
       can_grant_group: { Args: { p_group: string }; Returns: boolean }
       can_grant_role: { Args: { p_role: string }; Returns: boolean }
+      can_see_drive_root: { Args: { p_root: string }; Returns: boolean }
       can_see_event: { Args: { p_event: string }; Returns: boolean }
       claims_for_user: { Args: { p_user: string }; Returns: Json }
       custom_access_token_hook: { Args: { event: Json }; Returns: Json }
@@ -794,6 +1016,15 @@ export type Database = {
         }
         Returns: undefined
       }
+      prune_google_events: {
+        Args: {
+          p_before: string
+          p_calendar_id: string
+          p_from: string
+          p_to: string
+        }
+        Returns: number
+      }
       push_targets: {
         Args: { p_ids: string[] }
         Returns: {
@@ -815,6 +1046,21 @@ export type Database = {
           p_user_agent: string
         }
         Returns: undefined
+      }
+      upsert_google_event: {
+        Args: {
+          p_all_day: boolean
+          p_calendar_id: string
+          p_description: string
+          p_ends_at: string
+          p_google_event_id: string
+          p_html_link: string
+          p_location: string
+          p_rrule: string
+          p_starts_at: string
+          p_title: string
+        }
+        Returns: string
       }
       users_with_permission: { Args: { p_key: string }; Returns: string[] }
     }

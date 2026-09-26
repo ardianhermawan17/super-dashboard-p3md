@@ -1,9 +1,9 @@
 -- ============================================================
--- supabase/tests/google.test.sql — Google Workspace & Drive RLS tests (PSI-061)
+-- supabase/tests/google.test.sql — Google Workspace & Drive RLS tests (PSI-061 & PSI-065)
 -- ============================================================
 
 begin;
-select plan(8);
+select plan(13);
 
 -- Setup test fixtures as postgres
 set local role postgres;
@@ -106,6 +106,64 @@ select throws_ok(
   '23514',
   null,
   'check constraint rejects google_calendars with both role and group'
+);
+
+-- ------------------------------------------------------------
+-- 5. PSI-065: upsert_google_event and prune_google_events RPCs
+-- ------------------------------------------------------------
+-- Setup valid linked calendar targeting finance-team role
+insert into public.google_calendars (id, calendar_id, name, direction, role_id, enabled)
+values ('33333333-3333-3333-3333-333333333333', 'finance-cal@group.calendar.google.com', 'Finance Calendar', 'pull', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', true);
+
+-- Call upsert_google_event as service_role
+set local role service_role;
+select lives_ok(
+  $$ select public.upsert_google_event(
+       'finance-cal@group.calendar.google.com',
+       'g_evt_100',
+       'Q3 Budget Review',
+       'Quarterly finance sync',
+       'Boardroom A',
+       '2026-10-15 09:00:00+07'::timestamptz,
+       '2026-10-15 10:00:00+07'::timestamptz,
+       false,
+       null,
+       'https://calendar.google.com/event?eid=100'
+     ) $$,
+  'upsert_google_event inserts pulled event'
+);
+
+-- Verify event properties created by pull
+select results_eq(
+  $$ select title, source, created_by is null from public.events where title = 'Q3 Budget Review' $$,
+  $$ values ('Q3 Budget Review', 'google', true) $$,
+  'pulled event has source=google and created_by=null'
+);
+
+-- Verify link created
+select is(
+  (select google_calendar_id from public.event_google_links where google_event_id = 'g_evt_100'),
+  'finance-cal@group.calendar.google.com',
+  'event_google_links record established'
+);
+
+-- Verify audience visibility: member1 (finance role) can see the pulled event
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-000000000001","role":"authenticated"}';
+
+select is(
+  (select count(*) from public.events where title = 'Q3 Budget Review'),
+  1::bigint,
+  'member1 (finance role) sees pulled finance calendar event'
+);
+
+-- Member3 (no finance role) cannot see the pulled event
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-000000000004","role":"authenticated"}';
+
+select is(
+  (select count(*) from public.events where title = 'Q3 Budget Review'),
+  0::bigint,
+  'member3 without finance role cannot see pulled finance event'
 );
 
 select * from finish();

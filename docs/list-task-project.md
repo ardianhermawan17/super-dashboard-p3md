@@ -423,11 +423,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: /dashboard/documents shows visible roots, folder tree, table with name filter and "search inside documents"; /dashboard/documents/[id] renders PDFs inline on desktop and via "Open" on phones; 415 shows "Open in Google Drive".
 
 ### PSI-065 · google-calendar /sync (pull)
-- status: doing
+- status: review
 - area: integration
 - owner: agent:hermes
 - depends: PSI-060, PSI-061
+- blocks: PSI-066
+- pr: PR #36 (open — awaiting merge)
 - accept: Events from pull calendars appear in the agenda within 15 min, read-only, badged, with the calendar's role/group audience; cancelled and removed events disappear; our own pushed events are not re-imported; imports never notify.
+- review: obsidian-out/review/PSI-065.md
 
 ### PSI-066 · google-calendar /push
 - status: backlog

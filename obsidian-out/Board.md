@@ -50,12 +50,12 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
-- [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes #integration #phase-6
 
 
 ## Review
 
 - [ ] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0
+- [ ] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 1 run #integration #phase-6
 
 
 ## Blocked

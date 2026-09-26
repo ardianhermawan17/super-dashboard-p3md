@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-26
 
+- 22:20 · **hermes** · [[tasks/PSI-065|PSI-065]] · done (needs review): [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]
 - 19:50 · **hermes** · [[tasks/PSI-070|PSI-070]] · done (needs review): [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]
 - 17:10 · **hermes** · [[tasks/PSI-067|PSI-067]] · done (needs review): [[history/2026-09-26T10-30-00Z__PSI-067__hermes|PSI-067: Admin: Integrations page — show the Service Account email, register Drive roots with role/group access, and link Google Calendars with a direction and audience.]]
 - 16:00 · **hermes** · [[tasks/PSI-061|PSI-061]] · done (needs review): [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]

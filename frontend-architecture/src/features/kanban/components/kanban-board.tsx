@@ -19,9 +19,10 @@ import type { KanbanBoardData, KanbanTask } from '../types';
 interface KanbanBoardProps {
   boardId?: string;
   initialBoard?: KanbanBoardData | null;
+  canWriteFinance?: boolean;
 }
 
-export function KanbanBoard({ boardId, initialBoard }: KanbanBoardProps) {
+export function KanbanBoard({ boardId, initialBoard, canWriteFinance = false }: KanbanBoardProps) {
   const qc = useQueryClient();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -185,10 +186,11 @@ export function KanbanBoard({ boardId, initialBoard }: KanbanBoardProps) {
               if (!col) return null;
               return (
                 <TaskColumn
-                  value={col.id}
-                  title={col.title}
-                  tasks={col.tasks}
-                />
+                          value={col.id}
+                          title={col.title}
+                          tasks={col.tasks}
+                          canWriteFinance={canWriteFinance}
+                        />
               );
             }
 
@@ -197,7 +199,7 @@ export function KanbanBoard({ boardId, initialBoard }: KanbanBoardProps) {
               .find((t) => t.id === value);
 
             if (!task) return null;
-            return <TaskCard task={task} />;
+              return <TaskCard task={task} canWriteFinance={canWriteFinance} />;
           }}
         </KanbanOverlay>
       </Kanban>

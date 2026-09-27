@@ -18,14 +18,18 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 import { createEventBoardAction } from '../actions';
+import { getEventFinanceSummaryAction } from '@/features/finance/actions';
+import { formatIDR } from '@/features/finance/lib/format';
 import type { CalendarEvent, CalendarViewType } from '../types';
 
 export function CalendarView({
   initialEvents,
-  canCreateBoard = false
+  canCreateBoard = false,
+  canReadFinance = false
 }: {
   initialEvents: CalendarEvent[];
   canCreateBoard?: boolean;
+  canReadFinance?: boolean;
 }) {
   const router = useRouter();
   const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
@@ -33,10 +37,41 @@ export function CalendarView({
   const [selectedEvent, setSelectedEvent] = React.useState<CalendarEvent | null>(null);
   const [creatingBoard, setCreatingBoard] = React.useState(false);
   const [boardError, setBoardError] = React.useState<string | null>(null);
+  const [eventFinance, setEventFinance] = React.useState<{
+    inflow: string;
+    outflow: string;
+    net: string;
+    entryCount: number;
+  } | null>(null);
 
   const openBoard = (boardId: string) => {
     router.push(`/dashboard/kanban?boardId=${boardId}`);
   };
+
+  // PSI-104: fetch the event's finance net when a finance-reader selects an event.
+  React.useEffect(() => {
+    if (!selectedEvent || !canReadFinance) {
+      setEventFinance(null);
+      return;
+    }
+    let cancelled = false;
+    void getEventFinanceSummaryAction(selectedEvent.id).then((res) => {
+      if (cancelled) return;
+      if (res.ok) {
+        setEventFinance({
+          inflow: res.data.inflow,
+          outflow: res.data.outflow,
+          net: res.data.net,
+          entryCount: res.data.entryCount
+        });
+      } else {
+        setEventFinance(null);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedEvent, canReadFinance]);
 
   const handleCreateBoard = async () => {
     if (!selectedEvent) return;
@@ -157,36 +192,71 @@ export function CalendarView({
               )}
 
               {/* PSI-102: board link / creation */}
-              {selectedEvent && selectedEvent.source !== 'google' && (
-                <div className='flex items-center gap-2 pt-1'>
-                  {selectedEvent.board_id ? (
-                    <Button variant='default' size='sm' onClick={() => openBoard(selectedEvent.board_id!)}>
-                      <Icons.kanban className='mr-1.5 h-3.5 w-3.5' />
-                      Open board
-                    </Button>
-                  ) : canCreateBoard ? (
-                    <>
-                      <Button
-                        variant='outline'
-                        size='sm'
-                        onClick={handleCreateBoard}
-                        disabled={creatingBoard}
-                      >
-                        {creatingBoard ? (
-                          <Icons.spinner className='mr-1.5 h-3.5 w-3.5 animate-spin' />
+                    {selectedEvent && selectedEvent.source !== 'google' && (
+                      <div className='flex items-center gap-2 pt-1'>
+                        {selectedEvent.board_id ? (
+                          <Button variant='default' size='sm' onClick={() => openBoard(selectedEvent.board_id!)}>
+                            <Icons.kanban className='mr-1.5 h-3.5 w-3.5' />
+                            Open board
+                          </Button>
+                        ) : canCreateBoard ? (
+                          <>
+                            <Button
+                              variant='outline'
+                              size='sm'
+                              onClick={handleCreateBoard}
+                              disabled={creatingBoard}
+                            >
+                              {creatingBoard ? (
+                                <Icons.spinner className='mr-1.5 h-3.5 w-3.5 animate-spin' />
+                              ) : (
+                                <Icons.kanban className='mr-1.5 h-3.5 w-3.5' />
+                              )}
+                              Create event board
+                            </Button>
+                            {boardError && <span className='text-[11px] text-red-600'>{boardError}</span>}
+                          </>
+                        ) : null}
+                      </div>
+                    )}
+
+                    {/* PSI-104: event finance summary + links (finance.read only) */}
+                    {selectedEvent && canReadFinance && (
+                      <div className='rounded-lg border border-muted bg-muted/20 p-3'>
+                        <div className='flex items-center justify-between'>
+                          <span className='flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground'>
+                            <Icons.billing className='h-3.5 w-3.5' />
+                            Finance {eventFinance ? `· ${eventFinance.entryCount} entries` : ''}
+                          </span>
+                          <Button
+                            variant='ghost'
+                            size='sm'
+                            className='h-6 px-2 text-[11px]'
+                            onClick={() => router.push('/dashboard/finance')}
+                          >
+                            View ledger
+                          </Button>
+                        </div>
+                        {eventFinance ? (
+                          <div className='mt-2 flex items-center gap-4 text-sm'>
+                            <span className='text-emerald-600'>In {formatIDR(eventFinance.inflow)}</span>
+                            <span className='text-red-600'>Out {formatIDR(eventFinance.outflow)}</span>
+                            <span
+                              className={`font-semibold ${
+                                Number(eventFinance.net) >= 0 ? 'text-emerald-700' : 'text-red-700'
+                              }`}
+                            >
+                              Net {formatIDR(eventFinance.net)}
+                            </span>
+                          </div>
                         ) : (
-                          <Icons.kanban className='mr-1.5 h-3.5 w-3.5' />
+                          <p className='mt-2 text-xs text-muted-foreground'>No finance entries for this event.</p>
                         )}
-                        Create event board
-                      </Button>
-                      {boardError && <span className='text-[11px] text-red-600'>{boardError}</span>}
-                    </>
-                  ) : null}
+                      </div>
+                    )}
+              </div>
+                </DialogContent>
+                </Dialog>
                 </div>
-              )}
-            </div>
-            </DialogContent>
-            </Dialog>
-            </div>
-            );
-            }
+                );
+              }

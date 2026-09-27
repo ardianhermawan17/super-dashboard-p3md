@@ -8,6 +8,7 @@ import {
   entrySchema,
   type BoardOption,
   type CategoryInput,
+  type Direction,
   type EntryFilters,
   type EntryInput,
   type FinanceCategory,
@@ -217,4 +218,196 @@ export async function upsertCategoryAction(
   if (upsertError || !data)
     return { ok: false, error: upsertError?.message ?? 'Failed to save category' };
   return { ok: true, data: { id: data.id } };
+}
+
+// ---------------------------------------------------------------------------
+// PSI-104: Finance summaries (board tab and event detail)
+// ---------------------------------------------------------------------------
+
+export type FinanceSummaryCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  color: string | null;
+  direction: Direction;
+  total: string;
+  count: number;
+};
+
+export type FinanceSummary = {
+  inflow: string;
+  outflow: string;
+  net: string;
+  entryCount: number;
+  categories: FinanceSummaryCategory[];
+};
+
+/** Round a numeric total into a decimal string "1234567.89" (2 decimals, no float artifacts). */
+function formatAmount(value: number): string {
+  const [int, dec] = value.toFixed(2).split('.');
+  return `${Number(int).toString()}.${dec}`;
+}
+
+/**
+ * Board scope: inflow, outflow, net and a per-category breakdown for the entries
+ * the caller may read on this board (RLS applies to every fetch).
+ */
+export async function getBoardFinanceSummaryAction(
+  boardId: string
+): Promise<ActionResult<FinanceSummary>> {
+  const { session, error } = await checkPermission('finance.read');
+  if (!session) return { ok: false, error: error ?? 'Forbidden' };
+  const supabase = await createClient();
+
+  const { data: rows, error: fetchError } = await supabase
+    .from('finance_entries')
+    .select('category_id, direction, amount')
+    .eq('board_id', boardId);
+
+  if (fetchError) return { ok: false, error: fetchError.message };
+  const entries = rows ?? [];
+
+  let inflow = 0;
+  let outflow = 0;
+  const catTotals = new Map<string, { total: number; count: number }>();
+  for (const e of entries) {
+    const amount = Number(e.amount);
+    if (e.direction === 'inflow') inflow += amount;
+    else outflow += amount;
+    const cur = catTotals.get(e.category_id) ?? { total: 0, count: 0 };
+    cur.total += amount;
+    cur.count += 1;
+    catTotals.set(e.category_id, cur);
+  }
+
+  const categoryIds = Array.from(catTotals.keys());
+  let categoryInfo: {
+    id: string;
+    name: string;
+    slug: string;
+    color: string | null;
+    direction: string | null;
+  }[] = [];
+  if (categoryIds.length > 0) {
+    const { data: cats } = await supabase
+      .from('finance_categories')
+      .select('id, name, slug, color, direction')
+      .in('id', categoryIds);
+    categoryInfo = cats ?? [];
+  }
+  const catById = new Map(categoryInfo.map((c) => [c.id, c]));
+
+  const categories: FinanceSummaryCategory[] = Array.from(catTotals.entries())
+    .map(([id, t]) => {
+      const info = catById.get(id);
+      return {
+        id,
+        name: info?.name ?? id,
+        slug: info?.slug ?? id,
+        color: info?.color ?? null,
+        direction: (info?.direction ?? 'outflow') as Direction,
+        total: formatAmount(t.total),
+        count: t.count
+      };
+    })
+    .toSorted((a, b) =>
+      a.direction === b.direction
+        ? b.total.localeCompare(a.total)
+        : a.direction === 'outflow'
+          ? -1
+          : 1
+    );
+
+  return {
+    ok: true,
+    data: {
+      inflow: formatAmount(inflow),
+      outflow: formatAmount(outflow),
+      net: formatAmount(inflow - outflow),
+      entryCount: entries.length,
+      categories
+    }
+  };
+}
+
+/**
+ * Event scope: net of the finance entries linked to this event (event_id),
+ * for users who can read finance.
+ */
+export async function getEventFinanceSummaryAction(
+  eventId: string
+): Promise<ActionResult<FinanceSummary>> {
+  const { session, error } = await checkPermission('finance.read');
+  if (!session) return { ok: false, error: error ?? 'Forbidden' };
+  const supabase = await createClient();
+
+  const { data: rows, error: fetchError } = await supabase
+    .from('finance_entries')
+    .select('category_id, direction, amount')
+    .eq('event_id', eventId);
+
+  if (fetchError) return { ok: false, error: fetchError.message };
+  const entries = rows ?? [];
+
+  let inflow = 0;
+  let outflow = 0;
+  const catTotals = new Map<string, { total: number; count: number }>();
+  for (const e of entries) {
+    const amount = Number(e.amount);
+    if (e.direction === 'inflow') inflow += amount;
+    else outflow += amount;
+    const cur = catTotals.get(e.category_id) ?? { total: 0, count: 0 };
+    cur.total += amount;
+    cur.count += 1;
+    catTotals.set(e.category_id, cur);
+  }
+
+  const categoryIds = Array.from(catTotals.keys());
+  let categoryInfo: {
+    id: string;
+    name: string;
+    slug: string;
+    color: string | null;
+    direction: string | null;
+  }[] = [];
+  if (categoryIds.length > 0) {
+    const { data: cats } = await supabase
+      .from('finance_categories')
+      .select('id, name, slug, color, direction')
+      .in('id', categoryIds);
+    categoryInfo = cats ?? [];
+  }
+  const catById = new Map(categoryInfo.map((c) => [c.id, c]));
+
+  const categories: FinanceSummaryCategory[] = Array.from(catTotals.entries())
+    .map(([id, t]) => {
+      const info = catById.get(id);
+      return {
+        id,
+        name: info?.name ?? id,
+        slug: info?.slug ?? id,
+        color: info?.color ?? null,
+        direction: (info?.direction ?? 'outflow') as Direction,
+        total: formatAmount(t.total),
+        count: t.count
+      };
+    })
+    .toSorted((a, b) =>
+      a.direction === b.direction
+        ? b.total.localeCompare(a.total)
+        : a.direction === 'outflow'
+          ? -1
+          : 1
+    );
+
+  return {
+    ok: true,
+    data: {
+      inflow: formatAmount(inflow),
+      outflow: formatAmount(outflow),
+      net: formatAmount(inflow - outflow),
+      entryCount: entries.length,
+      categories
+    }
+  };
 }

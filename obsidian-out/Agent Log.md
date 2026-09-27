@@ -7,6 +7,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 ## 2026-09-27
 
 - 13:05 · **hermes** · [[tasks/PSI-081|PSI-081]] · partial (needs review): [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
+- 12:05 · **hermes** · [[tasks/PSI-097|PSI-097]] · done (needs review): [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]
 - 11:30 · **hermes** · [[tasks/PSI-082|PSI-082]] · blocked (needs review): [[history/2026-09-27T04-36-00Z__PSI-082__hermes|Freeze PSI-082 as the continuation of PSI-081: move it from backlog to Blocked and record exactly what would unblock it.]]
 - 11:30 · **hermes** · [[tasks/PSI-081|PSI-081]] · blocked (needs review): [[history/2026-09-27T04-36-00Z__PSI-081__hermes|Freeze PSI-081 at the operator's request: move the card to Blocked on the board and record why.]]
 - 11:15 · **hermes** · [[tasks/PSI-082|PSI-082]] · blocked (needs review): [[history/2026-09-27T04-19-00Z__PSI-082__hermes|Verify PSI-082's dependencies (PSI-081, PSI-063, PSI-098) are done before claiming it, then implement the parse-cv edge function.]]

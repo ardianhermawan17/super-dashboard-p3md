@@ -1,7 +1,10 @@
 'use client';
 
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import PageContainer from '@/components/layout/page-container';
+import { Icons } from '@/components/icons';
 import { KanbanBoard } from './kanban-board';
 import NewTaskDialog from './new-task-dialog';
 import { BoardShareDialog } from './board-share-dialog';
@@ -9,19 +12,32 @@ import { getBoardAction } from '../actions';
 import { kanbanKeys } from '../api/keys';
 
 export default function KanbanViewPage() {
+  const searchParams = useSearchParams();
+  const requestedBoardId = searchParams.get('boardId') || undefined;
+
   const { data } = useQuery({
-    queryKey: kanbanKeys.board('default'),
+    queryKey: kanbanKeys.board(requestedBoardId ?? 'default'),
     queryFn: async () => {
-      const res = await getBoardAction();
+      const res = await getBoardAction(requestedBoardId);
       return res.board;
     }
   });
 
   const board = data;
+  const linkedEvent = board?.event;
+
+  // Format event date for display (WIB locale)
+  const eventDateFormatted = linkedEvent
+    ? new Date(linkedEvent.starts_at).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      })
+    : null;
 
   return (
     <PageContainer
-      pageTitle='Kanban'
+      pageTitle={board?.name || 'Kanban'}
       pageDescription='Manage tasks with drag and drop'
       pageHeaderAction={
         board ? (
@@ -35,7 +51,21 @@ export default function KanbanViewPage() {
         ) : null
       }
     >
-      <KanbanBoard />
+      {linkedEvent && (
+        <div className='mb-4 inline-flex items-center gap-2 rounded-lg border border-muted bg-muted/30 px-3 py-1.5 text-xs'>
+          <Icons.calendar className='h-3.5 w-3.5 text-primary' />
+          <span className='text-muted-foreground'>
+            Linked event:{' '}
+            <Link
+              href='/dashboard/calendar'
+              className='font-medium text-foreground hover:underline'
+            >
+              {linkedEvent.title} ({eventDateFormatted})
+            </Link>
+          </span>
+        </div>
+      )}
+      <KanbanBoard boardId={requestedBoardId} initialBoard={board} />
     </PageContainer>
   );
 }

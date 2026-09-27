@@ -29,9 +29,19 @@ export interface KanbanColumn {
   tasks: KanbanTask[];
 }
 
+export interface LinkedEventInfo {
+  id: string;
+  title: string;
+  starts_at: string;
+  ends_at: string;
+  all_day: boolean;
+}
+
 export interface KanbanBoardData {
   id: string;
   name: string;
+  event_id?: string | null;
+  event?: LinkedEventInfo | null;
   created_by: string;
   created_at: string;
   columns: KanbanColumn[];

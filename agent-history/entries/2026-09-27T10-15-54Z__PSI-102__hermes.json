@@ -1,0 +1,64 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T10-15-54Z__PSI-102__hermes",
+  "task_ids": ["PSI-102"],
+  "agent": { "name": "hermes", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-27T09:20:00Z",
+    "ended_at": "2026-09-27T10:15:54Z",
+    "branch": "task/PSI-102"
+  },
+  "intent": "Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.",
+  "outcome": "done",
+  "summary": "Implemented PSI-102. Server action createEventBoardAction(eventId) in src/features/calendar/actions.ts: requires kanban.write, returns existing board when boards.event_id matches (idempotent, DB also enforces via idx_boards_event), else inserts board named after the event with event_id/created_by, inserts default columns (Backlog/In Progress/Done, Done is_done), then copies ONLY group audience rows into board_groups (users/roles excluded per finance.md §1). getCalendarEventsAction now attaches board_id to each event via one batched boards lookup. calendar-view.tsx shows 'Open board' (router.push /dashboard/kanban?boardId=) when board_id set, else 'Create event board' for canCreateBoard holders (spinner + inline error); calendar/page.tsx passes canCreateBoard = session.permissions.includes('kanban.write'). getBoardAction now fetches the linked event (id,title,starts_at,ends_at,all_day) when event_id set; KanbanBoardData gained event_id/event; kanban-view-page.tsx reads ?boardId= from search params and shows a 'Linked event: <title> (<date>)' chip linking back to /dashboard/calendar; kanban/page.tsx wrapped in Suspense. Added 5 unit tests (event-board.test.ts): naming+event_id+columns, groups-only audience copy, second-click idempotency, permission denial, missing event. Gates: frontend 28/28, edge functions 15/15, pgTAP 135 PASS, tsc clean, oxlint 0, agent:check ok. Acceptance: Jev not installed in this harness and /auth/sign-in 500s from a pre-existing template bug (submit-button.tsx formContext), so browser flow could not run; covered deterministically with a live local-Postgres probe (board+event_id+board_groups insert rolled back; second board for same event_id rejected by idx_boards_event) plus the shipped pgTAP case in finance.test.sql.",
+  "changes": [
+    { "path": "frontend-architecture/src/features/calendar/actions.ts", "action": "modified", "note": "createEventBoardAction + board_id attachment in getCalendarEventsAction" },
+    { "path": "frontend-architecture/src/features/calendar/types.ts", "action": "modified", "note": "CalendarEvent.board_id added" },
+    { "path": "frontend-architecture/src/features/calendar/components/calendar-view.tsx", "action": "modified", "note": "Open board / Create event board buttons in event detail dialog" },
+    { "path": "frontend-architecture/src/features/calendar/event-board.test.ts", "action": "added", "note": "5 unit tests for createEventBoardAction" },
+    { "path": "frontend-architecture/src/app/dashboard/calendar/page.tsx", "action": "modified", "note": "pass canCreateBoard from session permissions" },
+    { "path": "frontend-architecture/src/features/kanban/actions.ts", "action": "modified", "note": "getBoardAction fetches linked event details" },
+    { "path": "frontend-architecture/src/features/kanban/types.ts", "action": "modified", "note": "KanbanBoardData.event_id/event + LinkedEventInfo" },
+    { "path": "frontend-architecture/src/features/kanban/components/kanban-view-page.tsx", "action": "modified", "note": "reads ?boardId=, shows Linked event chip -> /dashboard/calendar" },
+    { "path": "frontend-architecture/src/app/dashboard/kanban/page.tsx", "action": "modified", "note": "Suspense wrapper for useSearchParams" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-102 -> doing (claimed), history link" }
+  ],
+  "decisions": [
+    {
+      "decision": "Idempotency enforced twice: action early-returns existing board AND DB unique index idx_boards_event",
+      "reason": "The visible rule is 'a second click never makes a second board'; the action check gives a clean UX, the index guarantees it against races",
+      "alternatives": ["DB index only", "app check only"]
+    },
+    {
+      "decision": "Only event_audience rows with group_id are copied into board_groups",
+      "reason": "finance.md §1: boards share with users and groups only; users/roles are excluded and the creator adds people by hand",
+      "alternatives": ["Copy users and roles too"]
+    },
+    {
+      "decision": "Board URL uses ?boardId= query param (kanban/page.tsx still at /dashboard/kanban)",
+      "reason": "Matches the existing single-route kanban page; no new route segment needed for PSI-102",
+      "alternatives": ["/dashboard/kanban/[boardId] route"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "skipped",
+    "db_reset": "skipped",
+    "db_tests": "pass",
+    "manual": "Live local-Postgres probe: inserted event+group audience, board with event_id, copied group_id into board_groups (rollback); second board for same event_id -> duplicate key violation on idx_boards_event. Browser flow not run: Jev not installed; /auth/sign-in 500 (pre-existing submit-button.tsx formContext bug)."
+  },
+  "risks": [
+    "Browser acceptance not exercised end-to-end (auth wall + no Jev); covered by unit tests and DB probe instead",
+    "Pre-existing template bug: /auth/sign-in 500 (src/components/forms/submit-button.tsx) blocks logged-in flows for any card until fixed"
+  ],
+  "follow_ups": [
+    { "note": "Fix pre-existing /auth/sign-in 500: submit-button.tsx calls useFormContext() outside a formComponent from createFormHook; blocks browser acceptance for all user-facing cards. Not in PSI-102 scope (C-02)." },
+    { "note": "PSI-101 card still reads status 'review' though migration 20260927031152_m10_finance.sql is on master; recording gap only." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed."
+  }
+}

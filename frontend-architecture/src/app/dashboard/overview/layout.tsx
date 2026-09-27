@@ -9,19 +9,25 @@ import {
   CardFooter
 } from '@/components/ui/card';
 import { Icons } from '@/components/icons';
+import { getSession } from '@/lib/auth/session';
 import React from 'react';
 
-export default function OverViewLayout({
+export default async function OverViewLayout({
   sales,
   pie_stats,
   bar_stats,
-  area_stats
+  area_stats,
+  finance
 }: {
   sales: React.ReactNode;
   pie_stats: React.ReactNode;
   bar_stats: React.ReactNode;
   area_stats: React.ReactNode;
+  finance: React.ReactNode;
 }) {
+  const session = await getSession();
+  const canReadFinance = session?.permissions.includes('finance.read') ?? false;
+
   return (
     <PageContainer>
       <div className='flex flex-1 flex-col gap-4'>
@@ -118,9 +124,14 @@ export default function OverViewLayout({
             {sales}
           </div>
           <div className='col-span-4'>{bar_stats}</div>
-          <div className='col-span-4 min-h-0 md:col-span-3'>{pie_stats}</div>
-        </div>
-      </div>
-    </PageContainer>
-  );
-}
+                      <div className='col-span-4 min-h-0 md:col-span-3'>{pie_stats}</div>
+                    </div>
+                    {canReadFinance && (
+                      <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+                        {finance}
+                      </div>
+                    )}
+                  </div>
+                </PageContainer>
+              );
+            }

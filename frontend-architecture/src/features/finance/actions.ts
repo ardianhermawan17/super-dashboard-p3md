@@ -4,6 +4,11 @@ import { createClient } from '@/lib/supabase/server';
 import { getSession } from '@/lib/auth/session';
 import { requirePermission } from '@/lib/auth/require';
 import {
+  aggregateFinanceOverview,
+  type FinanceOverview,
+  type FinanceRow
+} from './overview-lib';
+import {
   categorySchema,
   entrySchema,
   type BoardOption,
@@ -410,4 +415,45 @@ export async function getEventFinanceSummaryAction(
       categories
     }
   };
+}
+
+
+// ---------------------------------------------------------------------------
+// PSI-106: overview finance charts
+// ---------------------------------------------------------------------------
+
+/**
+ * Data for the overview Finance tab: monthly inflow/outflow (last 6 months) and
+ * outflow by category (top 5 + Other). RLS-scoped like every other finance read;
+ * the aggregation itself is the pure `aggregateFinanceOverview` helper.
+ */
+export async function getFinanceOverviewAction(): Promise<ActionResult<FinanceOverview>> {
+  const { session, error } = await checkPermission('finance.read');
+  if (!session) return { ok: false, error: error ?? 'Forbidden' };
+  const supabase = await createClient();
+
+  // Window: last 6 months, from the first day of the oldest month.
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth() - 5, 1)
+    .toISOString()
+    .slice(0, 10);
+
+  const { data: rows, error: fetchError } = await supabase
+    .from('finance_entries')
+    .select('direction, amount, occurred_on, finance_categories(slug, name)')
+    .gte('occurred_on', start);
+
+  if (fetchError) return { ok: false, error: fetchError.message };
+
+  const financeRows: FinanceRow[] = (rows ?? []).map((r) => ({
+    direction: r.direction as 'inflow' | 'outflow',
+    amount: typeof r.amount === 'string' ? r.amount : Number(r.amount).toFixed(2),
+    occurred_on: r.occurred_on,
+    category_slug:
+      (r.finance_categories as { slug?: string } | null)?.slug ?? 'uncategorised',
+    category_name:
+      (r.finance_categories as { name?: string } | null)?.name ?? 'Uncategorised'
+  }));
+
+  return { ok: true, data: aggregateFinanceOverview(financeRows, { now }) };
 }

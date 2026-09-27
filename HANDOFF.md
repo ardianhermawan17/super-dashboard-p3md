@@ -1,42 +1,52 @@
 ---
-updated: 2026-09-27 17:35 WIB
+updated: 2026-09-27 23:55 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-102 · Create an event board from the calendar** — implemented on `task/PSI-102`, commit `c01d186`, **status: review**, **PR #48 open and mergeable**.
+**PSI-105 · Agent tool `get_finance`** — DONE, merged into `master` at commit `fe7ce60` (PR #53).
 
 What landed:
-- `createEventBoardAction(eventId)` (calendar/actions.ts): server action requiring `kanban.write`, early-returns existing board when `boards.event_id` matches (idempotent, backed by DB unique index `idx_boards_event`), inserts board named after the event with `event_id` + `created_by`, 3 default columns (Backlog/In Progress/Done), and copies ONLY group audience rows into `board_groups` (users/roles excluded, per finance.md §1).
-- `getCalendarEventsAction`: now attaches `board_id` to each event from a single batched `boards` lookup.
-- Calendar UI (`calendar-view.tsx`): event detail dialog shows **Open board** (→ `/dashboard/kanban?boardId=`) when a board exists, else **Create event board** for `kanban.write` holders (spinner + error state). `calendar/page.tsx` passes `canCreateBoard` from session permissions.
-- Kanban UI (`kanban-view-page.tsx`): `getBoardAction` returns the linked event; page reads `?boardId=` from search params and shows a **"Linked event: <title> (<date>)"** chip linking back to `/dashboard/calendar`; `kanban/page.tsx` wrapped in `<Suspense>`.
-- 5 unit tests (`event-board.test.ts`): naming+event_id+columns, groups-only audience copy, second-click idempotency, permission denial, missing event.
-- All gates green: frontend 28/28, edge functions 15/15, pgTAP 135 PASS, tsc clean, oxlint 0 warnings, `agent:check` ok.
-- AI session recorded (C-22/C-23: summary renders under PSI-102 `## AI sessions`).
+- `src/agent/tools/get-finance.ts` (`get_finance`): zod input `{eventId?, boardId?, from?, to?, category?, limit 1..50 (default 20)}`, output `{currency:'IDR', totals:{inflow,outflow,net}, byCategory, recent}` per `finance.md`.
+- `agent_finance` (security_invoker view) drives totals/byCategory; `finance_entries` drives recent rows (decimal strings, no creator identities, max 50 rows, deep links).
+- Registered in `registry.ts` (6 read tools total) → auto-exposed to MCP (`/api/mcp`) and in-app chat.
+- Upgraded the shared `fake-supabase` Builder to apply real `eq/gte/lt/lte/ilike`, `order` and `limit`.
+- 6 new tests (`get-finance.test.ts`) + 2 registry/cap tests in `agent.test.ts`.
 
-## Master & PR State
+## Preceding Completed Cards (Phase 10 streamline)
 
-- `master` is at `ebf29d5` (PR #45 PSI-066 merged).
-- **PR #47 is still open** (`task/PSI-109-priority-reset`, onhold status + pause AI chat/talent + kanban task-detail design).
-- `task/PSI-102` is rebased onto `master` (1 commit `c01d186`, clean 16 files, no dependency on PR #47) and open as **PR #48**.
-- Working tree is clean, no dev servers running.
+- **PSI-101** · M10 Finance schema & RLS (merged PR #43)
+- **PSI-102** · Create event board from calendar (merged PR #49)
+- **PSI-103** · Finance module with CRUD (merged PR #51)
+- **PSI-104** · Finance on event boards & events (merged PR #52):
+  - `getBoardFinanceSummaryAction` / `getEventFinanceSummaryAction`
+  - `BoardFinancePanel` (inflow/outflow/net cards, category totals, Add entry, View ledger)
+  - `KanbanViewPage` Base UI Tabs (Tasks | Finance) for `finance.read` holders only
+  - `TaskFinanceButton` on task cards (dnd-safe) prefilling board + task
+  - Event detail dialog finance block (entry count, In/Out/Net, View ledger link)
+  - `canReadFinance`/`canWriteFinance` session plumbing; 5 unit tests.
 
-## Test Status
+## Next Card
 
-- Unit: **28 passed / 0 failed** (frontend) · **15 passed / 0 failed** (edge functions)
-- Full suite: **10 files, 135 pgTAP PASS** (`supabase test db`)
-- Typecheck & lint: clean (0 warnings, 0 errors)
-- Acceptance: **Jev N/A** (not installed in workspace; pre-existing `/auth/sign-in` 500 template bug blocks browser flow; covered deterministically via live local-Postgres probe + pgTAP constraint test)
+**PSI-106 · Finance charts on the overview**
+- Depends: PSI-103 (done).
+- Accept: Overview shows inflow vs outflow per month and outflow by category using the template bar and pie graphs, only for users with `finance.read`, with loading skeletons and an empty state.
 
-## Follow-ups / Open Items
+## Test & Build Status
 
-1. **Pre-existing `/auth/sign-in` 500**: `src/components/forms/submit-button.tsx` calls `useFormContext()` outside a `formComponent` passed to `createFormHook`. Blocks logged-in browser acceptance for all user-facing cards until fixed (filed in history entry follow_ups, not fixed here — C-02).
-2. **PR #47**: still open on GitHub, merge when ready (contains the `onhold` status and paused tasks).
-3. **PSI-101 card**: reads `review` on the board although its migration (`20260927031152_m10_finance.sql`) is merged on master (recording gap only).
-4. **Next card in the streamline**: **PSI-103 · Finance module with CRUD** (depends: PSI-101, PSI-017 — both satisfied).
+- Frontend unit tests: **56/56 passing** (`bun test src/`)
+- Edge functions tests: **15/15 passing** (`bun test supabase/functions/`)
+- Typecheck: `tsc --noEmit` **0 errors**
+- Lint: `oxlint` **0 warnings, 0 errors**
+- Agent check: `agent:check` **OK** (86 tasks, 65 history entries)
+- pgTAP: 135 passing
+
+## Open Follow-ups
+
+1. **Browser walkthrough of finance** (inherited PSI-103 gap): `/dashboard/finance` ledger, board Finance tab math, task-card Add entry prefill, event net block. Seeded user `admin@p3md.test` has `finance.read/write/manage`.
+2. **Live MCP probe**: call `get_finance` via `/api/mcp` and watch the audit row land in `agent_audit_log`.
 
 ## Exact Next Action
 
-Operator merges PR #48 (PSI-102) and PR #47 (priority reset), then the next agent claims **PSI-103** (`status: doing`, `owner: agent:hermes` or `agent:claude-code`, branch `task/PSI-103`).
+Claim PSI-106 on `task/PSI-106`, implement finance charts (inflow vs outflow monthly bar + outflow by category pie) on the overview page guarded by `finance.read`, with skeleton/empty states.

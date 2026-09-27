@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 32 | 0 | 1 | 3 | 5 | 42 | 83 |
+| 31 | 0 | 1 | 4 | 5 | 42 | 83 |
 
 ## Blocked
 
@@ -24,6 +24,7 @@
 
 ## Review
 
+- [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
@@ -31,6 +32,7 @@
 ## AI sessions waiting for a human
 
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
+- [[history/2026-09-27T05-22-00Z__PSI-097__hermes|2026-09-27 12:05 WIB · hermes · PSI-097]]: The workflow cannot be executed without a GitHub runner, so CI enforcement is unproven until the first PR or a manual dispatch run. Also 13 high findings exist in the scan; the gate only fails on critical, by design per the acceptance criterion.
 - [[history/2026-09-27T04-36-00Z__PSI-082__hermes|2026-09-27 11:30 WIB · hermes · PSI-082]]: Frozen at the operator's request while its dependencies PSI-063 and PSI-098 remain unstarted and CV_MODEL is unapproved. Needs an operator decision on whether to build those first or re-plan this card.
 - [[history/2026-09-27T04-36-00Z__PSI-081__hermes|2026-09-27 11:30 WIB · hermes · PSI-081]]: Frozen at the operator's request. Needs the operator's decision on the two things holding it: the review stamp (C-21) and local Supabase keys in .env.local so the upload acceptance can be exercised.
 - [[history/2026-09-27T04-19-00Z__PSI-082__hermes|2026-09-27 11:15 WIB · hermes · PSI-082]]: PSI-082 is blocked on three unmet dependencies and an unapproved CV_MODEL. A decision is needed: finish PSI-081/063/098 first, or re-plan PSI-082.
@@ -83,6 +85,7 @@
 ## Latest AI sessions
 
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
+- 2026-09-27 12:05 WIB · hermes · [[tasks/PSI-097|PSI-097]] · done: [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]
 - 2026-09-27 11:30 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-36-00Z__PSI-082__hermes|Freeze PSI-082 as the continuation of PSI-081: move it from backlog to Blocked and record exactly what would unblock it.]]
 - 2026-09-27 11:30 WIB · hermes · [[tasks/PSI-081|PSI-081]] · blocked: [[history/2026-09-27T04-36-00Z__PSI-081__hermes|Freeze PSI-081 at the operator's request: move the card to Blocked on the board and record why.]]
 - 2026-09-27 11:15 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-19-00Z__PSI-082__hermes|Verify PSI-082's dependencies (PSI-081, PSI-063, PSI-098) are done before claiming it, then implement the parse-cv edge function.]]
@@ -91,4 +94,3 @@
 - 2026-09-27 08:51 WIB · claude-code · [[tasks/PSI-100|PSI-100]] · done: [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.]]
 - 2026-09-27 06:00 WIB · hermes · [[tasks/PSI-073|PSI-073]] · done: [[history/2026-09-26T23-55-00Z__PSI-073__hermes|Expose the shared agent tool registry over MCP at /api/mcp: unauthenticated requests get a 401 with an RFC 9728 challenge; authenticated ones run tools as the caller.]]
 - 2026-09-27 05:05 WIB · hermes · [[tasks/PSI-065|PSI-065]], [[tasks/PSI-071|PSI-071]], [[tasks/PSI-072|PSI-072]], [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T22-45-00Z__PSI-065__hermes|Merge the four open PRs to master in dependency order, record the board truthfully, close the AI Session recording gap with a contract rule, and resume the task queue.]]
-- 2026-09-27 01:05 WIB · hermes · [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]

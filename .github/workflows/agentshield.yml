@@ -1,0 +1,52 @@
+name: AgentShield
+
+# Agent configuration is a security surface (secrets, hooks, MCP servers, permissions).
+# Run AgentShield on PRs that touch it; critical findings fail the build.
+# The gate reads the JSON report's summary.critical, which is exactly what the card's
+# acceptance criterion names: "critical findings fail the build".
+
+on:
+  pull_request:
+    paths:
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
+      - '.hermes.md'
+      - '.claude/**'
+      - '.mcp.json'
+      - '.husky/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  agentshield:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run AgentShield
+        run: |
+          npx --yes ecc-agentshield scan --path . --format json --output "$RUNNER_TEMP/agentshield.json"
+
+      - name: Fail on critical findings
+        run: |
+          report="$RUNNER_TEMP/agentshield.json"
+          if [ ! -f "$report" ]; then
+            echo "::error::AgentShield did not produce a report at $report"
+            exit 1
+          fi
+          critical=$(node -e "const r=require(process.argv[1]); console.log(r.summary?.critical ?? 0)" "$report")
+          echo "AgentShield critical findings: $critical"
+          if [ "$critical" -gt 0 ]; then
+            echo "::error::AgentShield found $critical critical finding(s) in agent configuration. Fix before merging."
+            exit 1
+          fi
+          echo "No critical findings."

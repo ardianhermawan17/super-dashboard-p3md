@@ -7,7 +7,6 @@ kanban-plugin: board
 ## Backlog
 
 - [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs #agent-ops #phase-0
-- [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI #security #phase-0
 - [ ] [[tasks/PSI-025|PSI-025]] Device QA for install and push · human #frontend #phase-2
 - [ ] [[tasks/PSI-031|PSI-031]] Resend API key and webhook secret · human #infra #phase-3
 - [ ] [[tasks/PSI-032|PSI-032]] Edge Function send-role-mail #backend #phase-3
@@ -51,6 +50,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10

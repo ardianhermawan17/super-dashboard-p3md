@@ -112,9 +112,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Morning pulse, contract check, weekly graph and stale-work jobs from agent-operations/hermes.md scheduled with delivery to the team chat; only the weekly graph job writes (branch + PR); one week of runs reviewed by a human.
 
 ### PSI-097 · AgentShield in CI
-- status: backlog
+- status: review
 - area: security
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-009
 - accept: CI runs `npx ecc-agentshield scan --path .` on PRs that touch CLAUDE.md, AGENTS.md, .hermes.md, .claude/, .mcp.json or hooks; critical findings fail the build.
 

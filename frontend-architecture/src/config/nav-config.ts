@@ -44,6 +44,13 @@ export const navGroups: NavGroup[] = [
           permission: 'agent.chat'
         },
         items: []
+      },
+      {
+        title: 'Talent',
+        url: '/dashboard/talent',
+        icon: 'user',
+        isActive: false,
+        items: []
       }
     ]
   },

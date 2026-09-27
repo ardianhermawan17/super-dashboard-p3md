@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 24 | 0 | 1 | 7 | 0 | 8 | 46 | 86 |
+| 23 | 0 | 1 | 8 | 0 | 8 | 46 | 86 |
 
 ## Blocked
 
@@ -38,6 +38,7 @@ _Nothing blocked._
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
 - [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
 - [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code
+- [[tasks/PSI-106|PSI-106]] Finance charts on the overview · agent:hermes
 
 ## AI sessions waiting for a human
 
@@ -98,6 +99,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-28 00:00 WIB · hermes · [[tasks/PSI-106|PSI-106]] · done: [[history/2026-09-27T17-50-00Z__PSI-106__hermes|Finance charts on the overview: monthly inflow vs outflow (bar) + outflow by category (pie) per finance.md contract, finance.read only, with loading skeletons and empty states.]]
 - 2026-09-27 22:50 WIB · hermes · [[tasks/PSI-105|PSI-105]] · done: [[history/2026-09-27T16-45-00Z__PSI-105__hermes|Agent tool get_finance per finance.md: RLS-scoped totals by category + recent entries, decimal amounts, no identities, max 50, deep links, audited; no finance.read -> nothing.]]
 - 2026-09-27 21:00 WIB · hermes · [[tasks/PSI-104|PSI-104]] · done: [[history/2026-09-27T15-20-00Z__PSI-104__hermes|Finance on event boards/events: board Finance tab (inflow/outflow/net/per-category) for finance.read; add-entry prefills board+task; event detail shows net; no amounts without finance.read.]]
 - 2026-09-27 19:40 WIB · claude-code · [[tasks/PSI-103|PSI-103]] · done: [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|Build PSI-103, the finance CRUD module, continuing the calendar -> kanban -> finance pipeline directly (operator asked for Claude Code, not Hermes, this time).]]
@@ -107,4 +109,3 @@ _Nothing blocked._
 - 2026-09-27 13:55 WIB · claude-code · [[tasks/PSI-108|PSI-108]] · done: [[history/2026-09-27T07-18-00Z__PSI-108__claude-code|Investigate reported 'looping' in Hermes' recent sessions, fix the root cause, and add rules to stop it recurring.]]
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
 - 2026-09-27 12:05 WIB · hermes · [[tasks/PSI-097|PSI-097]] · done: [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]
-- 2026-09-27 12:00 WIB · hermes · [[tasks/PSI-066|PSI-066]] · partial: [[history/2026-09-27T07-04-36Z__PSI-066__hermes|Implement the google-calendar /push Edge Function route: push app events to linked shared Google calendars, idempotently, per the google-integration.md spec.]]

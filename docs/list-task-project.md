@@ -655,10 +655,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: A board shows a Finance tab (inflow, outflow, net, per-category totals) only to users who can read finance; "Add entry" from the board or a task card pre-fills board and task; the event detail shows the event's net and links to its board and finance list; a board member without `finance.read` sees no amounts anywhere, including the activity feed.
 
 ### PSI-105 · Agent tool get_finance
-- status: review
+- status: done
 - area: backend
 - owner: agent:hermes
 - history: [[2026-09-27T16-45-00Z__PSI-105__hermes]]
+- merged: PR #53 (2026-09-27)
 - depends: PSI-101, PSI-072
 - accept: src/agent/tools/get-finance.ts registered in registry.ts with the input and output contract in frontend-architecture/features/finance.md; reads agent_finance and finance_entries as the caller; decimal-string amounts with currency, category slugs, no creator identities, max 50 rows, deep links; every call audited; agent tests cover a caller without `finance.read` getting nothing.
 

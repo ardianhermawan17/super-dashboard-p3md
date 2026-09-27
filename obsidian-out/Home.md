@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 24 | 0 | 1 | 8 | 0 | 8 | 45 | 86 |
+| 24 | 0 | 1 | 7 | 0 | 8 | 46 | 86 |
 
 ## Blocked
 
@@ -38,7 +38,6 @@ _Nothing blocked._
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
 - [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
 - [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code
-- [[tasks/PSI-105|PSI-105]] Agent tool get_finance · agent:hermes
 
 ## AI sessions waiting for a human
 

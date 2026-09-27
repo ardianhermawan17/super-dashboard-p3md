@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-27
 
+- 19:40 · **claude-code** · [[tasks/PSI-103|PSI-103]] · done (needs review): [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|Build PSI-103, the finance CRUD module, continuing the calendar -> kanban -> finance pipeline directly (operator asked for Claude Code, not Hermes, this time).]]
 - 19:00 · **claude-code** · [[tasks/PSI-110|PSI-110]] · done: [[history/2026-09-27T12-30-00Z__PSI-110__claude-code|Check the board/history after PSI-102 (merged) and root-cause the pre-existing /auth/sign-in bug it filed as a follow-up instead of leaving it unowned.]]
 - 16:20 · **hermes** · [[tasks/PSI-102|PSI-102]] · done (needs review): [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 14:45 · **claude-code** · [[tasks/PSI-109|PSI-109]] · done (needs review): [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]

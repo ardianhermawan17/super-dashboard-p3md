@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 27 | 0 | 1 | 6 | 0 | 8 | 44 | 86 |
+| 26 | 0 | 1 | 7 | 0 | 8 | 44 | 86 |
 
 ## Blocked
 
@@ -37,9 +37,11 @@ _Nothing blocked._
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
 - [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
+- [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|2026-09-27 19:40 WIB · claude-code · PSI-103]]: Authenticated browser walkthrough not run this session; also the first real use of the template's useDataTable system in this app, worth a second look.
 - [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
 - [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|2026-09-27 14:45 WIB · claude-code · PSI-109]]: Confirm the onhold moves (PSI-076, PSI-098, Phase 8 talent tasks) match intent, and that PSI-109's design is right before it's built
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
@@ -96,6 +98,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-27 19:40 WIB · claude-code · [[tasks/PSI-103|PSI-103]] · done: [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|Build PSI-103, the finance CRUD module, continuing the calendar -> kanban -> finance pipeline directly (operator asked for Claude Code, not Hermes, this time).]]
 - 2026-09-27 19:00 WIB · claude-code · [[tasks/PSI-110|PSI-110]] · done: [[history/2026-09-27T12-30-00Z__PSI-110__claude-code|Check the board/history after PSI-102 (merged) and root-cause the pre-existing /auth/sign-in bug it filed as a follow-up instead of leaving it unowned.]]
 - 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 2026-09-27 14:45 WIB · claude-code · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]
@@ -105,4 +108,3 @@ _Nothing blocked._
 - 2026-09-27 12:00 WIB · hermes · [[tasks/PSI-066|PSI-066]] · partial: [[history/2026-09-27T07-04-36Z__PSI-066__hermes|Implement the google-calendar /push Edge Function route: push app events to linked shared Google calendars, idempotently, per the google-integration.md spec.]]
 - 2026-09-27 11:30 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-36-00Z__PSI-082__hermes|Freeze PSI-082 as the continuation of PSI-081: move it from backlog to Blocked and record exactly what would unblock it.]]
 - 2026-09-27 11:30 WIB · hermes · [[tasks/PSI-081|PSI-081]] · blocked: [[history/2026-09-27T04-36-00Z__PSI-081__hermes|Freeze PSI-081 at the operator's request: move the card to Blocked on the board and record why.]]
-- 2026-09-27 11:15 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-19-00Z__PSI-082__hermes|Verify PSI-082's dependencies (PSI-081, PSI-063, PSI-098) are done before claiming it, then implement the parse-cv edge function.]]

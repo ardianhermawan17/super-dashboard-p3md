@@ -53,8 +53,24 @@ export default function KBar({ children }: { children: React.ReactNode }) {
     });
   }, [router, filteredGroups]);
 
+  // Feature shortcuts that don't map 1:1 to a nav item (open a form, not just navigate).
+  // finance.write is the real gate (server-side, on submit); this is just a shortcut.
+  const featureActions = useMemo(
+    () => [
+      {
+        id: 'recordFinanceEntryAction',
+        name: 'Record income or spending',
+        keywords: 'finance money entry income spending expense',
+        section: 'Finance',
+        subtitle: 'Open the finance form',
+        perform: () => router.push('/dashboard/finance?new=1')
+      }
+    ],
+    [router]
+  );
+
   return (
-    <KBarProvider actions={actions}>
+    <KBarProvider actions={[...actions, ...featureActions]}>
       <KBarComponent>{children}</KBarComponent>
     </KBarProvider>
   );

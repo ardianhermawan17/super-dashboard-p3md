@@ -6,6 +6,8 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-27
 
+- 14:45 · **claude-code** · [[tasks/PSI-109|PSI-109]] · done (needs review): [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]
+- 13:55 · **claude-code** · [[tasks/PSI-108|PSI-108]] · done: [[history/2026-09-27T07-18-00Z__PSI-108__claude-code|Investigate reported 'looping' in Hermes' recent sessions, fix the root cause, and add rules to stop it recurring.]]
 - 13:05 · **hermes** · [[tasks/PSI-081|PSI-081]] · partial (needs review): [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
 - 12:05 · **hermes** · [[tasks/PSI-097|PSI-097]] · done (needs review): [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]
 - 12:00 · **hermes** · [[tasks/PSI-066|PSI-066]] · partial (needs review): [[history/2026-09-27T07-04-36Z__PSI-066__hermes|Implement the google-calendar /push Edge Function route: push app events to linked shared Google calendars, idempotently, per the google-integration.md spec.]]

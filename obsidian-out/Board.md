@@ -15,17 +15,15 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
 - [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display #frontend #phase-4
 - [ ] [[tasks/PSI-043|PSI-043]] Optional role mail for invitations #backend #phase-4
+- [ ] [[tasks/PSI-109|PSI-109]] Kanban task detail panel (click to open, linked calendar + finance) · 1 run #frontend #phase-5
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
 - [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata #security #phase-7
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
-- [ ] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
-- [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
 - [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
-- [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar #frontend #phase-10
 - [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD #frontend #phase-10
 - [ ] [[tasks/PSI-104|PSI-104]] Finance on event boards and events #frontend #phase-10
@@ -58,8 +56,15 @@ kanban-plugin: board
 
 ## Blocked
 
+
+
+## On Hold
+
+- [ ] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools #frontend #phase-7
+- [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
 - [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 3 runs #frontend #phase-8
 - [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · 2 runs #backend #phase-8
+- [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
 - [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
 - [ ] [[tasks/PSI-085|PSI-085]] Candidate pipeline board #frontend #phase-8
 - [ ] [[tasks/PSI-086|PSI-086]] CV retention #security #phase-8
@@ -79,6 +84,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human · 1 run #agent-ops #phase-0 ✅ 2026-09-25
 - [x] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
 - [x] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0 ✅ 2026-09-26
+- [x] [[tasks/PSI-108|PSI-108]] Repo hygiene: stop tracking Obsidian app state; branch-switch/escalation rules · agent:claude-code · 1 run #agent-ops #phase-0 ✅ 2026-09-27
 - [x] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 2 runs #frontend #phase-1 ✅ 2026-09-25
 - [x] [[tasks/PSI-011|PSI-011]] Resend domain and custom SMTP for Auth · human #infra #phase-1
 - [x] [[tasks/PSI-012|PSI-012]] Migration M1 RBAC core · agent:claude-code · 4 runs #db #phase-1 ✅ 2026-09-24

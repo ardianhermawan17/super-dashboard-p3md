@@ -45,3 +45,12 @@ export function useBoardRealtime(boardId: string) {
   }, [boardId, qc]);
 }
 ```
+
+## Task detail panel (PSI-109)
+
+A click on a card (not a drag) opens a `Sheet` with the full task — same fields and Zod schema as `new-task-dialog`, editable in place. Two more sections when they apply, absent (not empty) otherwise:
+
+- **Event link:** when the board has `boards.event_id` set (PSI-102), a header line with the event's date/title, linking to `/dashboard/calendar` ([calendar.md](calendar.md)).
+- **Finance:** when the caller has `finance.read`, this task's `finance_entries` (`task_id = this task`) in a compact list, with "Add entry" pre-filled with board + task, reusing finance's `entry-form-sheet` ([finance.md](finance.md#module-layout-five-file-pattern)). Nothing renders here for a caller without `finance.read` — RLS would return no rows anyway, but the section itself is omitted so its absence doesn't read as "no entries yet".
+
+dnd-kit's `KanbanItem` already distinguishes a click from a drag; open the sheet from `onClick`, not from the drag handlers, so an in-progress drag never gets interrupted by the panel opening.

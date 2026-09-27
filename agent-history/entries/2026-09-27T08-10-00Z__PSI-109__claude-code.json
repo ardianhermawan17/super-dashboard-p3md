@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T08-10-00Z__PSI-109__claude-code",
+  "task_ids": ["PSI-109"],
+  "agent": { "name": "claude-code", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-27T07:45:00Z",
+    "ended_at": "2026-09-27T08:10:00Z",
+    "branch": "task/PSI-109-priority-reset"
+  },
+  "intent": "Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.",
+  "outcome": "done",
+  "summary": "Planning/ops session, no app code touched. (1) Confirmed via finance.md and the Phase 10 task list (PSI-100..106) that the calendar -> kanban -> finance streamline is already fully designed and its migration (PSI-101, PR #43) is merged; nothing further needed beyond keeping it unblocked. (2) Audited notifications RLS (m2-notifications.md): access is `user_id = auth.uid()`, no permission key involved, so a plain member already gets and reads their own notifications by identity -- RBAC is already correct here, no code change needed. Noted (not actioned, YAGNI) that `notifications.type` has no finance value yet; only needed once finance notifications are designed. (3) Added `onhold` as a new task status: scripts/obsidian-sync.ts (Status type, STATUSES, LANE label 'On Hold', a Home.md list section) and a new editing rule in list-task-project.md distinguishing it from `blocked` (onhold = human paused a whole feature on purpose; only a human sets it; agents never auto-resume a held task even once its deps are ready). Set PSI-076 (in-app AI chat), PSI-098 (the LLM layer only chat/digest/CV-parsing need; finance's agent tool doesn't depend on it) and the open Phase 8 talent tasks (PSI-081..086, excl. done PSI-080) to onhold. Left PSI-077 and the MCP OAuth tasks untouched -- not named, and holding PSI-098 already stops PSI-077 mechanically. (4) Wrote the task-detail-panel design into kanban.md and added PSI-109 (backlog): click (not drag) opens a Sheet with the full task, an event link when the board has event_id, and a Finance section gated on finance.read reusing finance's entry-form-sheet -- design + task only, since it depends on PSI-104 which is still backlog. Also fixed a process gap: PR #46 (repo hygiene, merged dd3e86e) had no task-list or history entry; retro-added PSI-108 (done) and its entry in this same commit.",
+  "changes": [
+    { "path": "scripts/obsidian-sync.ts", "action": "modified", "note": "Add 'onhold' Status value, STATUSES entry, LANE label, Home.md 'On Hold' list" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "onhold in the allowed-values table and editing rules; PSI-076, PSI-098, PSI-081..086 (excl. PSI-080) set onhold; PSI-108 (done) and PSI-109 (backlog) added" },
+    { "path": "docs/frontend-architecture/features/kanban.md", "action": "modified", "note": "Task detail panel design (event link, gated finance section)" },
+    { "path": "agent-history/entries/2026-09-27T07-18-00Z__PSI-108__claude-code.json", "action": "added", "note": "Retroactive record for the PR #46 session" }
+  ],
+  "decisions": [
+    {
+      "decision": "onhold is a human-only status; agents never set or clear it themselves",
+      "reason": "It encodes a product-priority call, not a dependency or blocker fact an agent can observe from the repo",
+      "alternatives": ["Reuse 'blocked' for both meanings (rejected: conflates 'can't proceed' with 'chose not to proceed', which is exactly the ambiguity that fed the PSI-081/082 rework loop found in PSI-108)"]
+    },
+    {
+      "decision": "Hold PSI-098 (LLM layer) in addition to the two named features",
+      "reason": "Its only consumers are chat (PSI-076), digest (PSI-077, not named) and CV parsing (PSI-082, talent); finance's own agent tool (PSI-105) does not depend on it, so holding it doesn't touch the priority pipeline, and it documents intent instead of leaving the board silent about why PSI-082 stays stuck",
+      "alternatives": ["Leave PSI-098 backlog"]
+    },
+    {
+      "decision": "PSI-109 is a design + backlog task, not an implementation this session",
+      "reason": "Depends on PSI-104 (finance tab), still backlog; building the panel now would mean guessing the finance UI shape instead of reusing it",
+      "alternatives": ["Build a task-detail sheet now without the finance section, add it later"]
+    }
+  ],
+  "verification": {
+    "typecheck": "skipped",
+    "lint": "skipped",
+    "build": "skipped",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "bun scripts/obsidian-sync.ts (write mode) and bun run agent:check run after all edits."
+  },
+  "risks": [],
+  "follow_ups": [
+    { "task_id": "PSI-109", "note": "Build once PSI-104 (finance tab) ships" },
+    { "task_id": "NEW", "note": "notifications.type has no finance value yet; add one only when finance notifications are actually designed" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Confirm the onhold moves (PSI-076, PSI-098, Phase 8 talent tasks) match intent, and that PSI-109's design is right before it's built"
+  }
+}

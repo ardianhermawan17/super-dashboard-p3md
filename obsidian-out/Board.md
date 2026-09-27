@@ -51,7 +51,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10
 - [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code · 1 run #frontend #phase-10
-- [ ] [[tasks/PSI-104|PSI-104]] Finance on event boards and events · agent:hermes · 1 run #frontend #phase-10
 
 
 ## Blocked
@@ -117,6 +116,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes · 2 runs #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · agent:hermes · 3 runs #db #phase-8 ✅ 2026-09-26
+- [x] [[tasks/PSI-104|PSI-104]] Finance on event boards and events · agent:hermes · 1 run #frontend #phase-10 ✅ 2026-09-27
 
 
 %% kanban:settings

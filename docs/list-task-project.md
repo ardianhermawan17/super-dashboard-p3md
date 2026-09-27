@@ -646,11 +646,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - impl: `src/features/finance/{types,actions}.ts` + `components/{columns,entries-table,entry-form-dialog,category-dialog}.tsx`; `useDataTable`/`DataTable`/`DataTableToolbar` (first real consumer of this template system in the app) for the direction/category/dateRange/range filters; Dialog forms (no Sheet form exists anywhere in the app yet, so this follows the established convention instead of finance.md's original wording); kbar "Record income or spending" -> `/dashboard/finance?new=1` auto-opens the create dialog. 15 unit tests (Zod schema edges, formatIDR/formatDateWIB); tsc/oxlint/`next build` clean; unauthenticated request to `/dashboard/finance` confirmed 307 -> `/auth/sign-in` (no crash). Not run: an authenticated browser walkthrough (same gap PSI-102 had) -- needs a seeded dev user with `finance.read`.
 
 ### PSI-104 · Finance on event boards and events
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-102, PSI-103
 - history: [[2026-09-27T15-20-00Z__PSI-104__hermes]]
+- merged: PR #52 (2026-09-27, b33a0a9)
 - accept: A board shows a Finance tab (inflow, outflow, net, per-category totals) only to users who can read finance; "Add entry" from the board or a task card pre-fills board and task; the event detail shows the event's net and links to its board and finance list; a board member without `finance.read` sees no amounts anywhere, including the activity feed.
 
 ### PSI-105 · Agent tool get_finance

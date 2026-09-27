@@ -12,7 +12,15 @@ import { getBoard } from './tools/get-board';
 import { getAgenda } from './tools/get-agenda';
 import { getInbox } from './tools/get-inbox';
 import { searchDocuments } from './tools/search-documents';
+import { getFinance } from './tools/get-finance';
 
-export const agentTools = [getActivity, getBoard, getAgenda, getInbox, searchDocuments];
+export const agentTools = [
+  getActivity,
+  getBoard,
+  getAgenda,
+  getInbox,
+  searchDocuments,
+  getFinance
+];
 
 export type { AgentCtx, AgentTool } from './define';

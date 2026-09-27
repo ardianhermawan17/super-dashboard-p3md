@@ -28,9 +28,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
 - [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
 - [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
-- [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
-- [ ] [[tasks/PSI-085|PSI-085]] Candidate pipeline board #frontend #phase-8
-- [ ] [[tasks/PSI-086|PSI-086]] CV retention #security #phase-8
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar #frontend #phase-10
 - [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD #frontend #phase-10
 - [ ] [[tasks/PSI-104|PSI-104]] Finance on event boards and events #frontend #phase-10
@@ -63,6 +60,9 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 3 runs #frontend #phase-8
 - [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · 2 runs #backend #phase-8
+- [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
+- [ ] [[tasks/PSI-085|PSI-085]] Candidate pipeline board #frontend #phase-8
+- [ ] [[tasks/PSI-086|PSI-086]] CV retention #security #phase-8
 
 
 ## Done

@@ -376,9 +376,16 @@ function renderTask(t: Task, runs: Entry[], blocks: string[]): string {
     '## AI sessions', '',
   ];
   if (!runs.length) out.push('_None yet._');
-  for (const e of runs) {
-    out.push(`- ${stampWIB(e.session.started_at)} · ${e.agent.name} · ${e.outcome}: ${historyLink(e.id, oneLine(e.intent))}`);
-  }
+    for (const e of runs) {
+      out.push(`- ${stampWIB(e.session.started_at)} · ${e.agent.name} · ${e.outcome}: ${historyLink(e.id, oneLine(e.intent))}`);
+      // C-23: the summary is the reviewable "what was done" narrative, rendered here so
+      // a human or agent can see it without opening the linked history file. Multi-line
+      // summaries are kept readable as blockquote continuations.
+      const summaryLines = (e.summary ?? '').split('\n').filter((l) => l.trim().length);
+      for (const line of summaryLines) {
+        out.push(`  > ${line}`);
+      }
+    }
   out.push('', `Source: \`docs/list-task-project.md\` line ${t.line} · [[Board]]`, '');
   return out.join('\n');
 }

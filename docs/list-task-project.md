@@ -567,21 +567,21 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `talent.manage` users edit groups, skills, aliases, weights and required flags.
 
 ### PSI-084 · Scoring, strong skills, agent talent view
-- status: backlog
+- status: blocked
 - area: db
 - owner: unassigned
 - depends: PSI-082, PSI-083
 - accept: Score per skill group and meets_required per candidate; top-5 strong skills; agent_talent_overview exposes no contact data or CV text.
 
 ### PSI-085 · Candidate pipeline board
-- status: backlog
+- status: blocked
 - area: frontend
 - owner: unassigned
 - depends: PSI-084
 - accept: Stages Sourced → Screen → Interview → Offer; cards show score and strong skills; no auto-reject.
 
 ### PSI-086 · CV retention
-- status: backlog
+- status: blocked
 - area: security
 - owner: unassigned
 - depends: PSI-082

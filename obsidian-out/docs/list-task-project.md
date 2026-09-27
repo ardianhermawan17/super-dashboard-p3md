@@ -546,14 +546,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake
-- status: review
+- status: blocked
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-080
 - accept: Explicit consent recorded before any processing; PDF ≤ 2 MB uploaded to `<user_id>/`, or an existing file picked from the talent Drive root; no public URL generated.
 
 ### PSI-082 · Edge Function parse-cv
-- status: backlog
+- status: blocked
 - area: backend
 - owner: unassigned
 - depends: PSI-081, PSI-063, PSI-098
@@ -567,21 +567,21 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `talent.manage` users edit groups, skills, aliases, weights and required flags.
 
 ### PSI-084 · Scoring, strong skills, agent talent view
-- status: backlog
+- status: blocked
 - area: db
 - owner: unassigned
 - depends: PSI-082, PSI-083
 - accept: Score per skill group and meets_required per candidate; top-5 strong skills; agent_talent_overview exposes no contact data or CV text.
 
 ### PSI-085 · Candidate pipeline board
-- status: backlog
+- status: blocked
 - area: frontend
 - owner: unassigned
 - depends: PSI-084
 - accept: Stages Sourced → Screen → Interview → Offer; cards show score and strong skills; no auto-reject.
 
 ### PSI-086 · CV retention
-- status: backlog
+- status: blocked
 - area: security
 - owner: unassigned
 - depends: PSI-082

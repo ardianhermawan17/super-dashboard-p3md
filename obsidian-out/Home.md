@@ -8,12 +8,15 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 35 | 0 | 1 | 3 | 2 | 42 | 83 |
+| 32 | 0 | 1 | 3 | 5 | 42 | 83 |
 
 ## Blocked
 
 - [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
 - [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · unassigned
+- [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view · unassigned
+- [[tasks/PSI-085|PSI-085]] Candidate pipeline board · unassigned
+- [[tasks/PSI-086|PSI-086]] CV retention · unassigned
 
 ## Doing
 

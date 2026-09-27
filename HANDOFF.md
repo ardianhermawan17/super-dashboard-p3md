@@ -1,17 +1,17 @@
 ---
-updated: 2026-09-28 00:05 WIB
+updated: 2026-09-28 03:05 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-106 · Finance charts on the overview** — DONE, merged into `master` at `f7bbca8` (PR #54).
+**PSI-109 · Kanban task detail panel** — DONE, merged into `master` at `a59f331` (PR #55).
 
 What landed:
-- `src/features/finance/overview-lib.ts` — pure `aggregateFinanceOverview`: monthly inflow/outflow (last 6 months, zero-filled, decimal strings) + outflow by category (top 5 + Other, sum preserved).
-- `getFinanceOverviewAction` in `finance/actions.ts` — `finance.read` gated, RLS-scoped, 6-month window.
-- `OverviewFinanceGraphs` (recharts bar + pie with empty states) and `FinanceOverviewSkeleton`.
-- Parallel slot `@finance/` mounted in `layout.tsx` when session has `finance.read`; non-readers see nothing.
+- `updateTaskAction` accepts `column_id` (move columns from the edit dialog).
+- `getTaskFinanceEntriesAction` (`finance.read` gated) — task-scoped finance entries.
+- `TaskDetailDialog` — edit title/description/priority/column/due_date, linked event banner → `/dashboard/calendar`, finance section with `EntryFormDialog` prefill (board + task); absent from DOM without `finance.read`.
+- Drag-safe click on `TaskCard` (6px pointer displacement threshold) so drags never open the dialog.
 
 ## Completed Phase 10 Streamline (all merged to master)
 
@@ -21,31 +21,31 @@ What landed:
 - **PSI-104** · Finance on event boards & events (PR #52)
 - **PSI-105** · Agent tool `get_finance` (PR #53)
 - **PSI-106** · Finance charts on the overview (PR #54)
+- **PSI-109** · Kanban task detail panel (PR #55)
 
 ## Next Card Candidates
 
-- **PSI-107** · Fix: deleting a board that has tasks fails (M7 task activity trigger) — backlog
-- **PSI-109** · Kanban task detail panel (click to open, linked calendar + finance) — backlog
-- **PSI-036** · Test harness and mail tests — backlog
+- **PSI-107** · Fix: deleting a board that has tasks fails (M7 task activity trigger) — backlog, depends PSI-070 (done). Small bounded fix + pgTAP.
+- **PSI-036** · Test harness and mail tests — backlog, depends PSI-035.
+- **PSI-042** · Event form with audience picker, WIB display — backlog, depends PSI-041.
 
 ## Test & Build Status
 
-- Frontend unit tests: **60/60 passing** (`bun test src/`)
+- Frontend unit tests: **64/64 passing** (`bun test src/`)
 - Edge functions tests: **15/15 passing**
 - Typecheck: **0 errors** · Lint: **0 warnings / 0 errors**
-- Agent check: **OK** (86 tasks, 66 history entries)
-- pgTAP: 135 passing (unchanged; no DB migration in PSI-104/105/106)
+- Agent check: **OK** (86 tasks, 67 history entries)
 
 ## Open Follow-ups
 
-1. **Browser walkthrough of finance** (inherited PSI-103 gap): `/dashboard/finance` ledger, board Finance tab math, task-card Add entry prefill, event net block, overview charts. Seeded user `admin@p3md.test` has `finance.read/write/manage`.
-2. **Live MCP probe**: call `get_finance` via `/api/mcp` and watch the audit row land in `agent_audit_log`.
+1. **Browser walkthroughs** (inherited): finance ledger + board Finance tab + event net + overview charts + task detail panel (click, linked event, add entry, drag safety). Seeded user `admin@p3md.test` has `finance.read/write/manage`.
+2. **Live MCP probe**: call `get_finance` via `/api/mcp` and watch the `agent_audit_log` row.
 
 ## Master State
 
-- `master` @ commit after PSI-106 merge record (docs + obsidian mirror synced)
+- `master` @ `a59f331` (PR #55 merge) + docs/obsidian sync commit
 - Working tree clean
 
 ## Exact Next Action
 
-Pick the top Ready card (check `docs/list-task-project.md` for `status: ready`; PSI-107 is a small bounded fix and PSI-109 is next in the Phase 10 area if preferred). Claim it, branch `task/PSI-XXX`, TDD, gates, PR + merge per the established rhythm.
+Claim **PSI-107** (board-delete fix, M7 trigger) — branch `task/PSI-107`, write the failing pgTAP test first (`delete from boards` with a task present), then the new migration. Alternative: PSI-036 (test harness) if a frontend-only loop is preferred.

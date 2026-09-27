@@ -17,7 +17,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 
 | Key | Allowed values |
 |---|---|
-| `status` | `backlog` · `todo` · `doing` · `review` · `blocked` · `done` |
+| `status` | `backlog` · `todo` · `doing` · `review` · `blocked` · `onhold` · `done` |
 | `area` | `repo` · `docs` · `agent-ops` · `frontend` · `backend` · `db` · `integration` · `infra` · `security` |
 | `owner` | `unassigned` · `human` · `human:<name>` · `agent:<name>` (e.g. `agent:claude-code`, `agent:hermes`) |
 | `depends` | Comma-separated task IDs, or `—` |
@@ -27,6 +27,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - Agents change only `status` and `owner` lines (contract C-03). Agents never set `done`; a human does after merge.
 - New task → append under the right phase with the next free ID and `status: backlog`. Once this file is committed, IDs are never reused or renumbered.
 - A task needing a human decision gets `status: blocked`; the reason goes in the session's history entry.
+- `status: onhold` is different from `blocked`: `blocked` means a dependency or a missing decision stops the task; `onhold` means the product owner deliberately paused an entire feature/phase to reprioritize, with no dependency problem to solve. **Only a human sets `onhold`** (via chat with Hermes or directly in this file) — an agent never puts a task on hold on its own initiative. Once set, agents never resume a held task on their own even if its dependencies become ready; it waits for a human to move it back to `backlog`/`todo`. Record the operator's request and the reason in the session's history entry (2026-09-27: PSI-076, PSI-098 and the open Phase 8 talent-screening tasks were put on hold this way to prioritize the calendar → kanban → finance streamline).
 - `bun run agent:check` validates this file (duplicate IDs, unknown statuses or areas, dangling `depends`).
 
 ---
@@ -126,6 +127,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - merged: PR #35 (2026-09-26, 0cb2229) — stamped done by operator 2026-09-26
 - history: obsidian-out/history/2026-09-26T03-03-30Z__PSI-099__claude-code.md
 - accept: `bun run agent:evaluate` reads Hermes `state.db`, OmniRoute `call_logs`, agent-history entries, this task list and provider billing CSVs read-only and writes `agent-evaluate/out/steps.jsonl` (run_id, task_id, step, timestamp, provider, model, prompt/cached/completion tokens, cost_estimate, tool_name, tool_args_hash, tool_status, error, retry_count, loop_flag, waste_flags, outcome; no raw tool arguments, outputs or credentials); loop, retry, budget and tool-error detectors and the cost calculator are covered by `bun test`; `agent-evaluate/reports/hermes_observability_report.md` plus CSVs report wasted vs successful compute, cost per successful task, pass@1/pass@k, retry, loop, tool-error and cache-hit rates, and per-provider actual vs expected cost per token with >10% flags; metrics that cannot be computed are marked not available.
+
+### PSI-108 · Repo hygiene: stop tracking Obsidian app state; branch-switch/escalation rules
+- status: done
+- area: agent-ops
+- owner: agent:claude-code
+- depends: —
+- merged: PR #46 (2026-09-27, dd3e86e)
+- accept: `obsidian-out/.obsidian/{app,appearance,graph,types,workspace}.json` and `.obsidian/plugins/` untracked and gitignored (none of it is written by scripts/obsidian-sync.ts; a plugin's own data.json can carry local secrets); docs/agent-operations/README.md gets rules against switching branches in a dirty shared working directory and against retrying a blocker already hit once instead of escalating.
 
 ## Phase 1 — Auth and RBAC (users, groups, roles, permissions)
 
@@ -382,6 +391,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - merged: PR #28 (2026-09-26)
 - accept: Board owner adds/removes individual members and whole groups; a new member of a shared group sees the board without further action.
 
+### PSI-109 · Kanban task detail panel (click to open, linked calendar + finance)
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-051, PSI-104
+- accept: Clicking a task card (not just dragging it) opens a Sheet/Dialog with the full task (title, description, assignee, priority, due date, column) editable through the same Zod schema as `new-task-dialog`; when the task's board has `boards.event_id` set, the panel shows the event's date/title linking to `/dashboard/calendar` (per calendar.md); when the caller has `finance.read`, a Finance section lists this task's `finance_entries` (`task_id = this task`) with an "Add entry" pre-filled with board + task, reusing finance's `entry-form-sheet` (per finance.md); the section is absent, not empty, for a caller without `finance.read`; opening/closing the panel does not lose an in-progress drag.
+
 ## Phase 6 — Google Workspace (Drive documents, Calendar)
 
 ### PSI-060 · Google Cloud project, service account, sharing
@@ -503,7 +519,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: User sees their OAuth grants and can revoke one; a revoked client gets 401 on its next call.
 
 ### PSI-076 · Live in-app AI chat on the shared tools
-- status: backlog
+- status: onhold
 - area: frontend
 - owner: unassigned
 - depends: PSI-072, PSI-098
@@ -524,7 +540,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Documented which clients (Claude, ChatGPT, Hermes Agent, Cursor) connect via DCR or CIMD against Supabase; workaround recorded if one fails.
 
 ### PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation
-- status: backlog
+- status: onhold
 - area: backend
 - owner: unassigned
 - depends: PSI-072
@@ -548,42 +564,42 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake
-- status: blocked
+- status: onhold
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-080
 - accept: Explicit consent recorded before any processing; PDF ≤ 2 MB uploaded to `<user_id>/`, or an existing file picked from the talent Drive root; no public URL generated.
 
 ### PSI-082 · Edge Function parse-cv
-- status: blocked
+- status: onhold
 - area: backend
 - owner: unassigned
 - depends: PSI-081, PSI-063, PSI-098
 - accept: Reads Storage or Drive; text layer first, OCR fallback; LLM call through `_shared/llm.ts` with a human-approved `CV_MODEL`; output validated against a JSON schema; names normalized through skill_aliases; unknown skills queued for review; raw text never stored or logged.
 
 ### PSI-083 · Skill taxonomy admin
-- status: backlog
+- status: onhold
 - area: frontend
 - owner: unassigned
 - depends: PSI-080
 - accept: `talent.manage` users edit groups, skills, aliases, weights and required flags.
 
 ### PSI-084 · Scoring, strong skills, agent talent view
-- status: blocked
+- status: onhold
 - area: db
 - owner: unassigned
 - depends: PSI-082, PSI-083
 - accept: Score per skill group and meets_required per candidate; top-5 strong skills; agent_talent_overview exposes no contact data or CV text.
 
 ### PSI-085 · Candidate pipeline board
-- status: blocked
+- status: onhold
 - area: frontend
 - owner: unassigned
 - depends: PSI-084
 - accept: Stages Sourced → Screen → Interview → Offer; cards show score and strong skills; no auto-reject.
 
 ### PSI-086 · CV retention
-- status: blocked
+- status: onhold
 - area: security
 - owner: unassigned
 - depends: PSI-082

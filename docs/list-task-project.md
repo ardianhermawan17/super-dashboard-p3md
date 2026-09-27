@@ -664,10 +664,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: src/agent/tools/get-finance.ts registered in registry.ts with the input and output contract in frontend-architecture/features/finance.md; reads agent_finance and finance_entries as the caller; decimal-string amounts with currency, category slugs, no creator identities, max 50 rows, deep links; every call audited; agent tests cover a caller without `finance.read` getting nothing.
 
 ### PSI-106 · Finance charts on the overview
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - history: [[2026-09-27T17-50-00Z__PSI-106__hermes]]
+- merged: PR #54 (2026-09-27)
 - depends: PSI-103
 - accept: Overview shows inflow vs outflow per month and outflow by category using the template bar and pie graphs, only for users with `finance.read`, with loading skeletons and an empty state.
 

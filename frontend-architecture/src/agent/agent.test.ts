@@ -6,6 +6,7 @@
  * — with the same shape the real client exposes for `.from().select()...`.
  */
 import { describe, expect, test, mock } from 'bun:test';
+import { builder } from './testing/fake-supabase';
 import { defineTool, type AgentCtx } from './define';
 import { deepLink } from './links';
 import { agentTools } from './registry';
@@ -24,34 +25,6 @@ type Audited = {
   rows: number | null;
   error: string | null;
 };
-
-/**
- * A chainable, awaitable stand-in for a supabase-js query builder. Every filter returns the
- * same object (real builders are chainable too) and awaiting it resolves to `{ data, error }`.
- */
-class Builder<T> implements PromiseLike<{ data: T[]; error: null }> {
-  #rows: T[];
-  constructor(rows: T[]) {
-    this.#rows = rows;
-  }
-  select() { return this; }
-  eq() { return this; }
-  gte() { return this; }
-  lt() { return this; }
-  ilike() { return this; }
-  order() { return this; }
-  limit() { return this; }
-  // oxlint-disable-next-line unicorn/no-thenable -- the mock must be awaitable (tools do `await q`); a thenable is the point of the class
-  then<TResult1 = { data: T[]; error: null }, TResult2 = never>(
-    onfulfilled?: ((value: { data: T[]; error: null }) => TResult1 | PromiseLike<TResult1>) | null,
-  ): PromiseLike<TResult1 | TResult2> {
-    return Promise.resolve({ data: this.#rows, error: null }).then(onfulfilled);
-  }
-}
-
-function builder<T>(rows: T[]) {
-  return new Builder<T>(rows);
-}
 
 function fakeDb(rowsForTool: Record<string, unknown[]>, audited: Audited[], auditError: string | null = null) {
   return {

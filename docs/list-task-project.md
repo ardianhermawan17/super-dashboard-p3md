@@ -480,9 +480,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: src/agent/{define,registry,runtime}.ts; get_activity, get_board, get_agenda, get_inbox, search_documents; every call audited; outputs capped and deep-linked; no PII or document content in outputs.
 
 ### PSI-073 · MCP endpoint with mcp-handler 2.x
-- status: backlog
+- status: review
 - area: backend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-072
 - accept: /api/mcp answers 401 with a resource-metadata challenge without a token; with a valid Supabase JWT the tools list and run as that user.
 

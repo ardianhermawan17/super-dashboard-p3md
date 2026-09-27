@@ -23,16 +23,28 @@ type Props = {
   categories: FinanceCategory[];
   /** Present when editing; absent when creating. */
   entry?: FinanceEntry | null;
+  /** PSI-104: prefill when opening "Add entry" from a board or a task card. */
+  initialBoardId?: string;
+  initialTaskId?: string;
   onSaved: () => void;
 };
 
 /** Create/edit an entry. A Dialog, matching every other form in this app (no Sheet form exists yet). */
-export function EntryFormDialog({ open, onOpenChange, boards, categories, entry, onSaved }: Props) {
+export function EntryFormDialog({
+  open,
+  onOpenChange,
+  boards,
+  categories,
+  entry,
+  initialBoardId,
+  initialTaskId,
+  onSaved
+}: Props) {
   const isEdit = Boolean(entry);
 
   const form = useAppForm({
     defaultValues: {
-      boardId: entry?.board_id ?? '',
+      boardId: entry?.board_id ?? initialBoardId ?? '',
       categoryId: entry?.category_id ?? '',
       direction: (entry?.direction ?? 'outflow') as 'inflow' | 'outflow',
       amount: entry?.amount ?? '',
@@ -40,46 +52,47 @@ export function EntryFormDialog({ open, onOpenChange, boards, categories, entry,
       occurredOn: entry ? new Date(`${entry.occurred_on}T00:00:00`) : new Date()
     },
     onSubmit: async ({ value }) => {
-      const parsed = entrySchema.safeParse({
-        boardId: value.boardId,
-        categoryId: value.categoryId,
-        direction: value.direction,
-        amount: value.amount,
-        description: value.description,
-        occurredOn: format(value.occurredOn, 'yyyy-MM-dd')
-      });
-      if (!parsed.success) {
-        toast.error(parsed.error.issues[0]?.message ?? 'Invalid entry');
-        return;
+        const parsed = entrySchema.safeParse({
+          boardId: value.boardId,
+          taskId: entry?.task_id ?? initialTaskId,
+          categoryId: value.categoryId,
+          direction: value.direction,
+          amount: value.amount,
+          description: value.description,
+          occurredOn: format(value.occurredOn, 'yyyy-MM-dd')
+        });
+        if (!parsed.success) {
+          toast.error(parsed.error.issues[0]?.message ?? 'Invalid entry');
+          return;
+        }
+
+        const res = entry
+          ? await updateEntryAction(entry.id, parsed.data)
+          : await createEntryAction(parsed.data);
+
+        if (!res.ok) {
+          toast.error(res.error);
+          return;
+        }
+        toast.success(isEdit ? 'Entry updated' : 'Entry recorded');
+        onOpenChange(false);
+        onSaved();
       }
-
-      const res = entry
-        ? await updateEntryAction(entry.id, parsed.data)
-        : await createEntryAction(parsed.data);
-
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(isEdit ? 'Entry updated' : 'Entry recorded');
-      onOpenChange(false);
-      onSaved();
-    }
-  });
-
-  // Reset to the right defaults each time the dialog opens for a (possibly different) entry.
-  React.useEffect(() => {
-    if (!open) return;
-    form.reset({
-      boardId: entry?.board_id ?? '',
-      categoryId: entry?.category_id ?? '',
-      direction: (entry?.direction ?? 'outflow') as 'inflow' | 'outflow',
-      amount: entry?.amount ?? '',
-      description: entry?.description ?? '',
-      occurredOn: entry ? new Date(`${entry.occurred_on}T00:00:00`) : new Date()
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, entry]);
+
+    // Reset to the right defaults each time the dialog opens for a (possibly different) entry.
+    React.useEffect(() => {
+      if (!open) return;
+      form.reset({
+        boardId: entry?.board_id ?? initialBoardId ?? '',
+        categoryId: entry?.category_id ?? '',
+        direction: (entry?.direction ?? 'outflow') as 'inflow' | 'outflow',
+        amount: entry?.amount ?? '',
+        description: entry?.description ?? '',
+        occurredOn: entry ? new Date(`${entry.occurred_on}T00:00:00`) : new Date()
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, entry, initialBoardId]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

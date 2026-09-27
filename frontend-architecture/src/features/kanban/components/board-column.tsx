@@ -10,9 +10,16 @@ import { TaskCard } from './task-card';
 interface TaskColumnProps extends Omit<React.ComponentProps<typeof KanbanColumn>, 'children'> {
   title: string;
   tasks: KanbanTask[];
+  canWriteFinance?: boolean;
 }
 
-export function TaskColumn({ value, title, tasks, ...props }: TaskColumnProps) {
+export function TaskColumn({
+  value,
+  title,
+  tasks,
+  canWriteFinance = false,
+  ...props
+}: TaskColumnProps) {
   return (
     <KanbanColumn value={value} className='w-full shrink-0 md:w-[320px]' {...props}>
       <div className='flex items-center justify-between pb-2'>
@@ -28,8 +35,13 @@ export function TaskColumn({ value, title, tasks, ...props }: TaskColumnProps) {
       </div>
       <div className='flex flex-col gap-2 p-0.5 min-h-[100px]'>
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} asHandle />
-        ))}
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    asHandle
+                    canWriteFinance={canWriteFinance}
+                  />
+                ))}
       </div>
     </KanbanColumn>
   );

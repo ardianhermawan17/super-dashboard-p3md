@@ -2,13 +2,15 @@
 
 import { Badge } from '@/components/ui/badge';
 import { KanbanItem } from '@/components/ui/kanban';
+import { TaskFinanceButton } from './task-finance-button';
 import type { KanbanTask } from '../types';
 
 interface TaskCardProps extends Omit<React.ComponentProps<typeof KanbanItem>, 'value'> {
   task: KanbanTask;
+  canWriteFinance?: boolean;
 }
 
-export function TaskCard({ task, ...props }: TaskCardProps) {
+export function TaskCard({ task, canWriteFinance = false, ...props }: TaskCardProps) {
   const assigneeName = task.assignee?.full_name || null;
 
   return (
@@ -38,16 +40,19 @@ export function TaskCard({ task, ...props }: TaskCardProps) {
           <p className='line-clamp-2 text-xs text-muted-foreground'>{task.description}</p>
         )}
         <div className='text-muted-foreground flex items-center justify-between text-xs pt-1'>
-          {assigneeName ? (
-            <div className='flex items-center gap-1.5'>
-              <div className='bg-primary/20 size-2 rounded-full' />
-              <span className='line-clamp-1 max-w-[140px]'>{assigneeName}</span>
-            </div>
-          ) : (
-            <span />
-          )}
-          {task.due_date && <time className='text-[10px] tabular-nums'>{task.due_date}</time>}
-        </div>
+                  {assigneeName ? (
+                    <div className='flex items-center gap-1.5'>
+                      <div className='bg-primary/20 size-2 rounded-full' />
+                      <span className='line-clamp-1 max-w-[140px]'>{assigneeName}</span>
+                    </div>
+                  ) : (
+                    <span />
+                  )}
+                  <div className='flex items-center gap-1'>
+                    {canWriteFinance && <TaskFinanceButton boardId={task.board_id} taskId={task.id} />}
+                    {task.due_date && <time className='text-[10px] tabular-nums'>{task.due_date}</time>}
+                  </div>
+                </div>
       </div>
     </KanbanItem>
   );

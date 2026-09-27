@@ -5,5 +5,6 @@ export const financeKeys = {
   entries: () => [...financeKeys.all, 'entries'] as const,
   list: (filters: EntryFilters) => [...financeKeys.entries(), filters] as const,
   categories: () => [...financeKeys.all, 'categories'] as const,
-  boards: () => [...financeKeys.all, 'boards'] as const
+  boards: () => [...financeKeys.all, 'boards'] as const,
+  summary: (boardId: string) => [...financeKeys.all, 'summary', boardId] as const
 };

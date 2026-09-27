@@ -5,13 +5,20 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import PageContainer from '@/components/layout/page-container';
 import { Icons } from '@/components/icons';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { KanbanBoard } from './kanban-board';
 import NewTaskDialog from './new-task-dialog';
 import { BoardShareDialog } from './board-share-dialog';
+import { BoardFinancePanel } from '@/features/finance/components/board-finance-panel';
 import { getBoardAction } from '../actions';
 import { kanbanKeys } from '../api/keys';
 
-export default function KanbanViewPage() {
+type Props = {
+  canReadFinance?: boolean;
+  canWriteFinance?: boolean;
+};
+
+export default function KanbanViewPage({ canReadFinance = false, canWriteFinance = false }: Props) {
   const searchParams = useSearchParams();
   const requestedBoardId = searchParams.get('boardId') || undefined;
 
@@ -65,7 +72,30 @@ export default function KanbanViewPage() {
           </span>
         </div>
       )}
-      <KanbanBoard boardId={requestedBoardId} initialBoard={board} />
+      {canReadFinance && board ? (
+        <Tabs defaultValue='tasks'>
+          <TabsList>
+            <TabsTrigger value='tasks'>Tasks</TabsTrigger>
+            <TabsTrigger value='finance'>Finance</TabsTrigger>
+          </TabsList>
+          <TabsContent value='tasks' className='mt-4'>
+                      <KanbanBoard
+                        boardId={requestedBoardId}
+                        initialBoard={board}
+                        canWriteFinance={canWriteFinance}
+                      />
+                    </TabsContent>
+                    <TabsContent value='finance' className='mt-4'>
+                      <BoardFinancePanel boardId={board.id} canWrite={canWriteFinance} />
+                    </TabsContent>
+                  </Tabs>
+                ) : (
+                  <KanbanBoard
+                    boardId={requestedBoardId}
+                    initialBoard={board}
+                    canWriteFinance={canWriteFinance}
+                  />
+                )}
     </PageContainer>
   );
 }

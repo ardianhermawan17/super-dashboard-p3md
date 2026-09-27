@@ -33,6 +33,12 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
 - [ ] [[tasks/PSI-085|PSI-085]] Candidate pipeline board #frontend #phase-8
 - [ ] [[tasks/PSI-086|PSI-086]] CV retention #security #phase-8
+- [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link #db #phase-10
+- [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar #frontend #phase-10
+- [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD #frontend #phase-10
+- [ ] [[tasks/PSI-104|PSI-104]] Finance on event boards and events #frontend #phase-10
+- [ ] [[tasks/PSI-105|PSI-105]] Agent tool get_finance #backend #phase-10
+- [ ] [[tasks/PSI-106|PSI-106]] Finance charts on the overview #frontend #phase-10
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -51,6 +57,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 1 run #docs #phase-10
 
 
 ## Blocked

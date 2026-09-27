@@ -18,6 +18,7 @@ src/agent/
 │   ├── get-board.ts         # agent_board_status
 │   ├── get-agenda.ts        # agent_agenda
 │   ├── get-inbox.ts         # agent_inbox
+│   ├── get-finance.ts       # agent_finance: totals by category + recent entries (PSI-105, m10-finance.md)
 │   └── search-documents.ts  # agent_documents: names, paths, links only
 └── adapters/
     ├── mcp.ts           # registerTool loop for mcp-handler

@@ -457,3 +457,64 @@ export async function getFinanceOverviewAction(): Promise<ActionResult<FinanceOv
 
   return { ok: true, data: aggregateFinanceOverview(financeRows, { now }) };
 }
+
+
+// ---------------------------------------------------------------------------
+// PSI-109: task-scoped finance entries (Kanban detail panel)
+// ---------------------------------------------------------------------------
+
+/**
+ * Finance entries linked to one task (task_id = taskId), newest first.
+ * Gated by finance.read — a caller without it gets ok:false / Forbidden, so the
+ * Kanban detail panel can omit the section entirely instead of showing an empty list.
+ */
+export async function getTaskFinanceEntriesAction(
+  taskId: string
+): Promise<ActionResult<FinanceEntry[]>> {
+  const { session, error } = await checkPermission('finance.read');
+  if (!session) return { ok: false, error: error ?? 'Forbidden' };
+  const supabase = await createClient();
+
+  const { data: rows, error: fetchError } = await supabase
+    .from('finance_entries')
+    .select(
+      'id, board_id, task_id, event_id, category_id, direction, amount, currency, description, occurred_on, created_at'
+    )
+    .eq('task_id', taskId)
+    .order('occurred_on', { ascending: false });
+
+  if (fetchError) return { ok: false, error: fetchError.message };
+
+  // Same two-lookup enrichment as listEntriesAction (board + category names).
+  const boardIds = Array.from(new Set((rows ?? []).map((r) => r.board_id)));
+  const categoryIds = Array.from(new Set((rows ?? []).map((r) => r.category_id)));
+  const [{ data: boards }, { data: categories }] = await Promise.all([
+    boardIds.length
+      ? supabase.from('boards').select('id, name').in('id', boardIds)
+      : Promise.resolve({ data: [] as { id: string; name: string }[] }),
+    categoryIds.length
+      ? supabase.from('finance_categories').select('id, slug, name').in('id', categoryIds)
+      : Promise.resolve({ data: [] as { id: string; slug: string; name: string }[] })
+  ]);
+  const boardById = new Map((boards ?? []).map((b) => [b.id, b.name]));
+  const categoryById = new Map((categories ?? []).map((c) => [c.id, c]));
+
+  const items: FinanceEntry[] = (rows ?? []).map((row) => ({
+    id: row.id,
+    board_id: row.board_id,
+    board_name: boardById.get(row.board_id) ?? '',
+    task_id: row.task_id,
+    event_id: row.event_id,
+    category_id: row.category_id,
+    category_slug: categoryById.get(row.category_id)?.slug ?? '',
+    category_name: categoryById.get(row.category_id)?.name ?? '',
+    direction: row.direction as FinanceEntry['direction'],
+    amount: String(row.amount),
+    currency: 'IDR',
+    description: row.description,
+    occurred_on: row.occurred_on,
+    created_at: row.created_at
+  }));
+
+  return { ok: true, data: items };
+}

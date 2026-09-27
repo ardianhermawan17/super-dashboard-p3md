@@ -11,6 +11,7 @@ interface TaskColumnProps extends Omit<React.ComponentProps<typeof KanbanColumn>
   title: string;
   tasks: KanbanTask[];
   canWriteFinance?: boolean;
+  onTaskClick?: (task: KanbanTask) => void;
 }
 
 export function TaskColumn({
@@ -18,6 +19,7 @@ export function TaskColumn({
   title,
   tasks,
   canWriteFinance = false,
+  onTaskClick,
   ...props
 }: TaskColumnProps) {
   return (
@@ -34,15 +36,16 @@ export function TaskColumn({
         </KanbanColumnHandle>
       </div>
       <div className='flex flex-col gap-2 p-0.5 min-h-[100px]'>
-        {tasks.map((task) => (
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    asHandle
-                    canWriteFinance={canWriteFinance}
-                  />
-                ))}
-      </div>
+              {tasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  asHandle
+                  canWriteFinance={canWriteFinance}
+                  onTaskClick={onTaskClick}
+                />
+              ))}
+            </div>
     </KanbanColumn>
   );
 }

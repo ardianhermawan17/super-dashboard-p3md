@@ -400,9 +400,10 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Board owner adds/removes individual members and whole groups; a new member of a shared group sees the board without further action.
 
 ### PSI-109 · Kanban task detail panel (click to open, linked calendar + finance)
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
+- history: [[2026-09-28T00-30-00Z__PSI-109__hermes]]
 - depends: PSI-051, PSI-104
 - accept: Clicking a task card (not just dragging it) opens a Sheet/Dialog with the full task (title, description, assignee, priority, due date, column) editable through the same Zod schema as `new-task-dialog`; when the task's board has `boards.event_id` set, the panel shows the event's date/title linking to `/dashboard/calendar` (per calendar.md); when the caller has `finance.read`, a Finance section lists this task's `finance_entries` (`task_id = this task`) with an "Add entry" pre-filled with board + task, reusing finance's `entry-form-sheet` (per finance.md); the section is absent, not empty, for a caller without `finance.read`; opening/closing the panel does not lose an in-progress drag.
 

@@ -272,6 +272,7 @@ export async function updateTaskAction(
     priority?: TaskPriority;
     assignee_id?: string | null;
     due_date?: string | null;
+    column_id?: string;
   }
 ): Promise<{ ok: boolean; error?: string }> {
   const session = await getSession();
@@ -286,6 +287,7 @@ export async function updateTaskAction(
   if (patch.priority !== undefined) updateData.priority = patch.priority;
   if (patch.assignee_id !== undefined) updateData.assignee_id = patch.assignee_id || null;
   if (patch.due_date !== undefined) updateData.due_date = patch.due_date || null;
+  if (patch.column_id !== undefined) updateData.column_id = patch.column_id;
 
   const { error } = await supabase.from('tasks').update(updateData).eq('id', taskId);
   if (error) {

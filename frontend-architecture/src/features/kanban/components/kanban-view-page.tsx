@@ -73,29 +73,31 @@ export default function KanbanViewPage({ canReadFinance = false, canWriteFinance
         </div>
       )}
       {canReadFinance && board ? (
-        <Tabs defaultValue='tasks'>
-          <TabsList>
-            <TabsTrigger value='tasks'>Tasks</TabsTrigger>
-            <TabsTrigger value='finance'>Finance</TabsTrigger>
-          </TabsList>
-          <TabsContent value='tasks' className='mt-4'>
-                      <KanbanBoard
-                        boardId={requestedBoardId}
-                        initialBoard={board}
-                        canWriteFinance={canWriteFinance}
-                      />
-                    </TabsContent>
-                    <TabsContent value='finance' className='mt-4'>
-                      <BoardFinancePanel boardId={board.id} canWrite={canWriteFinance} />
-                    </TabsContent>
-                  </Tabs>
-                ) : (
+              <Tabs defaultValue='tasks'>
+                <TabsList>
+                  <TabsTrigger value='tasks'>Tasks</TabsTrigger>
+                  <TabsTrigger value='finance'>Finance</TabsTrigger>
+                </TabsList>
+                <TabsContent value='tasks' className='mt-4'>
                   <KanbanBoard
                     boardId={requestedBoardId}
                     initialBoard={board}
+                    canReadFinance={canReadFinance}
                     canWriteFinance={canWriteFinance}
                   />
-                )}
+                </TabsContent>
+                <TabsContent value='finance' className='mt-4'>
+                  <BoardFinancePanel boardId={board.id} canWrite={canWriteFinance} />
+                </TabsContent>
+              </Tabs>
+            ) : (
+              <KanbanBoard
+                boardId={requestedBoardId}
+                initialBoard={board}
+                canReadFinance={canReadFinance}
+                canWriteFinance={canWriteFinance}
+              />
+            )}
     </PageContainer>
   );
 }

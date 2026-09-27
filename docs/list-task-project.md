@@ -580,6 +580,57 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - depends: PSI-082
 - accept: Storage originals deleted and `cv_path` nulled after a successful parse; failed parses retried or deleted within 7 days; Drive-sourced CVs stay in their restricted root.
 
+## Phase 10 — Event finance (calendar → board → finance)
+
+### PSI-100 · Design event finance and the event → board → finance streamline
+- status: review
+- area: docs
+- owner: agent:claude-code
+- depends: PSI-040, PSI-050, PSI-072
+- accept: database-architecture/m10-finance.md (schema, RLS, activity-log rule, agent view, pgTAP list) and frontend-architecture/features/finance.md (flow, module layout, reused template parts, icons, `get_finance` contract) committed and linked from system-overview.md and both layer READMEs; `finance.read` / `finance.write` / `finance.manage` approved by a human (C-15) and quoted in the history entry.
+
+### PSI-101 · Migration M10 finance and event ↔ board link
+- status: backlog
+- area: db
+- owner: unassigned
+- depends: PSI-100, PSI-040, PSI-050, PSI-070, PSI-071
+- accept: finance_categories (seeded) and finance_entries exactly as in database-architecture/m10-finance.md with RLS in the same migration; `boards.event_id` (unique when set); finance.read/write/manage inserted and granted to admin; cross-row trigger rejects a task, event or category that does not match the board; finance activity logged without `board_id` and the activity_log select policy extended (RLS change called out for human review, C-15); `agent_finance` with `security_invoker`; every pgTAP case in m10-finance.md passes; `supabase db reset` clean; types regenerated.
+
+### PSI-102 · Create an event board from the calendar
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-101, PSI-041, PSI-053
+- accept: Event detail shows "Create event board" to users with `kanban.write` when the event has no board, else "Open board"; the new board is named after the event, has `event_id` set and gets the event's group audience in board_groups; the board header shows the event date and links back; a second click never creates a second board.
+
+### PSI-103 · Finance module with CRUD
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-101, PSI-017
+- accept: /dashboard/finance guarded by `finance.read` lists visible entries in the template data table with direction, category, date and amount filters kept in the URL; create, edit and delete through Zod-validated Server Actions guarded by `finance.write`; categories managed in a dialog by `finance.manage`; amounts shown as "Rp 2.000.000" and dates in WIB; nav item "Finance" with `Icons.billing` hidden without `finance.read`; kbar action opens the form; no icon imported outside `@/components/icons`.
+
+### PSI-104 · Finance on event boards and events
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-102, PSI-103
+- accept: A board shows a Finance tab (inflow, outflow, net, per-category totals) only to users who can read finance; "Add entry" from the board or a task card pre-fills board and task; the event detail shows the event's net and links to its board and finance list; a board member without `finance.read` sees no amounts anywhere, including the activity feed.
+
+### PSI-105 · Agent tool get_finance
+- status: backlog
+- area: backend
+- owner: unassigned
+- depends: PSI-101, PSI-072
+- accept: src/agent/tools/get-finance.ts registered in registry.ts with the input and output contract in frontend-architecture/features/finance.md; reads agent_finance and finance_entries as the caller; decimal-string amounts with currency, category slugs, no creator identities, max 50 rows, deep links; every call audited; agent tests cover a caller without `finance.read` getting nothing.
+
+### PSI-106 · Finance charts on the overview
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-103
+- accept: Overview shows inflow vs outflow per month and outflow by category using the template bar and pie graphs, only for users with `finance.read`, with loading skeletons and an empty state.
+
 ## Phase 9 — Release
 
 ### PSI-090 · Vercel project and environments

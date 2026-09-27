@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 31 | 0 | 1 | 1 | 0 | 42 | 75 |
+| 37 | 0 | 1 | 2 | 0 | 42 | 82 |
 
 ## Blocked
 
@@ -21,9 +21,11 @@ _Nothing blocked._
 ## Review
 
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
+- [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|2026-09-27 08:51 WIB · claude-code · PSI-100]]: Review the finance design (PSI-100) and stamp it; PSI-101 onward stay backlog until moved to todo.
 - [[history/2026-09-26T23-55-00Z__PSI-073__hermes|2026-09-27 06:00 WIB · hermes · PSI-073]]: The AC's second clause (with a valid Supabase JWT the tools list and run as that user) is verified at the adapter boundary — JWT forwarded, RLS client built, audit row written — but not end-to-end against a live Supabase instance. Confirm the JWKS issuer ({project}/auth/v1) matches the deployed project, and decide whether a real authenticated MCP call should be proven before merge.
 - [[history/2026-09-26T18-45-00Z__PSI-080__hermes|2026-09-27 01:05 WIB · hermes · PSI-080]]: This is the schema that stores CVs and candidate data. A human should confirm the retention story (cv_path is meant to be nulled after parsing, but nothing enforces it), who is expected to hold talent.read, and that admin-only talent.manage is the intended gate on the taxonomy.
 - [[history/2026-09-26T17-45-00Z__PSI-072__hermes|2026-09-27 00:30 WIB · hermes · PSI-072]]: New server-side agent surface that reads on behalf of a user. A human should confirm the audit contract is what they want (which arguments are stored in agent_audit_log.args) and that the deep-link query-param convention is acceptable until real detail routes exist.
@@ -69,6 +71,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-27 08:51 WIB · claude-code · [[tasks/PSI-100|PSI-100]] · done: [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.]]
 - 2026-09-27 06:00 WIB · hermes · [[tasks/PSI-073|PSI-073]] · done: [[history/2026-09-26T23-55-00Z__PSI-073__hermes|Expose the shared agent tool registry over MCP at /api/mcp: unauthenticated requests get a 401 with an RFC 9728 challenge; authenticated ones run tools as the caller.]]
 - 2026-09-27 05:05 WIB · hermes · [[tasks/PSI-065|PSI-065]], [[tasks/PSI-071|PSI-071]], [[tasks/PSI-072|PSI-072]], [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T22-45-00Z__PSI-065__hermes|Merge the four open PRs to master in dependency order, record the board truthfully, close the AI Session recording gap with a contract rule, and resume the task queue.]]
 - 2026-09-27 01:05 WIB · hermes · [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]
@@ -78,4 +81,3 @@ _Nothing blocked._
 - 2026-09-26 19:50 WIB · hermes · [[tasks/PSI-070|PSI-070]] · done: [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]
 - 2026-09-26 17:10 WIB · hermes · [[tasks/PSI-067|PSI-067]] · done: [[history/2026-09-26T10-30-00Z__PSI-067__hermes|PSI-067: Admin: Integrations page — show the Service Account email, register Drive roots with role/group access, and link Google Calendars with a direction and audience.]]
 - 2026-09-26 16:00 WIB · hermes · [[tasks/PSI-061|PSI-061]] · done: [[history/2026-09-26T09-00-00Z__PSI-061__hermes|PSI-061: Migration M6 Google — Drive mirror, document views, Google calendar links, push triggers and sync schedules.]]
-- 2026-09-26 15:30 WIB · hermes · [[tasks/PSI-053|PSI-053]] · done: [[history/2026-09-26T08-30-00Z__PSI-053__hermes|PSI-053: Implement board sharing with individual users and whole groups.]]

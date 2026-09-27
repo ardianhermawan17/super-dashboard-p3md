@@ -6,7 +6,14 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import { useAppForm } from '@/lib/form';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { Icons } from '@/components/icons';
 
 const forgotPasswordSchema = z.object({
@@ -54,8 +61,9 @@ export default function ForgotPasswordPage() {
           </div>
           <CardTitle className='text-2xl'>Check your email</CardTitle>
           <CardDescription>
-            We&apos;ve sent a password reset link to <span className='font-medium text-foreground'>{submittedEmail}</span>.
-            Follow the instructions in the email to reset your password.
+            We&apos;ve sent a password reset link to{' '}
+            <span className='font-medium text-foreground'>{submittedEmail}</span>. Follow the
+            instructions in the email to reset your password.
           </CardDescription>
         </CardHeader>
         <CardFooter className='flex justify-center'>
@@ -78,48 +86,48 @@ export default function ForgotPasswordPage() {
           Enter your email address and we&apos;ll send you a link to reset your password
         </CardDescription>
       </CardHeader>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-      >
-        <CardContent className='space-y-4'>
-          {errorMsg && (
-            <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
-              {errorMsg}
-            </div>
-          )}
-
-          <form.AppField
-            name='email'
-            children={(field) => (
-              <field.TextField
-                label='Email'
-                type='email'
-                placeholder='name@example.com'
-                required
-                autoComplete='email'
-              />
+      <form.AppForm>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <CardContent className='space-y-4'>
+            {errorMsg && (
+              <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
+                {errorMsg}
+              </div>
             )}
-          />
-        </CardContent>
-        <CardFooter className='flex flex-col gap-4 mt-2'>
-          <form.SubmitButton className='w-full'>
-            Send reset link
-          </form.SubmitButton>
-          <div className='text-center text-sm text-muted-foreground'>
-            Remember your password?{' '}
-            <Link
-              href='/auth/sign-in'
-              className='font-medium text-primary hover:underline underline-offset-4'
-            >
-              Sign in
-            </Link>
-          </div>
-        </CardFooter>
-      </form>
+
+            <form.AppField
+              name='email'
+              children={(field) => (
+                <field.TextField
+                  label='Email'
+                  type='email'
+                  placeholder='name@example.com'
+                  required
+                  autoComplete='email'
+                />
+              )}
+            />
+          </CardContent>
+          <CardFooter className='flex flex-col gap-4 mt-2'>
+            <form.SubmitButton className='w-full'>Send reset link</form.SubmitButton>
+            <div className='text-center text-sm text-muted-foreground'>
+              Remember your password?{' '}
+              <Link
+                href='/auth/sign-in'
+                className='font-medium text-primary hover:underline underline-offset-4'
+              >
+                Sign in
+              </Link>
+            </div>
+          </CardFooter>
+        </form>
+      </form.AppForm>
     </Card>
   );
 }

@@ -7,7 +7,14 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import { useAppForm } from '@/lib/form';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 
 const resetPasswordSchema = z
   .object({
@@ -56,64 +63,62 @@ export default function ResetPasswordPage() {
     <Card className='w-full'>
       <CardHeader>
         <CardTitle className='text-2xl'>Set new password</CardTitle>
-        <CardDescription>
-          Enter a new password for your account
-        </CardDescription>
+        <CardDescription>Enter a new password for your account</CardDescription>
       </CardHeader>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-      >
-        <CardContent className='space-y-4'>
-          {errorMsg && (
-            <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
-              {errorMsg}
+      <form.AppForm>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <CardContent className='space-y-4'>
+            {errorMsg && (
+              <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
+                {errorMsg}
+              </div>
+            )}
+
+            <form.AppField
+              name='password'
+              children={(field) => (
+                <field.TextField
+                  label='New Password'
+                  type='password'
+                  placeholder='••••••••'
+                  required
+                  autoComplete='new-password'
+                />
+              )}
+            />
+
+            <form.AppField
+              name='confirmPassword'
+              children={(field) => (
+                <field.TextField
+                  label='Confirm Password'
+                  type='password'
+                  placeholder='••••••••'
+                  required
+                  autoComplete='new-password'
+                />
+              )}
+            />
+          </CardContent>
+          <CardFooter className='flex flex-col gap-4 mt-2'>
+            <form.SubmitButton className='w-full'>Update password</form.SubmitButton>
+            <div className='text-center text-sm text-muted-foreground'>
+              <Link
+                href='/auth/sign-in'
+                className='font-medium text-primary hover:underline underline-offset-4'
+              >
+                Back to sign in
+              </Link>
             </div>
-          )}
-
-          <form.AppField
-            name='password'
-            children={(field) => (
-              <field.TextField
-                label='New Password'
-                type='password'
-                placeholder='••••••••'
-                required
-                autoComplete='new-password'
-              />
-            )}
-          />
-
-          <form.AppField
-            name='confirmPassword'
-            children={(field) => (
-              <field.TextField
-                label='Confirm Password'
-                type='password'
-                placeholder='••••••••'
-                required
-                autoComplete='new-password'
-              />
-            )}
-          />
-        </CardContent>
-        <CardFooter className='flex flex-col gap-4 mt-2'>
-          <form.SubmitButton className='w-full'>
-            Update password
-          </form.SubmitButton>
-          <div className='text-center text-sm text-muted-foreground'>
-            <Link
-              href='/auth/sign-in'
-              className='font-medium text-primary hover:underline underline-offset-4'
-            >
-              Back to sign in
-            </Link>
-          </div>
-        </CardFooter>
-      </form>
+          </CardFooter>
+        </form>
+      </form.AppForm>
     </Card>
   );
 }

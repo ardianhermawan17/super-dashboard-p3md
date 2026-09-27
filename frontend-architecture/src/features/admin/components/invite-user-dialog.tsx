@@ -26,13 +26,7 @@ const inviteSchema = z.object({
 
 type InviteFormValues = z.infer<typeof inviteSchema>;
 
-export function InviteUserDialog({
-  roles,
-  groups
-}: {
-  roles: RoleItem[];
-  groups: GroupItem[];
-}) {
+export function InviteUserDialog({ roles, groups }: { roles: RoleItem[]; groups: GroupItem[] }) {
   const [open, setOpen] = React.useState(false);
   const [selectedRoleIds, setSelectedRoleIds] = React.useState<string[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = React.useState<string[]>([]);
@@ -84,108 +78,102 @@ export function InviteUserDialog({
         <DialogHeader>
           <DialogTitle>Invite Member</DialogTitle>
           <DialogDescription>
-            Send an email invitation. The member will land with assigned groups and roles upon sign-in.
+            Send an email invitation. The member will land with assigned groups and roles upon
+            sign-in.
           </DialogDescription>
         </DialogHeader>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-          className='space-y-4'
-        >
-          <form.AppField
-            name='email'
-            children={(field) => (
-              <field.TextField
-                label='Email'
-                type='email'
-                placeholder='member@p3md.site'
-                required
-              />
-            )}
-          />
+        <form.AppForm>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className='space-y-4'
+          >
+            <form.AppField
+              name='email'
+              children={(field) => (
+                <field.TextField
+                  label='Email'
+                  type='email'
+                  placeholder='member@p3md.site'
+                  required
+                />
+              )}
+            />
 
-          <form.AppField
-            name='fullName'
-            children={(field) => (
-              <field.TextField
-                label='Full Name'
-                placeholder='Alex Morgan'
-              />
-            )}
-          />
+            <form.AppField
+              name='fullName'
+              children={(field) => <field.TextField label='Full Name' placeholder='Alex Morgan' />}
+            />
 
-          <div className='space-y-2'>
-            <span className='block text-xs font-medium text-muted-foreground'>Direct Roles</span>
-            <div className='flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-1.5 rounded-lg border border-input bg-muted/20'>
-              {roles.map((role) => {
-                const selected = selectedRoleIds.includes(role.id);
-                return (
-                  <button
-                    key={role.id}
-                    type='button'
-                    onClick={() =>
-                      setSelectedRoleIds((prev) =>
-                        selected ? prev.filter((id) => id !== role.id) : [...prev, role.id]
-                      )
-                    }
-                    className={`text-xs px-2 py-1 rounded-md transition-colors border ${
-                      selected
-                        ? 'bg-primary text-primary-foreground border-primary'
-                        : 'bg-background hover:bg-muted border-border text-foreground'
-                    }`}
-                  >
-                    {role.name}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className='space-y-2'>
-            <span className='block text-xs font-medium text-muted-foreground'>Initial Groups</span>
-            <div className='flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-1.5 rounded-lg border border-input bg-muted/20'>
-              {groups
-                .filter((g) => g.slug !== 'all-members')
-                .map((group) => {
-                  const selected = selectedGroupIds.includes(group.id);
+            <div className='space-y-2'>
+              <span className='block text-xs font-medium text-muted-foreground'>Direct Roles</span>
+              <div className='flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-1.5 rounded-lg border border-input bg-muted/20'>
+                {roles.map((role) => {
+                  const selected = selectedRoleIds.includes(role.id);
                   return (
                     <button
-                      key={group.id}
+                      key={role.id}
                       type='button'
                       onClick={() =>
-                        setSelectedGroupIds((prev) =>
-                          selected ? prev.filter((id) => id !== group.id) : [...prev, group.id]
+                        setSelectedRoleIds((prev) =>
+                          selected ? prev.filter((id) => id !== role.id) : [...prev, role.id]
                         )
                       }
                       className={`text-xs px-2 py-1 rounded-md transition-colors border ${
                         selected
-                          ? 'bg-secondary text-secondary-foreground border-secondary'
+                          ? 'bg-primary text-primary-foreground border-primary'
                           : 'bg-background hover:bg-muted border-border text-foreground'
                       }`}
                     >
-                      {group.name}
+                      {role.name}
                     </button>
                   );
                 })}
+              </div>
             </div>
-          </div>
 
-          <DialogFooter className='gap-2 sm:gap-0 mt-4'>
-            <Button
-              type='button'
-              variant='outline'
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button>
-            <form.SubmitButton>
-              Send Invite
-            </form.SubmitButton>
-          </DialogFooter>
-        </form>
+            <div className='space-y-2'>
+              <span className='block text-xs font-medium text-muted-foreground'>
+                Initial Groups
+              </span>
+              <div className='flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-1.5 rounded-lg border border-input bg-muted/20'>
+                {groups
+                  .filter((g) => g.slug !== 'all-members')
+                  .map((group) => {
+                    const selected = selectedGroupIds.includes(group.id);
+                    return (
+                      <button
+                        key={group.id}
+                        type='button'
+                        onClick={() =>
+                          setSelectedGroupIds((prev) =>
+                            selected ? prev.filter((id) => id !== group.id) : [...prev, group.id]
+                          )
+                        }
+                        className={`text-xs px-2 py-1 rounded-md transition-colors border ${
+                          selected
+                            ? 'bg-secondary text-secondary-foreground border-secondary'
+                            : 'bg-background hover:bg-muted border-border text-foreground'
+                        }`}
+                      >
+                        {group.name}
+                      </button>
+                    );
+                  })}
+              </div>
+            </div>
+
+            <DialogFooter className='gap-2 sm:gap-0 mt-4'>
+              <Button type='button' variant='outline' onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <form.SubmitButton>Send Invite</form.SubmitButton>
+            </DialogFooter>
+          </form>
+        </form.AppForm>
       </DialogContent>
     </Dialog>
   );

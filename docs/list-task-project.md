@@ -606,11 +606,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: finance_categories (seeded) and finance_entries exactly as in database-architecture/m10-finance.md with RLS in the same migration; `boards.event_id` (unique when set); finance.read/write/manage inserted and granted to admin; cross-row trigger rejects a task, event or category that does not match the board; finance activity logged without `board_id` and the activity_log select policy extended (RLS change called out for human review, C-15); `agent_finance` with `security_invoker`; every pgTAP case in m10-finance.md passes; `supabase db reset` clean; types regenerated.
 
 ### PSI-102 · Create an event board from the calendar
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-101, PSI-041, PSI-053
 - accept: Event detail shows "Create event board" to users with `kanban.write` when the event has no board, else "Open board"; the new board is named after the event, has `event_id` set and gets the event's group audience in board_groups; the board header shows the event date and links back; a second click never creates a second board.
+- impl: `createEventBoardAction` (calendar/actions.ts) + "Create event board"/"Open board" in the event dialog; `getBoardAction` returns the linked event; kanban header shows "Linked event" chip linking back to the calendar. Idempotency: action early-returns + DB unique index `idx_boards_event`. Reviewed: browser flow needs `/auth/sign-in` fixed (pre-existing `submit-button.tsx` formContext bug, filed as follow-up); unit tests (5) + live DB probe cover the rules. [[2026-09-27T10-15-54Z__PSI-102__hermes]]
 
 ### PSI-103 · Finance module with CRUD
 - status: backlog

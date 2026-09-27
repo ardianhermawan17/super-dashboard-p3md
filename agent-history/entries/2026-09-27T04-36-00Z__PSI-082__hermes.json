@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T04-36-00Z__PSI-082__hermes",
+  "task_ids": ["PSI-082"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-27T04:30:00Z",
+    "ended_at": "2026-09-27T04:36:00Z",
+    "branch": "master"
+  },
+  "intent": "Freeze PSI-082 as the continuation of PSI-081: move it from backlog to Blocked and record exactly what would unblock it.",
+  "outcome": "blocked",
+  "summary": "PSI-082 is the continuation of PSI-081 and was already unworkable before this session. Its three dependencies are not done: PSI-081 is now blocked (built and merged as b203d5f, but never stamped done), PSI-063 google-drive /file and /search is backlog with no commits on any branch, and PSI-098 the provider-agnostic LLM layer is backlog with no commits on any branch. On top of that its acceptance requires a human-approved CV_MODEL (C-15), and CV_MODEL can only exist once PSI-098 defines the layer it sits on, so the LLM half of this card is gated on a decision no agent can make. Rather than leave it sitting in backlog implying it is next up, the operator froze it into Blocked so the board matches reality. No code was written: there is nothing to build against yet, since parse-cv would call _shared/llm.ts and the skill_aliases normalisation that do not exist. Only the status line in docs/list-task-project.md changed.",
+  "changes": [
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-082 status: backlog -> blocked, frozen with its dependency PSI-081. Owner left as unassigned."
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Block instead of claim, and write no code",
+      "reason": "Two of three dependencies have no commits at all, so any parser written now would be built on absent foundations and would have to be rewritten. C-01 also allows one task per session, and this session is a board action, not a build."
+    },
+    {
+      "decision": "Do not attempt to satisfy PSI-063 or PSI-098 inside this card",
+      "reason": "Both are separate cards with their own acceptance criteria; folding them in would break C-02 and produce an unreviewable diff."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "No code changed. Dependency audit only: PSI-081 blocked, PSI-063 backlog, PSI-098 backlog, with no commits for PSI-063 or PSI-098 on any branch (git log --all). Confirmed the blocked status renders into the '## Blocked' column after the write-mode sync."
+  },
+  "migrations": [],
+  "contract_deviations": [
+    {
+      "rule": "C-21",
+      "why": "C-21 says an agent may set only doing and review, so writing blocked is a deviation. The operator asked for it directly: 'How about we freeze/block first feature PSI-081? (put it on BLOCK in obsidian kanban, and their respective continue task).' PSI-082 is that continuation task."
+    }
+  ],
+  "risks": [
+    "Blocked hides that this card was never started, not started-and-stuck; the difference is only visible in this history entry.",
+    "The card stays frozen until two other cards are done and a CV_MODEL is approved, so the talent pipeline downstream of it (PSI-084, PSI-086) is effectively paused too."
+  ],
+  "follow_ups": [
+    {
+      "task_id": "PSI-098",
+      "note": "Do this first: it defines _shared/llm.ts, CHAT_MODEL/DIGEST_MODEL/CV_MODEL and the evaluation run, and a human must pick the defaults. PSI-082 cannot be built without it."
+    },
+    {
+      "task_id": "PSI-063",
+      "note": "Second blocker: parse-cv reads Drive files, so /file and /search must exist before the Drive path of this card can work."
+    },
+    {
+      "task_id": "PSI-082",
+      "note": "To unblock: PSI-081 done, PSI-063 done, PSI-098 done and CV_MODEL approved by a human (C-15). Then claim, branch task/PSI-082, and build the parser text-layer-first with OCR fallback and no raw CV text in logs, history or prompts (C-08)."
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Frozen at the operator's request while its dependencies PSI-063 and PSI-098 remain unstarted and CV_MODEL is unapproved. Needs an operator decision on whether to build those first or re-plan this card."
+  }
+}

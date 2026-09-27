@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T04-36-00Z__PSI-081__hermes",
+  "task_ids": ["PSI-081"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-27T04:30:00Z",
+    "ended_at": "2026-09-27T04:36:00Z",
+    "branch": "master"
+  },
+  "intent": "Freeze PSI-081 at the operator's request: move the card to Blocked on the board and record why.",
+  "outcome": "blocked",
+  "summary": "Operator froze the talent screening phase, so PSI-081 moves from review to blocked. The work itself is built and already on master: PR #42 merged as b203d5f (36f70d2 on task/PSI-081) with the consent gate, the 2 MB cap, the private cvs upload at <user_id>/ and the Drive alternative; 17/17 unit tests, typecheck 0 errors, lint 0/0. What is frozen is the last mile, not the code. Two things still stand between it and done: (1) its acceptance was never proven end to end, because .env.local has no NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY and every route 500s, so the authenticated upload could not be exercised; (2) only the operator can stamp review -> done (C-21). No code was touched in this session; the only change is the status line in docs/list-task-project.md, which the vault generator renders into the Blocked column.",
+  "changes": [
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-081 status: review -> blocked at the operator's request. Owner left as agent:hermes. PSI-082 blocked in the same pass as its continuation."
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Block PSI-081 together with its continuation PSI-082, not on its own",
+      "reason": "PSI-082 cannot start without PSI-081 anyway, so freezing the phase means both cards park in the same column and the board shows one coherent pause instead of a half-open phase.",
+      "alternatives": [
+        "Block PSI-081 only and leave PSI-082 in backlog",
+        "Leave PSI-081 in review and simply stop working it"
+      ]
+    },
+    {
+      "decision": "Do not attempt to close the acceptance gap as part of the freeze",
+      "reason": "Fixing .env.local is an environment change the operator owns, and setting up real Supabase keys is outside this card (C-02)."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "No code changed. Verified the generator supports the blocked status and renders it into the '## Blocked' column (scripts/obsidian-sync.ts STATUSES + LANE), then confirmed the rendered board and task note after the write-mode sync."
+  },
+  "migrations": [],
+  "contract_deviations": [
+    {
+      "rule": "C-21",
+      "why": "C-21 says an agent may set only doing and review, so writing blocked is a deviation. The operator asked for it directly: 'How about we freeze/block first feature PSI-081? (put it on BLOCK in obsidian kanban, and their respective continue task).' Both cards were already unworkable, so the status tells the truth about what the phase looks like. The operator may of course move them anywhere."
+    }
+  ],
+  "risks": [
+    "Blocked reads as 'needs a human decision', which this card partly is (the review stamp and the env keys), but the code is already merged and green, so the status could be mistaken for unfinished work.",
+    "If the environment gap is never closed, the acceptance criterion for this card can never be checked, and PSI-082 stays frozen behind it."
+  ],
+  "follow_ups": [
+    {
+      "task_id": "PSI-081",
+      "note": "To unblock: put real local Supabase keys in frontend-architecture/.env.local, sign in, upload a PDF at /dashboard/talent and confirm the candidates row plus a cvs/<user_id>/ object, then stamp review -> done (C-21)."
+    },
+    {
+      "task_id": "PSI-084",
+      "note": "Depends on PSI-082, so this freeze transitively blocks it. Left in backlog deliberately; not cascaded without an operator decision."
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Frozen at the operator's request. Needs the operator's decision on the two things holding it: the review stamp (C-21) and local Supabase keys in .env.local so the upload acceptance can be exercised."
+  }
+}

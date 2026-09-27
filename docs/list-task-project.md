@@ -435,11 +435,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - review: obsidian-out/review/PSI-065.md
 
 ### PSI-066 · google-calendar /push
-- status: backlog
+- status: review
 - area: integration
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-065
 - accept: App events whose audience includes a linked role/group appear in that Google calendar within a minute; edits and deletes propagate; deterministic event ids make repeated calls idempotent.
+- impl: supabase/functions/google-calendar/push.ts + /push route in index.ts (deterministic UUID-hex event id, POST-then-PUT-on-409 idempotency, audience-gated push, stale-link cleanup). Reviewed: needs a live upsert/delete probe once a calendar is shared with the SA (gated on PSI-062's human step). [[2026-09-27T07-04-36Z__PSI-066__hermes]]
 
 ### PSI-067 · Admin: Integrations page
 - status: done

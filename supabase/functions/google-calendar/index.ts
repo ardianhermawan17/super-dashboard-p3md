@@ -7,6 +7,7 @@ import { cors, json } from '../_shared/http.ts';
 import { assertInternal } from '../_shared/internal.ts';
 import { gfetch, GOOGLE_SCOPES } from '../_shared/google.ts';
 import { GoogleEventItem, mapGoogleEvent } from './mapper.ts';
+import { reconcilePush, type PushLink, type AppEvent, type CalendarPushTarget, type EventAudienceRow } from './push.ts';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -162,10 +163,97 @@ Deno.serve(async (req: Request) => {
   }
 
   // --------------------------------------------------------------------------
-  // ROUTE 2: /push (app -> Google trigger, PSI-066 stub)
+  // ROUTE 2: /push (app -> Google trigger, PSI-066)
   // --------------------------------------------------------------------------
   if (path === 'push') {
-    return json({ ok: true, message: 'push route registered (PSI-066 target)' });
+    if (req.method !== 'POST') {
+      return json({ error: 'method not allowed' }, 405);
+    }
+
+    let body: { event_id?: string; op?: 'upsert' | 'delete'; links?: PushLink[] };
+    try {
+      body = await req.json();
+    } catch {
+      return json({ error: 'invalid JSON body' }, 400);
+    }
+
+    const { event_id: eventId, op = 'upsert', links } = body;
+    if (!eventId) {
+      return json({ error: 'missing event_id' }, 400);
+    }
+
+    if (op === 'delete') {
+      const stats = await reconcilePush({
+        op: 'delete',
+        eventId,
+        links: links ?? [],
+        gfetchFn: gfetch,
+      });
+      return json({ ok: true, ...stats });
+    }
+
+    // op === 'upsert': fetch event, audience, enabled push calendars, and existing links
+    const { data: eventRow, error: evErr } = await supabase
+      .from('events')
+      .select('id, title, description, location, starts_at, ends_at, all_day, rrule, source')
+      .eq('id', eventId)
+      .single();
+
+    if (evErr || !eventRow) {
+      return json({ error: `event not found: ${evErr?.message ?? 'missing'}` }, 404);
+    }
+
+    // Skip events whose source is not 'app' (loop prevention)
+    if (eventRow.source !== 'app') {
+      return json({ ok: true, skipped: true, reason: `source is '${eventRow.source}', not 'app'` });
+    }
+
+    const { data: audienceRows } = await supabase
+      .from('event_audience')
+      .select('event_id, user_id, role_id, group_id')
+      .eq('event_id', eventId);
+
+    const { data: calendars } = await supabase
+      .from('google_calendars')
+      .select('id, calendar_id, name, direction, role_id, group_id, enabled')
+      .in('direction', ['push', 'both'])
+      .eq('enabled', true);
+
+    const { data: existingLinks } = await supabase
+      .from('event_google_links')
+      .select('google_calendar_id, google_event_id, html_link')
+      .eq('event_id', eventId);
+
+    const stats = await reconcilePush({
+      op: 'upsert',
+      eventId,
+      event: eventRow as AppEvent,
+      audience: (audienceRows ?? []) as EventAudienceRow[],
+      calendars: (calendars ?? []) as CalendarPushTarget[],
+      links: (existingLinks ?? []) as PushLink[],
+      gfetchFn: gfetch,
+      upsertLinkFn: async (link: PushLink) => {
+        await supabase.from('event_google_links').upsert(
+          {
+            event_id: eventId,
+            google_calendar_id: link.google_calendar_id,
+            google_event_id: link.google_event_id,
+            html_link: link.html_link ?? null,
+            synced_at: new Date().toISOString(),
+          },
+          { onConflict: 'event_id,google_calendar_id' },
+        );
+      },
+      deleteLinkFn: async (calId: string, evId: string) => {
+        await supabase
+          .from('event_google_links')
+          .delete()
+          .eq('event_id', evId)
+          .eq('google_calendar_id', calId);
+      },
+    });
+
+    return json({ ok: true, event_id: eventId, ...stats });
   }
 
   return json({ error: `unknown route: ${path}` }, 404);

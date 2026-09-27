@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T07-04-36Z__PSI-066__hermes",
+  "task_ids": ["PSI-066"],
+  "agent": { "name": "hermes", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-27T05:00:00Z",
+    "ended_at": "2026-09-27T07:04:36Z",
+    "branch": "task/PSI-066"
+  },
+  "intent": "Implement the google-calendar /push Edge Function route: push app events to linked shared Google calendars, idempotently, per the google-integration.md spec.",
+  "outcome": "partial",
+  "summary": "Implemented the /push route (was a stub) in supabase/functions/google-calendar/index.ts plus a pure-logic module push.ts with deterministic Google event IDs (UUID hex), event mapper (all-day date vs timed dateTime+Asia/Jakarta, RRULE prefix, private p3md_event_id property), and reconcilePush which handles op=delete and op=upsert (push to desired calendars matching audience role/group, POST-then-PUT-on-409 idempotency, and deletion of links no longer desired). Routed it into index.ts with 400/404/source-skip guards and DB upsert/delete of event_google_links rows. Added push.test.ts (9 cases) covering the mapper, delete-by-links, upsert reconciliation, audience gating, POST-409-PUT fallback, and stale-link cleanup; 15/15 unit tests pass across sync+push. Verified the handler end-to-end against local Supabase: empty body -> 400, nonexistent event upsert -> 404, delete with empty links -> 200 {ok, pushed:0, deleted:0}. Full DB suite (10 files, 135 pgTAP) still passes; agent:check, frontend lint + typecheck + 23 unit tests all green. Marked partial: live-POST to Google is covered by unit tests (mocked gfetch) but not an end-to-end API call, because no Google calendar is shared with the service account yet (gated by PSI-062's human step).",
+  "changes": [
+    { "path": "supabase/functions/google-calendar/push.ts", "action": "added", "note": "Pure logic: toGoogleId, toGoogleEvent, reconcilePush (upsert/delete, idempotent)" },
+    { "path": "supabase/functions/google-calendar/push.test.ts", "action": "added", "note": "9 unit tests: mapper, delete, upsert reconciliation, audience gating, 409->PUT, stale cleanup" },
+    { "path": "supabase/functions/google-calendar/index.ts", "action": "modified", "note": "Wired real /push route: validation, event/audience/calendar/link fetch, reconcilePush, link upsert/delete" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-066 -> doing (claimed); branch task/PSI-066" },
+    { "path": ".hermes.md", "action": "modified", "note": "Regenerated via bun run agent:context (still 20128 chars, over 20k soft cap; trim AGENTS.md pending)" }
+  ],
+  "decisions": [
+    {
+      "decision": "Deterministic Google event ID = UUID hex with dashes stripped",
+      "reason": "UUID hex (0-9a-f) is a strict subset of base32hex, which Google accepts for custom event ids; makes repeated pushes idempotent and enables POST-then-PUT-on-409",
+      "alternatives": ["Random id + store google_event_id", "Base64 UUID"]
+    },
+    {
+      "decision": "Push logic kept in push.ts free of Deno/Supabase runtime imports (scope constant local)",
+      "reason": "Keeps reconcilePush unit-testable under bun without the npm:jose Deno import that _shared/google.ts pulls in",
+      "alternatives": ["Import GOOGLE_SCOPES from _shared/google.ts (breaks bun tests)"]
+    },
+    {
+      "decision": "op defaults to upsert; handler skips events whose source is not 'app'",
+      "reason": "Loop prevention: google-pulled events (source='google') must never be pushed back to Google; /sync owns that path",
+      "alternatives": ["Push regardless of source"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "skipped",
+    "db_tests": "pass",
+    "manual": "bun test supabase/functions/google-calendar/ 15/15; bun test src/ 23/23; frontend lint clean; tsc clean; agent:check ok (83 tasks, 57 entries). supabase test db: 10 files, 135 tests pass. Live handler probes: empty body -> 400, nonexistent event upsert -> 404, delete empty-links -> 200 {ok:true,pushed:0,deleted:0}."
+  },
+  "risks": [
+    "Live POST to Google Calendar not exercised end-to-end; real service-account key + shared calendar still required (gated on PSI-062's human step).",
+    ".hermes.md is 20128 chars, 128 over the 20k soft throttle (warn only); needs an AGENTS.md trim."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-066", "note": "After a calendar is shared with the SA: end-to-end probe of upsert (POST + PUT-on-409) and delete propagation" },
+    { "task_id": "PSI-065", "note": "Confirm /push trigger fires reconcilePush via pg_net from the DB trigger (integration, blocked on shared calendar)" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Agent may set review; reviewer should run one upsert/delete against a real shared calendar before stamping done."
+  }
+}

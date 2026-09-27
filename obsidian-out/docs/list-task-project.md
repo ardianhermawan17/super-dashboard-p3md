@@ -215,6 +215,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - merged: PR #14 (2026-09-25)
 - accept: Groups (members, group roles), Roles (permission matrix by module, ungrantable boxes disabled, holder counts), Permissions (read-only catalogue with granting roles); each page shows the token-refresh note.
 
+### PSI-110 · Fix: every `form.SubmitButton` renders outside its form context
+- status: done
+- area: frontend
+- owner: agent:claude-code
+- depends: —
+- accept: `/auth/sign-in`, `/auth/sign-up`, `/auth/forgot-password`, `/auth/reset-password` and the admin invite-user dialog wrap their `<form>` in `<form.AppForm>`; `/auth/sign-in`'s `useSearchParams()` gets a Suspense boundary (same pattern as `dashboard/kanban/page.tsx`); confirmed against a live dev server that `/auth/sign-in` renders the real form (no `formContext` throw); `tsc --noEmit`, `oxlint`, `bun test` (28/28) and `next build` all clean.
+- impl: `createFormHook`'s `formComponents` (registered as `SubmitButton` here) are plain components assigned onto the `form` object — `@tanstack/react-form`'s own source shows `formContext.Provider` is established only inside `<form.AppForm>`, never automatically. Every form in the app called `form.SubmitButton` directly without that wrapper, so `useFormContext()` inside `SubmitButton` threw on every page with a submit button; PSI-102's history entry only caught it on `/auth/sign-in` (the one page also missing a `useSearchParams()` Suspense boundary, which was masking the real 500 as a routing bug). This was the pre-existing bug PSI-102 filed as an unblocked follow-up; fixing it here unblocks manual UI acceptance for the whole calendar -> kanban -> finance pipeline, since every card needs a working sign-in to verify by hand.
+
 ## Phase 2 — Notifications and PWA
 
 ### PSI-020 · Migration M2 notifications and push

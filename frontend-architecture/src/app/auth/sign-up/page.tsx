@@ -7,7 +7,14 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import { useAppForm } from '@/lib/form';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { Icons } from '@/components/icons';
 
 const signUpSchema = z
@@ -80,8 +87,9 @@ export default function SignUpPage() {
           </div>
           <CardTitle className='text-2xl'>Check your email</CardTitle>
           <CardDescription>
-            We&apos;ve sent a confirmation link to <span className='font-medium text-foreground'>{submittedEmail}</span>.
-            Click the link in the email to activate your account.
+            We&apos;ve sent a confirmation link to{' '}
+            <span className='font-medium text-foreground'>{submittedEmail}</span>. Click the link in
+            the email to activate your account.
           </CardDescription>
         </CardHeader>
         <CardFooter className='flex justify-center'>
@@ -100,90 +108,88 @@ export default function SignUpPage() {
     <Card className='w-full'>
       <CardHeader>
         <CardTitle className='text-2xl'>Create an account</CardTitle>
-        <CardDescription>
-          Enter your details below to create your account
-        </CardDescription>
+        <CardDescription>Enter your details below to create your account</CardDescription>
       </CardHeader>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-      >
-        <CardContent className='space-y-4'>
-          {errorMsg && (
-            <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
-              {errorMsg}
+      <form.AppForm>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <CardContent className='space-y-4'>
+            {errorMsg && (
+              <div className='p-3 text-sm rounded-lg bg-destructive/10 text-destructive border border-destructive/20'>
+                {errorMsg}
+              </div>
+            )}
+
+            <form.AppField
+              name='fullName'
+              children={(field) => (
+                <field.TextField
+                  label='Full Name'
+                  placeholder='John Doe'
+                  required
+                  autoComplete='name'
+                />
+              )}
+            />
+
+            <form.AppField
+              name='email'
+              children={(field) => (
+                <field.TextField
+                  label='Email'
+                  type='email'
+                  placeholder='name@example.com'
+                  required
+                  autoComplete='email'
+                />
+              )}
+            />
+
+            <form.AppField
+              name='password'
+              children={(field) => (
+                <field.TextField
+                  label='Password'
+                  type='password'
+                  placeholder='••••••••'
+                  required
+                  autoComplete='new-password'
+                />
+              )}
+            />
+
+            <form.AppField
+              name='confirmPassword'
+              children={(field) => (
+                <field.TextField
+                  label='Confirm Password'
+                  type='password'
+                  placeholder='••••••••'
+                  required
+                  autoComplete='new-password'
+                />
+              )}
+            />
+          </CardContent>
+          <CardFooter className='flex flex-col gap-4 mt-2'>
+            <form.SubmitButton className='w-full'>Create account</form.SubmitButton>
+            <div className='text-center text-sm text-muted-foreground'>
+              Already have an account?{' '}
+              <Link
+                href='/auth/sign-in'
+                className='font-medium text-primary hover:underline underline-offset-4'
+              >
+                Sign in
+              </Link>
             </div>
-          )}
-
-          <form.AppField
-            name='fullName'
-            children={(field) => (
-              <field.TextField
-                label='Full Name'
-                placeholder='John Doe'
-                required
-                autoComplete='name'
-              />
-            )}
-          />
-
-          <form.AppField
-            name='email'
-            children={(field) => (
-              <field.TextField
-                label='Email'
-                type='email'
-                placeholder='name@example.com'
-                required
-                autoComplete='email'
-              />
-            )}
-          />
-
-          <form.AppField
-            name='password'
-            children={(field) => (
-              <field.TextField
-                label='Password'
-                type='password'
-                placeholder='••••••••'
-                required
-                autoComplete='new-password'
-              />
-            )}
-          />
-
-          <form.AppField
-            name='confirmPassword'
-            children={(field) => (
-              <field.TextField
-                label='Confirm Password'
-                type='password'
-                placeholder='••••••••'
-                required
-                autoComplete='new-password'
-              />
-            )}
-          />
-        </CardContent>
-        <CardFooter className='flex flex-col gap-4 mt-2'>
-          <form.SubmitButton className='w-full'>
-            Create account
-          </form.SubmitButton>
-          <div className='text-center text-sm text-muted-foreground'>
-            Already have an account?{' '}
-            <Link
-              href='/auth/sign-in'
-              className='font-medium text-primary hover:underline underline-offset-4'
-            >
-              Sign in
-            </Link>
-          </div>
-        </CardFooter>
-      </form>
+          </CardFooter>
+        </form>
+      </form.AppForm>
     </Card>
   );
 }

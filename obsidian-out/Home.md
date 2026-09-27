@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 22 | 0 | 1 | 8 | 0 | 8 | 47 | 86 |
+| 22 | 0 | 1 | 7 | 0 | 8 | 48 | 86 |
 
 ## Blocked
 
@@ -32,7 +32,6 @@ _Nothing blocked._
 ## Review
 
 - [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes
-- [[tasks/PSI-109|PSI-109]] Kanban task detail panel (click to open, linked calendar + finance) · agent:hermes
 - [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code

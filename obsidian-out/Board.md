@@ -42,7 +42,6 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
-- [ ] [[tasks/PSI-109|PSI-109]] Kanban task detail panel (click to open, linked calendar + finance) · agent:hermes · 2 runs #frontend #phase-5
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
@@ -107,6 +106,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
 - [x] [[tasks/PSI-052|PSI-052]] Realtime board sync · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
 - [x] [[tasks/PSI-053|PSI-053]] Board sharing with users and groups · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
+- [x] [[tasks/PSI-109|PSI-109]] Kanban task detail panel (click to open, linked calendar + finance) · agent:hermes · 2 runs #frontend #phase-5 ✅ 2026-09-28
 - [x] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 2 runs #integration #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes · 1 run #frontend #phase-6 ✅ 2026-09-26

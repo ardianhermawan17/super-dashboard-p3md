@@ -1,0 +1,47 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T07-30-00Z__PSI-101__claude-code",
+  "task_ids": ["PSI-101"],
+  "agent": { "name": "claude-code", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-27T03:11:00Z",
+    "ended_at": "2026-09-27T07:30:00Z",
+    "branch": "task/PSI-101"
+  },
+  "intent": "Migration M10 finance: categories, entries, boards.event_id, RLS, activity logging, agent_finance view, pgTAP.",
+  "outcome": "done",
+  "summary": "Added migration 20260927031152_m10_finance.sql and supabase/tests/finance.test.sql (37 cases). A first session ended mid-run while re-applying migrations; this session re-ran supabase db reset (clean) and supabase test db (all 10 files, 135 tests pass), then updated m10-finance.md so the design matches the shipped rule: the category select policy also accepts finance.write, and a writer without finance.read can insert but cannot read the row back. Also found that deleting a board with tasks fails in the M7 task activity trigger; filed as PSI-107 instead of fixing it here (C-02).",
+  "changes": [
+    { "path": "supabase/migrations/20260927031152_m10_finance.sql", "action": "added", "note": "M10 schema, RLS, triggers, activity policy extension, agent_finance" },
+    { "path": "supabase/tests/finance.test.sql", "action": "added", "note": "37 pgTAP cases from m10-finance.md" },
+    { "path": "frontend-architecture/src/lib/supabase/database.types.ts", "action": "modified", "note": "Regenerated with bun run db:types" },
+    { "path": "docs/database-architecture/m10-finance.md", "action": "modified", "note": "Category select policy and write-without-read note" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-101 review; PSI-107 added" }
+  ],
+  "decisions": [
+    {
+      "decision": "Category select policy also accepts finance.write",
+      "reason": "Code review point: a writer must be able to pick a category",
+      "alternatives": ["Require finance.read for writers"]
+    }
+  ],
+  "verification": {
+    "typecheck": "skipped",
+    "lint": "skipped",
+    "build": "skipped",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "supabase db reset and supabase test db run locally: 10 files, 135 tests, all pass."
+  },
+  "risks": [
+    "Extends the activity_log select policy (RLS change, C-15): needs human review"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-107", "note": "Deleting a board with tasks fails in the M7 task activity trigger" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "RLS and permission keys changed (C-15); stamp after review."
+  }
+}

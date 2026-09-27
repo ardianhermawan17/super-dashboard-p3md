@@ -528,6 +528,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - depends: PSI-072
 - accept: `src/agent/models.ts` and `supabase/functions/_shared/llm.ts` as in backend-architecture/agent-layer-mcp.md; `CHAT_MODEL`, `DIGEST_MODEL`, `CV_MODEL` specs work for `anthropic:` and `hermes:`; the 10-question tool-answer evaluation run against at least one Claude and one Hermes model with results in the history entry; defaults chosen by a human.
 
+### PSI-107 · Fix: deleting a board that has tasks fails (M7 task activity trigger)
+- status: backlog
+- area: db
+- owner: unassigned
+- depends: PSI-070
+- accept: New migration (never edit M7, C-06) so `log_task_activity` does not insert an activity_log row whose board_id points at a board being deleted (e.g. skip or null board_id when the board no longer exists); pgTAP proves a board with columns and tasks can be deleted and that task deletes on a live board are still logged. Found by PSI-101: `delete from boards` on a board with a task raises `activity_log_board_id_fkey`.
+
 ## Phase 8 — Talent screening
 
 ### PSI-080 · Migration M9 talent schema and CV sources
@@ -590,9 +597,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: database-architecture/m10-finance.md (schema, RLS, activity-log rule, agent view, pgTAP list) and frontend-architecture/features/finance.md (flow, module layout, reused template parts, icons, `get_finance` contract) committed and linked from system-overview.md and both layer READMEs; `finance.read` / `finance.write` / `finance.manage` approved by a human (C-15) and quoted in the history entry.
 
 ### PSI-101 · Migration M10 finance and event ↔ board link
-- status: backlog
+- status: review
 - area: db
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-100, PSI-040, PSI-050, PSI-070, PSI-071
 - accept: finance_categories (seeded) and finance_entries exactly as in database-architecture/m10-finance.md with RLS in the same migration; `boards.event_id` (unique when set); finance.read/write/manage inserted and granted to admin; cross-row trigger rejects a task, event or category that does not match the board; finance activity logged without `board_id` and the activity_log select policy extended (RLS change called out for human review, C-15); `agent_finance` with `security_invoker`; every pgTAP case in m10-finance.md passes; `supabase db reset` clean; types regenerated.
 

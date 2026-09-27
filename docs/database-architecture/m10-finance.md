@@ -107,7 +107,8 @@ returns boolean language sql stable security definer set search_path = '' as $$
 $$;
 
 create policy "categories readable by finance users" on public.finance_categories for select to authenticated
-  using ((select public.has_permission('finance.read')) or (select public.has_permission('finance.manage')));
+  using ((select public.has_permission('finance.read')) or (select public.has_permission('finance.write'))
+      or (select public.has_permission('finance.manage')));
 create policy "categories managed" on public.finance_categories for all to authenticated
   using ((select public.has_permission('finance.manage'))) with check ((select public.has_permission('finance.manage')));
 
@@ -121,7 +122,7 @@ create policy "entries deleted" on public.finance_entries for delete to authenti
   using (public.can_write_finance(board_id));
 ```
 
-`finance.write` does not imply read in SQL; roles that write should also hold `finance.read` (seed both for a "treasurer" role in `seed.sql`, fake data only, C-07).
+`finance.write` does not imply read in SQL: a writer without `finance.read` can insert an entry but cannot read the row back (so no `insert ... returning`). Writers can still list categories (the select policy accepts `finance.write`) so they can pick one. Roles that write should also hold `finance.read` (seed both for a "treasurer" role in `seed.sql`, fake data only, C-07).
 
 ## Activity log (M7) — must not leak amounts
 

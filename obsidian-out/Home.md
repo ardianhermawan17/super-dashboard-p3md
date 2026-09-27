@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | Done | Total |
 |---|---|---|---|---|---|---|
-| 36 | 0 | 1 | 3 | 0 | 42 | 82 |
+| 36 | 0 | 1 | 4 | 0 | 42 | 83 |
 
 ## Blocked
 
@@ -23,10 +23,12 @@ _Nothing blocked._
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
 - [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
+- [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
 
 ## AI sessions waiting for a human
 
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
+- [[history/2026-09-27T07-30-00Z__PSI-101__claude-code|2026-09-27 10:11 WIB · claude-code · PSI-101]]: RLS and permission keys changed (C-15); stamp after review.
 - [[history/2026-09-27T02-43-53Z__PSI-073__claude-code|2026-09-27 09:43 WIB · claude-code · PSI-073, PSI-100, PSI-081]]: Stamp PSI-073, PSI-081 and PSI-100 (or send them back) now that they are on master.
 - [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|2026-09-27 08:51 WIB · claude-code · PSI-100]]: Review the finance design (PSI-100) and stamp it; PSI-101 onward stay backlog until moved to todo.
 - [[history/2026-09-26T23-55-00Z__PSI-073__hermes|2026-09-27 06:00 WIB · hermes · PSI-073]]: The AC's second clause (with a valid Supabase JWT the tools list and run as that user) is verified at the adapter boundary — JWT forwarded, RLS client built, audit row written — but not end-to-end against a live Supabase instance. Confirm the JWKS issuer ({project}/auth/v1) matches the deployed project, and decide whether a real authenticated MCP call should be proven before merge.
@@ -75,6 +77,7 @@ _Nothing blocked._
 ## Latest AI sessions
 
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
+- 2026-09-27 10:11 WIB · claude-code · [[tasks/PSI-101|PSI-101]] · done: [[history/2026-09-27T07-30-00Z__PSI-101__claude-code|Migration M10 finance: categories, entries, boards.event_id, RLS, activity logging, agent_finance view, pgTAP.]]
 - 2026-09-27 09:43 WIB · claude-code · [[tasks/PSI-073|PSI-073]], [[tasks/PSI-100|PSI-100]], [[tasks/PSI-081|PSI-081]] · done: [[history/2026-09-27T02-43-53Z__PSI-073__claude-code|Investigate the three open PRs (PSI-073, PSI-100, PSI-081) and merge them into master in the right order, at the operator's request.]]
 - 2026-09-27 08:51 WIB · claude-code · [[tasks/PSI-100|PSI-100]] · done: [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.]]
 - 2026-09-27 06:00 WIB · hermes · [[tasks/PSI-073|PSI-073]] · done: [[history/2026-09-26T23-55-00Z__PSI-073__hermes|Expose the shared agent tool registry over MCP at /api/mcp: unauthenticated requests get a 401 with an RFC 9728 challenge; authenticated ones run tools as the caller.]]
@@ -83,4 +86,3 @@ _Nothing blocked._
 - 2026-09-27 00:30 WIB · hermes · [[tasks/PSI-072|PSI-072]] · done: [[history/2026-09-26T17-45-00Z__PSI-072__hermes|Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.]]
 - 2026-09-27 00:00 WIB · hermes · [[tasks/PSI-071|PSI-071]] · done: [[history/2026-09-26T17-18-00Z__PSI-071__hermes|Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.]]
 - 2026-09-26 22:20 WIB · hermes · [[tasks/PSI-065|PSI-065]] · done: [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]
-- 2026-09-26 19:50 WIB · hermes · [[tasks/PSI-070|PSI-070]] · done: [[history/2026-09-26T13-00-00Z__PSI-070__hermes|PSI-070: Migration M7 activity log — trigger-fed public.activity_log read model for agents, digests, and audit tracking.]]

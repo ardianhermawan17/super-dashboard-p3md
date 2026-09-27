@@ -1,49 +1,42 @@
 ---
-updated: 2026-09-27 15:20 WIB
+updated: 2026-09-27 17:35 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-066 · google-calendar /push** — implemented on `task/PSI-066`, **status: review**, PR #45 open + mergeable.
-Needs a human for final stamp: the AC requires a *live* upsert/delete against a real shared
-Google calendar (PSI-062's human step — SA sees 0 calendars until calendars are shared).
+**PSI-102 · Create an event board from the calendar** — implemented on `task/PSI-102`, commit `c01d186`, **status: review**, **PR #48 open and mergeable**.
 
 What landed:
-- `supabase/functions/google-calendar/push.ts` — pure logic, free of Deno/Supabase runtime imports:
-  deterministic UUID-hex Google event id (`toGoogleId`), all-day-vs-timed mapper (`toGoogleEvent`,
-  RRULE prefix, private `p3md_event_id` property for round-trip), and `reconcilePush`
-  (op=delete; op=upsert with POST-then-PUT-on-409 idempotency, audience role/group gating,
-  stale-link cleanup). Scopes constant local to push.ts (keeps bun tests green; `_shared/google.ts`
-  pulls npm:jose which bun cannot resolve).
-- `supabase/functions/google-calendar/push.test.ts` — 9 unit tests; 15/15 pass with sync.test.ts.
-- `supabase/functions/google-calendar/index.ts` — wired real `/push` route (was a stub): method/JSON
-  validation, `event_id` required, fetch event+audience+calendars+links, skip non-`app` source
-  (loop prevention), upsert/delete `event_google_links` rows.
-- Verified end-to-end on local Supabase: empty body → 400, nonexistent-event upsert → 404,
-  delete empty-links → 200 `{ok:true,pushed:0,deleted:0}`. Full gates green: 15/15 fn tests,
-  23/23 frontend, lint+tsc clean, `supabase test db` 10 files/135 pgTAP, `agent:check` ok.
-- AI session recorded + rendered under PSI-066 `## AI sessions` (C-22/C-23).
+- `createEventBoardAction(eventId)` (calendar/actions.ts): server action requiring `kanban.write`, early-returns existing board when `boards.event_id` matches (idempotent, backed by DB unique index `idx_boards_event`), inserts board named after the event with `event_id` + `created_by`, 3 default columns (Backlog/In Progress/Done), and copies ONLY group audience rows into `board_groups` (users/roles excluded, per finance.md §1).
+- `getCalendarEventsAction`: now attaches `board_id` to each event from a single batched `boards` lookup.
+- Calendar UI (`calendar-view.tsx`): event detail dialog shows **Open board** (→ `/dashboard/kanban?boardId=`) when a board exists, else **Create event board** for `kanban.write` holders (spinner + error state). `calendar/page.tsx` passes `canCreateBoard` from session permissions.
+- Kanban UI (`kanban-view-page.tsx`): `getBoardAction` returns the linked event; page reads `?boardId=` from search params and shows a **"Linked event: <title> (<date>)"** chip linking back to `/dashboard/calendar`; `kanban/page.tsx` wrapped in `<Suspense>`.
+- 5 unit tests (`event-board.test.ts`): naming+event_id+columns, groups-only audience copy, second-click idempotency, permission denial, missing event.
+- All gates green: frontend 28/28, edge functions 15/15, pgTAP 135 PASS, tsc clean, oxlint 0 warnings, `agent:check` ok.
+- AI session recorded (C-22/C-23: summary renders under PSI-102 `## AI sessions`).
 
-## Master State
+## Master & PR State
 
-`master` is at `5a74281` (PR #46, repo hygiene: `.obsidian/*` app state + plugins gitignored).
-`task/PSI-066` merged master in (`5251947`) and is at `c855fb6` — PR #45 is clean/mergeable.
-Working tree is clean.
+- `master` is at `ebf29d5` (PR #45 PSI-066 merged).
+- **PR #47 is still open** (`task/PSI-109-priority-reset`, onhold status + pause AI chat/talent + kanban task-detail design).
+- `task/PSI-102` is rebased onto `master` (1 commit `c01d186`, clean 16 files, no dependency on PR #47) and open as **PR #48**.
+- Working tree is clean, no dev servers running.
 
-## Next Card
+## Test Status
 
-**Unblocked cards for the next session** (PSI-082 + talent phase frozen by operator):
-- **PSI-066 review stamp** — run one live upsert/delete once a calendar is shared with the SA.
-- **Next Ready card on the board** — verify on `docs/list-task-project.md` (PSI-082 + dependents remain blocked).
+- Unit: **28 passed / 0 failed** (frontend) · **15 passed / 0 failed** (edge functions)
+- Full suite: **10 files, 135 pgTAP PASS** (`supabase test db`)
+- Typecheck & lint: clean (0 warnings, 0 errors)
+- Acceptance: **Jev N/A** (not installed in workspace; pre-existing `/auth/sign-in` 500 template bug blocks browser flow; covered deterministically via live local-Postgres probe + pgTAP constraint test)
 
-## Last Commit
+## Follow-ups / Open Items
 
-`c855fb6` — chore(obsidian): sync docs mirror for PSI-066 review status [card: PSI-066]
-(feat commit `3cd9e6a`; handoff `b55e3a2`; master merge `5251947`)
+1. **Pre-existing `/auth/sign-in` 500**: `src/components/forms/submit-button.tsx` calls `useFormContext()` outside a `formComponent` passed to `createFormHook`. Blocks logged-in browser acceptance for all user-facing cards until fixed (filed in history entry follow_ups, not fixed here — C-02).
+2. **PR #47**: still open on GitHub, merge when ready (contains the `onhold` status and paused tasks).
+3. **PSI-101 card**: reads `review` on the board although its migration (`20260927031152_m10_finance.sql`) is merged on master (recording gap only).
+4. **Next card in the streamline**: **PSI-103 · Finance module with CRUD** (depends: PSI-101, PSI-017 — both satisfied).
 
-## Coordination rules (docs/agent-operations/README.md)
+## Exact Next Action
 
-1. Never switch branches in a dirty shared working directory — commit/stash first, use worktrees for parallel work.
-2. A blocker already hit once is escalated (re-ask), not retried.
-3. Obsidian app state (`.obsidian/*`, plugins/) is never committed — gitignored.
+Operator merges PR #48 (PSI-102) and PR #47 (priority reset), then the next agent claims **PSI-103** (`status: doing`, `owner: agent:hermes` or `agent:claude-code`, branch `task/PSI-103`).

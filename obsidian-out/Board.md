@@ -27,7 +27,7 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
 - [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
-- [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv #backend #phase-8
+- [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · 1 run #backend #phase-8
 - [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
 - [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
 - [ ] [[tasks/PSI-085|PSI-085]] Candidate pipeline board #frontend #phase-8

@@ -28,6 +28,7 @@ _Nothing blocked._
 ## AI sessions waiting for a human
 
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
+- [[history/2026-09-27T04-19-00Z__PSI-082__hermes|2026-09-27 11:15 WIB · hermes · PSI-082]]: PSI-082 is blocked on three unmet dependencies and an unapproved CV_MODEL. A decision is needed: finish PSI-081/063/098 first, or re-plan PSI-082.
 - [[history/2026-09-27T07-30-00Z__PSI-101__claude-code|2026-09-27 10:11 WIB · claude-code · PSI-101]]: RLS and permission keys changed (C-15); stamp after review.
 - [[history/2026-09-27T02-43-53Z__PSI-073__claude-code|2026-09-27 09:43 WIB · claude-code · PSI-073, PSI-100, PSI-081]]: Stamp PSI-073, PSI-081 and PSI-100 (or send them back) now that they are on master.
 - [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|2026-09-27 08:51 WIB · claude-code · PSI-100]]: Review the finance design (PSI-100) and stamp it; PSI-101 onward stay backlog until moved to todo.
@@ -77,6 +78,7 @@ _Nothing blocked._
 ## Latest AI sessions
 
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
+- 2026-09-27 11:15 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-19-00Z__PSI-082__hermes|Verify PSI-082's dependencies (PSI-081, PSI-063, PSI-098) are done before claiming it, then implement the parse-cv edge function.]]
 - 2026-09-27 10:11 WIB · claude-code · [[tasks/PSI-101|PSI-101]] · done: [[history/2026-09-27T07-30-00Z__PSI-101__claude-code|Migration M10 finance: categories, entries, boards.event_id, RLS, activity logging, agent_finance view, pgTAP.]]
 - 2026-09-27 09:43 WIB · claude-code · [[tasks/PSI-073|PSI-073]], [[tasks/PSI-100|PSI-100]], [[tasks/PSI-081|PSI-081]] · done: [[history/2026-09-27T02-43-53Z__PSI-073__claude-code|Investigate the three open PRs (PSI-073, PSI-100, PSI-081) and merge them into master in the right order, at the operator's request.]]
 - 2026-09-27 08:51 WIB · claude-code · [[tasks/PSI-100|PSI-100]] · done: [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.]]
@@ -85,4 +87,3 @@ _Nothing blocked._
 - 2026-09-27 01:05 WIB · hermes · [[tasks/PSI-080|PSI-080]] · done: [[history/2026-09-26T18-45-00Z__PSI-080__hermes|Ship the M9 talent schema with RLS enabled in the same migration, per-user CV storage policies, and a pgTAP test proving anon reads and writes nothing.]]
 - 2026-09-27 00:30 WIB · hermes · [[tasks/PSI-072|PSI-072]] · done: [[history/2026-09-26T17-45-00Z__PSI-072__hermes|Build the agent tool layer: the AgentTool contract, the shared registry, the audited runtime, deep links, and the five read-only tools that sit on the M8 views.]]
 - 2026-09-27 00:00 WIB · hermes · [[tasks/PSI-071|PSI-071]] · done: [[history/2026-09-26T17-18-00Z__PSI-071__hermes|Implement migration M8: the four security_invoker agent views, the append-only agent audit log, and the digests store, with pgTAP proving a non-member sees nothing through the views.]]
-- 2026-09-26 22:20 WIB · hermes · [[tasks/PSI-065|PSI-065]] · done: [[history/2026-09-26T15-30-00Z__PSI-065__hermes|PSI-065: google-calendar /sync (pull) — pull Google Calendar events via cron, mirror to public.events with role/group audience, loop prevention, and prune.]]

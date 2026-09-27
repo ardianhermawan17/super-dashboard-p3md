@@ -16,13 +16,14 @@ export default async function CalendarPage() {
   }
 
   const { events } = await getCalendarEventsAction();
+  const canCreateBoard = session.permissions.includes('kanban.write');
 
   return (
     <PageContainer
       pageTitle='Agenda Calendar'
       pageDescription='Schedule, meetings, and team events across roles and groups.'
     >
-      <CalendarView initialEvents={events} />
+      <CalendarView initialEvents={events} canCreateBoard={canCreateBoard} />
     </PageContainer>
   );
 }

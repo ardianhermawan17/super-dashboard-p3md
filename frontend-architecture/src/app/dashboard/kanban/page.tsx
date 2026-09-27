@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import KanbanViewPage from '@/features/kanban/components/kanban-view-page';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function page() {
-  return <KanbanViewPage />;
+  return (
+    <Suspense>
+      <KanbanViewPage />
+    </Suspense>
+  );
 }

@@ -12,7 +12,11 @@
 
 ## Blocked
 
-_Nothing blocked._
+- [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
+- [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · unassigned
+- [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view · unassigned
+- [[tasks/PSI-085|PSI-085]] Candidate pipeline board · unassigned
+- [[tasks/PSI-086|PSI-086]] CV retention · unassigned
 
 ## On Hold
 
@@ -36,9 +40,12 @@ _Nothing blocked._
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
+- [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
+- [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
 - [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|2026-09-27 14:45 WIB · claude-code · PSI-109]]: Confirm the onhold moves (PSI-076, PSI-098, Phase 8 talent tasks) match intent, and that PSI-109's design is right before it's built
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
 - [[history/2026-09-27T05-22-00Z__PSI-097__hermes|2026-09-27 12:05 WIB · hermes · PSI-097]]: The workflow cannot be executed without a GitHub runner, so CI enforcement is unproven until the first PR or a manual dispatch run. Also 13 high findings exist in the scan; the gate only fails on critical, by design per the acceptance criterion.
@@ -96,6 +103,8 @@ _Nothing blocked._
 
 - 2026-09-27 14:45 WIB · claude-code · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]
 - 2026-09-27 13:55 WIB · claude-code · [[tasks/PSI-108|PSI-108]] · done: [[history/2026-09-27T07-18-00Z__PSI-108__claude-code|Investigate reported 'looping' in Hermes' recent sessions, fix the root cause, and add rules to stop it recurring.]]
+- 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
+- 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
 - 2026-09-27 12:05 WIB · hermes · [[tasks/PSI-097|PSI-097]] · done: [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]
 - 2026-09-27 12:00 WIB · hermes · [[tasks/PSI-066|PSI-066]] · partial: [[history/2026-09-27T07-04-36Z__PSI-066__hermes|Implement the google-calendar /push Edge Function route: push app events to linked shared Google calendars, idempotently, per the google-integration.md spec.]]
@@ -104,3 +113,5 @@ _Nothing blocked._
 - 2026-09-27 11:15 WIB · hermes · [[tasks/PSI-082|PSI-082]] · blocked: [[history/2026-09-27T04-19-00Z__PSI-082__hermes|Verify PSI-082's dependencies (PSI-081, PSI-063, PSI-098) are done before claiming it, then implement the parse-cv edge function.]]
 - 2026-09-27 10:11 WIB · claude-code · [[tasks/PSI-101|PSI-101]] · done: [[history/2026-09-27T07-30-00Z__PSI-101__claude-code|Migration M10 finance: categories, entries, boards.event_id, RLS, activity logging, agent_finance view, pgTAP.]]
 - 2026-09-27 09:43 WIB · claude-code · [[tasks/PSI-073|PSI-073]], [[tasks/PSI-100|PSI-100]], [[tasks/PSI-081|PSI-081]] · done: [[history/2026-09-27T02-43-53Z__PSI-073__claude-code|Investigate the three open PRs (PSI-073, PSI-100, PSI-081) and merge them into master in the right order, at the operator's request.]]
+- 2026-09-27 08:51 WIB · claude-code · [[tasks/PSI-100|PSI-100]] · done: [[history/2026-09-27T01-51-26Z__PSI-100__claude-code|Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.]]
+- 2026-09-27 06:00 WIB · hermes · [[tasks/PSI-073|PSI-073]] · done: [[history/2026-09-26T23-55-00Z__PSI-073__hermes|Expose the shared agent tool registry over MCP at /api/mcp: unauthenticated requests get a 401 with an RFC 9728 challenge; authenticated ones run tools as the caller.]]

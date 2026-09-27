@@ -125,23 +125,42 @@ export async function getBoardAction(boardId?: string): Promise<{ board: KanbanB
   }
 
   const columns: KanbanColumn[] = (columnsData || []).map((col) => ({
-    id: col.id,
-    board_id: col.board_id,
-    title: col.title,
-    position: col.position,
-    is_done: col.is_done,
-    tasks: tasksByColumn.get(col.id) || []
-  }));
+      id: col.id,
+      board_id: col.board_id,
+      title: col.title,
+      position: col.position,
+      is_done: col.is_done,
+      tasks: tasksByColumn.get(col.id) || []
+    }));
 
-  return {
-    board: {
-      id: board.id,
-      name: board.name,
-      created_by: board.created_by,
-      created_at: board.created_at,
-      columns
+    // PSI-102: fetch linked event details if this board was created from an event.
+    let linkedEvent: {
+      id: string;
+      title: string;
+      starts_at: string;
+      ends_at: string;
+      all_day: boolean;
+    } | null = null;
+    if (board.event_id) {
+      const { data: ev } = await supabase
+        .from('events')
+        .select('id, title, starts_at, ends_at, all_day')
+        .eq('id', board.event_id)
+        .maybeSingle();
+      linkedEvent = ev ?? null;
     }
-  };
+
+    return {
+      board: {
+        id: board.id,
+        name: board.name,
+        event_id: board.event_id ?? null,
+        event: linkedEvent,
+        created_by: board.created_by,
+        created_at: board.created_at,
+        columns
+      }
+    };
 }
 
 export async function createTaskAction(input: {

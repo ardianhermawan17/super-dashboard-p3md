@@ -23,4 +23,6 @@ export type CalendarEvent = {
   created_by: string | null;
   created_at: string;
   audience?: EventAudience[];
+  /** Linked kanban board id for this event (PSI-102), null when none yet. */
+  board_id?: string | null;
 };

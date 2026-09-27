@@ -1,0 +1,72 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T01-51-26Z__PSI-100__claude-code",
+  "task_ids": ["PSI-100"],
+  "agent": { "name": "claude-code", "operator": "ficana" },
+  "session": {
+    "started_at": "2026-09-27T01:51:26Z",
+    "ended_at": "2026-09-27T01:59:31Z",
+    "branch": "task/PSI-100"
+  },
+  "intent": "Plan a finance (cashflow) feature and the calendar → kanban → finance streamline, add its tasks, and update the board.",
+  "outcome": "done",
+  "summary": "Plan-mode session. Operator asked for a finance feature (inflow/outflow with categories, CRUD, RBAC, AI-friendly API, template components and icons) that streamlines event → task board → money. Found that events (M4) and boards (M5) have no link today, and that the activity log shows any row with board_id to every board member, which would leak amounts to members without finance permission. Wrote database-architecture/m10-finance.md (numeric(16,2) positive amounts with explicit direction, IDR, categories table with slugs, every entry on a board with optional event/task, boards.event_id, can_read_finance/can_write_finance RLS reusing is_board_member, finance activity logged without board_id plus a finance branch in the activity policy, agent_finance security-invoker view, pgTAP cases) and frontend-architecture/features/finance.md (user flow, five-file module, reused template parts, icons billing/trendingUp/trendingDown, get_finance tool contract). Linked both from system-overview.md, the database and frontend READMEs and agent-layer-mcp.md. Added Phase 10 with PSI-100 (this, review) and PSI-101…106 (backlog) with dependencies. Hermes was working in the main folder on task/PSI-081 with uncommitted task-list edits, so this was done in a temporary checkout in the system temp folder (operator's choice) and not in the main folder. No code or migration written.",
+  "changes": [
+    { "path": "docs/database-architecture/m10-finance.md", "action": "added", "note": "M10 design: schema, RLS, activity-log rule, agent view, pgTAP list" },
+    { "path": "docs/frontend-architecture/features/finance.md", "action": "added", "note": "Flow, module layout, reused template parts, icons, get_finance contract" },
+    { "path": "docs/database-architecture/README.md", "action": "modified", "note": "M10 row" },
+    { "path": "docs/frontend-architecture/README.md", "action": "modified", "note": "features/finance.md row" },
+    { "path": "docs/system-overview.md", "action": "modified", "note": "Finance row in the feature × layer map" },
+    { "path": "docs/backend-architecture/agent-layer-mcp.md", "action": "modified", "note": "get-finance.ts in the tool tree" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "Phase 10: PSI-100 (review), PSI-101…106 (backlog)" },
+    { "path": "agent-history/entries/2026-09-27T01-51-26Z__PSI-100__claude-code.json", "action": "added", "note": "This entry" }
+  ],
+  "decisions": [
+    {
+      "decision": "Add permission keys finance.read, finance.write, finance.manage (granted to admin)",
+      "reason": "C-15/C-17 require a human yes for new keys. Operator's answer to the permissions question: \"read / write / manage (Recommended)\"",
+      "alternatives": ["Single finance.manage key"]
+    },
+    {
+      "decision": "Every finance entry belongs to a board; visibility = finance permission AND board membership (users or groups)",
+      "reason": "Reuses the existing M5 group RBAC, which is the operator's 'tasking with RBAC (group) → financing' flow; no second sharing model",
+      "alternatives": ["Org-wide ledger only", "Event-audience visibility"]
+    },
+    {
+      "decision": "Positive numeric(16,2) amount with explicit direction; IDR only; decimal strings in APIs",
+      "reason": "Exact money and no sign ambiguity for people or LLMs",
+      "alternatives": ["Signed amount", "Integer rupiah"]
+    },
+    {
+      "decision": "Log finance activity without board_id and add a finance branch to the activity_log select policy",
+      "reason": "The existing policy shows board rows to all members, which would leak amounts to members without finance.read",
+      "alternatives": ["Omit amounts from the log"]
+    },
+    {
+      "decision": "Plan in a temporary checkout under the system temp folder",
+      "reason": "Hermes was active in the main folder with uncommitted edits to docs/list-task-project.md; operator chose 'Temp workspace'",
+      "alternatives": ["Wait for Hermes to be idle", "Plan text only"]
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Docs only. Checked the design against the real M1 permission columns, the shipped M4/M5/M7/M8 migrations, nav-config's access.permission shape and the icon keys in components/icons.tsx; bun scripts/obsidian-sync.ts (write mode) and agent:check run before commit."
+  },
+  "risks": [
+    "PSI-101 changes an existing RLS policy (activity_log); the migration PR needs human review (C-15)",
+    "Copying an event's group audience to the board shares the board (and, with finance.read, its money) with every member of those groups"
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-101", "note": "Next: migration M10, then PSI-102/103 in parallel, then PSI-104; PSI-105 and PSI-106 can follow PSI-101 and PSI-103" },
+    { "task_id": "NEW", "note": "A write tool for agents (record_finance_entry) is out of scope; decide after PSI-105 and the MCP OAuth work (PSI-073/074)" }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Review the finance design (PSI-100) and stamp it; PSI-101 onward stay backlog until moved to todo."
+  }
+}

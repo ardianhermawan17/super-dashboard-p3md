@@ -45,6 +45,7 @@ When in doubt: **SQL first, backend for the edge, frontend for the user.** Autho
 | Kanban | [features/kanban.md](frontend-architecture/features/kanban.md) | — | [m5-kanban.md](database-architecture/m5-kanban.md) |
 | Documents (Google Drive) | [features/documents.md](frontend-architecture/features/documents.md) | [google-integration.md](backend-architecture/google-integration.md) | [m6-google.md](database-architecture/m6-google.md) |
 | AI assistant + MCP | [features/ai-chat.md](frontend-architecture/features/ai-chat.md) | [agent-layer-mcp.md](backend-architecture/agent-layer-mcp.md) | [m7-activity-log.md](database-architecture/m7-activity-log.md), [m8-agent-layer.md](database-architecture/m8-agent-layer.md) |
+| Finance (event cashflow) | [features/finance.md](frontend-architecture/features/finance.md) | [agent-layer-mcp.md → get_finance](backend-architecture/agent-layer-mcp.md) | [m10-finance.md](database-architecture/m10-finance.md) |
 | Talent | [features/talent.md](frontend-architecture/features/talent.md) | [edge-functions.md → parse-cv](backend-architecture/edge-functions.md#parse-cv-psi-082-outline) | [m9-talent.md](database-architecture/m9-talent.md) |
 
 ## Two kinds of "agent" in this project

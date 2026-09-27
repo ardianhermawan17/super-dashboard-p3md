@@ -1,0 +1,104 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-26T23-55-00Z__PSI-073__hermes",
+  "task_ids": [
+    "PSI-073"
+  ],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-26T23:00:00Z",
+    "ended_at": "2026-09-26T23:55:00Z",
+    "branch": "task/PSI-073"
+  },
+  "intent": "Expose the shared agent tool registry over MCP at /api/mcp: unauthenticated requests get a 401 with an RFC 9728 challenge; authenticated ones run tools as the caller.",
+  "outcome": "done",
+  "summary": "Implemented the MCP surface per docs/backend-architecture/agent-layer-mcp.md: src/agent/auth.ts verifies the caller's Supabase JWT against the project JWKS with jose (no secret key), src/agent/adapters/mcp.ts registers every tool from the one shared registry and forwards the user's JWT into a per-call Supabase client so RLS decides rows, src/app/api/mcp/route.ts wraps the handler in withMcpAuth, and src/app/.well-known/oauth-protected-resource/route.ts serves the RFC 9728 metadata the 401 challenge points at. TDD: the auth-gate test failed first for the right reason (route missing), then passed 3/3. Extracted the duplicated chainable Supabase mock into src/agent/testing/fake-supabase.ts and deleted the copy in agent.test.ts. Corrected the spec's 1.x-era assumptions against the installed mcp-handler 2.2.0 (ctx.http.authInfo, not extra.authInfo) and pinned the annotation on the tool callback because AgentTool's zod input is a generic ZodType that blocks overload inference. Full gate: typecheck 0 errors, lint 0/0 on 299 files, 19/19 unit tests.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/app/api/mcp/route.ts",
+      "action": "added",
+      "note": "createMcpHandler + withMcpAuth(required: true, resourceMetadataPath) — the AC's 401 gate"
+    },
+    {
+      "path": "frontend-architecture/src/app/.well-known/oauth-protected-resource/route.ts",
+      "action": "added",
+      "note": "protectedResourceHandler + CORS OPTIONS; auth server = Supabase Auth"
+    },
+    {
+      "path": "frontend-architecture/src/agent/auth.ts",
+      "action": "added",
+      "note": "verifySupabaseToken: JWKS via jose, rejects non-authenticated role; returns undefined so the wrapper 401s"
+    },
+    {
+      "path": "frontend-architecture/src/agent/adapters/mcp.ts",
+      "action": "added",
+      "note": "registers the shared registry; forwards the user JWT, no service-role key (C-04)"
+    },
+    {
+      "path": "frontend-architecture/src/app/api/mcp/__tests__/route.test.ts",
+      "action": "added",
+      "note": "3 tests: 401 + resource_metadata challenge, malformed token -> 401 not 500, no token/stack leak in body"
+    },
+    {
+      "path": "frontend-architecture/src/agent/adapters/mcp.test.ts",
+      "action": "added",
+      "note": "3 tests: all registry tools registered, JWT forwarded as Bearer, client id audited"
+    },
+    {
+      "path": "frontend-architecture/src/agent/testing/fake-supabase.ts",
+      "action": "added",
+      "note": "shared chainable/awaitable Builder extracted from agent.test.ts (deletion over duplication)"
+    },
+    {
+      "path": "frontend-architecture/src/agent/agent.test.ts",
+      "action": "modified",
+      "note": "dropped the duplicated local Builder, now imports the shared helper"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-073 backlog -> doing -> review, owner agent:hermes"
+    },
+    {
+      "path": "frontend-architecture/package.json",
+      "action": "modified",
+      "note": "added mcp-handler ^2, @modelcontextprotocol/server ^2, jose ^6.2.12 (spec-mandated for this card)"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Install mcp-handler/@modelcontextprotocol/server/jose without pausing for human approval",
+      "reason": "Not a scope expansion: the card title names 'MCP endpoint with mcp-handler 2.x' and the spec section gives the exact versions. C-15 covers unrequested deps; these were requested by the card."
+    },
+    {
+      "decision": "Follow mcp-handler 2.2.0's real API over the doc's example where they differ",
+      "reason": "The spec's route example matches 2.x, but its prose implied 1.x's extra.authInfo. Verified against the installed README: v2 moved it to ctx.http?.authInfo. Doc updated expectation noted for PSI-073 reviewer."
+    },
+    {
+      "decision": "Verify the JWT with jose against Supabase JWKS instead of calling auth.getUser",
+      "reason": "Keeps the gate stateless and edge-friendly, and reads only public key material — no secret key in this layer, which is C-04."
+    },
+    {
+      "decision": "Annotate the callback params (args: Record<string, unknown>, ctx: ServerContext) rather than loosen the schema",
+      "reason": "AgentTool.input is typed as a generic z.ZodType, so registerTool's overload cannot infer the callback arity. Annotating is one line and keeps the registry's types honest."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "19/19 unit tests green across 4 files (3 auth-gate + 3 adapter + 13 pre-existing agent tests). TDD honoured: the auth-gate test was written first and failed with 'Cannot find module ../route' before the route existed."
+  },
+  "migrations": [],
+  "human_review": {
+    "required": true,
+    "reason": "The AC's second clause (with a valid Supabase JWT the tools list and run as that user) is verified at the adapter boundary — JWT forwarded, RLS client built, audit row written — but not end-to-end against a live Supabase instance. Confirm the JWKS issuer ({project}/auth/v1) matches the deployed project, and decide whether a real authenticated MCP call should be proven before merge."
+  }
+}

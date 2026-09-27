@@ -18,6 +18,7 @@
 | [features/admin.md](features/admin.md) | Users, groups, roles, permissions, integrations pages |
 | [features/ai-chat.md](features/ai-chat.md) | In-app assistant, connected apps (external agents) |
 | [features/talent.md](features/talent.md) | CV intake and candidate views |
+| [features/finance.md](features/finance.md) | Event cashflow (inflow / outflow by category), event → board → finance streamline, `get_finance` tool |
 | [conventions-and-testing.md](conventions-and-testing.md) | Before every PR: conventions, guardrails, tests |
 
 ## Decisions at a glance

@@ -539,9 +539,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Talent tables with RLS enabled in the same migration (owner reads own row, `talent.read` scores, `talent.manage` taxonomy) and a pgTAP test proving `anon` reads and writes nothing; `cv_source` storage or drive; private `cvs` bucket with per-user folder policies; candidate_group_scores view with `security_invoker`.
 
 ### PSI-081 · Consent and CV intake
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-080
 - accept: Explicit consent recorded before any processing; PDF ≤ 2 MB uploaded to `<user_id>/`, or an existing file picked from the talent Drive root; no public URL generated.
 

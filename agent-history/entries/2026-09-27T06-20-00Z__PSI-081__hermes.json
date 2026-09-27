@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-27T06-20-00Z__PSI-081__hermes",
+  "task_ids": ["PSI-081"],
+  "agent": {
+    "name": "hermes",
+    "model": "omniroute:combo",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-27T06:05:00Z",
+    "ended_at": "2026-09-27T06:20:00Z",
+    "branch": "task/PSI-081"
+  },
+  "intent": "Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.",
+  "outcome": "partial",
+  "summary": "Implemented the intake rule layer in src/features/talent/intake.ts (consent gate, 2 MB cap, user-scoped path, Drive alternative) with four unit tests written first and red before the module existed. Added the server actions that supply userId from the verified session, a consent view that reuses the existing FileUploader, the /dashboard/talent page and nav entry, and regenerated database.types.ts because PSI-080 shipped the M9 migration without it, so no M9 table was typed. Found and fixed a real bug during review: the intake first built a key-only supabase-js client carrying no user, which RLS would reject because candidates requires user_id = auth.uid(); it now uses the cookie-scoped server client. typecheck 0 errors, lint 0/0 on 297 files, 17/17 unit tests pass. Acceptance is partial: every protected route 307-redirects because .env.local lacks the Supabase URL and key, a pre-existing environment gap unrelated to this card, so the authenticated upload could not be exercised end to end.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/talent/intake.ts",
+      "action": "added",
+      "note": "Consent gate, 2 MB cap, <user_id>/<uuid>.pdf path, Drive alternative; cookie-scoped client for RLS"
+    },
+    {
+      "path": "frontend-architecture/src/features/talent/intake.test.ts",
+      "action": "added",
+      "note": "Four tests written red-first: no consent no processing, over 2 MB rejected, path scoped to user, Drive records cv_drive_file_id"
+    },
+    {
+      "path": "frontend-architecture/src/features/talent/actions.ts",
+      "action": "added",
+      "note": "Server actions taking userId from getSession, never from the client"
+    },
+    {
+      "path": "frontend-architecture/src/features/talent/components/consent-intake-view.tsx",
+      "action": "added",
+      "note": "Consent checkbox gates both paths; reuses the existing FileUploader with accept pdf and maxSize 2 MB"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/talent/page.tsx",
+      "action": "added",
+      "note": "Thin page matching the kanban/overview convention"
+    },
+    {
+      "path": "frontend-architecture/src/config/nav-config.ts",
+      "action": "modified",
+      "note": "Talent entry under Overview, no permission gate since the user consents about their own CV"
+    },
+    {
+      "path": "frontend-architecture/src/lib/supabase/database.types.ts",
+      "action": "modified",
+      "note": "Regenerated from the local DB; M9/M6/M7 tables were absent because PSI-080 never regenerated it"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-081 backlog -> doing -> review, owner agent:hermes"
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Unit tests only. The dev server serves /dashboard/talent identically to existing protected routes (307 to sign-in, no compile error in the dev log), but the authenticated upload and the storage write could not be exercised because .env.local has no Supabase URL or key, which 500s every route. No migration in this card, so db_reset and db_tests do not apply."
+  },
+  "human_review": {
+    "required": true,
+    "reason": "Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker."
+  }
+}

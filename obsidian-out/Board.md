@@ -26,7 +26,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
-- [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake #frontend #phase-8
 - [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv #backend #phase-8
 - [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8
 - [ ] [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view #db #phase-8
@@ -57,6 +56,7 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 1 run #backend #phase-7
+- [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 1 run #frontend #phase-8
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 1 run #docs #phase-10
 
 

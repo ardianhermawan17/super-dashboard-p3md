@@ -638,11 +638,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - impl: `createEventBoardAction` (calendar/actions.ts) + "Create event board"/"Open board" in the event dialog; `getBoardAction` returns the linked event; kanban header shows "Linked event" chip linking back to the calendar. Idempotency: action early-returns + DB unique index `idx_boards_event`. Reviewed: browser flow needs `/auth/sign-in` fixed (pre-existing `submit-button.tsx` formContext bug, filed as follow-up); unit tests (5) + live DB probe cover the rules. [[2026-09-27T10-15-54Z__PSI-102__hermes]]
 
 ### PSI-103 · Finance module with CRUD
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-101, PSI-017
 - accept: /dashboard/finance guarded by `finance.read` lists visible entries in the template data table with direction, category, date and amount filters kept in the URL; create, edit and delete through Zod-validated Server Actions guarded by `finance.write`; categories managed in a dialog by `finance.manage`; amounts shown as "Rp 2.000.000" and dates in WIB; nav item "Finance" with `Icons.billing` hidden without `finance.read`; kbar action opens the form; no icon imported outside `@/components/icons`.
+- impl: `src/features/finance/{types,actions}.ts` + `components/{columns,entries-table,entry-form-dialog,category-dialog}.tsx`; `useDataTable`/`DataTable`/`DataTableToolbar` (first real consumer of this template system in the app) for the direction/category/dateRange/range filters; Dialog forms (no Sheet form exists anywhere in the app yet, so this follows the established convention instead of finance.md's original wording); kbar "Record income or spending" -> `/dashboard/finance?new=1` auto-opens the create dialog. 15 unit tests (Zod schema edges, formatIDR/formatDateWIB); tsc/oxlint/`next build` clean; unauthenticated request to `/dashboard/finance` confirmed 307 -> `/auth/sign-in` (no crash). Not run: an authenticated browser walkthrough (same gap PSI-102 had) -- needs a seeded dev user with `finance.read`.
 
 ### PSI-104 · Finance on event boards and events
 - status: backlog

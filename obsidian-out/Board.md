@@ -24,7 +24,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
-- [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD #frontend #phase-10
 - [ ] [[tasks/PSI-104|PSI-104]] Finance on event boards and events #frontend #phase-10
 - [ ] [[tasks/PSI-105|PSI-105]] Agent tool get_finance #backend #phase-10
 - [ ] [[tasks/PSI-106|PSI-106]] Finance charts on the overview #frontend #phase-10
@@ -52,6 +51,7 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10
+- [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code · 1 run #frontend #phase-10
 
 
 ## Blocked

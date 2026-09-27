@@ -27,6 +27,17 @@ export const navGroups: NavGroup[] = [
         items: []
       },
       {
+        title: 'Finance',
+        url: '/dashboard/finance',
+        icon: 'billing',
+        shortcut: ['f', 'f'],
+        isActive: false,
+        access: {
+          permission: 'finance.read'
+        },
+        items: []
+      },
+      {
         title: 'Chat',
         url: '/dashboard/chat',
         icon: 'chat',

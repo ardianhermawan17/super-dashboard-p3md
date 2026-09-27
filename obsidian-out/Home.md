@@ -12,7 +12,11 @@
 
 ## Blocked
 
-_Nothing blocked._
+- [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
+- [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · unassigned
+- [[tasks/PSI-084|PSI-084]] Scoring, strong skills, agent talent view · unassigned
+- [[tasks/PSI-085|PSI-085]] Candidate pipeline board · unassigned
+- [[tasks/PSI-086|PSI-086]] CV retention · unassigned
 
 ## On Hold
 
@@ -40,6 +44,7 @@ _Nothing blocked._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
 - [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
 - [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|2026-09-27 14:45 WIB · claude-code · PSI-109]]: Confirm the onhold moves (PSI-076, PSI-098, Phase 8 talent tasks) match intent, and that PSI-109's design is right before it's built
 - [[history/2026-09-27T06-20-00Z__PSI-081__hermes|2026-09-27 13:05 WIB · hermes · PSI-081]]: Acceptance is unproven end to end: the authenticated upload needs working NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local to verify against the private cvs bucket. Also confirm the Drive pick should ship before PSI-064 wires the picker.
@@ -98,6 +103,7 @@ _Nothing blocked._
 
 - 2026-09-27 14:45 WIB · claude-code · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]
 - 2026-09-27 13:55 WIB · claude-code · [[tasks/PSI-108|PSI-108]] · done: [[history/2026-09-27T07-18-00Z__PSI-108__claude-code|Investigate reported 'looping' in Hermes' recent sessions, fix the root cause, and add rules to stop it recurring.]]
+- 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]
 - 2026-09-27 12:05 WIB · hermes · [[tasks/PSI-097|PSI-097]] · done: [[history/2026-09-27T05-22-00Z__PSI-097__hermes|Put AgentShield in CI so agent configuration is scanned on pull requests and critical findings fail the build.]]

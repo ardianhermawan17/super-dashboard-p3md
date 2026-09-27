@@ -55,9 +55,9 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 1 run #backend #phase-7
-- [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 1 run #frontend #phase-8
-- [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 1 run #docs #phase-10
+- [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
+- [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 2 runs #frontend #phase-8
+- [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 
 
 ## Blocked

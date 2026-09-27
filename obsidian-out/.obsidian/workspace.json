@@ -4,23 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "626baff837169bc7",
+        "id": "111829babcb1b384",
         "type": "tabs",
         "children": [
           {
-            "id": "05214234643e0510",
+            "id": "554bd98bb0073277",
             "type": "leaf",
             "state": {
               "type": "kanban",
               "state": {
-                "file": "Board.md",
+                "file": "review/PSI-001.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
                   "list-collapse": []
                 }
               },
               "icon": "lucide-trello",
-              "title": "Board"
+              "title": "PSI-001"
             }
           }
         ]
@@ -101,7 +101,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tasks/PSI-062.md",
+                "file": "review/PSI-001.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tasks/PSI-062.md",
+                "file": "review/PSI-001.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -163,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tasks/PSI-062.md",
+                "file": "review/PSI-001.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -202,40 +202,21 @@
       "templater-obsidian:Templater": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-kanban:Create new board": false,
-      "remotely-save:Remotely Save": false
+      "obsidian-kanban:Create new board": false
     }
   },
-  "active": "05214234643e0510",
+  "active": "554bd98bb0073277",
   "lastOpenFiles": [
-    "history/2026-09-27T02-43-53Z__PSI-073__claude-code.md",
-    "tasks/PSI-106.md",
-    "tasks/PSI-105.md",
-    "tasks/PSI-104.md",
-    "tasks/PSI-103.md",
-    "tasks/PSI-102.md",
-    "tasks/PSI-101.md",
-    "tasks/PSI-100.md",
-    "history/2026-09-27T01-51-26Z__PSI-100__claude-code.md",
-    "history/2026-09-26T23-55-00Z__PSI-073__hermes.md",
-    "docs/frontend-architecture/features/finance.md",
-    "docs/database-architecture/m10-finance.md",
-    "tasks/PSI-073.md",
+    "review/PSI-003.md",
+    "history/2026-09-25T02-58-28Z__PSI-001__opencode.md",
+    "review/PSI-001.md",
+    "review/PSI-002.md",
     "Board.md",
-    "history/2026-09-26T22-45-00Z__PSI-065__hermes.md",
-    "history/2026-09-26T18-45-00Z__PSI-080__hermes.md",
-    "history/2026-09-26T17-45-00Z__PSI-072__hermes.md",
-    "history/2026-09-26T17-18-00Z__PSI-071__hermes.md",
-    "review/PSI-065.md",
-    "history/2026-09-26T15-30-00Z__PSI-065__hermes.md",
-    "tasks/PSI-060.md",
-    "tasks/PSI-099.md",
-    "history/2026-09-26T03-03-30Z__PSI-099__claude-code.md",
-    "tasks/PSI-062.md",
-    "history/2026-09-26T13-00-00Z__PSI-070__hermes.md",
-    "review/PSI-070.md",
-    "docs/graphify-architecture/snapshots",
-    "Excalidraw",
-    "graph"
+    "docs/agent-operations/review-workflow.md",
+    "history/2026-09-24T18-50-00Z__PSI-004__hermes.md",
+    "graph/GRAPH_REPORT.md",
+    "graph",
+    "tasks/PSI-003.md",
+    "Home.md"
   ]
 }

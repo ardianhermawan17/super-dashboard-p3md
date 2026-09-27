@@ -12,6 +12,7 @@ import { deepLink } from './links';
 import { agentTools } from './registry';
 import { getActivity } from './tools/get-activity';
 import { getAgenda } from './tools/get-agenda';
+import { getFinance } from './tools/get-finance';
 
 // runtime.ts imports 'server-only', which throws unconditionally when evaluated outside a
 // Next.js build (e.g. under `bun test`). Stub it before dynamically importing the runtime.
@@ -52,11 +53,12 @@ function fakeDb(rowsForTool: Record<string, unknown[]>, audited: Audited[], audi
 const ctx = (db: unknown): AgentCtx => ({ db: db as never, clientId: 'test-client' });
 
 describe('agent registry', () => {
-  test('exposes exactly the five read tools', () => {
+  test('exposes exactly the six read tools', () => {
     expect(agentTools.map((t) => t.name).toSorted()).toEqual([
       'get_activity',
       'get_agenda',
       'get_board',
+      'get_finance',
       'get_inbox',
       'search_documents',
     ]);
@@ -123,6 +125,12 @@ describe('output caps', () => {
     const audited: Audited[] = [];
     const db = fakeDb({}, audited);
     await expect(runTool(getActivity, { since: '2026-09-01T00:00:00+07:00', limit: 101 }, ctx(db))).rejects.toThrow();
+  });
+
+  test('get_finance rejects limit > 50', async () => {
+    const audited: Audited[] = [];
+    const db = fakeDb({}, audited);
+    await expect(runTool(getFinance, { limit: 51 }, ctx(db))).rejects.toThrow();
   });
 });
 

@@ -18,7 +18,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
-- [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push #integration #phase-6
 - [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata #security #phase-7
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools #frontend #phase-7
@@ -51,6 +50,7 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
+- [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10

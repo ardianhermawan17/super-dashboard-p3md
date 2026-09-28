@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-28
 
+- 21:30 · **hermes** · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 20:30 · **hermes** · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
 - 19:30 · **hermes** · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
 - 17:00 · **hermes** · [[tasks/PSI-074|PSI-074]] · done (needs review): [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]

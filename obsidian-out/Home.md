@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 16 | 0 | 1 | 0 | 1 | 8 | 60 | 86 |
+| 16 | 0 | 1 | 1 | 1 | 7 | 60 | 86 |
 
 ## Blocked
 
@@ -17,7 +17,6 @@
 ## On Hold
 
 - [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · unassigned
-- [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · unassigned
 - [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
 - [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · unassigned
 - [[tasks/PSI-083|PSI-083]] Skill taxonomy admin · unassigned
@@ -31,7 +30,7 @@
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · agent:hermes
 
 ## AI sessions waiting for a human
 
@@ -97,6 +96,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
 - 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
 - 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]
@@ -106,4 +106,3 @@ _Nothing waiting for review._
 - 2026-09-28 13:33 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · done: [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]
 - 2026-09-28 13:00 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · partial: [[history/2026-09-28T06-00-00Z__PSI-107__claude-code|Fix deleting a board with tasks raising activity_log_board_id_fkey (M7 task activity trigger), continuing Hermes's handoff.]]
 - 2026-09-28 06:30 WIB · hermes · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-28T00-30-00Z__PSI-109__hermes|Kanban task detail panel: click task card to open Dialog with full task fields, linked calendar event if set, finance section (finance.read only) with entries and prefilled Add entry; drag-safe.]]
-- 2026-09-28 00:00 WIB · hermes · [[tasks/PSI-106|PSI-106]] · done: [[history/2026-09-27T17-50-00Z__PSI-106__hermes|Finance charts on the overview: monthly inflow vs outflow (bar) + outflow by category (pie) per finance.md contract, finance.read only, with loading skeletons and empty states.]]

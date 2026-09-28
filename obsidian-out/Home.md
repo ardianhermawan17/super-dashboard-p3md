@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 18 | 0 | 1 | 1 | 1 | 8 | 57 | 86 |
+| 17 | 0 | 1 | 1 | 1 | 8 | 58 | 86 |
 
 ## Blocked
 
@@ -31,7 +31,7 @@
 
 ## Review
 
-- [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes
+- [[tasks/PSI-075|PSI-075]] Connected apps page · agent:hermes
 
 ## AI sessions waiting for a human
 
@@ -97,6 +97,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
 - 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]
 - 2026-09-28 16:10 WIB · hermes · [[tasks/PSI-096|PSI-096]] · blocked: [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 2026-09-28 13:50 WIB · claude-code · [[tasks/PSI-042|PSI-042]] · done: [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
@@ -106,4 +107,3 @@
 - 2026-09-28 06:30 WIB · hermes · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-28T00-30-00Z__PSI-109__hermes|Kanban task detail panel: click task card to open Dialog with full task fields, linked calendar event if set, finance section (finance.read only) with entries and prefilled Add entry; drag-safe.]]
 - 2026-09-28 00:00 WIB · hermes · [[tasks/PSI-106|PSI-106]] · done: [[history/2026-09-27T17-50-00Z__PSI-106__hermes|Finance charts on the overview: monthly inflow vs outflow (bar) + outflow by category (pie) per finance.md contract, finance.read only, with loading skeletons and empty states.]]
 - 2026-09-27 22:50 WIB · hermes · [[tasks/PSI-105|PSI-105]] · done: [[history/2026-09-27T16-45-00Z__PSI-105__hermes|Agent tool get_finance per finance.md: RLS-scoped totals by category + recent entries, decimal amounts, no identities, max 50, deep links, audited; no finance.read -> nothing.]]
-- 2026-09-27 21:00 WIB · hermes · [[tasks/PSI-104|PSI-104]] · done: [[history/2026-09-27T15-20-00Z__PSI-104__hermes|Finance on event boards/events: board Finance tab (inflow/outflow/net/per-category) for finance.read; add-entry prefills board+task; event detail shows net; no amounts without finance.read.]]

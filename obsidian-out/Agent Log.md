@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-28
 
+- 19:30 · **hermes** · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
 - 17:00 · **hermes** · [[tasks/PSI-074|PSI-074]] · done (needs review): [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]
 - 16:10 · **hermes** · [[tasks/PSI-096|PSI-096]] · blocked (needs review): [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 13:50 · **claude-code** · [[tasks/PSI-042|PSI-042]] · done (needs review): [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]

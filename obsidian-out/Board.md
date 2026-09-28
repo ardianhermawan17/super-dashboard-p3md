@@ -16,7 +16,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
-- [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
@@ -37,7 +36,7 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes · 1 run #security #phase-7
+- [ ] [[tasks/PSI-075|PSI-075]] Connected apps page · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Blocked
@@ -108,6 +107,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes · 2 runs #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-27
+- [x] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes · 1 run #security #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · agent:hermes · 3 runs #db #phase-8 ✅ 2026-09-26
 - [x] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10 ✅ 2026-09-27

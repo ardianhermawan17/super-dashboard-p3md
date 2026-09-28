@@ -257,6 +257,42 @@ export const ROUTE_TOURS: RouteTourConfig[] = [
     ],
   },
   {
+    routePrefix: '/dashboard/admin',
+    featureName: 'RBAC & Access Control',
+    icon: 'shield',
+    summary: 'Manage users, permission groups, customized roles, and module-level permission matrices.',
+    steps: [
+      {
+        id: 'admin-users',
+        title: 'User Management & Invites',
+        badge: 'Directory & Auth',
+        description:
+          'View all team members, direct and inherited roles, and last sign-in. Invite new colleagues via email and assign their initial roles and groups.',
+      },
+      {
+        id: 'admin-groups',
+        title: 'Permission Groups',
+        badge: 'Group Scoping',
+        description:
+          'Create collaborative groups (e.g. Operations, Finance, Management). Assigning roles to a group automatically propagates permissions to all members.',
+      },
+      {
+        id: 'admin-roles',
+        title: 'Role-Permission Matrix',
+        badge: 'Security Matrix',
+        description:
+          'Customize roles and toggle permissions across Kanban, Calendar, Finance, Talent, and Agent modules. Built-in escalation guards prevent grant abuse.',
+      },
+      {
+        id: 'admin-permissions',
+        title: 'Permissions Catalogue',
+        badge: 'Catalogue & Audit',
+        description:
+          'Inspect the system catalogue of all 17 granular permissions, their module ownership, and which active roles hold each capability.',
+      },
+    ],
+  },
+  {
     routePrefix: '/dashboard/settings',
     featureName: 'Settings & Connected Apps',
     icon: 'settings',

@@ -21,10 +21,13 @@ select
   jsonb_build_object('full_name', u.full_name),
   now(), now(), '', '', '', ''
 from (values
-  ('00000000-0000-0000-0000-000000000001'::uuid, 'member1@p3md.test', 'Member One'),
-  ('00000000-0000-0000-0000-000000000002'::uuid, 'admin@p3md.test',   'Admin User'),
-  ('00000000-0000-0000-0000-000000000003'::uuid, 'member2@p3md.test', 'Member Two'),
-  ('00000000-0000-0000-0000-000000000004'::uuid, 'member3@p3md.test', 'Member Three')
+  ('00000000-0000-0000-0000-000000000001'::uuid, 'member1@p3md.test',   'Member One'),
+  ('00000000-0000-0000-0000-000000000002'::uuid, 'admin@p3md.test',     'Admin User'),
+  ('00000000-0000-0000-0000-000000000003'::uuid, 'member2@p3md.test',   'Member Two'),
+  ('00000000-0000-0000-0000-000000000004'::uuid, 'member3@p3md.test',   'Member Three'),
+  ('00000000-0000-0000-0000-000000000010'::uuid, 'pm@p3md.test',        'Sarah Jenkins'),
+  ('00000000-0000-0000-0000-000000000011'::uuid, 'operation@p3md.test', 'Budi Santoso'),
+  ('00000000-0000-0000-0000-000000000012'::uuid, 'finance@p3md.test',   'David Miller')
 ) as u(id, email, full_name);
 
 insert into auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
@@ -39,7 +42,13 @@ where u.email like '%@p3md.test';
 -- Migration M1 (PSI-012) inserts the `admin` role, the `all-members` group and the 15 permissions
 -- itself, and its trigger already gave every user above a profile and the `all-members` membership.
 insert into public.user_roles (user_id, role_id)
-select '00000000-0000-0000-0000-000000000002', id from public.roles where slug = 'admin';
+select '00000000-0000-0000-0000-000000000002', id from public.roles where slug = 'admin'
+union all
+select '00000000-0000-0000-0000-000000000010', id from public.roles where slug = 'project-manager'
+union all
+select '00000000-0000-0000-0000-000000000011', id from public.roles where slug = 'operation'
+union all
+select '00000000-0000-0000-0000-000000000012', id from public.roles where slug = 'accountant';
 -- Extra test roles/groups (fixed ids) are added by the tasks that need them, e.g. a role with
 -- 3 members for the PSI-036 mail smoke test.
 

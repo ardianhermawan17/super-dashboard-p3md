@@ -51,7 +51,7 @@ jobs:
 
 | Risk | Why it matters | Check (task) |
 |---|---|---|
-| MCP spec 2026-07-28 deprecates Dynamic Client Registration in favor of Client ID Metadata Documents (CIMD) | Newer clients may expect CIMD from the authorization server | Inspect `https://<ref>.supabase.co/auth/v1/.well-known/oauth-authorization-server` for `client_id_metadata_document_supported`; test Claude and ChatGPT connectors (PSI-078) |
+| MCP spec 2026-07-28 deprecates Dynamic Client Registration in favor of Client ID Metadata Documents (CIMD) | Newer clients may expect CIMD from the authorization server | Verified & documented in `docs/backend-architecture/mcp-client-compatibility.md` (PSI-078): Supabase Auth uses RFC 7591 DCR; Claude Desktop, Hermes Agent, ChatGPT, and Cursor compatibility verified with fallback/workaround recorded |
 | OAuth token `aud` claim | `verifySupabaseToken` checks issuer and role only; tighten once the real `aud` is confirmed | PSI-073 |
 | Resend batch limits and webhook payload shape | Hard-coded `BATCH_SIZE` and event mapping | PSI-032, PSI-033 |
 | Service-account key creation blocked by org policy | Google integration cannot start | PSI-060 (Workspace admin) |

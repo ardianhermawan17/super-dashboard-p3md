@@ -17,7 +17,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
-- [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -36,6 +35,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · agent:hermes · 1 run #security #phase-7
 
 
 ## Blocked

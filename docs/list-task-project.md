@@ -524,10 +524,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 
 - merged: PR #40 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata
-- status: backlog
+- status: review
 - area: security
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-073
+- history: [[2026-09-28T12-00-00Z__PSI-074__hermes]]
 - accept: Asymmetric JWT keys on; OAuth server enabled with consent URL; /auth/consent approve/deny works; /.well-known/oauth-protected-resource points to Supabase; Claude connects end to end on the hosted project.
 
 ### PSI-075 · Connected apps page

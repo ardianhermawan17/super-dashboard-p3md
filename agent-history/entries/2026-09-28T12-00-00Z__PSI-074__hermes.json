@@ -1,0 +1,53 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T12-00-00Z__PSI-074__hermes",
+  "task_ids": ["PSI-074"],
+  "agent": { "name": "hermes", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-28T10:00:00Z",
+    "ended_at": "2026-09-28T12:00:00Z",
+    "branch": "task/PSI-074"
+  },
+  "intent": "Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.",
+  "outcome": "done",
+  "summary": "Built and locally verified the OAuth 2.1 consent flow (PSI-074). CODE: src/app/auth/consent/page.tsx (client page: reads authorization_id, gates on session via supabase.auth.getUser, calls auth.oauth.getAuthorizationDetails, shows client name/logo + user email + scopes, Approve via approveAuthorization / Deny via denyAuthorization with skipBrowserRedirect then router.replace to the returned redirect_url; auto-redirects when already consented; handles missing/invalid authorization_id); src/app/auth/consent/consent-lib.ts (pure formatScopes + resolveConsentState + signInUrlForConsent, unit-tested); 6 unit tests. CONFIG: supabase/config.toml [auth.oauth_server] enabled=true, authorization_url_path=/auth/consent, allow_dynamic_registration=true. VERIFIED LOCALLY against the running stack (supabase start): OAuth server metadata at /.well-known/oauth-authorization-server (issuer, authorize/token/userinfo/registration endpoints); JWKS is ES256 asymmetric; dynamic client registration returns a client_id; authorize with PKCE + admin@p3md.test session 302-redirects to http://127.0.0.1:3000/auth/consent?authorization_id=...; getAuthorizationDetails returns {client{name}, user{email}, scope} exactly as the consent page consumes; PKCE enforced (missing code_challenge -> invalid_request). HOSTED items (human-gated, no Supabase credentials in scope): enable OAuth server + asymmetric JWT keys + consent URL on the hosted project Settings per docs/backend-architecture/local-workflow-and-deploy.md; Claude Desktop end-to-end connect on hosted. /auth/consent is public in proxy.ts PUBLIC_PREFIXES so the page itself handles the auth gate.",
+  "changes": [
+    { "path": "frontend-architecture/src/app/auth/consent/page.tsx", "action": "added", "note": "OAuth 2.1 consent page (approve/deny, session gate, auto-redirect)" },
+    { "path": "frontend-architecture/src/app/auth/consent/consent-lib.ts", "action": "added", "note": "formatScopes / resolveConsentState / signInUrlForConsent" },
+    { "path": "frontend-architecture/src/app/auth/consent/__tests__/consent.test.ts", "action": "added", "note": "6 unit tests for scopes + state resolution" },
+    { "path": "supabase/config.toml", "action": "modified", "note": "[auth.oauth_server] enabled, consent URL /auth/consent, dynamic registration on" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-074 status doing" }
+  ],
+  "decisions": [
+    {
+      "decision": "Use supabase.auth.getUser() (client) for the session gate, not server-only getSession",
+      "reason": "Consent page is a client component under /auth (public prefix); getUser matches the notifications-page pattern."
+    },
+    {
+      "decision": "skipBrowserRedirect:true + router.replace in approve/deny",
+      "reason": "Control the redirect in-app (and keep a fallback to /dashboard/overview if no URL) rather than letting Supabase auto-redirect."
+    },
+    {
+      "decision": "Enable OAuth server locally in config.toml",
+      "reason": "Agent-doable config that mirrors the hosted requirement; lets the full authorize→consent→approve flow be exercised deterministically. Hosted settings remain human (no credentials)."
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Local Supabase stack: registered dynamic client, ran authorize with PKCE as admin@p3md.test -> 302 to /auth/consent?authorization_id=...; getAuthorizationDetails returns client/user/scope; JWKS ES256 asymmetric. bun test 86/86, tsc clean, oxlint 0/0."
+  },
+  "human_review": { "required": true, "reason": "Hosted Supabase project settings (OAuth server + asymmetric JWT keys + consent URL) and Claude end-to-end connection on hosted are operator actions (no credentials in scope)." },
+  "follow_ups": [
+    { "note": "Hosted: Settings -> JWT keys asymmetric; Auth -> OAuth Server enabled, dynamic registration on, consent URL https://<site>/auth/consent; then Claude Desktop connect end to end on hosted (per docs/backend-architecture/local-workflow-and-deploy.md and auth-and-onboarding.md)." },
+    { "note": "PSI-075 (Connected apps page with revoke) is now unblocked." }
+  ],
+  "risks": [],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": []
+}

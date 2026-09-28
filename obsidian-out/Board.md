@@ -16,7 +16,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
-- [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata #security #phase-7
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
@@ -38,6 +37,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes · 1 run #security #phase-7
 
 
 ## Blocked

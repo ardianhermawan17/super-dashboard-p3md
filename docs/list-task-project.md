@@ -557,11 +557,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: pg_cron at 06:00 WIB calls daily-digest through `internal_post`; the summary comes from `_shared/llm.ts` with `DIGEST_MODEL`; digest stored and shown on Overview; `digest.ready` push to every `digest.receive` holder.
 
 ### PSI-078 · Verify MCP client compatibility (CIMD vs DCR)
-- status: review
+- status: done
 - area: security
 - owner: agent:hermes
 - depends: PSI-074
-- history: [[2026-09-28T14-00-00Z__PSI-078__hermes]]
+- merged: PR #61 (2026-09-28, 4dce5da) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T14-00-00Z__PSI-078__hermes.md
 - accept: Documented which clients (Claude, ChatGPT, Hermes Agent, Cursor) connect via DCR or CIMD against Supabase; workaround recorded if one fails.
 
 ### PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation

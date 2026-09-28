@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 16 | 0 | 1 | 1 | 1 | 8 | 59 | 86 |
+| 16 | 0 | 1 | 0 | 1 | 8 | 60 | 86 |
 
 ## Blocked
 
@@ -31,7 +31,7 @@
 
 ## Review
 
-- [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

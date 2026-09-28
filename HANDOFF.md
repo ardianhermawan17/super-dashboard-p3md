@@ -1,59 +1,55 @@
 ---
-updated: 2026-09-28 20:30 WIB
+updated: 2026-09-28 21:00 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-075 · Connected apps page** — **DONE (agent scope)**, code merged into `master` at `c3a787d` (PR #60).
+**PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** — **DONE (agent scope)**, code and docs merged into `master` at `4dce5da` (PR #61).
 
 What landed:
-- `src/features/connected-apps/types.ts` & `src/features/connected-apps/lib/format.ts`:
-  - Formatted scope labels/descriptions (OpenID, Profile, Email, Offline Access, custom scopes).
-  - WIB (`Asia/Jakarta`) and relative (`Just now`, `15m ago`, `2d ago`) timestamp formatting.
-- `src/features/connected-apps/actions.ts`:
-  - `listConnectedAppsAction`: fetches user's active OAuth grants via `supabase.auth.oauth.listGrants()`.
-  - `revokeConnectedAppAction`: revokes access for a specific client via `supabase.auth.oauth.revokeGrant({ clientId })` and revalidates dashboard paths.
-- `src/features/connected-apps/components/`:
-  - `ConnectedAppsPage`: page container with header refresh action, informative banner about MCP/OAuth access, loading skeletons, and empty state with MCP endpoint hint (`/api/mcp`).
-  - `ConnectedAppCard`: app card with client logo/avatar, client name, website link, connection timestamp, and scope badges.
-  - `RevokeAppDialog`: confirmation modal explaining that revoking immediately invalidates tokens and disconnects active sessions.
-- Routes:
-  - `/dashboard/connected-apps`
-  - `/dashboard/settings/connected-apps` (alias)
-- Navigation:
-  - Added `Connected Apps` under `Account` nav items in `src/config/nav-config.ts`.
-  - Added `Connected Apps` shortcut in user avatar dropdown menu in `src/components/layout/app-sidebar.tsx`.
-- Unit tests:
-  - `src/features/connected-apps/__tests__/connected-apps.test.ts` (11/11 tests pass).
+- `docs/backend-architecture/mcp-client-compatibility.md` — comprehensive client setup and compatibility guide:
+  - **Claude Desktop**: Native support via RFC 7591 Dynamic Client Registration (DCR) and PKCE. Discovers `registration_endpoint` from `/.well-known/oauth-authorization-server`, registers, and prompts the user on `/auth/consent`.
+  - **Hermes Agent / Custom CLI**: Native support via DCR with PKCE S256 and ES256 JWT bearer verification against Supabase JWKS.
+  - **ChatGPT Actions / Custom GPTs**: Supported via pre-registered static OAuth 2.0 credentials (generated via DCR or Supabase dashboard).
+  - **Cursor**: Supported via direct Bearer JWT token in MCP headers.
+  - **CIMD (Client ID Metadata Documents) Analysis**: Supabase GoTrue currently expects registered client UUIDs and does not directly fetch unregistered URL-as-Client-ID documents; all major clients fall back to standard DCR when `registration_endpoint` is advertised.
+- `frontend-architecture/src/agent/__tests__/mcp-client-compatibility.test.ts`:
+  - 6 unit tests covering RFC 7591 payload shapes, CIMD vs DCR classification, and ES256 JWT token verification (100% pass).
+- Updated `docs/backend-architecture/operations-and-risks.md` resolving the MCP spec open risk item.
+- Updated `docs/backend-architecture/agent-layer-mcp.md`.
 
-**Deterministic local verification**:
-- Registered dynamic client -> PKCE authorization -> consent approved -> `listGrants()` returns active grant with client metadata and scopes.
-- `revokeGrant({ clientId })` revokes grant -> `listGrants()` returns 0 active grants.
+## Prior Cards (this session)
 
-## Prior Card
-
-**PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE (agent scope)**, code merged into `master` at `296a771` (PR #59).
+- **PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE** (PR #59, `296a771`)
+- **PSI-075 · Connected apps page** — **DONE** (PR #60, `c3a787d`)
 
 ## Cron Jobs Status (Priority rule: EVADE cronjobs task/scheduler)
 
 - **PSI-096** · Hermes standing jobs: **BLOCKED** per operator instruction. All 4 jobs **paused** in scheduler (enabled=false). Nothing fires. Do not resume without explicit operator instruction.
 
-## Unblocked Next Candidates
+## Unblocked Next Candidates & Human Actions
 
-- **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** (`backlog`, depends PSI-073, PSI-074 — unblocked now): Testing and documenting compatibility for Claude Desktop, Cursor, ChatGPT, and custom agents against Supabase OAuth 2.1 endpoints.
+1. **Human / Infra Actions**:
+   - **PSI-031 · Resend API key and webhook secret** (`infra`, depends PSI-011) — operator provisions Resend API credentials.
+   - **PSI-090 · Vercel project and environments** (`infra`, depends PSI-016) — operator configures production Vercel project.
+   - **PSI-025 · Device QA for install and push** (`frontend`, depends PSI-022, PSI-023, PSI-024) — operator performs physical mobile PWA install & push test.
+
+2. **Onhold / Agent Candidates**:
+   - **PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation** (`backend`, depends PSI-072 — unblocked).
+   - **PSI-081 · Consent and CV intake** (`frontend`, talent search module).
 
 ## Test & Build Status
 
-- Frontend tests: **97/97 passing** (`bun test src/`)
+- Frontend tests: **103/103 passing** (`bun test src/`)
 - Edge fns: **15/15 passing**
 - Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
-- `agent:check`: **ok (86 tasks, 74 history entries)**
+- `agent:check`: **ok (86 tasks, 75 history entries)**
 
 ## Master State
 
-- `master` @ `c3a787d` (PR #60 merge). Working tree clean.
+- `master` @ `4dce5da` (PR #61 merge). Working tree clean.
 
 ## Exact Next Action
 
-Claim **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** on branch `task/PSI-078` — verify client metadata documents vs dynamic client registration across external MCP clients.
+Awaiting operator direction on next task to activate (e.g. unholding **PSI-098 · Provider-agnostic LLM layer** or provisioning human infra keys for **PSI-031**).

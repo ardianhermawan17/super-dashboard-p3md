@@ -42,7 +42,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code · 1 run #frontend #phase-4
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
-- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10
@@ -113,6 +112,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes · 2 runs #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-26
+- [x] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · agent:hermes · 3 runs #db #phase-8 ✅ 2026-09-26
 - [x] [[tasks/PSI-104|PSI-104]] Finance on event boards and events · agent:hermes · 1 run #frontend #phase-10 ✅ 2026-09-27
 - [x] [[tasks/PSI-105|PSI-105]] Agent tool get_finance · agent:hermes · 1 run #backend #phase-10 ✅ 2026-09-27

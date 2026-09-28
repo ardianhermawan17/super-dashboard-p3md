@@ -560,10 +560,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `src/agent/models.ts` and `supabase/functions/_shared/llm.ts` as in backend-architecture/agent-layer-mcp.md; `CHAT_MODEL`, `DIGEST_MODEL`, `CV_MODEL` specs work for `anthropic:` and `hermes:`; the 10-question tool-answer evaluation run against at least one Claude and one Hermes model with results in the history entry; defaults chosen by a human.
 
 ### PSI-107 · Fix: deleting a board that has tasks fails (M7 task activity trigger)
-- status: review
+- status: done
 - area: db
 - owner: agent:claude-code
 - depends: PSI-070
+- merged: PR #56 (2026-09-28, 9b0b849) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T06-40-00Z__PSI-107__claude-code.md
 - accept: New migration (never edit M7, C-06) so `log_task_activity` does not insert an activity_log row whose board_id points at a board being deleted (e.g. skip or null board_id when the board no longer exists); pgTAP proves a board with columns and tasks can be deleted and that task deletes on a live board are still logged. Found by PSI-101: `delete from boards` on a board with a task raises `activity_log_board_id_fkey`.
 
 ## Phase 8 — Talent screening

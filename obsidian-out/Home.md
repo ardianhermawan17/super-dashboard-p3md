@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 19 | 0 | 1 | 9 | 1 | 8 | 48 | 86 |
+| 19 | 0 | 1 | 8 | 1 | 8 | 49 | 86 |
 
 ## Blocked
 
@@ -35,7 +35,6 @@
 - [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code
 - [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes
 - [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
-- [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code
 - [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
 - [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
 - [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes

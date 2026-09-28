@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { getSession } from '@/lib/auth/session';
 import { requirePermission } from '@/lib/auth/require';
+import { z } from 'zod';
 import type { CalendarEvent, EventAudience } from './types';
 
 export async function getCalendarEventsAction(options?: {
@@ -104,6 +105,175 @@ export async function deleteEventAction(eventId: string) {
 
   if (error) {
     return { ok: false, error: error.message };
+  }
+
+  return { ok: true };
+}
+
+// ---------------------------------------------------------------------------
+// PSI-042: Event form (create/edit/delete) with a user/role/group audience picker
+// ---------------------------------------------------------------------------
+
+const AudienceEntrySchema = z.object({
+  user_id: z.string().uuid().optional(),
+  role_id: z.string().uuid().optional(),
+  group_id: z.string().uuid().optional()
+});
+
+const EventFormSchema = z
+  .object({
+    title: z.string().trim().min(1),
+    description: z.string().trim().nullable().optional(),
+    location: z.string().trim().nullable().optional(),
+    starts_at: z.string().min(1), // ISO, UTC
+    ends_at: z.string().min(1),
+    all_day: z.boolean(),
+    rrule: z.string().trim().nullable().optional(),
+    audience: z.array(AudienceEntrySchema)
+  })
+  .refine((v) => new Date(v.ends_at) >= new Date(v.starts_at), {
+    message: 'End time must be on or after the start time',
+    path: ['ends_at']
+  });
+
+export type EventFormInput = z.infer<typeof EventFormSchema>;
+
+export async function getAudienceOptionsAction(): Promise<{
+  users: { id: string; full_name: string | null }[];
+  roles: { id: string; name: string }[];
+  groups: { id: string; name: string }[];
+}> {
+  const session = await getSession();
+  if (!session) return { users: [], roles: [], groups: [] };
+  const supabase = await createClient();
+
+  const [{ data: users }, { data: roles }, { data: groups }] = await Promise.all([
+    supabase.from('profiles').select('id, full_name').eq('status', 'active').order('full_name'),
+    supabase.from('roles').select('id, name').order('name'),
+    supabase.from('groups').select('id, name').order('name')
+  ]);
+
+  return { users: users ?? [], roles: roles ?? [], groups: groups ?? [] };
+}
+
+/** One insert per audience row, all in a single statement so the M4 `event_audience_invites`
+ * statement-level trigger fires exactly once and notifies the whole audience together. */
+function toAudienceRows(eventId: string, audience: EventFormInput['audience']) {
+  return audience.map((a) => ({
+    event_id: eventId,
+    user_id: a.user_id ?? null,
+    role_id: a.role_id ?? null,
+    group_id: a.group_id ?? null
+  }));
+}
+
+export async function createEventAction(
+  input: EventFormInput
+): Promise<{ ok: boolean; eventId?: string; error?: string }> {
+  let session;
+  try {
+    session = await requirePermission('calendar.write');
+  } catch {
+    return { ok: false, error: 'Forbidden: missing calendar.write' };
+  }
+
+  const parsed = EventFormSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? 'Invalid event' };
+  }
+  const data = parsed.data;
+  const supabase = await createClient();
+
+  const { data: newEvent, error: insertError } = await supabase
+    .from('events')
+    .insert({
+      title: data.title,
+      description: data.description || null,
+      location: data.location || null,
+      starts_at: data.starts_at,
+      ends_at: data.ends_at,
+      all_day: data.all_day,
+      rrule: data.rrule || null,
+      source: 'app',
+      created_by: session.userId
+    })
+    .select('id')
+    .single();
+
+  if (insertError || !newEvent) {
+    return { ok: false, error: insertError?.message ?? 'Failed to create event' };
+  }
+
+  if (data.audience.length > 0) {
+    const { error: audienceError } = await supabase
+      .from('event_audience')
+      .insert(toAudienceRows(newEvent.id, data.audience));
+    if (audienceError) {
+      return { ok: false, error: audienceError.message };
+    }
+  }
+
+  return { ok: true, eventId: newEvent.id };
+}
+
+export async function updateEventAction(
+  eventId: string,
+  input: EventFormInput
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: 'Unauthorized' };
+
+  const parsed = EventFormSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? 'Invalid event' };
+  }
+  const data = parsed.data;
+  const supabase = await createClient();
+
+  // RLS (M4) already restricts update to the creator; the explicit filter here
+  // keeps the "not yours / not an app event" case a clean error instead of a
+  // silent 0-row no-op.
+  const { data: updated, error: updateError } = await supabase
+    .from('events')
+    .update({
+      title: data.title,
+      description: data.description || null,
+      location: data.location || null,
+      starts_at: data.starts_at,
+      ends_at: data.ends_at,
+      all_day: data.all_day,
+      rrule: data.rrule || null
+    })
+    .eq('id', eventId)
+    .eq('created_by', session.userId)
+    .eq('source', 'app')
+    .select('id')
+    .maybeSingle();
+
+  if (updateError) {
+    return { ok: false, error: updateError.message };
+  }
+  if (!updated) {
+    return { ok: false, error: 'Event not found or not editable' };
+  }
+
+  // Audience is replaced wholesale on edit (M4 doc: re-notifying the whole
+  // audience on an audience change is acceptable in v1).
+  const { error: deleteError } = await supabase
+    .from('event_audience')
+    .delete()
+    .eq('event_id', eventId);
+  if (deleteError) {
+    return { ok: false, error: deleteError.message };
+  }
+
+  if (data.audience.length > 0) {
+    const { error: audienceError } = await supabase
+      .from('event_audience')
+      .insert(toAudienceRows(eventId, data.audience));
+    if (audienceError) {
+      return { ok: false, error: audienceError.message };
+    }
   }
 
   return { ok: true };

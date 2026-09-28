@@ -1891,7 +1891,7 @@
       "community_name": "HANDOFF.md",
       "file_type": "document",
       "frontmatter": {
-        "updated": "2026-09-28 03:05 WIB",
+        "updated": "2026-09-28 06:45 WIB",
         "project": "super-dashboard-p3md-architecture"
       },
       "node_kind": "page",
@@ -1909,7 +1909,7 @@
       "node_kind": "heading",
       "norm_label": "completed phase 10 streamline (all merged to master)",
       "source_file": "HANDOFF.md",
-      "source_location": "L16"
+      "source_location": "L27"
     },
     {
       "id": "handoff_current_card",
@@ -1924,18 +1924,6 @@
       "source_location": "L6"
     },
     {
-      "id": "handoff_exact_next_action",
-      "label": "Exact Next Action",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "HANDOFF.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "exact next action",
-      "source_file": "HANDOFF.md",
-      "source_location": "L49"
-    },
-    {
       "id": "handoff_master_state",
       "label": "Master State",
       "_origin": "ast",
@@ -1945,19 +1933,19 @@
       "node_kind": "heading",
       "norm_label": "master state",
       "source_file": "HANDOFF.md",
-      "source_location": "L44"
+      "source_location": "L56"
     },
     {
-      "id": "handoff_next_card_candidates",
-      "label": "Next Card Candidates",
+      "id": "handoff_next_card_candidates_after_psi_107_verifies_green",
+      "label": "Next Card Candidates (after PSI-107 verifies green)",
       "_origin": "ast",
       "community": 10,
       "community_name": "HANDOFF.md",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "next card candidates",
+      "norm_label": "next card candidates (after psi-107 verifies green)",
       "source_file": "HANDOFF.md",
-      "source_location": "L26"
+      "source_location": "L37"
     },
     {
       "id": "handoff_open_follow_ups",
@@ -1969,7 +1957,19 @@
       "node_kind": "heading",
       "norm_label": "open follow-ups",
       "source_file": "HANDOFF.md",
-      "source_location": "L39"
+      "source_location": "L50"
+    },
+    {
+      "id": "handoff_previous_card",
+      "label": "Previous Card",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "HANDOFF.md",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "previous card",
+      "source_file": "HANDOFF.md",
+      "source_location": "L17"
     },
     {
       "id": "handoff_test_build_status",
@@ -1981,7 +1981,7 @@
       "node_kind": "heading",
       "norm_label": "test & build status",
       "source_file": "HANDOFF.md",
-      "source_location": "L32"
+      "source_location": "L42"
     },
     {
       "id": "agent_evaluate_observability_analyze",
@@ -10194,6 +10194,18 @@
       "source_url": null
     },
     {
+      "id": "ref_node_crypto",
+      "label": "ref_node_crypto",
+      "_origin": "semantic",
+      "community": 11,
+      "community_name": "analyze.ts",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_node_crypto",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "ref_ajv",
       "label": "ref_ajv",
       "_origin": "semantic",
@@ -10254,6 +10266,30 @@
       "type": "external"
     },
     {
+      "id": "ref_bun_test",
+      "label": "ref_bun_test",
+      "_origin": "semantic",
+      "community": 20,
+      "community_name": "google-calendar/index.ts",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_bun_test",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_npm_jose_5",
+      "label": "ref_npm_jose_5",
+      "_origin": "semantic",
+      "community": 20,
+      "community_name": "google-calendar/index.ts",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_npm_jose_5",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "ref_npm_supabase",
       "label": "ref_npm_supabase",
       "_origin": "semantic",
@@ -10266,41 +10302,9 @@
       "type": "external"
     },
     {
-      "id": "ref_node_crypto",
-      "label": "ref_node_crypto",
-      "community": 11,
-      "community_name": "analyze.ts",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_node_crypto",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "ref_bun_test",
-      "label": "ref_bun_test",
-      "community": 20,
-      "community_name": "google-calendar/index.ts",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_bun_test",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "ref_npm_jose_5",
-      "label": "ref_npm_jose_5",
-      "community": 20,
-      "community_name": "google-calendar/index.ts",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_npm_jose_5",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "ref_node_os",
       "label": "ref_node_os",
+      "_origin": "semantic",
       "community": 27,
       "community_name": "report.ts",
       "external": true,
@@ -10312,6 +10316,7 @@
     {
       "id": "ref_bun_sqlite",
       "label": "ref_bun_sqlite",
+      "_origin": "semantic",
       "community": 29,
       "community_name": "ingest.ts",
       "external": true,
@@ -16059,24 +16064,35 @@
     },
     {
       "source": "handoff",
+      "target": "handoff_previous_card",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "HANDOFF.md",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "handoff",
       "target": "handoff_completed_phase_10_streamline_all_merged_to_master",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "HANDOFF.md",
-      "source_location": "L16",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
       "source": "handoff",
-      "target": "handoff_next_card_candidates",
+      "target": "handoff_next_card_candidates_after_psi_107_verifies_green",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "HANDOFF.md",
-      "source_location": "L26",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -16087,7 +16103,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "HANDOFF.md",
-      "source_location": "L32",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -16098,7 +16114,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "HANDOFF.md",
-      "source_location": "L39",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -16109,18 +16125,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "HANDOFF.md",
-      "source_location": "L44",
-      "weight": 1.0
-    },
-    {
-      "source": "handoff",
-      "target": "handoff_exact_next_action",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "HANDOFF.md",
-      "source_location": "L49",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -27093,5 +27098,5 @@
       "source_file": "docs/database-architecture/m3-role-mail.md"
     }
   ],
-  "built_at_commit": "fc1f35b68d6ce397bc33446168be963eb47fd02b"
+  "built_at_commit": "9b0b8491b87d9959ab41f0b3c66ea621e73bba6c"
 }

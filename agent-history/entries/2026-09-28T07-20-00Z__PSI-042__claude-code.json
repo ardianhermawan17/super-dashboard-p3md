@@ -1,0 +1,82 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T07-20-00Z__PSI-042__claude-code",
+  "task_ids": ["PSI-042"],
+  "agent": { "name": "claude-code", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-28T06:50:00Z",
+    "ended_at": "2026-09-28T07:20:00Z",
+    "branch": "task/PSI-042"
+  },
+  "intent": "Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.",
+  "outcome": "done",
+  "summary": "PSI-041 shipped the calendar view shell (month/week/day/agenda) and a read-only event detail dialog but no form: create/edit/delete and the audience picker did not exist. Added createEventAction and updateEventAction to calendar/actions.ts (Zod-validated; requirePermission('calendar.write') on create; RLS-backed creator+source='app' filter on update); both insert the full user/role/group audience in a single supabase.insert() call so the M4 event_audience_invites statement-level trigger fires once per save and notifies the whole audience together (existing DB behavior, no migration needed). getAudienceOptionsAction lists active profiles/roles/groups for the picker. Built EventFormDialog (plain form + FormData, matching this codebase's dialog convention) with a kind+select+Add audience picker (extends board-share-dialog.tsx's pattern to 3 kinds), an all-day toggle, and a Repeats select (none/daily/weekly/monthly) writing a bare RRULE string. Added calendar/lib/recurrence.ts (expandRecurringEvents, using the rrule package) wired into CalendarView so all 4 views render generated occurrences within a padded visible range; falls back to the single stored occurrence on a malformed rrule. Added calendar/lib/format.ts: WIB datetime-local <-> ISO conversion (fixed +07:00 offset, same convention as finance/lib/format.ts), WIB display formatters, and getWibHour for hour-of-day bucketing; replaced every toLocaleString/toLocaleTimeString call across the 4 view components with these. Wired Edit/Delete buttons into the event detail dialog (creator-only, app-only) and a header 'New event' button (calendar.write gated). Added rrule@2.8.1 as a dependency (RFC5545 expansion). 16 new unit tests plus all 64 pre-existing frontend tests still pass (80/80). tsc, oxlint, and `bun run build` all clean. See decisions[] for why plain forms over TanStack Form and +07:00 over @date-fns/tz.",
+  "changes": [
+    { "path": "frontend-architecture/package.json", "action": "modified", "note": "added rrule dependency" },
+    { "path": "frontend-architecture/src/features/calendar/actions.ts", "action": "modified", "note": "createEventAction, updateEventAction, getAudienceOptionsAction, EventFormInput type" },
+    { "path": "frontend-architecture/src/features/calendar/lib/format.ts", "action": "added", "note": "WIB datetime-local <-> ISO conversion, WIB display formatters, getWibHour" },
+    { "path": "frontend-architecture/src/features/calendar/lib/recurrence.ts", "action": "added", "note": "expandRecurringEvents: rrule-based occurrence expansion within a visible range" },
+    { "path": "frontend-architecture/src/features/calendar/components/event-form-dialog.tsx", "action": "added", "note": "create/edit dialog with 3-kind audience picker, all-day toggle, recurrence select" },
+    { "path": "frontend-architecture/src/features/calendar/components/calendar-view.tsx", "action": "modified", "note": "recurrence expansion wiring, edit/delete buttons, WIB detail-dialog time display" },
+    { "path": "frontend-architecture/src/features/calendar/components/calendar-header.tsx", "action": "modified", "note": "'New event' button (calendar.write gated)" },
+    { "path": "frontend-architecture/src/features/calendar/components/day-view.tsx", "action": "modified", "note": "WIB hour bucketing and time labels" },
+    { "path": "frontend-architecture/src/features/calendar/components/week-view.tsx", "action": "modified", "note": "WIB hour bucketing" },
+    { "path": "frontend-architecture/src/features/calendar/components/agenda-view.tsx", "action": "modified", "note": "WIB time labels" },
+    { "path": "frontend-architecture/src/app/dashboard/calendar/page.tsx", "action": "modified", "note": "pass canCreateEvent and currentUserId" },
+    { "path": "frontend-architecture/src/features/calendar/lib/recurrence.test.ts", "action": "added", "note": "5 tests" },
+    { "path": "frontend-architecture/src/features/calendar/lib/format.test.ts", "action": "added", "note": "5 tests" },
+    { "path": "frontend-architecture/src/features/calendar/event-form.test.ts", "action": "added", "note": "6 tests for createEventAction/updateEventAction" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-042 doing -> review" }
+  ],
+  "decisions": [
+    {
+      "decision": "Plain <form>+FormData dialogs, not TanStack Form",
+      "reason": "AGENTS.md documents useAppForm as the convention, but every existing dialog in this codebase (new-task-dialog.tsx, board-share-dialog.tsx, entry-form-dialog.tsx) actually uses plain forms. Followed what the code does, not the aspirational doc, for consistency.",
+      "alternatives": ["Introduce useAppForm for this one dialog, diverging from every sibling dialog"]
+    },
+    {
+      "decision": "wibInputValueToISO uses a fixed +07:00 offset, not @date-fns/tz's TZDate",
+      "reason": "calendar.md suggested @date-fns/tz, but finance/lib/format.ts and src/agent/tools/get-agenda.ts already solve the same WIB problem with plain Date + explicit offset/timeZone option, and Indonesia has no DST so the fixed offset is exact. Matches the codebase's existing, working pattern instead of adding a second timezone library.",
+      "alternatives": ["@date-fns/tz TZDate as calendar.md originally sketched"]
+    },
+    {
+      "decision": "Recurring occurrence ids are '<eventId>__<timestamp>'; edit/delete/board/finance actions resolve back to the base id by splitting on '__'",
+      "reason": "The schema stores one starts_at per series; expanding occurrences client-side for display needs unique React keys without a second table. Editing or deleting always targets the whole series via the base id."
+    },
+    {
+      "decision": "Audience is replaced wholesale on edit (delete all + reinsert), not diffed",
+      "reason": "M4 doc already states re-notifying the whole audience on an audience change is acceptable in v1; diffing would be more code for a behavior difference nobody asked for."
+    },
+    {
+      "decision": "Fixed WIB hour-of-day bucketing (getWibHour) in week/day views, but did NOT rework the day-grid's isSameDay (still browser-local calendar date)",
+      "reason": "The accept criterion 'shown in Asia/Jakarta' is squarely about time labels/hour buckets, which I fixed. Reworking which day cell an event lands in near a WIB/browser-local midnight mismatch is a deeper, distinct change to the PSI-041 grid math; flagged as a follow-up rather than expanding this task's scope.",
+      "alternatives": ["Also rebuild month/week/day date-grid generation to bucket by WIB calendar day"]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "No schema/migration touched, so db_reset/db_tests are n/a. `bun run build` succeeded (Next.js production build, all routes compiled including /dashboard/calendar). Did NOT do a live browser click-through (sign in, create an event with mixed audience, confirm WIB display, edit, delete): this app has no Playwright/E2E harness yet (PSI-036 is still backlog, blocked on PSI-031/032/035), so that verification is unit-test + build only, same substitution PSI-102's session used for its own blocked browser walkthrough."
+  },
+  "migrations": [],
+  "dependencies_added": [
+    { "name": "rrule", "version": "2.8.1", "reason": "RFC5545 recurrence expansion for the accept criterion 'recurring events expand from rrule'; no existing dependency covers RRULE parsing/expansion and hand-rolling FREQ/BYDAY/UNTIL semantics would reinvent a well-tested spec library." }
+  ],
+  "contract_deviations": [],
+  "risks": [
+    "Manual browser walkthrough not done this session (no E2E harness yet) — covered by 16 new unit tests + a clean production build instead.",
+    "Month/week/day grid day-bucketing still uses browser-local calendar date (pre-existing PSI-041 behavior), only the hour-of-day and all time labels are now WIB-explicit; a browser not set to WIB could still show an event under the wrong day cell near midnight."
+  ],
+  "follow_ups": [
+    { "task_id": "NEW", "note": "Rework month/week/day view date-grid bucketing to use WIB calendar days instead of the browser's local calendar day (isSameDay currently compares browser-local Date fields). Low impact for WIB-based browsers (the expected audience), real for anyone outside WIB." },
+    { "note": "Browser walkthrough once an E2E harness exists (PSI-036): sign in as admin@p3md.test, create an event with a mixed user+role+group audience, confirm event.invited notifications land, edit it, verify WIB display end to end, delete it." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Per C-21, only the operator's stamp on the board moves a task from review to done. Also flagging the browser-walkthrough gap above."
+  }
+}

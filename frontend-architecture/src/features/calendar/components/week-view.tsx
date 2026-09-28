@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Badge } from '@/components/ui/badge';
+import { getWibHour } from '../lib/format';
 import type { CalendarEvent } from '../types';
 
 const isSameDay = (d1: Date, d2: Date) => {
@@ -68,7 +69,7 @@ export function WeekView({
             {weekDays.map((d, dayIdx) => {
               const cellEvents = events.filter((e) => {
                 const eventDate = new Date(e.starts_at);
-                return isSameDay(eventDate, d) && eventDate.getHours() === hour;
+                return isSameDay(eventDate, d) && getWibHour(e.starts_at) === hour;
               });
 
               return (

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Badge } from '@/components/ui/badge';
+import { formatEventTimeWIB, getWibHour } from '../lib/format';
 import type { CalendarEvent } from '../types';
 
 const isSameDay = (d1: Date, d2: Date) => {
@@ -29,7 +30,7 @@ export function DayView({
     <div className='rounded-2xl border border-border bg-card overflow-hidden shadow-xs'>
       <div className='divide-y divide-border/60 max-h-[550px] overflow-y-auto bg-background'>
         {hours.map((hour) => {
-          const slotEvents = dayEvents.filter((e) => new Date(e.starts_at).getHours() === hour);
+          const slotEvents = dayEvents.filter((e) => getWibHour(e.starts_at) === hour);
 
           return (
             <div key={hour} className='grid grid-cols-12 min-h-[56px] hover:bg-muted/10'>
@@ -57,8 +58,7 @@ export function DayView({
                         <span>{e.title}</span>
                       </div>
                       <span className='text-[10px] text-muted-foreground'>
-                        {new Date(e.starts_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
-                        {new Date(e.ends_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {formatEventTimeWIB(e.starts_at)} - {formatEventTimeWIB(e.ends_at)}
                       </span>
                     </div>
                     {e.location && (

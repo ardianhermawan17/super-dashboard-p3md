@@ -13,7 +13,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-033|PSI-033]] Edge Function resend-webhook #backend #phase-3
 - [ ] [[tasks/PSI-035|PSI-035]] Compose, one-liner and command palette action #frontend #phase-3
 - [ ] [[tasks/PSI-036|PSI-036]] Test harness and mail tests #frontend #phase-3
-- [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display #frontend #phase-4
 - [ ] [[tasks/PSI-043|PSI-043]] Optional role mail for invitations #backend #phase-4
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
@@ -41,6 +40,7 @@ kanban-plugin: board
 ## Review
 
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
+- [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code · 1 run #frontend #phase-4
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
 - [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7

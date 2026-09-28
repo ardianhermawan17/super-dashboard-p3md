@@ -18,6 +18,7 @@ export default async function CalendarPage() {
   const { events } = await getCalendarEventsAction();
     const canCreateBoard = session.permissions.includes('kanban.write');
     const canReadFinance = session.permissions.includes('finance.read');
+    const canCreateEvent = session.permissions.includes('calendar.write');
 
     return (
       <PageContainer
@@ -28,6 +29,8 @@ export default async function CalendarPage() {
           initialEvents={events}
           canCreateBoard={canCreateBoard}
           canReadFinance={canReadFinance}
+          canCreateEvent={canCreateEvent}
+          currentUserId={session.userId}
         />
       </PageContainer>
     );

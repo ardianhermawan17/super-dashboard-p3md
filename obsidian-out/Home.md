@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 19 | 0 | 1 | 8 | 1 | 8 | 49 | 86 |
+| 19 | 0 | 1 | 0 | 1 | 8 | 57 | 86 |
 
 ## Blocked
 
@@ -31,14 +31,7 @@
 
 ## Review
 
-- [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes
-- [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code
-- [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes
-- [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
-- [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
-- [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
-- [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
-- [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

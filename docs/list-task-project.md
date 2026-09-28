@@ -533,11 +533,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Asymmetric JWT keys on; OAuth server enabled with consent URL; /auth/consent approve/deny works; /.well-known/oauth-protected-resource points to Supabase; Claude connects end to end on the hosted project.
 
 ### PSI-075 · Connected apps page
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-074
-- history: [[2026-09-28T13-30-00Z__PSI-075__hermes]]
+- merged: PR #60 (2026-09-28, c3a787d) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T13-30-00Z__PSI-075__hermes.md
 - accept: User sees their OAuth grants and can revoke one; a revoked client gets 401 on its next call.
 
 ### PSI-076 · Live in-app AI chat on the shared tools

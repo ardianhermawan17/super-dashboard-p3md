@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 17 | 0 | 1 | 1 | 1 | 8 | 58 | 86 |
+| 17 | 0 | 1 | 0 | 1 | 8 | 59 | 86 |
 
 ## Blocked
 
@@ -31,7 +31,7 @@
 
 ## Review
 
-- [[tasks/PSI-075|PSI-075]] Connected apps page · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

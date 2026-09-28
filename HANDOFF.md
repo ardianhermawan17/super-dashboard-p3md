@@ -1,35 +1,39 @@
 ---
-updated: 2026-09-28 19:30 WIB
+updated: 2026-09-28 20:30 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE (agent scope)**, code merged into `master` at `296a771` (PR #59).
+**PSI-075 · Connected apps page** — **DONE (agent scope)**, code merged into `master` at `c3a787d` (PR #60).
 
 What landed:
-- `src/app/auth/consent/page.tsx` — full consent page with session gate (`getUser()`), `getAuthorizationDetails` load, client avatar/logo + user email + scopes, Approve (`approveAuthorization`) / Deny (`denyAuthorization`) with `skipBrowserRedirect: true` + `router.replace(redirect_url)`, auto-redirect when already approved, and missing/invalid authorization ID error card.
-- `src/app/auth/consent/consent-lib.ts` + 6 unit tests in `src/app/auth/consent/__tests__/consent.test.ts` (100% pass).
-- `supabase/config.toml` — local OAuth server enabled (`[auth.oauth_server]` enabled=true, authorization_url_path="/auth/consent", allow_dynamic_registration=true).
-- `src/app/.well-known/oauth-protected-resource/route.ts` — verified (points to Supabase Auth server).
-- **Verified against local stack**: metadata at `/.well-known/oauth-authorization-server`, JWKS is ES256 asymmetric, dynamic registration returns a `client_id`, PKCE authorize as `admin@p3md.test` 302-redirects to `/auth/consent?authorization_id=...`, `getAuthorizationDetails` returns `{client, user, scope}`.
+- `src/features/connected-apps/types.ts` & `src/features/connected-apps/lib/format.ts`:
+  - Formatted scope labels/descriptions (OpenID, Profile, Email, Offline Access, custom scopes).
+  - WIB (`Asia/Jakarta`) and relative (`Just now`, `15m ago`, `2d ago`) timestamp formatting.
+- `src/features/connected-apps/actions.ts`:
+  - `listConnectedAppsAction`: fetches user's active OAuth grants via `supabase.auth.oauth.listGrants()`.
+  - `revokeConnectedAppAction`: revokes access for a specific client via `supabase.auth.oauth.revokeGrant({ clientId })` and revalidates dashboard paths.
+- `src/features/connected-apps/components/`:
+  - `ConnectedAppsPage`: page container with header refresh action, informative banner about MCP/OAuth access, loading skeletons, and empty state with MCP endpoint hint (`/api/mcp`).
+  - `ConnectedAppCard`: app card with client logo/avatar, client name, website link, connection timestamp, and scope badges.
+  - `RevokeAppDialog`: confirmation modal explaining that revoking immediately invalidates tokens and disconnects active sessions.
+- Routes:
+  - `/dashboard/connected-apps`
+  - `/dashboard/settings/connected-apps` (alias)
+- Navigation:
+  - Added `Connected Apps` under `Account` nav items in `src/config/nav-config.ts`.
+  - Added `Connected Apps` shortcut in user avatar dropdown menu in `src/components/layout/app-sidebar.tsx`.
+- Unit tests:
+  - `src/features/connected-apps/__tests__/connected-apps.test.ts` (11/11 tests pass).
 
-**Hosted follow-ups (human-gated, no Supabase credentials in scope)**:
-- Settings → JWT keys: ensure asymmetric keys are active.
-- Auth → OAuth Server: enable, dynamic registration on, consent URL `https://<site>/auth/consent`.
-- End-to-end connect from Claude Desktop on the hosted project.
+**Deterministic local verification**:
+- Registered dynamic client -> PKCE authorization -> consent approved -> `listGrants()` returns active grant with client metadata and scopes.
+- `revokeGrant({ clientId })` revokes grant -> `listGrants()` returns 0 active grants.
 
-## Stamped Review Cards (merged to master earlier this turn)
+## Prior Card
 
-- **PSI-042** (Event form audience picker + WIB + rrule, PR #57)
-- **PSI-066** (google-calendar /push, PR #45)
-- **PSI-073** (MCP endpoint mcp-handler 2.x, PR #40)
-- **PSI-097** (AgentShield in CI, PR #44)
-- **PSI-100** (Finance design docs, PR #41)
-- **PSI-101** (Migration M10 finance, PR #43)
-- **PSI-102** (Event board from calendar, PR #49)
-- **PSI-103** (Finance module CRUD, PR #51)
-- **PSI-107** (Board-delete fix M7 trigger, PR #56)
+**PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE (agent scope)**, code merged into `master` at `296a771` (PR #59).
 
 ## Cron Jobs Status (Priority rule: EVADE cronjobs task/scheduler)
 
@@ -37,54 +41,19 @@ What landed:
 
 ## Unblocked Next Candidates
 
-- **PSI-075 · Connected apps page** (`backlog`, depends PSI-074 — unblocked now): UI to view user's OAuth grants and revoke access (calls `auth.oauth.listUserGrants` + `revokeGrant`). Natural continuation of the OAuth/MCP streamline.
-- **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** (`backlog`, depends PSI-073, PSI-074).
+- **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** (`backlog`, depends PSI-073, PSI-074 — unblocked now): Testing and documenting compatibility for Claude Desktop, Cursor, ChatGPT, and custom agents against Supabase OAuth 2.1 endpoints.
 
 ## Test & Build Status
 
-- Frontend tests: **86/86 passing** (`bun test src/`)
+- Frontend tests: **97/97 passing** (`bun test src/`)
 - Edge fns: **15/15 passing**
 - Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
-- `agent:check`: **ok (86 tasks, 73 history entries)**
+- `agent:check`: **ok (86 tasks, 74 history entries)**
 
 ## Master State
 
-- `master` @ `296a771` (PR #59 merge). Working tree clean.
+- `master` @ `c3a787d` (PR #60 merge). Working tree clean.
 
 ## Exact Next Action
 
-Claim **PSI-075 · Connected apps page** on branch `task/PSI-075` — UI to list connected OAuth apps (grants) and revoke them, with full RLS and unit tests. `2026-09-28T07-00-00Z__PSI-096__hermes.json` (outcome `partial`, `human_review.required: true`).
-
-**Exact next action:** operator reviews the first week of runs (contract check first fired today 22:00 WIB); when a week looks good, stamp PSI-096 done (flip status + outcome.
-
-## Recently Merged (this session's context)
-
-- **PSI-107** · board-delete fix — merged PR #56 (`9b0b849`) — new migration nulls `board_id` on task activity when board gone; pgTAP 137 tests pass.
-- **PSI-042** · event form audience picker + WIB + rrule — merged PR #57 (`34b6e6f`).
-- **PSI-109** · kanban task detail panel — merged PR #55 earlier.
-
-## Backlog state (all other open items are blocked)
-
-- Mail (PSI-032/033/035/036): blocked on PSI-031 (Resend API key — human).
-- Google Drive (PSI-062/063/064): blocked on PSI-060 (Google Cloud project — human).
-- PSI-077: blocked on PSI-098 (on hold).
-- PSI-097 (AgentShield in CI): `review`, owner agent:hermes, depends PSI-009 — needs human review before next step.
-
-## Test & Build Status
-
-- `agent:check` ok: 86 tasks, 71 history entries.
-- No code changed this card (scheduler-only).
-- Frontend/edge-fn suites last known: 64/64 + 15/15 (unchanged).
-
-## Open Follow-ups
-
-1. PSI-096 one-week acceptance review (operator).
-2. Browser walkthroughs (PSI-103/104/106/109) pending seeded-user checks.
-
-## Master State
-
-- `master` @ `fbd79d4` (PR #58). Working tree clean.
-
-## Exact Next Action
-
-Wait on PSI-096 week-of-runs review. If a new unblocked card appears, claim it via the normal flow (branch `agent/PSI-NNN-slug`, history entry, PR).
+Claim **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** on branch `task/PSI-078` — verify client metadata documents vs dynamic client registration across external MCP clients.

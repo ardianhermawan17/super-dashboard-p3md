@@ -549,11 +549,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Template AI chat uses DefaultChatTransport to /api/chat with the model from `model(CHAT_MODEL)`; answers "what happened this week" from tool results with deep links; calls audited with client_id `in-app`; guarded by `agent.chat`.
 
 ### PSI-077 · Daily digest
-- status: review
+- status: done
 - area: backend
 - owner: agent:hermes
 - depends: PSI-071, PSI-023, PSI-098
-- history: [[2026-09-28T16-00-00Z__PSI-077__hermes]]
+- merged: PR #63 (2026-09-28, 5fc799b) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T16-00-00Z__PSI-077__hermes.md
 - note: Uses app-level pg_cron (Supabase Postgres) — NOT the Hermes cron scheduler disabled 2026-09-28; unaffected by the PSI-096 host scheduler pause. Still blocked on PSI-098.
 - accept: pg_cron at 06:00 WIB calls daily-digest through `internal_post`; the summary comes from `_shared/llm.ts` with `DIGEST_MODEL`; digest stored and shown on Overview; `digest.ready` push to every `digest.receive` holder.
 

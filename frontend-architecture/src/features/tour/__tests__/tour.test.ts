@@ -27,6 +27,10 @@ describe('Contextual Feature Tour System (PSI-111)', () => {
     const talentTour = getTourForRoute('/dashboard/talent');
     expect(talentTour.featureName).toBe('Talent & Candidate Search');
 
+    const adminTour = getTourForRoute('/dashboard/admin/roles');
+    expect(adminTour.featureName).toBe('RBAC & Access Control');
+    expect(adminTour.steps.some((s) => s.id === 'admin-roles')).toBe(true);
+
     const settingsTour = getTourForRoute('/dashboard/settings');
     expect(settingsTour.featureName).toBe('Settings & Connected Apps');
   });

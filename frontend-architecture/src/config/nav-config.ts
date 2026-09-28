@@ -124,6 +124,13 @@ export const navGroups: NavGroup[] = [
         icon: 'notification',
         shortcut: ['n', 'n'],
         items: []
+      },
+      {
+        title: 'Connected Apps',
+        url: '/dashboard/connected-apps',
+        icon: 'laptop',
+        shortcut: ['a', 'p'],
+        items: []
       }
     ]
   }

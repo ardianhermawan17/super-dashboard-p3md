@@ -137,6 +137,10 @@ export default function AppSidebar() {
                     <Icons.notification className='mr-2 h-4 w-4' />
                     Notifications
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push('/dashboard/connected-apps')}>
+                    <Icons.laptop className='mr-2 h-4 w-4' />
+                    Connected Apps
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>

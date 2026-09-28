@@ -524,18 +524,20 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 
 - merged: PR #40 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata
-- status: review
+- status: done
 - area: security
 - owner: agent:hermes
 - depends: PSI-073
-- history: [[2026-09-28T12-00-00Z__PSI-074__hermes]]
+- merged: PR #59 (2026-09-28, 296a771) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T12-00-00Z__PSI-074__hermes.md
 - accept: Asymmetric JWT keys on; OAuth server enabled with consent URL; /auth/consent approve/deny works; /.well-known/oauth-protected-resource points to Supabase; Claude connects end to end on the hosted project.
 
 ### PSI-075 · Connected apps page
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-074
+- history: [[2026-09-28T13-30-00Z__PSI-075__hermes]]
 - accept: User sees their OAuth grants and can revoke one; a revoked client gets 401 on its next call.
 
 ### PSI-076 · Live in-app AI chat on the shared tools

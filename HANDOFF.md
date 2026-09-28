@@ -1,33 +1,40 @@
 ---
-updated: 2026-09-28 23:45 WIB
+updated: 2026-09-28 23:59 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-076 · Live in-app AI chat on the shared tools** — **DONE (agent scope)**, code merged into `master` at `6dfd80f` (PR #64).
+**PSI-111 · Contextual feature onboarding & route-specific "Take Tour" system** — **DONE (agent scope)**, code merged into `master` at `e8558b5` (PR #65).
 
 What landed:
-- `src/agent/models.ts`:
-  - Extended provider resolver with support for `deepseek:` (`deepseek-chat`, `deepseek-reasoner`), `openrouter:` (`deepseek/deepseek-chat`, etc.), `openai-compatible:`, and `hermes:` in addition to `anthropic:` for cost-effective inference.
-- `src/agent/adapters/ai-sdk.ts`:
-  - Maps the 6 shared read-only agent tools (`get_board`, `get_agenda`, `get_activity`, `get_inbox`, `get_finance`, `search_documents`) into AI SDK tool definitions.
-  - User context (`{ db, clientId: 'in-app' }`) guarantees queries execute with RLS permissions and log audit records to `public.agent_audit_log`.
-- `src/app/api/chat/route.ts`:
-  - Gated by session & `agent.chat` permission.
-  - Runs `streamText` with `model(process.env.CHAT_MODEL)`, `stopWhen: stepCountIs(5)`, and system instructions grounding responses in tool outputs.
-  - Returns streaming response via `result.toUIMessageStreamResponse()`.
-- Interactive Chat Interface (`src/features/ai-chat/components/ai-chat-interface.tsx`):
-  - Uses `DefaultChatTransport` to `/api/chat`.
-  - Supports live streaming, reasoning segments, interactive tool execution badges (`ToolMarker`) showing tool name and returned payload preview, deep link citations, suggested starters, and clear chat.
-  - Integrated into `/dashboard/ai-chat`.
-- Unit tests:
-  - `src/agent/adapters/ai-sdk.test.ts` (2 tests passing).
-  - `src/agent/__tests__/models.test.ts` (5 tests passing).
-  - `src/app/api/chat/__tests__/chat-route.test.ts` (3 tests passing).
+- `src/features/tour/types.ts`: TypeScript interfaces for `TourStep`, `RouteTourConfig`, and `TourContextValue`.
+- `src/features/tour/config/routes-tour.ts`:
+  - Route-specific tour configurations tailored to each module:
+    - `/dashboard/overview`: Morning AI briefing (06:00 WIB model badge), financial KPIs, activity charts, fast search.
+    - `/dashboard/finance`: Inflow/outflow/net cashflow in IDR, "+ Add Entry" transaction modal with board/task tagging, searchable ledger table, AI assistant queries.
+    - `/dashboard/kanban` & `/dashboard/boards`: Multi-board switching, workflow columns with drag-and-drop, Task Detail Dialog with linked Google Calendar events + task-scoped finance entries.
+    - `/dashboard/calendar`: Google Calendar 2-way sync, interactive agenda, event → board streamline.
+    - `/dashboard/ai-chat`: Grounded tool execution (`get_board`, `get_finance`, etc.), prompt suggestions, multi-provider inference (Claude, DeepSeek, Hermes).
+    - `/dashboard/documents`: Google Drive document sync, role/group RBAC protection.
+    - `/dashboard/talent`: Candidate pipeline stages, private CV uploads with explicit consent, AI skill taxonomy.
+    - `/dashboard/settings`: Connected apps, OAuth 2.1 authorization, instant access revocation.
+    - Universal fallback tour for unknown routes.
+- `src/features/tour/context/tour-context.tsx`:
+  - `TourProvider` & `useTour()` hook.
+  - Auto-prompts first-time visitors per route via `localStorage` tracking (`p3md_tour_seen_<route>`) with a gentle 1.2s delay.
+  - Replay anytime for returning users via manual trigger.
+- `src/features/tour/components/tour-modal.tsx`:
+  - Interactive multi-step dialog with animated progress bar, step badges, feature description, action hints, step dot navigation, keyboard arrow controls, and "Don't auto-show again" preference checkbox.
+- `src/features/tour/components/tour-trigger.tsx`:
+  - Top navigation header `?` icon button with a popover showing current page feature summary, step count, "Take Tour" button, and "Reset all feature tours" action.
+  - Animated pulsing dot when the user has not yet seen the current route's tour.
+- Integrated into `src/components/layout/providers.tsx` and `src/components/layout/header.tsx`.
+- Unit tests in `src/features/tour/__tests__/tour.test.ts` (3 tests passing).
 
 ## Prior Cards (this session)
 
+- **PSI-076 · Live in-app AI chat on the shared tools** — **DONE** (PR #64, `6dfd80f`)
 - **PSI-077 · Daily digest** — **DONE** (PR #63, `5fc799b`)
 - **PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE** (PR #59, `296a771`)
 - **PSI-075 · Connected apps page** — **DONE** (PR #60, `c3a787d`)
@@ -42,7 +49,7 @@ What landed:
 ## Next Unblocked Candidate Tasks (Phase 8: Talent Search)
 
 1. **PSI-081 · Consent and CV intake** (`onhold`, area: frontend, depends: PSI-080):
-   - PDF upload to Supabase storage bucket `cvs`, parsing via `CV_MODEL`, and profile creation with consent checkbox.
+   - PDF upload to Supabase storage bucket `cvs`, background parsing with `CV_MODEL`, and candidate profile creation with consent checkbox.
 2. **PSI-083 · Skill taxonomy admin** (`onhold`, area: frontend, depends: PSI-080):
    - Admin UI for managing skill taxonomy categories and synonyms.
 
@@ -54,14 +61,14 @@ What landed:
 
 ## Test & Build Status
 
-- Frontend tests: **120/120 passing** (`bun test src/`)
+- Frontend tests: **123/123 passing** (`bun test src/`)
 - Edge fns: **22/22 passing** (`bun test supabase/functions`)
 - Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
-- `agent:check`: **ok (86 tasks, 78 history entries)**
+- `agent:check`: **ok (87 tasks, 79 history entries)**
 
 ## Master State
 
-- `master` @ `6dfd80f` (PR #64 merge). Working tree clean.
+- `master` @ `e8558b5` (PR #65 merge). Working tree clean.
 
 ## Exact Next Action
 

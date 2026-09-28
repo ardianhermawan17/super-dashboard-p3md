@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 1 | 1 | 1 | 6 | 63 | 87 |
+| 15 | 0 | 1 | 0 | 1 | 6 | 64 | 87 |
 
 ## Blocked
 
@@ -29,7 +29,7 @@
 
 ## Review
 
-- [[tasks/PSI-111|PSI-111]] Contextual feature onboarding & route-specific "Take Tour" system · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

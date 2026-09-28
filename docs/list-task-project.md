@@ -561,11 +561,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: pg_cron at 06:00 WIB calls daily-digest through `internal_post`; the summary comes from `_shared/llm.ts` with `DIGEST_MODEL`; digest stored and shown on Overview; `digest.ready` push to every `digest.receive` holder.
 
 ### PSI-111 · Contextual feature onboarding & route-specific "Take Tour" system
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-015
-- history: [[2026-09-28T18-00-00Z__PSI-111__hermes]]
+- merged: PR #65 (2026-09-28, e8558b5) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T18-00-00Z__PSI-111__hermes.md
 - accept: Top header contains a `?` (Help) button triggering a route-specific "Take Tour" walkthrough; auto-prompts first-time visitors per route via localStorage memory; bespoke step-by-step guidance for Overview, Boards/Kanban, Calendar, Finance, AI Chat, Documents, Talent, and Settings; interactive step progression (Next/Prev/Skip/Finish) with accessible modal spotlight.
 
 ### PSI-078 · Verify MCP client compatibility (CIMD vs DCR)

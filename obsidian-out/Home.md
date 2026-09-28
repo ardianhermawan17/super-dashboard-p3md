@@ -8,11 +8,11 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 19 | 0 | 2 | 9 | 0 | 8 | 48 | 86 |
+| 19 | 0 | 1 | 9 | 1 | 8 | 48 | 86 |
 
 ## Blocked
 
-_Nothing blocked._
+- [[tasks/PSI-096|PSI-096]] Hermes standing jobs · agent:hermes
 
 ## On Hold
 
@@ -27,7 +27,6 @@ _Nothing blocked._
 
 ## Doing
 
-- [[tasks/PSI-096|PSI-096]] Hermes standing jobs · agent:hermes
 - [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
 
 ## Review
@@ -44,6 +43,7 @@ _Nothing blocked._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|2026-09-28 16:10 WIB · hermes · PSI-096]]: Operator must decide how to re-enable standing jobs without destabilizing the host.
 - [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|2026-09-28 13:50 WIB · claude-code · PSI-042]]: Per C-21, only the operator's stamp on the board moves a task from review to done. Also flagging the browser-walkthrough gap above.
 - [[history/2026-09-28T07-00-00Z__PSI-096__hermes|2026-09-28 13:45 WIB · hermes · PSI-096]]
 - [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|2026-09-28 13:33 WIB · claude-code · PSI-107]]: Per C-21, only the operator's stamp on the board moves a task from review to done.
@@ -104,6 +104,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-28 16:10 WIB · hermes · [[tasks/PSI-096|PSI-096]] · blocked: [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 2026-09-28 13:50 WIB · claude-code · [[tasks/PSI-042|PSI-042]] · done: [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 2026-09-28 13:45 WIB · hermes · [[tasks/PSI-096|PSI-096]] · partial: [[history/2026-09-28T07-00-00Z__PSI-096__hermes|Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.]]
 - 2026-09-28 13:33 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · done: [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]
@@ -113,4 +114,3 @@ _Nothing blocked._
 - 2026-09-27 22:50 WIB · hermes · [[tasks/PSI-105|PSI-105]] · done: [[history/2026-09-27T16-45-00Z__PSI-105__hermes|Agent tool get_finance per finance.md: RLS-scoped totals by category + recent entries, decimal amounts, no identities, max 50, deep links, audited; no finance.read -> nothing.]]
 - 2026-09-27 21:00 WIB · hermes · [[tasks/PSI-104|PSI-104]] · done: [[history/2026-09-27T15-20-00Z__PSI-104__hermes|Finance on event boards/events: board Finance tab (inflow/outflow/net/per-category) for finance.read; add-entry prefills board+task; event detail shows net; no amounts without finance.read.]]
 - 2026-09-27 19:40 WIB · claude-code · [[tasks/PSI-103|PSI-103]] · done: [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|Build PSI-103, the finance CRUD module, continuing the calendar -> kanban -> finance pipeline directly (operator asked for Claude Code, not Hermes, this time).]]
-- 2026-09-27 19:00 WIB · claude-code · [[tasks/PSI-110|PSI-110]] · done: [[history/2026-09-27T12-30-00Z__PSI-110__claude-code|Check the board/history after PSI-102 (merged) and root-cause the pre-existing /auth/sign-in bug it filed as a follow-up instead of leaving it unowned.]]

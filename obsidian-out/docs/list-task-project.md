@@ -106,11 +106,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Hermes installed with a chosen provider; gateway DM pairing and command approval on; no production secrets in Hermes config; `/skills` lists graphify and the ECC skills; graphify registered with `hermes mcp`; a test session follows the boot sequence from `.hermes.md` and ends with a valid history entry by `hermes`.
 
 ### PSI-096 · Hermes standing jobs
-- status: doing
+- status: blocked
 - area: agent-ops
 - owner: agent:hermes
 - depends: PSI-095, PSI-006
-- history: [[2026-09-28T07-00-00Z__PSI-096__hermes]]
+- blocked: 2026-09-28 · Hermes cron scheduler turned off (all 4 jobs paused: morning pulse, contract check, weekly graph, stale work) per operator instruction because recurring background jobs caused system instability / resource contention on host machine. Needs operator triage before re-enabling.
+- history: [[2026-09-28T07-00-00Z__PSI-096__hermes], [2026-09-28T09-15-00Z__PSI-096-blocked__hermes]]
 - accept: Morning pulse, contract check, weekly graph and stale-work jobs from agent-operations/hermes.md scheduled with delivery to the team chat; only the weekly graph job writes (branch + PR); one week of runs reviewed by a human.
 
 ### PSI-097 · AgentShield in CI
@@ -541,6 +542,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - area: backend
 - owner: unassigned
 - depends: PSI-071, PSI-023, PSI-098
+- note: Uses app-level pg_cron (Supabase Postgres) — NOT the Hermes cron scheduler disabled 2026-09-28; unaffected by the PSI-096 host scheduler pause. Still blocked on PSI-098.
 - accept: pg_cron at 06:00 WIB calls daily-digest through `internal_post`; the summary comes from `_shared/llm.ts` with `DIGEST_MODEL`; digest stored and shown on Overview; `digest.ready` push to every `digest.receive` holder.
 
 ### PSI-078 · Verify MCP client compatibility (CIMD vs DCR)

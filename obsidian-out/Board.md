@@ -33,7 +33,6 @@ kanban-plugin: board
 
 ## Doing
 
-- [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs · agent:hermes · 1 run #agent-ops #phase-0
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
 
 
@@ -52,6 +51,7 @@ kanban-plugin: board
 
 ## Blocked
 
+- [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs · agent:hermes · 2 runs #agent-ops #phase-0
 
 
 ## On Hold

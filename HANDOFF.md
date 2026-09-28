@@ -1,3 +1,13 @@
+## Current Card
+
+**PSI-096 · Hermes standing jobs** — **BLOCKED** 2026-09-28 (operator triage).
+
+Operator reported the Hermes cron scheduler caused system instability on the host. All four standing jobs are **paused** (cronjob state=paused, enabled=false):
+- a3e9af9d79b3 morning pulse · e9cc298252ab contract check · 52d300adad2c weekly graph · 11b42f15a1e6 stale work
+
+Nothing fires. Job definitions kept (not deleted) so they can be resumed after triage.
+Action for operator: decide re-enable vs. harden (lower frequency, pin model, restrict concurrency) → resume via cronjob action=resume.
+
 ---
 updated: 2026-09-28 15:10 WIB
 project: super-dashboard-p3md-architecture

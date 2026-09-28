@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-28
 
+- 16:10 · **hermes** · [[tasks/PSI-096|PSI-096]] · blocked (needs review): [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 13:50 · **claude-code** · [[tasks/PSI-042|PSI-042]] · done (needs review): [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 13:45 · **hermes** · [[tasks/PSI-096|PSI-096]] · partial (needs review): [[history/2026-09-28T07-00-00Z__PSI-096__hermes|Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.]]
 - 13:33 · **claude-code** · [[tasks/PSI-107|PSI-107]] · done (needs review, supersedes 2026-09-28T06-00-00Z__PSI-107__claude-code): [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]

@@ -1,0 +1,66 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T07-00-00Z__PSI-096__hermes",
+  "task_ids": [
+    "PSI-096"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-28T06:45:00Z",
+    "ended_at": "2026-09-28T07:00:00Z",
+    "branch": "agent/PSI-096-standing-jobs"
+  },
+  "intent": "Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.",
+  "outcome": "partial",
+  "summary": "Created the four Hermes standing jobs in the Hermes scheduler (no repo config change; they live in the scheduler's own store, driven via `hermes cron`). All four delivered to telegram:470957825 (the team chat; TELEGRAM_ALLOWED_CHATS=470957825), workdir D:/coding/pflp/super-dashboard-p3md-architecture. Jobs: morning pulse 0 7 * * 1-5 (read-only summary of doing/review/blocked + human_review.required history entries), contract check 0 22 * * * (git pull + bun run agent:check, report verbatim), weekly graph 0 21 * * 0 (graphify update .; pushes branch agent/PSI-005-graph-refresh-<date> + PR only when GRAPH_REPORT.md hash changes), stale work 0 8 * * 1 (read-only; flags doing tasks with no history entry within 3 days). All four are active with correct next runs (first: contract check today 22:00 WIB). Status intentionally left at doing pending one week of human review per operator instruction. outcome=partial: job creation complete, but the PSI-096 accept criterion (one week of runs reviewed by a human) is not yet satisfied.",
+  "changes": [
+    {
+      "path": "hermes-scheduler",
+      "action": "added",
+      "note": "4 cron jobs: morning pulse (a3e9af9d79b3), contract check (e9cc298252ab), weekly graph (52d300adad2c), stale work (11b42f15a1e6)"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-096 status doing, owner agent:hermes, history link"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Delivery target telegram:470957825 for all four jobs",
+      "reason": "Only chat in TELEGRAM_ALLOWED_CHATS; the team chat for this repo. Matches hermes.md §4 'delivery to Telegram/Slack'."
+    },
+    {
+      "decision": "Weekly graph only writes (branch + PR), others read-only",
+      "reason": "Per hermes.md §4 and PSI-096 AC. Graph job uses git hash-object before/after graphify update to decide PR only on material change; commits only graphify-out/ artifacts."
+    },
+    {
+      "decision": "Status left at doing (not review) after setup",
+      "reason": "Operator explicitly requires one week of runs reviewed by a human before done. No PR raised for scheduler config because it lives in the Hermes scheduler store, not the repo."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "hermes cron list shows 4 active jobs with correct schedules, delivery, workdir, and next_run_at. No repo code changed (scheduler store only)."
+  },
+  "human_review": {
+    "required": true
+  },
+  "follow_ups": [
+    {
+      "note": "Operator reviews the first week of runs (contract check first fires today 22:00 WIB; morning pulse Tue 07:00; weekly graph Sun; stale work Mon). After the week looks good, operator stamps PSI-096 done."
+    }
+  ],
+  "risks": [],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": []
+}

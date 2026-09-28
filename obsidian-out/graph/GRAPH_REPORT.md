@@ -1,7 +1,7 @@
 # Graph Report - super-dashboard-p3md-architecture  (2026-09-28)
 
 ## Corpus Check
-- 109 files · ~96,986 words
+- 109 files · ~97,215 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 10 file(s) not represented in the graph (top: (none) 5, .csv 4, .toml 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fc1f35b6`
+- Built from commit: `9b0b8491`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -136,7 +136,7 @@ Nodes (9): Onboarding Option A: email invites, Onboarding Option B: Google sign-
 
 ### Community 10 - "HANDOFF.md"
 Cohesion: 0.25
-Nodes (7): Completed Phase 10 Streamline (all merged to master), Current Card, Exact Next Action, Master State, Next Card Candidates, Open Follow-ups, Test & Build Status
+Nodes (7): Completed Phase 10 Streamline (all merged to master), Current Card, Master State, Next Card Candidates (after PSI-107 verifies green), Open Follow-ups, Previous Card, Test & Build Status
 
 ### Community 11 - "analyze.ts"
 Cohesion: 0.07

@@ -6,7 +6,6 @@ kanban-plugin: board
 
 ## Backlog
 
-- [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs #agent-ops #phase-0
 - [ ] [[tasks/PSI-025|PSI-025]] Device QA for install and push · human #frontend #phase-2
 - [ ] [[tasks/PSI-031|PSI-031]] Resend API key and webhook secret · human #infra #phase-3
 - [ ] [[tasks/PSI-032|PSI-032]] Edge Function send-role-mail #backend #phase-3
@@ -34,6 +33,7 @@ kanban-plugin: board
 
 ## Doing
 
+- [ ] [[tasks/PSI-096|PSI-096]] Hermes standing jobs · agent:hermes · 1 run #agent-ops #phase-0
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
 
 

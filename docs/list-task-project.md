@@ -106,10 +106,11 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Hermes installed with a chosen provider; gateway DM pairing and command approval on; no production secrets in Hermes config; `/skills` lists graphify and the ECC skills; graphify registered with `hermes mcp`; a test session follows the boot sequence from `.hermes.md` and ends with a valid history entry by `hermes`.
 
 ### PSI-096 · Hermes standing jobs
-- status: backlog
+- status: doing
 - area: agent-ops
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-095, PSI-006
+- history: [[2026-09-28T07-00-00Z__PSI-096__hermes]]
 - accept: Morning pulse, contract check, weekly graph and stale-work jobs from agent-operations/hermes.md scheduled with delivery to the team chat; only the weekly graph job writes (branch + PR); one week of runs reviewed by a human.
 
 ### PSI-097 · AgentShield in CI

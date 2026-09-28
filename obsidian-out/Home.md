@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 19 | 0 | 1 | 8 | 1 | 8 | 49 | 86 |
+| 18 | 0 | 1 | 1 | 1 | 8 | 57 | 86 |
 
 ## Blocked
 
@@ -31,17 +31,11 @@
 
 ## Review
 
-- [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes
-- [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code
-- [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes
-- [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes
-- [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code
-- [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code
-- [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes
-- [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code
+- [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-28T12-00-00Z__PSI-074__hermes|2026-09-28 17:00 WIB · hermes · PSI-074]]: Hosted Supabase project settings (OAuth server + asymmetric JWT keys + consent URL) and Claude end-to-end connection on hosted are operator actions (no credentials in scope).
 - [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|2026-09-28 16:10 WIB · hermes · PSI-096]]: Operator must decide how to re-enable standing jobs without destabilizing the host.
 - [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|2026-09-28 13:50 WIB · claude-code · PSI-042]]: Per C-21, only the operator's stamp on the board moves a task from review to done. Also flagging the browser-walkthrough gap above.
 - [[history/2026-09-28T07-00-00Z__PSI-096__hermes|2026-09-28 13:45 WIB · hermes · PSI-096]]
@@ -103,6 +97,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]
 - 2026-09-28 16:10 WIB · hermes · [[tasks/PSI-096|PSI-096]] · blocked: [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 2026-09-28 13:50 WIB · claude-code · [[tasks/PSI-042|PSI-042]] · done: [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 2026-09-28 13:45 WIB · hermes · [[tasks/PSI-096|PSI-096]] · partial: [[history/2026-09-28T07-00-00Z__PSI-096__hermes|Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.]]
@@ -112,4 +107,3 @@
 - 2026-09-28 00:00 WIB · hermes · [[tasks/PSI-106|PSI-106]] · done: [[history/2026-09-27T17-50-00Z__PSI-106__hermes|Finance charts on the overview: monthly inflow vs outflow (bar) + outflow by category (pie) per finance.md contract, finance.read only, with loading skeletons and empty states.]]
 - 2026-09-27 22:50 WIB · hermes · [[tasks/PSI-105|PSI-105]] · done: [[history/2026-09-27T16-45-00Z__PSI-105__hermes|Agent tool get_finance per finance.md: RLS-scoped totals by category + recent entries, decimal amounts, no identities, max 50, deep links, audited; no finance.read -> nothing.]]
 - 2026-09-27 21:00 WIB · hermes · [[tasks/PSI-104|PSI-104]] · done: [[history/2026-09-27T15-20-00Z__PSI-104__hermes|Finance on event boards/events: board Finance tab (inflow/outflow/net/per-category) for finance.read; add-entry prefills board+task; event detail shows net; no amounts without finance.read.]]
-- 2026-09-27 19:40 WIB · claude-code · [[tasks/PSI-103|PSI-103]] · done: [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|Build PSI-103, the finance CRUD module, continuing the calendar -> kanban -> finance pipeline directly (operator asked for Claude Code, not Hermes, this time).]]

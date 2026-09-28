@@ -115,12 +115,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Morning pulse, contract check, weekly graph and stale-work jobs from agent-operations/hermes.md scheduled with delivery to the team chat; only the weekly graph job writes (branch + PR); one week of runs reviewed by a human.
 
 ### PSI-097 · AgentShield in CI
-- status: review
+- status: done
 - area: security
 - owner: agent:hermes
 - depends: PSI-009
+- merged: PR #44 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: CI runs `npx ecc-agentshield scan --path .` on PRs that touch CLAUDE.md, AGENTS.md, .hermes.md, .claude/, .mcp.json or hooks; critical findings fail the build.
 
+- merged: PR #44 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-099 · Hermes compute observability: wasted vs successful compute, expected vs actual cost
 - status: done
 - area: agent-ops
@@ -346,12 +348,14 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Only `src/calendar/` copied; no Radix `components/ui` imported; no `asChild`; no react-dnd; month/week/day/agenda views render events from Supabase.
 
 ### PSI-042 · Event form with audience picker, WIB display
-- status: review
+- status: done
 - area: frontend
 - owner: agent:claude-code
 - depends: PSI-041
+- merged: PR #57 (2026-09-28, 34b6e6f) — stamped done by operator 2026-09-28
 - accept: Create/edit/delete events; audience accepts users, roles and groups in one insert; times stored UTC and shown in Asia/Jakarta; recurring events expand from `rrule`; audience gets `event.invited` notifications.
 
+- merged: PR #57 (2026-09-28, 34b6e6f) — stamped done by operator 2026-09-28
 ### PSI-043 · Optional role mail for invitations
 - status: backlog
 - area: backend
@@ -463,14 +467,15 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - review: obsidian-out/review/PSI-065.md
 
 ### PSI-066 · google-calendar /push
-- status: review
+- status: done
 - area: integration
 - owner: agent:hermes
 - depends: PSI-065
+- merged: PR #45 (2026-09-27, 06e9c47)
 - accept: App events whose audience includes a linked role/group appear in that Google calendar within a minute; edits and deletes propagate; deterministic event ids make repeated calls idempotent.
 - impl: supabase/functions/google-calendar/push.ts + /push route in index.ts (deterministic UUID-hex event id, POST-then-PUT-on-409 idempotency, audience-gated push, stale-link cleanup). Reviewed: needs a live upsert/delete probe once a calendar is shared with the SA (gated on PSI-062's human step). [[2026-09-27T07-04-36Z__PSI-066__hermes]]
-- merged: PR #45 (2026-09-27, 06e9c47)
 
+- merged: PR #45 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-067 · Admin: Integrations page
 - status: done
 - area: frontend
@@ -510,17 +515,20 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: src/agent/{define,registry,runtime}.ts; get_activity, get_board, get_agenda, get_inbox, search_documents; every call audited; outputs capped and deep-linked; no PII or document content in outputs.
 
 ### PSI-073 · MCP endpoint with mcp-handler 2.x
-- status: review
+- status: done
 - area: backend
 - owner: agent:hermes
 - depends: PSI-072
+- merged: PR #40 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: /api/mcp answers 401 with a resource-metadata challenge without a token; with a valid Supabase JWT the tools list and run as that user.
 
+- merged: PR #40 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata
-- status: backlog
+- status: review
 - area: security
-- owner: unassigned
+- owner: agent:hermes
 - depends: PSI-073
+- history: [[2026-09-28T12-00-00Z__PSI-074__hermes]]
 - accept: Asymmetric JWT keys on; OAuth server enabled with consent URL; /auth/consent approve/deny works; /.well-known/oauth-protected-resource points to Supabase; Claude connects end to end on the hosted project.
 
 ### PSI-075 · Connected apps page
@@ -623,35 +631,43 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 ## Phase 10 — Event finance (calendar → board → finance)
 
 ### PSI-100 · Design event finance and the event → board → finance streamline
-- status: review
+- status: done
 - area: docs
 - owner: agent:claude-code
 - depends: PSI-040, PSI-050, PSI-072
+- merged: PR #41 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: database-architecture/m10-finance.md (schema, RLS, activity-log rule, agent view, pgTAP list) and frontend-architecture/features/finance.md (flow, module layout, reused template parts, icons, `get_finance` contract) committed and linked from system-overview.md and both layer READMEs; `finance.read` / `finance.write` / `finance.manage` approved by a human (C-15) and quoted in the history entry.
 
+- merged: PR #41 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-101 · Migration M10 finance and event ↔ board link
-- status: review
+- status: done
 - area: db
 - owner: agent:claude-code
 - depends: PSI-100, PSI-040, PSI-050, PSI-070, PSI-071
+- merged: PR #43 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: finance_categories (seeded) and finance_entries exactly as in database-architecture/m10-finance.md with RLS in the same migration; `boards.event_id` (unique when set); finance.read/write/manage inserted and granted to admin; cross-row trigger rejects a task, event or category that does not match the board; finance activity logged without `board_id` and the activity_log select policy extended (RLS change called out for human review, C-15); `agent_finance` with `security_invoker`; every pgTAP case in m10-finance.md passes; `supabase db reset` clean; types regenerated.
 
+- merged: PR #43 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-102 · Create an event board from the calendar
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-101, PSI-041, PSI-053
+- merged: PR #49 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: Event detail shows "Create event board" to users with `kanban.write` when the event has no board, else "Open board"; the new board is named after the event, has `event_id` set and gets the event's group audience in board_groups; the board header shows the event date and links back; a second click never creates a second board.
 - impl: `createEventBoardAction` (calendar/actions.ts) + "Create event board"/"Open board" in the event dialog; `getBoardAction` returns the linked event; kanban header shows "Linked event" chip linking back to the calendar. Idempotency: action early-returns + DB unique index `idx_boards_event`. Reviewed: browser flow needs `/auth/sign-in` fixed (pre-existing `submit-button.tsx` formContext bug, filed as follow-up); unit tests (5) + live DB probe cover the rules. [[2026-09-27T10-15-54Z__PSI-102__hermes]]
 
+- merged: PR #49 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-103 · Finance module with CRUD
-- status: review
+- status: done
 - area: frontend
 - owner: agent:claude-code
 - depends: PSI-101, PSI-017
+- merged: PR #51 (2026-09-27) — stamped done by operator 2026-09-28
 - accept: /dashboard/finance guarded by `finance.read` lists visible entries in the template data table with direction, category, date and amount filters kept in the URL; create, edit and delete through Zod-validated Server Actions guarded by `finance.write`; categories managed in a dialog by `finance.manage`; amounts shown as "Rp 2.000.000" and dates in WIB; nav item "Finance" with `Icons.billing` hidden without `finance.read`; kbar action opens the form; no icon imported outside `@/components/icons`.
 - impl: `src/features/finance/{types,actions}.ts` + `components/{columns,entries-table,entry-form-dialog,category-dialog}.tsx`; `useDataTable`/`DataTable`/`DataTableToolbar` (first real consumer of this template system in the app) for the direction/category/dateRange/range filters; Dialog forms (no Sheet form exists anywhere in the app yet, so this follows the established convention instead of finance.md's original wording); kbar "Record income or spending" -> `/dashboard/finance?new=1` auto-opens the create dialog. 15 unit tests (Zod schema edges, formatIDR/formatDateWIB); tsc/oxlint/`next build` clean; unauthenticated request to `/dashboard/finance` confirmed 307 -> `/auth/sign-in` (no crash). Not run: an authenticated browser walkthrough (same gap PSI-102 had) -- needs a seeded dev user with `finance.read`.
 
+- merged: PR #51 (2026-09-27) — stamped done by operator 2026-09-28
 ### PSI-104 · Finance on event boards and events
 - status: done
 - area: frontend

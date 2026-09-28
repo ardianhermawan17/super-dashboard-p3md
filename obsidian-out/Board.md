@@ -16,7 +16,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
-- [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata #security #phase-7
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
@@ -38,14 +37,7 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
-- [ ] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code · 1 run #frontend #phase-4
-- [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
-- [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
-- [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
-- [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
-- [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10
-- [ ] [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code · 1 run #frontend #phase-10
+- [ ] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes · 1 run #security #phase-7
 
 
 ## Blocked
@@ -78,6 +70,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-008|PSI-008]] Supabase local init · agent:claude-code · 3 runs #db #phase-0 ✅ 2026-09-24
 - [x] [[tasks/PSI-009|PSI-009]] Install ECC for Claude Code and Hermes · human · 1 run #agent-ops #phase-0 ✅ 2026-09-25
 - [x] [[tasks/PSI-095|PSI-095]] Hermes Agent setup for this repo · human #agent-ops #phase-0
+- [x] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0 ✅ 2026-09-27
 - [x] [[tasks/PSI-099|PSI-099]] Hermes compute observability: wasted vs successful compute, expected vs actual cost · agent:claude-code · 1 run #agent-ops #phase-0 ✅ 2026-09-26
 - [x] [[tasks/PSI-108|PSI-108]] Repo hygiene: stop tracking Obsidian app state; branch-switch/escalation rules · agent:claude-code · 1 run #agent-ops #phase-0 ✅ 2026-09-27
 - [x] [[tasks/PSI-010|PSI-010]] Supabase clients and proxy.ts session refresh · agent:hermes · 2 runs #frontend #phase-1 ✅ 2026-09-25
@@ -100,6 +93,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-034|PSI-034]] Inbox UI on the chat layout · agent:hermes · 1 run #frontend #phase-3 ✅ 2026-09-26
 - [x] [[tasks/PSI-040|PSI-040]] Migration M4 calendar · agent:hermes · 1 run #db #phase-4 ✅ 2026-09-26
 - [x] [[tasks/PSI-041|PSI-041]] Port big-calendar onto Base UI · agent:hermes · 1 run #frontend #phase-4 ✅ 2026-09-26
+- [x] [[tasks/PSI-042|PSI-042]] Event form with audience picker, WIB display · agent:claude-code · 1 run #frontend #phase-4 ✅ 2026-09-28
 - [x] [[tasks/PSI-044|PSI-044]] ICS subscription feed · agent:hermes · 1 run #backend #phase-4 ✅ 2026-09-26
 - [x] [[tasks/PSI-050|PSI-050]] Migration M5 kanban · agent:hermes · 1 run #db #phase-5 ✅ 2026-09-26
 - [x] [[tasks/PSI-051|PSI-051]] Board reads and writes through Supabase · agent:hermes · 1 run #frontend #phase-5 ✅ 2026-09-26
@@ -108,12 +102,18 @@ kanban-plugin: board
 - [x] [[tasks/PSI-109|PSI-109]] Kanban task detail panel (click to open, linked calendar + finance) · agent:hermes · 2 runs #frontend #phase-5 ✅ 2026-09-28
 - [x] [[tasks/PSI-061|PSI-061]] Migration M6 Google · agent:hermes · 1 run #db #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-065|PSI-065]] google-calendar /sync (pull) · agent:hermes · 2 runs #integration #phase-6 ✅ 2026-09-26
+- [x] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6 ✅ 2026-09-27
 - [x] [[tasks/PSI-067|PSI-067]] Admin: Integrations page · agent:hermes · 1 run #frontend #phase-6 ✅ 2026-09-26
 - [x] [[tasks/PSI-070|PSI-070]] Migration M7 activity log · agent:hermes · 1 run #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-071|PSI-071]] Migration M8 agent views, audit log, digests · agent:hermes · 2 runs #db #phase-7 ✅ 2026-09-26
 - [x] [[tasks/PSI-072|PSI-072]] Agent tool registry, runtime and read tools · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-26
+- [x] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-27
 - [x] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-080|PSI-080]] Migration M9 talent schema and CV sources · agent:hermes · 3 runs #db #phase-8 ✅ 2026-09-26
+- [x] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10 ✅ 2026-09-27
+- [x] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10 ✅ 2026-09-27
+- [x] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10 ✅ 2026-09-27
+- [x] [[tasks/PSI-103|PSI-103]] Finance module with CRUD · agent:claude-code · 1 run #frontend #phase-10 ✅ 2026-09-27
 - [x] [[tasks/PSI-104|PSI-104]] Finance on event boards and events · agent:hermes · 1 run #frontend #phase-10 ✅ 2026-09-27
 - [x] [[tasks/PSI-105|PSI-105]] Agent tool get_finance · agent:hermes · 1 run #backend #phase-10 ✅ 2026-09-27
 - [x] [[tasks/PSI-106|PSI-106]] Finance charts on the overview · agent:hermes · 1 run #frontend #phase-10 ✅ 2026-09-27

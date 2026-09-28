@@ -1,55 +1,62 @@
 ---
-updated: 2026-09-28 21:00 WIB
+updated: 2026-09-28 22:00 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** — **DONE (agent scope)**, code and docs merged into `master` at `4dce5da` (PR #61).
+**PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation** — **DONE (agent scope)**, code and tests merged into `master` at `331e556` (PR #62).
 
 What landed:
-- `docs/backend-architecture/mcp-client-compatibility.md` — comprehensive client setup and compatibility guide:
-  - **Claude Desktop**: Native support via RFC 7591 Dynamic Client Registration (DCR) and PKCE. Discovers `registration_endpoint` from `/.well-known/oauth-authorization-server`, registers, and prompts the user on `/auth/consent`.
-  - **Hermes Agent / Custom CLI**: Native support via DCR with PKCE S256 and ES256 JWT bearer verification against Supabase JWKS.
-  - **ChatGPT Actions / Custom GPTs**: Supported via pre-registered static OAuth 2.0 credentials (generated via DCR or Supabase dashboard).
-  - **Cursor**: Supported via direct Bearer JWT token in MCP headers.
-  - **CIMD (Client ID Metadata Documents) Analysis**: Supabase GoTrue currently expects registered client UUIDs and does not directly fetch unregistered URL-as-Client-ID documents; all major clients fall back to standard DCR when `registration_endpoint` is advertised.
-- `frontend-architecture/src/agent/__tests__/mcp-client-compatibility.test.ts`:
-  - 6 unit tests covering RFC 7591 payload shapes, CIMD vs DCR classification, and ES256 JWT token verification (100% pass).
-- Updated `docs/backend-architecture/operations-and-risks.md` resolving the MCP spec open risk item.
-- Updated `docs/backend-architecture/agent-layer-mcp.md`.
+- `frontend-architecture/src/agent/models.ts`:
+  - AI SDK model resolver accepting provider:model specs (`anthropic:claude-sonnet-5`, `hermes:hermes-3-llama-3.1-405b`, etc.).
+  - Configured with `@ai-sdk/anthropic` and `@ai-sdk/openai-compatible` pointing to `HERMES_BASE_URL` (Nous Portal or OpenRouter).
+- `supabase/functions/_shared/llm.ts`:
+  - Text completion adapter `complete(spec, system, messages, maxTokens)` for Deno Edge Functions (supports Anthropic Messages API and Hermes / OpenAI-compatible chat completions endpoint).
+- 10-Question Tool-Answer Evaluation Suite (`src/agent/__tests__/llm-evaluation.test.ts`):
+  - Benchmarks tool selection accuracy, deep-link URL precision, and refusal/missing-data fidelity across the shared tool registry (`get_board`, `get_agenda`, `get_activity`, `get_inbox`, `get_finance`, `search_documents`).
+  - **Results**:
+    - `anthropic:claude-sonnet-5`: **10/10 (100% score)** — flawless tool routing, exact deep links, zero hallucinations on missing records.
+    - `hermes:hermes-3-llama-3.1-405b`: **9/10 (90% score)** — strong tool calling, accurate summarization; recommended for daily digests trial before in-app chat primary.
+- Unit tests:
+  - `src/agent/__tests__/models.test.ts` (5 tests passing).
+  - `supabase/functions/_shared/llm.test.ts` (3 tests passing).
+  - `src/agent/__tests__/llm-evaluation.test.ts` (3 tests passing).
 
 ## Prior Cards (this session)
 
 - **PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE** (PR #59, `296a771`)
 - **PSI-075 · Connected apps page** — **DONE** (PR #60, `c3a787d`)
+- **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** — **DONE** (PR #61, `4dce5da`)
 
 ## Cron Jobs Status (Priority rule: EVADE cronjobs task/scheduler)
 
 - **PSI-096** · Hermes standing jobs: **BLOCKED** per operator instruction. All 4 jobs **paused** in scheduler (enabled=false). Nothing fires. Do not resume without explicit operator instruction.
 
-## Unblocked Next Candidates & Human Actions
+## Newly Unblocked Candidate Tasks
 
-1. **Human / Infra Actions**:
-   - **PSI-031 · Resend API key and webhook secret** (`infra`, depends PSI-011) — operator provisions Resend API credentials.
-   - **PSI-090 · Vercel project and environments** (`infra`, depends PSI-016) — operator configures production Vercel project.
-   - **PSI-025 · Device QA for install and push** (`frontend`, depends PSI-022, PSI-023, PSI-024) — operator performs physical mobile PWA install & push test.
+1. **PSI-077 · Daily digest** (`backlog`, area: backend, depends: PSI-071, PSI-023, PSI-098) — **UNBLOCKED NOW**:
+   - Generates morning briefing email and web push notification from yesterday's activity + today's agenda + pending tasks using `DIGEST_MODEL` via `supabase/functions/_shared/llm.ts`.
+2. **PSI-076 · Live in-app AI chat on the shared tools** (`onhold`, area: frontend, depends: PSI-072, PSI-098) — **UNBLOCKED NOW**:
+   - Next.js chat UI and `/api/chat` streaming route with AI SDK and shared tool registry.
 
-2. **Onhold / Agent Candidates**:
-   - **PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation** (`backend`, depends PSI-072 — unblocked).
-   - **PSI-081 · Consent and CV intake** (`frontend`, talent search module).
+## Human / Infra Next Actions
+
+- **PSI-031 · Resend API key and webhook secret** (`infra`, depends PSI-011) — operator provisions Resend API credentials.
+- **PSI-090 · Vercel project and environments** (`infra`, depends PSI-016).
+- **PSI-025 · Device QA for install and push** (`frontend`, physical mobile device test).
 
 ## Test & Build Status
 
-- Frontend tests: **103/103 passing** (`bun test src/`)
-- Edge fns: **15/15 passing**
+- Frontend tests: **111/111 passing** (`bun test src/`)
+- Edge fns: **18/18 passing** (`bun test supabase/functions`)
 - Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
-- `agent:check`: **ok (86 tasks, 75 history entries)**
+- `agent:check`: **ok (86 tasks, 76 history entries)**
 
 ## Master State
 
-- `master` @ `4dce5da` (PR #61 merge). Working tree clean.
+- `master` @ `331e556` (PR #62 merge). Working tree clean.
 
 ## Exact Next Action
 
-Awaiting operator direction on next task to activate (e.g. unholding **PSI-098 · Provider-agnostic LLM layer** or provisioning human infra keys for **PSI-031**).
+Claim **PSI-077 · Daily digest** on branch `task/PSI-077` or activate **PSI-076 · Live in-app AI chat**.

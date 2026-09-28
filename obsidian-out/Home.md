@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 16 | 0 | 1 | 1 | 1 | 7 | 60 | 86 |
+| 16 | 0 | 1 | 0 | 1 | 7 | 61 | 86 |
 
 ## Blocked
 
@@ -30,7 +30,7 @@
 
 ## Review
 
-- [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

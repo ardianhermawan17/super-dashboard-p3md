@@ -566,11 +566,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Documented which clients (Claude, ChatGPT, Hermes Agent, Cursor) connect via DCR or CIMD against Supabase; workaround recorded if one fails.
 
 ### PSI-098 · Provider-agnostic LLM layer (Claude + Hermes) and evaluation
-- status: review
+- status: done
 - area: backend
 - owner: agent:hermes
 - depends: PSI-072
-- history: [[2026-09-28T15-00-00Z__PSI-098__hermes]]
+- merged: PR #62 (2026-09-28, 331e556) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T15-00-00Z__PSI-098__hermes.md
 - accept: `src/agent/models.ts` and `supabase/functions/_shared/llm.ts` as in backend-architecture/agent-layer-mcp.md; `CHAT_MODEL`, `DIGEST_MODEL`, `CV_MODEL` specs work for `anthropic:` and `hermes:`; the 10-question tool-answer evaluation run against at least one Claude and one Hermes model with results in the history entry; defaults chosen by a human.
 
 ### PSI-107 · Fix: deleting a board that has tasks fails (M7 task activity trigger)

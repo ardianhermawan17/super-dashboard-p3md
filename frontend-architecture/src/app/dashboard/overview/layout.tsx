@@ -12,6 +12,8 @@ import { Icons } from '@/components/icons';
 import { getSession } from '@/lib/auth/session';
 import { getLatestDigestAction } from '@/features/overview/actions';
 import { DailyDigestCard } from '@/features/overview/components/daily-digest-card';
+import { AnimatedStatsGrid } from '@/features/overview/components/animated-stats-grid';
+import { AnimatedChartsGrid } from '@/features/overview/components/animated-charts-grid';
 import React from 'react';
 
 export default async function OverViewLayout({
@@ -46,7 +48,7 @@ export default async function OverViewLayout({
 
         {canReceiveDigest && digest ? <DailyDigestCard digest={digest} /> : null}
 
-        <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
+        <AnimatedStatsGrid>
           <Card className='@container/card'>
             <CardHeader>
               <CardDescription>Total Revenue</CardDescription>
@@ -84,7 +86,7 @@ export default async function OverViewLayout({
               <div className='line-clamp-1 flex gap-2 font-medium'>
                 Down 20% this period <Icons.trendingDown className='size-4' />
               </div>
-              <div className='text-muted-foreground'>Acquisition needs attention</div>
+              <div className='text-muted-foreground'>Acquisition slowdown</div>
             </CardFooter>
           </Card>
           <Card className='@container/card'>
@@ -127,22 +129,21 @@ export default async function OverViewLayout({
               <div className='text-muted-foreground'>Meets growth projections</div>
             </CardFooter>
           </Card>
-        </div>
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
-          <div className='col-span-4'> {area_stats}</div>
-          <div className='col-span-4 md:col-span-3'>
-            {/* sales arallel routes */}
-            {sales}
+        </AnimatedStatsGrid>
+
+        <AnimatedChartsGrid
+          barStats={bar_stats}
+          sales={sales}
+          areaStats={area_stats}
+          pieStats={pie_stats}
+        />
+
+        {canReadFinance && (
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            {finance}
           </div>
-          <div className='col-span-4'>{bar_stats}</div>
-                      <div className='col-span-4 min-h-0 md:col-span-3'>{pie_stats}</div>
-                    </div>
-                    {canReadFinance && (
-                      <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                        {finance}
-                      </div>
-                    )}
-                  </div>
-                </PageContainer>
-              );
-            }
+        )}
+      </div>
+    </PageContainer>
+  );
+}

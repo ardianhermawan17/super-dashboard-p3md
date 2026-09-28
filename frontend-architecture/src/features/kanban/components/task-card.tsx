@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { motion } from 'motion/react';
 import { Badge } from '@/components/ui/badge';
 import { KanbanItem } from '@/components/ui/kanban';
 import { TaskFinanceButton } from './task-finance-button';
@@ -40,9 +41,14 @@ export function TaskCard({ task, canWriteFinance = false, onTaskClick, ...props 
       key={task.id}
       value={task.id}
       {...props}
-      render={<div className='bg-card rounded-md border p-3 shadow-xs hover:border-foreground/20 transition-colors' />}
+      render={
+        <div className='bg-card rounded-md border p-3 shadow-xs hover:border-primary/30 transition-all duration-200' />
+      }
     >
-      <div
+      <motion.div
+        whileHover={{ y: -1.5, scale: 1.008 }}
+        whileTap={{ scale: 0.985 }}
+        transition={{ duration: 0.15, ease: 'easeOut' }}
         className='flex flex-col gap-2'
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -79,7 +85,7 @@ export function TaskCard({ task, canWriteFinance = false, onTaskClick, ...props 
             {task.due_date && <time className='text-[10px] tabular-nums'>{task.due_date}</time>}
           </div>
         </div>
-      </div>
+      </motion.div>
     </KanbanItem>
   );
 }

@@ -34,6 +34,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-111|PSI-111]] Contextual feature onboarding & route-specific "Take Tour" system · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Blocked

@@ -4,6 +4,9 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-29
+
+- 00:15 · **hermes** · [[tasks/PSI-111|PSI-111]] · done: [[history/2026-09-28T18-00-00Z__PSI-111__hermes|Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.]]
 ## 2026-09-28
 
 - 23:15 · **hermes** · [[tasks/PSI-076|PSI-076]] · done: [[history/2026-09-28T17-00-00Z__PSI-076__hermes|Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.]]

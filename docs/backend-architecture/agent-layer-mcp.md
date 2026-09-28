@@ -1,7 +1,7 @@
 # Agent layer (MCP + in-app chat)
 
 > **Scope:** the product's own AI surface: one read-only tool registry exposed to external agents through `/api/mcp` and to the in-app assistant through `/api/chat`, plus the LLM provider layer (Claude and Hermes models).
-> OAuth for agents: [auth-and-onboarding.md](auth-and-onboarding.md#supabase-as-the-oauth-21-server-for-agents-psi-074) · Views: [m8-agent-layer.md](../database-architecture/m8-agent-layer.md) · Gateway: [README_AI_AGENT.md](../../README_AI_AGENT.md)
+> OAuth for agents: [auth-and-onboarding.md](auth-and-onboarding.md#supabase-as-the-oauth-21-server-for-agents-psi-074) · Client Compatibility: [mcp-client-compatibility.md](mcp-client-compatibility.md) · Views: [m8-agent-layer.md](../database-architecture/m8-agent-layer.md) · Gateway: [README_AI_AGENT.md](../../README_AI_AGENT.md)
 
 One tool registry, two consumers: external MCP clients through `/api/mcp`, and the in-app chat through `/api/chat`. Every tool call runs **as the calling user** (their JWT), so RLS decides what an agent sees. No secret key anywhere in this layer.
 

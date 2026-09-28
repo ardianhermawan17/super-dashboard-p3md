@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { formatEventTimeWIB } from '../lib/format';
 import type { CalendarEvent } from '../types';
 
 export function AgendaView({
@@ -32,7 +33,6 @@ export function AgendaView({
     <div className='rounded-2xl border border-border bg-card divide-y divide-border/60 overflow-hidden shadow-xs'>
       {sortedEvents.map((e) => {
         const startDate = new Date(e.starts_at);
-        const endDate = new Date(e.ends_at);
 
         return (
           <button
@@ -82,8 +82,7 @@ export function AgendaView({
                 <span>All Day</span>
               ) : (
                 <span>
-                  {startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
-                  {endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {formatEventTimeWIB(e.starts_at)} - {formatEventTimeWIB(e.ends_at)}
                 </span>
               )}
             </div>

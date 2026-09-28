@@ -344,9 +344,9 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Only `src/calendar/` copied; no Radix `components/ui` imported; no `asChild`; no react-dnd; month/week/day/agenda views render events from Supabase.
 
 ### PSI-042 · Event form with audience picker, WIB display
-- status: backlog
+- status: review
 - area: frontend
-- owner: unassigned
+- owner: agent:claude-code
 - depends: PSI-041
 - accept: Create/edit/delete events; audience accepts users, roles and groups in one insert; times stored UTC and shown in Asia/Jakarta; recurring events expand from `rrule`; audience gets `event.invited` notifications.
 

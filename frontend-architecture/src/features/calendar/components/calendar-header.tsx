@@ -11,12 +11,16 @@ export function CalendarHeader({
   currentDate,
   view,
   onViewChange,
-  onNavigate
+  onNavigate,
+  canCreateEvent = false,
+  onNewEvent
 }: {
   currentDate: Date;
   view: CalendarViewType;
   onViewChange: (view: CalendarViewType) => void;
   onNavigate: (action: 'prev' | 'next' | 'today') => void;
+  canCreateEvent?: boolean;
+  onNewEvent?: () => void;
 }) {
   const getHeaderLabel = () => {
     const month = currentDate.toLocaleString('default', { month: 'long' });
@@ -61,6 +65,12 @@ export function CalendarHeader({
       </div>
 
       <div className='flex items-center gap-2'>
+        {canCreateEvent && (
+          <Button size='sm' onClick={onNewEvent} className='text-xs'>
+            <Icons.add className='mr-1.5 h-3.5 w-3.5' />
+            New event
+          </Button>
+        )}
         <CalendarFeedDialog />
         <Tabs value={view} onValueChange={(v) => onViewChange((v ?? 'month') as CalendarViewType)}>
           <TabsList className='h-8'>

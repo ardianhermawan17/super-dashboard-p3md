@@ -6,9 +6,9 @@
     "semantic_hash": "30795e5517c39d5ada60dfd65ca441f1"
   },
   "scripts/obsidian-sync.ts": {
-    "mtime": 1790217306.9739673,
-    "seen": 1790396289.7835803,
-    "ast_hash": "b9d846c272d9d2a2e6bf4571a7e3aafa",
+    "mtime": 1790509572.634342,
+    "seen": 1790576939.12335,
+    "ast_hash": "7c815489059de0665d5df3347e9b23bc",
     "semantic_hash": ""
   },
   "README.md": {
@@ -18,15 +18,15 @@
     "semantic_hash": "a946b3362ed2df5bd1c3bd1ea4f955e7"
   },
   "README_AI_AGENT.md": {
-    "mtime": 1790333304.5796354,
-    "seen": 1790396289.7843463,
-    "ast_hash": "ac025c4b840ff5e5f8bef799c61d9673",
+    "mtime": 1790488001.7693262,
+    "seen": 1790576939.12335,
+    "ast_hash": "fc7abb549961085d3de9a6e4a6f7a101",
     "semantic_hash": ""
   },
   "docs/agent-operations/README.md": {
-    "mtime": 1790314916.461913,
-    "seen": 1790396289.7843463,
-    "ast_hash": "097578eefcb3b57bffe575da713645c9",
+    "mtime": 1790493675.8151987,
+    "seen": 1790576939.12335,
+    "ast_hash": "2606645dc97a023cb21641bfe4db46cc",
     "semantic_hash": ""
   },
   "docs/agent-operations/claude-code.md": {
@@ -54,10 +54,10 @@
     "semantic_hash": "e5d48748eda09d5219c0602e3cd41b6b"
   },
   "docs/backend-architecture/agent-layer-mcp.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "0dd27b01c67eec3e0143858a627306c9",
-    "semantic_hash": "0dd27b01c67eec3e0143858a627306c9"
+    "mtime": 1790478355.7198274,
+    "seen": 1790576939.1378152,
+    "ast_hash": "9d8db1406aaacfc992197df2ca6a1719",
+    "semantic_hash": ""
   },
   "docs/backend-architecture/auth-and-onboarding.md": {
     "mtime": 1790178413.0,
@@ -72,10 +72,10 @@
     "semantic_hash": "8c338f8b1e4e209dc33028b3548b8649"
   },
   "docs/backend-architecture/google-integration.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "29a9586c852be26b223591a71105441e",
-    "semantic_hash": "29a9586c852be26b223591a71105441e"
+    "mtime": 1790429195.0350788,
+    "seen": 1790576939.1378152,
+    "ast_hash": "43c01b24c2748062b5e015d93be93ea9",
+    "semantic_hash": ""
   },
   "docs/backend-architecture/local-workflow-and-deploy.md": {
     "mtime": 1790302317.108129,
@@ -96,10 +96,10 @@
     "semantic_hash": "e1b17de02c293484a031222d3adc8808"
   },
   "docs/database-architecture/README.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "bec3c706745742b10bbd437cf23b88e1",
-    "semantic_hash": "bec3c706745742b10bbd437cf23b88e1"
+    "mtime": 1790478355.7214365,
+    "seen": 1790576939.1378152,
+    "ast_hash": "6672786554ad7a1a1331066e4ba36021",
+    "semantic_hash": ""
   },
   "docs/database-architecture/m1-rbac.md": {
     "mtime": 1790178413.0,
@@ -162,10 +162,10 @@
     "semantic_hash": "ef8b0467a46d6b4a800b4593126b9a32"
   },
   "docs/frontend-architecture/README.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "3538fd3cc8c566dff1a90889a6137ef0",
-    "semantic_hash": "3538fd3cc8c566dff1a90889a6137ef0"
+    "mtime": 1790478355.723583,
+    "seen": 1790576939.1461744,
+    "ast_hash": "6e628070af512ec17bd7bfc0ff32e3f2",
+    "semantic_hash": ""
   },
   "docs/frontend-architecture/conventions-and-testing.md": {
     "mtime": 1790178413.0,
@@ -180,10 +180,10 @@
     "semantic_hash": "c72240024f4c7a3169a439fed78fcd3d"
   },
   "docs/frontend-architecture/features/admin.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "9cea8307f9532d89ae9d6594164f3119",
-    "semantic_hash": "9cea8307f9532d89ae9d6594164f3119"
+    "mtime": 1790429457.3772452,
+    "seen": 1790576939.1461744,
+    "ast_hash": "0c22a27f5c1f7e46278682c506c6cdbf",
+    "semantic_hash": ""
   },
   "docs/frontend-architecture/features/ai-chat.md": {
     "mtime": 1790178413.0,
@@ -204,10 +204,10 @@
     "semantic_hash": "35c712abab45d7fd0a049f7782fcf6c8"
   },
   "docs/frontend-architecture/features/kanban.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "a481b12f92cbf1ee09f783c30f876a07",
-    "semantic_hash": "a481b12f92cbf1ee09f783c30f876a07"
+    "mtime": 1790509572.5800505,
+    "seen": 1790576939.1538815,
+    "ast_hash": "9ea0e5e974b73ba1503787d8873c0f89",
+    "semantic_hash": ""
   },
   "docs/frontend-architecture/features/mail.md": {
     "mtime": 1790178413.0,
@@ -258,16 +258,16 @@
     "semantic_hash": "7d7e64ec0e26f33ef8d6fe8c61f09bc1"
   },
   "docs/list-task-project.md": {
-    "mtime": 1790413822.5343177,
-    "seen": 1790415098.0241134,
-    "ast_hash": "f6d8ebf067c9f5f8ad42fa2bc15bfce5",
+    "mtime": 1790576775.008178,
+    "seen": 1790576939.1538815,
+    "ast_hash": "3763a9ad170cb3f7ca5815736a49e067",
     "semantic_hash": ""
   },
   "docs/system-overview.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "2fc8505a578f8df40e2d6ea60e8a55bd",
-    "semantic_hash": "2fc8505a578f8df40e2d6ea60e8a55bd"
+    "mtime": 1790478355.725713,
+    "seen": 1790576939.1628892,
+    "ast_hash": "ba7f20963660b4a4fe16309fc83bae66",
+    "semantic_hash": ""
   },
   ".husky/pre-commit": {
     "mtime": 1790317853.0977478,
@@ -318,9 +318,9 @@
     "semantic_hash": ""
   },
   "docs/agent-operations/jev-ultrafast.md": {
-    "mtime": 1790318323.3045342,
-    "seen": 1790396289.7843463,
-    "ast_hash": "fea13e504ba6cfc0f159b60cbc2791a8",
+    "mtime": 1790429457.3752391,
+    "seen": 1790576939.1366951,
+    "ast_hash": "da80b6db01e4a61e594b7dbb0c9783da",
     "semantic_hash": ""
   },
   "docs/agent-operations/review-workflow.md": {
@@ -354,9 +354,9 @@
     "semantic_hash": ""
   },
   "format.md": {
-    "mtime": 1790318310.4896472,
-    "seen": 1790396289.7899423,
-    "ast_hash": "ded91d9cb08956d7eb66feea92605c26",
+    "mtime": 1790429457.3782408,
+    "seen": 1790576939.1628892,
+    "ast_hash": "dadbac78abc937f8116ef2329daf4996",
     "semantic_hash": ""
   },
   "scripts/db-review/README.md": {
@@ -366,9 +366,117 @@
     "semantic_hash": ""
   },
   "HANDOFF.md": {
-    "mtime": 1790415074.1039438,
-    "seen": 1790415097.9941237,
-    "ast_hash": "629b3e843fad9124382b99c0e678ef2c",
+    "mtime": 1790539361.990608,
+    "seen": 1790576939.12335,
+    "ast_hash": "c39d9c2a449476103bbd06365e0781e9",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/config.json": {
+    "mtime": 1790436687.732968,
+    "seen": 1790576939.12335,
+    "ast_hash": "7eae9ef01ed6f6e91140100b1c97cdb2",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/observability/analyze.test.ts": {
+    "mtime": 1790436687.7335293,
+    "seen": 1790576939.12335,
+    "ast_hash": "865482e7caace3b9ef9f54c6afaebdf9",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/observability/analyze.ts": {
+    "mtime": 1790436687.735078,
+    "seen": 1790576939.12335,
+    "ast_hash": "bc34525a794fad8309570d6386f48689",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/observability/ingest.ts": {
+    "mtime": 1790436687.7356255,
+    "seen": 1790576939.12335,
+    "ast_hash": "669084da1c5a0ecfa647b28b98e9ef22",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/observability/report.ts": {
+    "mtime": 1790436687.7368047,
+    "seen": 1790576939.12335,
+    "ast_hash": "35a663be62d58605abaec5e1504074d8",
+    "semantic_hash": ""
+  },
+  "supabase/functions/_shared/google.ts": {
+    "mtime": 1790464449.5469842,
+    "seen": 1790576939.12335,
+    "ast_hash": "44729a95b06d9f7aa45707d007447c56",
+    "semantic_hash": ""
+  },
+  "supabase/functions/_shared/internal.ts": {
+    "mtime": 1790464449.5474515,
+    "seen": 1790576939.12335,
+    "ast_hash": "bdfed27f1a18ed1063fa54bb2a3259e3",
+    "semantic_hash": ""
+  },
+  "supabase/functions/google-calendar/index.ts": {
+    "mtime": 1790494981.5906088,
+    "seen": 1790576939.12335,
+    "ast_hash": "010295c66e25159303cfcc2da326d836",
+    "semantic_hash": ""
+  },
+  "supabase/functions/google-calendar/mapper.ts": {
+    "mtime": 1790464449.5481825,
+    "seen": 1790576939.12335,
+    "ast_hash": "fd29d17509373e863d0f117f38dd9651",
+    "semantic_hash": ""
+  },
+  "supabase/functions/google-calendar/push.test.ts": {
+    "mtime": 1790494981.5906088,
+    "seen": 1790576939.12335,
+    "ast_hash": "771835cd8c00369a1a1e5dea2bfa7cb6",
+    "semantic_hash": ""
+  },
+  "supabase/functions/google-calendar/push.ts": {
+    "mtime": 1790494981.5906088,
+    "seen": 1790576939.12335,
+    "ast_hash": "33609d72e16e2bef7cf321df47a16a38",
+    "semantic_hash": ""
+  },
+  "supabase/functions/google-calendar/sync.test.ts": {
+    "mtime": 1790464449.5489137,
+    "seen": 1790576939.12335,
+    "ast_hash": "6c178f44206d2148b9f21919691dd844",
+    "semantic_hash": ""
+  },
+  ".github/workflows/agentshield.yml": {
+    "mtime": 1790488001.7678194,
+    "seen": 1790576939.12335,
+    "ast_hash": "07b31a356c9f80e2c76bfd718b4a0ddb",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/README.md": {
+    "mtime": 1790436687.7324488,
+    "seen": 1790576939.12335,
+    "ast_hash": "faddbe62ca83ddc2cf9ee48ba09feb09",
+    "semantic_hash": ""
+  },
+  "agent-evaluate/reports/hermes_observability_report.md": {
+    "mtime": 1790436687.738515,
+    "seen": 1790576939.12335,
+    "ast_hash": "b1ce165873f6f17cbd7169c06852cd54",
+    "semantic_hash": ""
+  },
+  "docs/agent-operations/tutorial-google-calendar-api.md": {
+    "mtime": 1790429457.3762393,
+    "seen": 1790576939.1378152,
+    "ast_hash": "950819a293b087ee5958f628f8cd8f77",
+    "semantic_hash": ""
+  },
+  "docs/database-architecture/m10-finance.md": {
+    "mtime": 1790482047.0721312,
+    "seen": 1790576939.1436236,
+    "ast_hash": "7a7b9c28095dd2592025740fef44ac95",
+    "semantic_hash": ""
+  },
+  "docs/frontend-architecture/features/finance.md": {
+    "mtime": 1790478355.7241194,
+    "seen": 1790576939.1538815,
+    "ast_hash": "59654bfa79b777447c9b55ea817ed56c",
     "semantic_hash": ""
   }
 }

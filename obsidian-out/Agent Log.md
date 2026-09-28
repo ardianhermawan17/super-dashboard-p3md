@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-28
 
+- 13:50 · **claude-code** · [[tasks/PSI-042|PSI-042]] · done (needs review): [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 13:33 · **claude-code** · [[tasks/PSI-107|PSI-107]] · done (needs review, supersedes 2026-09-28T06-00-00Z__PSI-107__claude-code): [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]
 - 13:00 · **claude-code** · [[tasks/PSI-107|PSI-107]] · partial (needs review): [[history/2026-09-28T06-00-00Z__PSI-107__claude-code|Fix deleting a board with tasks raising activity_log_board_id_fkey (M7 task activity trigger), continuing Hermes's handoff.]]
 - 06:30 · **hermes** · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-28T00-30-00Z__PSI-109__hermes|Kanban task detail panel: click task card to open Dialog with full task fields, linked calendar event if set, finance section (finance.read only) with entries and prefilled Add entry; drag-safe.]]

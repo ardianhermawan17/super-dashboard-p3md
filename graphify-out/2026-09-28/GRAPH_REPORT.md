@@ -1,72 +1,82 @@
-# Graph Report - super-dashboard-p3md-architecture  (2026-09-26)
+# Graph Report - super-dashboard-p3md-architecture  (2026-09-28)
 
 ## Corpus Check
-- 83 files · ~64,085 words
+- 109 files · ~96,986 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 6 file(s) not represented in the graph (top: (none) 5, .toml 1)
+- Unclassified: 10 file(s) not represented in the graph (top: (none) 5, .csv 4, .toml 1)
 
 ## Summary
-- 530 nodes · 1063 edges · 28 communities (26 shown, 2 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 53 edges (avg confidence: 0.83)
+- 760 nodes · 1489 edges · 38 communities (36 shown, 2 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 65 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fd9dda2f`
+- Built from commit: `fc1f35b6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - List task project (PSI tasks)
 - Agent operations README
-- Repo Scripts (obsidian-sync, agent-context)
+- obsidian-sync.ts
 - send-role-mail (PSI-032)
-- Google Integration and Calendar
+- m6-google.md
 - daily-digest (PSI-077)
-- Supabase project settings
+- has_permission
 - C-18 Google credentials and document content stay server-side
 - Kanban Schema and Agent Layer
 - Operations and risks
 - HANDOFF.md
-- m3-role-mail.md
+- analyze.ts
 - Three-Layer Principle
-- xref.mjs
+- AGENTS.md
 - Communities (13 total, 0 thin omitted)
 - README_AI_AGENT.md (gateway and contract)
 - 2. Step-by-Step Review Procedure
 - What a Review File Must Contain
 - Jev Ultrafast Browser Agent Rules & Specification (`format.md`)
 - Historical agent work
-- index.ts
+- google-calendar/index.ts
 - Supabase OAuth 2.1 server for agents (PSI-074)
 - /api/push/dispatch route
 - CLAUDE.md — Project Gateway
 - Agent tool registry (registry.ts)
 - pre-commit
 - C-08 Talent data is personal data under UU PDP
-- Frontend architecture
+- report.ts
+- Tutorial · Connect the Google Calendar API (PSI-060, part 2 of 2)
+- ingest.ts
+- tally
+- Hermes observability report
+- reconcile
+- M10 · Finance (event cashflow)
+- agent-evaluate
+- Review Process & `master` Branch Convention
+- Finance (event cashflow) and the event → board → finance streamline
+- add
 
 ## God Nodes (most connected - your core abstractions)
 1. `List task project (PSI tasks)` - 80 edges
-2. `README_AI_AGENT.md (gateway and contract)` - 70 edges
-3. `System overview` - 32 edges
-4. `Database architecture README` - 20 edges
-5. `M1 RBAC migration doc` - 19 edges
-6. `Google integration (Drive, Calendar)` - 18 edges
-7. `Backend architecture README` - 17 edges
-8. `Edge Functions` - 16 edges
-9. `Communities (13 total, 0 thin omitted)` - 14 edges
-10. `Supabase clients and session` - 14 edges
+2. `README_AI_AGENT.md (gateway and contract)` - 73 edges
+3. `System overview` - 34 edges
+4. `Database architecture README` - 21 edges
+5. `renderReport()` - 19 edges
+6. `Google integration (Drive, Calendar)` - 19 edges
+7. `M1 RBAC migration doc` - 19 edges
+8. `Backend architecture README` - 17 edges
+9. `Edge Functions` - 16 edges
+10. `Tutorial · Connect the Google Calendar API (PSI-060, part 2 of 2)` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Branch Rule` --references--> `main()`  [INFERRED]
-  docs/review-rules.md → scripts/agent-context.ts
+- `3. Definitions` --references--> `main()`  [INFERRED]
+  agent-evaluate/reports/hermes_observability_report.md → scripts/agent-context.ts
 - `Agent Rules (from Contract C-03)` --references--> `main()`  [INFERRED]
   AGENTS.md → scripts/agent-context.ts
 - `Branch Rule` --references--> `main()`  [INFERRED]
   docs/review-process.md → scripts/agent-context.ts
+- `Branch Rule` --references--> `main()`  [INFERRED]
+  docs/review-rules.md → scripts/agent-context.ts
 - `Knowledge Gaps` --references--> `Task`  [INFERRED]
-  docs/graphify-architecture/snapshots/2026-09-25_phase-0.md → scripts/obsidian-sync.ts
-- `Knowledge Gaps` --references--> `Status`  [INFERRED]
   docs/graphify-architecture/snapshots/2026-09-25_phase-0.md → scripts/obsidian-sync.ts
 
 ## Import Cycles
@@ -82,39 +92,39 @@
 - **Notification to Web Push pipeline** — docs_database_architecture_m2_notifications_notify, docs_database_architecture_m2_notifications_dispatch_push, docs_database_architecture_m2_notifications_internal_post, docs_backend_architecture_push_notifications_dispatch_route, docs_database_architecture_m2_notifications_push_targets [EXTRACTED 1.00]
 - **Role/group mail send flow** — docs_database_architecture_m3_role_mail_messages_table, docs_database_architecture_m3_role_mail_message_recipients_table, docs_database_architecture_m3_role_mail_mail_recipients_fn, docs_database_architecture_m3_role_mail_send_role_mail, docs_database_architecture_m3_role_mail_mail_recipient_count_fn [INFERRED 0.85]
 
-## Communities (28 total, 2 thin omitted)
+## Communities (38 total, 2 thin omitted)
 
 ### Community 0 - "List task project (PSI tasks)"
 Cohesion: 0.07
-Nodes (88): List task project (PSI tasks), Module: Agent ops (graphify, Hermes, ECC), Module: Agenda calendar, Module: Supabase clients and session, Module: Documents (Google Drive), Module: Google Calendar sync, Module: Kanban board, Module: Role and group mail (+80 more)
+Nodes (89): Notification center and bell, List task project (PSI tasks), Module: Agent ops (graphify, Hermes, ECC), Module: Agenda calendar, Module: Supabase clients and session, Module: Documents (Google Drive), Module: Google Calendar sync, Module: Kanban board (+81 more)
 
 ### Community 1 - "Agent operations README"
-Cohesion: 0.06
+Cohesion: 0.05
 Nodes (48): Claude Code (builder lane) setup, CLAUDE.md @imports of contract, ECC rules project-local (.claude/rules/ecc), graphify install and PreToolUse hook, Contract-to-command map for Claude Code, ECC (Everything Claude Code) in this repo, AgentShield, ECC command and skill map (+40 more)
 
-### Community 2 - "Repo Scripts (obsidian-sync, agent-context)"
-Cohesion: 0.12
-Nodes (33): ref_ajv, ref_ajv_formats, AREAS, args, cell(), dayWIB(), FIELDS, HISTORY_DIR (+25 more)
+### Community 2 - "obsidian-sync.ts"
+Cohesion: 0.05
+Nodes (58): ref_ajv, ref_ajv_formats, ref_node_fs, ref_node_path, ref_node_url, build(), main(), OUT (+50 more)
 
 ### Community 3 - "send-role-mail (PSI-032)"
-Cohesion: 0.18
-Nodes (11): resend-webhook (PSI-033), send-role-mail (PSI-032), Principle: personal data minimization, Principle: idempotent side effects, Principle: one way to call inward (internal_post), Principle: SQL first, Edge Functions for the edge, Backend topology (Next.js, Supabase, externals), has_permission() (+3 more)
+Cohesion: 0.29
+Nodes (7): resend-webhook (PSI-033), send-role-mail (PSI-032), Principle: idempotent side effects, Principle: one way to call inward (internal_post), Principle: SQL first, Edge Functions for the edge, Backend topology (Next.js, Supabase, externals), sendRoleMail Server Action
 
-### Community 4 - "Google Integration and Calendar"
-Cohesion: 0.16
-Nodes (21): calendar_feed_tokens (ICS feed, PSI-044), can_see_event(), event_audience table (user/role/group), event_audience_user_ids(), events_for_user(), events table, notify_event_invites trigger, notify_event_update trigger (+13 more)
+### Community 4 - "m6-google.md"
+Cohesion: 0.11
+Nodes (29): has_permission() (mail.send, mail.audit), mail_recipient_count() function, mail_recipients() function, message_recipients table, messages table (role/group mail), is_message_sender / is_message_recipient helpers, send-role-mail Edge Function, calendar_feed_tokens (ICS feed, PSI-044) (+21 more)
 
 ### Community 5 - "daily-digest (PSI-077)"
 Cohesion: 0.24
 Nodes (10): daily-digest (PSI-077), Deterministic Google event IDs (idempotent push), google-calendar Edge Function (/sync /push), google-drive Edge Function (/sync /file /search), Service-account token helper (google.ts), Sync style: periodic window rescan, Notification types and creators, ICS feed route /api/calendar/feed/[token] (+2 more)
 
-### Community 6 - "Supabase project settings"
-Cohesion: 0.22
-Nodes (8): Supabase Auth settings, Supabase project settings, Vault secrets and env variables, assert_admin_remains() last-admin trigger, custom_access_token_hook, effective_role_ids(), Guards (escalation, last admin, suspension, system rows), users_with_permission()
+### Community 6 - "has_permission"
+Cohesion: 0.17
+Nodes (11): Supabase Auth settings, Supabase project settings, Vault secrets and env variables, assert_admin_remains() last-admin trigger, custom_access_token_hook, effective_role_ids(), Guards (escalation, last admin, suspension, system rows), has_permission() (+3 more)
 
 ### Community 7 - "C-18 Google credentials and document content stay server-side"
-Cohesion: 0.29
-Nodes (8): Hermes gateway security (remote shell), agent_audit_log, runTool (runtime.ts), Agent tool rules, Decision: one Google service account, Security and privacy controls, C-04 Secret key never in browser-reachable code, C-18 Google credentials and document content stay server-side
+Cohesion: 0.25
+Nodes (9): Hermes gateway security (remote shell), agent_audit_log, runTool (runtime.ts), Agent tool rules, Decision: one Google service account, Security and privacy controls, Principle: personal data minimization, C-04 Secret key never in browser-reachable code (+1 more)
 
 ### Community 8 - "Kanban Schema and Agent Layer"
 Cohesion: 0.27
@@ -126,19 +136,19 @@ Nodes (9): Onboarding Option A: email invites, Onboarding Option B: Google sign-
 
 ### Community 10 - "HANDOFF.md"
 Cohesion: 0.25
-Nodes (7): Current Card, Exact Next Action, In-flight Assumptions, Last Commit, Next Card, Test Status, Unresolved Questions
+Nodes (7): Completed Phase 10 Streamline (all merged to master), Current Card, Exact Next Action, Master State, Next Card Candidates, Open Follow-ups, Test & Build Status
 
-### Community 11 - "m3-role-mail.md"
-Cohesion: 0.50
-Nodes (7): has_permission() (mail.send, mail.audit), mail_recipient_count() function, mail_recipients() function, message_recipients table, messages table (role/group mail), is_message_sender / is_message_recipient helpers, send-role-mail Edge Function
+### Community 11 - "analyze.ts"
+Cohesion: 0.07
+Nodes (41): BillingDay, branchSwitch(), Bucket, buildSteps(), canonical(), CHECKS, firstAtOrAfter(), flagSteps() (+33 more)
 
 ### Community 12 - "Three-Layer Principle"
 Cohesion: 0.40
 Nodes (5): Backend layer (Edge Functions, route handlers, Auth config), Database layer (Postgres, RLS, triggers, pg_cron), Frontend layer (Next.js Server Components, Server Actions, PWA), internal_post() / pg_net dispatch, Three layers: frontend, backend, database
 
-### Community 13 - "xref.mjs"
-Cohesion: 0.04
-Nodes (39): Agent Rules (from Contract C-03), Critical Conventions, Data Fetching, Forms, graphify, Project Overview, Repository Structure, Routing & Params (+31 more)
+### Community 13 - "AGENTS.md"
+Cohesion: 0.17
+Nodes (10): Agent Rules (from Contract C-03), Critical Conventions, Data Fetching, Forms, graphify, Project Overview, Repository Structure, Routing & Params (+2 more)
 
 ### Community 14 - "Communities (13 total, 0 thin omitted)"
 Cohesion: 0.08
@@ -146,7 +156,7 @@ Nodes (28): Communities (13 total, 0 thin omitted), Community 0 - "Task Plan and
 
 ### Community 15 - "README_AI_AGENT.md (gateway and contract)"
 Cohesion: 0.05
-Nodes (78): Agent layer (MCP + in-app chat), Auth and onboarding, Edge Functions, Google integration (Drive, Calendar), Local workflow and deploy, Function and migration deploy (PSI-091), Push notifications (delivery pipeline), Backend architecture README (+70 more)
+Nodes (79): Agent layer (MCP + in-app chat), Auth and onboarding, Edge Functions, Google integration (Drive, Calendar), Local workflow and deploy, Function and migration deploy (PSI-091), Push notifications (delivery pipeline), Backend architecture README (+71 more)
 
 ### Community 16 - "2. Step-by-Step Review Procedure"
 Cohesion: 0.17
@@ -161,12 +171,12 @@ Cohesion: 0.20
 Nodes (8): Jev Ultrafast Browser Agent, Key Integration Points, 1. System Overview & Architecture, 2. Service Endpoints & Execution, 3. Mandatory Agent Rules for Web Tasks, API & Command Reference, Core Components, Jev Ultrafast Browser Agent Rules & Specification (`format.md`)
 
 ### Community 19 - "Historical agent work"
-Cohesion: 0.13
-Nodes (17): Historical agent work, bun run agent:check validation, Append-only entries rule, Agent history entry JSON contract (schema.json), Agent history JSON entry, agent-history schema.json, Agent history vs agent memory, One file per session, append-only entries (+9 more)
+Cohesion: 0.15
+Nodes (15): Historical agent work, bun run agent:check validation, Append-only entries rule, Agent history entry JSON contract (schema.json), Agent history JSON entry, agent-history schema.json, Agent history vs agent memory, One file per session, append-only entries (+7 more)
 
-### Community 20 - "index.ts"
-Cohesion: 0.47
-Nodes (4): ref_npm_supabase, admin, cors, json()
+### Community 20 - "google-calendar/index.ts"
+Cohesion: 0.09
+Nodes (28): ref_bun_test, ref_npm_jose_5, ref_npm_supabase, admin, CalendarRow, pullCalendar(), GoogleEventItem, mapGoogleEvent() (+20 more)
 
 ### Community 21 - "Supabase OAuth 2.1 server for agents (PSI-074)"
 Cohesion: 0.38
@@ -181,32 +191,72 @@ Cohesion: 0.40
 Nodes (6): /api/chat route (PSI-076), defineTool / AgentTool types (define.ts), get_activity tool, Next.js model() adapter (models.ts), Agent tool registry (registry.ts), Principle: agents read curated surfaces
 
 ### Community 26 - "C-08 Talent data is personal data under UU PDP"
-Cohesion: 0.60
-Nodes (5): Edge Function complete() adapter (llm.ts), LLM provider layer: Claude and Hermes (PSI-098), parse-cv (PSI-082), Talent CVs in Drive, C-08 Talent data is personal data under UU PDP
+Cohesion: 0.43
+Nodes (7): Edge Function complete() adapter (llm.ts), LLM provider layer: Claude and Hermes (PSI-098), parse-cv (PSI-082), Google Cloud setup (PSI-060), Talent CVs in Drive, C-08 Talent data is personal data under UU PDP, C-15 Human gates
 
-### Community 27 - "Frontend architecture"
+### Community 27 - "report.ts"
+Cohesion: 0.06
+Nodes (43): taskResult, attempts, auxCalls, Config, estimatedCount, finalCalls, hermes, hermesCalls (+35 more)
+
+### Community 28 - "Tutorial · Connect the Google Calendar API (PSI-060, part 2 of 2)"
+Cohesion: 0.08
+Nodes (25): Finally: the app, First: is the API even enabled?, If "Create new key" is greyed out or errors, Local dev, Now delete the download, Remote project, Security rules for this task, Status columns are your diagnostics (+17 more)
+
+### Community 29 - "ingest.ts"
+Cohesion: 0.15
+Nodes (14): Attempt, Call, classifyToolResult(), errorClass(), Msg, normalizeTokens(), Session, CallRow (+6 more)
+
+### Community 30 - "tally"
+Cohesion: 0.17
+Nodes (15): buckets, retryCount(), scale(), tally, tokensOf(), zero(), billingRows, callRow() (+7 more)
+
+### Community 31 - "Hermes observability report"
+Cohesion: 0.15
+Nodes (12): 10. Not available, 1. Summary, 2. Sources, joins and coverage, 3. Definitions, 4. Wasted vs successful compute, 5. Tasks, 6. Providers (Hermes key), 7. Actual vs expected cost per token (+4 more)
+
+### Community 32 - "reconcile"
+Cohesion: 0.28
+Nodes (9): costOf(), estimateFailedAttempts(), likelyBilled(), parseBillingCsv(), priceFor(), reconcile(), reconcileModels(), utcDay() (+1 more)
+
+### Community 33 - "M10 · Finance (event cashflow)"
+Cohesion: 0.25
+Nodes (8): Activity log (M7) — must not leak amounts, Agent view (M8 pattern), Decisions, M10 · Finance (event cashflow), pgTAP (PSI-101 accept), RLS, Schema (sketch for PSI-101), The streamline this serves
+
+### Community 34 - "agent-evaluate"
+Cohesion: 0.29
+Nodes (6): step(), agent-evaluate, Files, JSONL fields, Privacy (C-07, C-08, C-18), Run
+
+### Community 35 - "Review Process & `master` Branch Convention"
+Cohesion: 0.29
+Nodes (6): Agent Rules (merged from Contract C-03), Branch Rule, Files, Review Document Sections, Review Gate, Review Process & `master` Branch Convention
+
+### Community 36 - "Finance (event cashflow) and the event → board → finance streamline"
+Cohesion: 0.40
+Nodes (5): AI-friendly contract, Finance (event cashflow) and the event → board → finance streamline, Module layout (five-file pattern), Template parts reused, The flow a user sees
+
+### Community 37 - "add"
 Cohesion: 0.67
-Nodes (3): Decisions at a glance, Files in this folder, Frontend architecture
+Nodes (4): account(), add(), buildRuns(), wasteFraction()
 
 ## Knowledge Gaps
-- **139 isolated node(s):** `ROOT`, `OUT`, `SOURCES`, `REQUIRED`, `files` (+134 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 163 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **234 isolated node(s):** `perMillion`, `Price`, `Tokens`, `ToolCall`, `ToolStatus` (+229 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 269 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `README_AI_AGENT.md (gateway and contract)` connect `README_AI_AGENT.md (gateway and contract)` to `List task project (PSI tasks)`, `Agent operations README`, `Google Integration and Calendar`, `C-18 Google credentials and document content stay server-side`, `Kanban Schema and Agent Layer`, `Operations and risks`, `m3-role-mail.md`, `xref.mjs`, `Historical agent work`, `Supabase OAuth 2.1 server for agents (PSI-074)`, `C-08 Talent data is personal data under UU PDP`?**
-  _High betweenness centrality (0.560) - this node is a cross-community bridge._
-- **Why does `List task project (PSI tasks)` connect `List task project (PSI tasks)` to `Agent operations README`, `Repo Scripts (obsidian-sync, agent-context)`, `Historical agent work`, `README_AI_AGENT.md (gateway and contract)`?**
-  _High betweenness centrality (0.317) - this node is a cross-community bridge._
-- **Why does `Integrated Obsidian (local)` connect `Agent operations README` to `List task project (PSI tasks)`, `Repo Scripts (obsidian-sync, agent-context)`, `Historical agent work`, `README_AI_AGENT.md (gateway and contract)`?**
-  _High betweenness centrality (0.088) - this node is a cross-community bridge._
-- **Are the 2 inferred relationships involving `M1 RBAC migration doc` (e.g. with `rbac.test.sql assertions` and `Canonical graph questions`) actually correct?**
-  _`M1 RBAC migration doc` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `ROOT`, `OUT`, `SOURCES` to the rest of the system?**
-  _139 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `README_AI_AGENT.md (gateway and contract)` connect `README_AI_AGENT.md (gateway and contract)` to `List task project (PSI tasks)`, `Agent operations README`, `m6-google.md`, `C-18 Google credentials and document content stay server-side`, `Kanban Schema and Agent Layer`, `Operations and risks`, `AGENTS.md`, `Historical agent work`, `Supabase OAuth 2.1 server for agents (PSI-074)`, `C-08 Talent data is personal data under UU PDP`?**
+  _High betweenness centrality (0.528) - this node is a cross-community bridge._
+- **Why does `List task project (PSI tasks)` connect `List task project (PSI tasks)` to `Agent operations README`, `obsidian-sync.ts`, `Historical agent work`, `README_AI_AGENT.md (gateway and contract)`?**
+  _High betweenness centrality (0.293) - this node is a cross-community bridge._
+- **Why does `Integrated Obsidian (local)` connect `Agent operations README` to `List task project (PSI tasks)`, `obsidian-sync.ts`, `Historical agent work`, `README_AI_AGENT.md (gateway and contract)`?**
+  _High betweenness centrality (0.126) - this node is a cross-community bridge._
+- **What connects `perMillion`, `Price`, `Tokens` to the rest of the system?**
+  _234 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `List task project (PSI tasks)` be split into smaller, more focused modules?**
-  _Cohesion score 0.06635318704284221 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06511746680286006 - nodes in this community are weakly interconnected._
 - **Should `Agent operations README` be split into smaller, more focused modules?**
-  _Cohesion score 0.05585106382978723 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0549645390070922 - nodes in this community are weakly interconnected._
+- **Should `obsidian-sync.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.05144230769230769 - nodes in this community are weakly interconnected._

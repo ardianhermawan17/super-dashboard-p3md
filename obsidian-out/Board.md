@@ -35,6 +35,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · agent:hermes · 1 run #backend #phase-7
 
 
 ## Blocked
@@ -45,7 +46,6 @@ kanban-plugin: board
 ## On Hold
 
 - [ ] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools #frontend #phase-7
-- [ ] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation #backend #phase-7
 - [ ] [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes · 3 runs #frontend #phase-8
 - [ ] [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · 2 runs #backend #phase-8
 - [ ] [[tasks/PSI-083|PSI-083]] Skill taxonomy admin #frontend #phase-8

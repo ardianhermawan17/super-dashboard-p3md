@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/card';
 import { Icons } from '@/components/icons';
 import { getSession } from '@/lib/auth/session';
+import { getLatestDigestAction } from '@/features/overview/actions';
+import { DailyDigestCard } from '@/features/overview/components/daily-digest-card';
 import React from 'react';
 
 export default async function OverViewLayout({
@@ -27,6 +29,13 @@ export default async function OverViewLayout({
 }) {
   const session = await getSession();
   const canReadFinance = session?.permissions.includes('finance.read') ?? false;
+  const canReceiveDigest =
+    session?.permissions.includes('digest.receive') ||
+    session?.permissions.includes('agent.audit') ||
+    false;
+
+  const digestRes = canReceiveDigest ? await getLatestDigestAction() : null;
+  const digest = digestRes?.ok ? digestRes.data : null;
 
   return (
     <PageContainer>
@@ -34,6 +43,8 @@ export default async function OverViewLayout({
         <div className='flex items-center justify-between'>
           <h2 className='text-2xl font-bold tracking-tight'>Hi, Welcome back 👋</h2>
         </div>
+
+        {canReceiveDigest && digest ? <DailyDigestCard digest={digest} /> : null}
 
         <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
           <Card className='@container/card'>

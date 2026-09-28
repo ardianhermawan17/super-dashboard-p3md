@@ -3,12 +3,16 @@ import { complete } from './llm';
 
 describe('Edge Function LLM Completion Adapter (PSI-098)', () => {
   test('completes anthropic request format', async () => {
-    // Setup Deno mock if running under Bun
+    process.env.ANTHROPIC_API_KEY = 'sk-ant-test';
     if (typeof globalThis.Deno === 'undefined') {
       (globalThis as any).Deno = {
         env: {
-          get: (key: string) => (key === 'ANTHROPIC_API_KEY' ? 'sk-ant-test' : null),
+          get: (key: string) => process.env[key] ?? null,
         },
+      };
+    } else {
+      (globalThis as any).Deno.env = {
+        get: (key: string) => process.env[key] ?? null,
       };
     }
 

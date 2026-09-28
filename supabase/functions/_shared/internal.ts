@@ -6,7 +6,9 @@ export function assertInternal(req: Request): void {
   const auth = req.headers.get('authorization') ?? '';
   const token = auth.replace(/^Bearer\s+/i, '').trim();
 
-  const secret = Deno.env.get('INTERNAL_FN_SECRET') ?? 'local-dev-internal-secret';
+  const secret =
+    (typeof Deno !== 'undefined' ? Deno.env.get('INTERNAL_FN_SECRET') : process.env.INTERNAL_FN_SECRET) ??
+    'local-dev-internal-secret';
 
   if (!token || token !== secret) {
     throw new Response(JSON.stringify({ error: 'unauthorized: invalid internal secret' }), {

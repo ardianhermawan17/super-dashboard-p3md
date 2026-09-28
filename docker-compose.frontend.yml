@@ -1,0 +1,47 @@
+# ==============================================================================
+# P3MD Super Dashboard - Frontend Docker Compose
+# Runs the Next.js standalone container connecting to local/remote Supabase
+# ==============================================================================
+
+services:
+  frontend:
+    container_name: p3md-frontend
+    build:
+      context: ./frontend-architecture
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SENTRY_DISABLED: "true"
+    ports:
+      - "3000:3000"
+    env_file:
+      - path: ./frontend-architecture/.env.local
+        required: false
+      - path: ./frontend-architecture/.env
+        required: false
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
+      # Client-side (browser) Supabase URL
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-http://127.0.0.1:54371}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      # Server-side (inside container) Supabase URL
+      - SUPABASE_URL=${SUPABASE_URL:-http://host.docker.internal:54371}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      # AI & Inference models
+      - CHAT_MODEL=${CHAT_MODEL:-anthropic:claude-sonnet-5}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - HERMES_API_KEY=${HERMES_API_KEY}
+      - INTERNAL_FN_SECRET=${INTERNAL_FN_SECRET:-local-dev-only-internal-fn-secret}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://127.0.0.1:3000', (r) => process.exit(r.statusCode < 500 ? 0 : 1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

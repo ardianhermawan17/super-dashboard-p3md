@@ -1,13 +1,20 @@
 ---
-updated: 2026-09-29 00:30 WIB
+updated: 2026-09-29 02:00 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Latest Delivered Features
 
-1. **UI Motion & Micro-Interactions (`motion.js` / `motion/react`)** — **MERGED** (`1569b9c`, PR #66):
-   - Added fluid spring physics, `AnimatePresence` step transitions, and cubic-bezier accordions across TourModal, DailyDigestCard, and AiChatInterface.
-2. **PSI-111 · Contextual feature onboarding & route-specific "Take Tour" system** — **MERGED** (`e8558b5`, PR #65).
+1. **UI/UX Motion System & Cognitive Laws (`motion.js` / `motion/react`)** — **MERGED** (`4681125`, PR #70):
+   - Added staggered entry grids (`AnimatedStatsGrid`, `AnimatedChartsGrid`) using Law of Continuity.
+   - Added tactile micro-interactions (`whileHover`, `whileTap`) across Kanban TaskCards under Doherty Threshold (<400ms).
+2. **RBAC Admin Guided Onboarding Tour** — **MERGED** (`7410461`, PR #69):
+   - Added tour walkthrough on `/dashboard/admin/*` covering user management, groups, role-permission matrix, and catalogue.
+3. **Frontend Dockerization & Dedicated Compose** — **MERGED** (`22207a7`, PR #68):
+   - Standalone Next.js Dockerfile and dedicated `docker-compose.frontend.yml` on port 3000 connecting to Supabase via host gateway.
+4. **Persona Accounts for Human Review** — **MERGED** (`28ea02a`, PR #67):
+   - Provisioned database migration and local seed for Project Manager (`pm@p3md.test`), Operation (`operation@p3md.test`), and Finance (`finance@p3md.test`).
+5. **PSI-111 · Contextual feature onboarding & route-specific "Take Tour" system** — **MERGED** (`e8558b5`, PR #65).
 3. **PSI-076 · Live in-app AI chat on the shared tools** — **MERGED** (`6dfd80f`, PR #64).
 4. **PSI-077 · Daily digest** — **MERGED** (`5fc799b`, PR #63).
 
@@ -38,4 +45,4 @@ project: super-dashboard-p3md-architecture
 
 ## Master State
 
-- `master` @ `1569b9c` (PR #66 merge). Working tree clean.
+- `master` @ `4681125` (PR #70 merge). Working tree clean.

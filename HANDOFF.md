@@ -1,35 +1,59 @@
-## Current Card
-
-**PSI-096 · Hermes standing jobs** — **BLOCKED** 2026-09-28 (operator triage).
-
-Operator reported the Hermes cron scheduler caused system instability on the host. All four standing jobs are **paused** (cronjob state=paused, enabled=false):
-- a3e9af9d79b3 morning pulse · e9cc298252ab contract check · 52d300adad2c weekly graph · 11b42f15a1e6 stale work
-
-Nothing fires. Job definitions kept (not deleted) so they can be resumed after triage.
-Action for operator: decide re-enable vs. harden (lower frequency, pin model, restrict concurrency) → resume via cronjob action=resume.
-
 ---
-updated: 2026-09-28 15:10 WIB
+updated: 2026-09-28 19:30 WIB
 project: super-dashboard-p3md-architecture
 ---
 
 ## Current Card
 
-**PSI-096 · Hermes standing jobs** — setup COMPLETE, `status: doing` (not review — one week of human-reviewed runs required before done, per operator).
+**PSI-074 · Supabase OAuth 2.1 server, consent page, resource metadata** — **DONE (agent scope)**, code merged into `master` at `296a771` (PR #59).
 
-The four jobs live in the **Hermes scheduler store** (not repo config), all delivered to `telegram:470957825`, workdir `D:\coding\pflp\super-dashboard-p3md-architecture`:
+What landed:
+- `src/app/auth/consent/page.tsx` — full consent page with session gate (`getUser()`), `getAuthorizationDetails` load, client avatar/logo + user email + scopes, Approve (`approveAuthorization`) / Deny (`denyAuthorization`) with `skipBrowserRedirect: true` + `router.replace(redirect_url)`, auto-redirect when already approved, and missing/invalid authorization ID error card.
+- `src/app/auth/consent/consent-lib.ts` + 6 unit tests in `src/app/auth/consent/__tests__/consent.test.ts` (100% pass).
+- `supabase/config.toml` — local OAuth server enabled (`[auth.oauth_server]` enabled=true, authorization_url_path="/auth/consent", allow_dynamic_registration=true).
+- `src/app/.well-known/oauth-protected-resource/route.ts` — verified (points to Supabase Auth server).
+- **Verified against local stack**: metadata at `/.well-known/oauth-authorization-server`, JWKS is ES256 asymmetric, dynamic registration returns a `client_id`, PKCE authorize as `admin@p3md.test` 302-redirects to `/auth/consent?authorization_id=...`, `getAuthorizationDetails` returns `{client, user, scope}`.
 
-| Job | Schedule (WIB) | Writes | Last/Next run |
-|---|---|---|---|
-| `PSI-096 morning pulse` (a3e9af9d79b3) | `0 7 * * 1-5` | Nothing | next 2026-09-29 07:00 |
-| `PSI-096 contract check` (e9cc298252ab) | `0 22 * * *` | Nothing | ran ok 2026-09-28 15:02; next 22:00 |
-| `PSI-096 weekly graph` (52d300adad2c) | `0 21 * * 0` | Branch + PR only | next 2026-10-04 21:00 |
-| `PSI-096 stale work` (11b42f15a1e6) | `0 8 * * 1` | Nothing | next 2026-10-05 08:00 |
+**Hosted follow-ups (human-gated, no Supabase credentials in scope)**:
+- Settings → JWT keys: ensure asymmetric keys are active.
+- Auth → OAuth Server: enable, dynamic registration on, consent URL `https://<site>/auth/consent`.
+- End-to-end connect from Claude Desktop on the hosted project.
 
-Only weekly graph writes — opens `agent/PSI-005-graph-refresh-<date>` + PR only when `GRAPH_REPORT.md` hash changes after `graphify update .`.
-**Smoke test**: contract check fired via `cronjob_manage run` → `last_status: ok`, delivered. Pipeline verified end-to-end.
+## Stamped Review Cards (merged to master earlier this turn)
 
-Bookkeeping merged to master via **PR #58** (`fbd79d4`): `docs/list-task-project.md` PSI-096 → doing + history `2026-09-28T07-00-00Z__PSI-096__hermes.json` (outcome `partial`, `human_review.required: true`).
+- **PSI-042** (Event form audience picker + WIB + rrule, PR #57)
+- **PSI-066** (google-calendar /push, PR #45)
+- **PSI-073** (MCP endpoint mcp-handler 2.x, PR #40)
+- **PSI-097** (AgentShield in CI, PR #44)
+- **PSI-100** (Finance design docs, PR #41)
+- **PSI-101** (Migration M10 finance, PR #43)
+- **PSI-102** (Event board from calendar, PR #49)
+- **PSI-103** (Finance module CRUD, PR #51)
+- **PSI-107** (Board-delete fix M7 trigger, PR #56)
+
+## Cron Jobs Status (Priority rule: EVADE cronjobs task/scheduler)
+
+- **PSI-096** · Hermes standing jobs: **BLOCKED** per operator instruction. All 4 jobs **paused** in scheduler (enabled=false). Nothing fires. Do not resume without explicit operator instruction.
+
+## Unblocked Next Candidates
+
+- **PSI-075 · Connected apps page** (`backlog`, depends PSI-074 — unblocked now): UI to view user's OAuth grants and revoke access (calls `auth.oauth.listUserGrants` + `revokeGrant`). Natural continuation of the OAuth/MCP streamline.
+- **PSI-078 · Verify MCP client compatibility (CIMD vs DCR)** (`backlog`, depends PSI-073, PSI-074).
+
+## Test & Build Status
+
+- Frontend tests: **86/86 passing** (`bun test src/`)
+- Edge fns: **15/15 passing**
+- Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
+- `agent:check`: **ok (86 tasks, 73 history entries)**
+
+## Master State
+
+- `master` @ `296a771` (PR #59 merge). Working tree clean.
+
+## Exact Next Action
+
+Claim **PSI-075 · Connected apps page** on branch `task/PSI-075` — UI to list connected OAuth apps (grants) and revoke them, with full RLS and unit tests. `2026-09-28T07-00-00Z__PSI-096__hermes.json` (outcome `partial`, `human_review.required: true`).
 
 **Exact next action:** operator reviews the first week of runs (contract check first fired today 22:00 WIB); when a week looks good, stamp PSI-096 done (flip status + outcome.
 

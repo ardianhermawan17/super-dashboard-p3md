@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useTour } from '../context/tour-context';
 import {
   Dialog,
@@ -13,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
-import { Progress } from '@/components/ui/progress';
 
 export function TourModal() {
   const {
@@ -52,39 +52,62 @@ export function TourModal() {
         className='sm:max-w-md p-0 overflow-hidden border-primary/30 shadow-xl'
         onKeyDown={handleKeyDown}
       >
-        {/* Progress line */}
-        <Progress value={progressPercent} className='h-1.5 rounded-none bg-muted' />
+        {/* Animated Progress line */}
+        <div className='h-1.5 w-full bg-muted/60 overflow-hidden'>
+          <motion.div
+            className='h-full bg-primary'
+            initial={{ width: 0 }}
+            animate={{ width: `${progressPercent}%` }}
+            transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+          />
+        </div>
 
         <div className='p-6 space-y-4'>
-          {/* Header */}
-          <DialogHeader className='space-y-1.5'>
-            <div className='flex items-center justify-between gap-2'>
-              <Badge variant='outline' className='text-xs font-semibold py-0.5 px-2 text-primary border-primary/30 bg-primary/5'>
-                {currentTour.featureName} · Step {currentStepIndex + 1} of {totalSteps}
-              </Badge>
-              {step.badge && (
-                <Badge variant='secondary' className='text-[10px] py-0 px-1.5'>
-                  {step.badge}
-                </Badge>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -12 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+              className='space-y-4'
+            >
+              {/* Header */}
+              <DialogHeader className='space-y-1.5'>
+                <div className='flex items-center justify-between gap-2'>
+                  <Badge variant='outline' className='text-xs font-semibold py-0.5 px-2 text-primary border-primary/30 bg-primary/5'>
+                    {currentTour.featureName} · Step {currentStepIndex + 1} of {totalSteps}
+                  </Badge>
+                  {step.badge && (
+                    <Badge variant='secondary' className='text-[10px] py-0 px-1.5'>
+                      {step.badge}
+                    </Badge>
+                  )}
+                </div>
+
+                <DialogTitle className='text-lg font-bold tracking-tight text-foreground pt-1'>
+                  {step.title}
+                </DialogTitle>
+
+                <DialogDescription className='text-sm text-muted-foreground leading-relaxed pt-1'>
+                  {step.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* Action Hint / Tip callout */}
+              {step.actionHint && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.08, duration: 0.2 }}
+                  className='rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs flex items-start gap-2.5 text-foreground/90'
+                >
+                  <Icons.sparkles className='h-4 w-4 text-primary shrink-0 mt-0.5' />
+                  <span>{step.actionHint}</span>
+                </motion.div>
               )}
-            </div>
-
-            <DialogTitle className='text-lg font-bold tracking-tight text-foreground pt-1'>
-              {step.title}
-            </DialogTitle>
-
-            <DialogDescription className='text-sm text-muted-foreground leading-relaxed pt-1'>
-              {step.description}
-            </DialogDescription>
-          </DialogHeader>
-
-          {/* Action Hint / Tip callout */}
-          {step.actionHint && (
-            <div className='rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs flex items-start gap-2.5 text-foreground/90'>
-              <Icons.sparkles className='h-4 w-4 text-primary shrink-0 mt-0.5' />
-              <span>{step.actionHint}</span>
-            </div>
-          )}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Step indicator dots */}
           <div className='flex items-center justify-center gap-1.5 pt-2'>
@@ -94,9 +117,9 @@ export function TourModal() {
                 type='button'
                 onClick={() => goToStep(idx)}
                 aria-label={`Go to step ${idx + 1}`}
-                className={`h-2 rounded-full transition-all ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   idx === currentStepIndex
-                    ? 'w-6 bg-primary'
+                    ? 'w-6 bg-primary shadow-xs'
                     : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
                 }`}
               />

@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, type UIMessage } from 'ai';
 import { Badge } from '@/components/ui/badge';
@@ -43,7 +44,12 @@ function ToolMarker({ part }: { part: ToolPart }) {
   const errored = part.state === 'output-error';
 
   return (
-    <div className='flex flex-col gap-1.5'>
+    <motion.div
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      className='flex flex-col gap-1.5'
+    >
       <Marker>
         <MarkerIcon>
           <Icons.code className='h-3.5 w-3.5' />
@@ -69,7 +75,7 @@ function ToolMarker({ part }: { part: ToolPart }) {
       {errored && part.errorText && (
         <p className='text-destructive text-xs'>{part.errorText}</p>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -149,16 +155,24 @@ export function AiChatInterface() {
                     </div>
 
                     <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 w-full pt-2'>
-                      {SUGGESTED_PROMPTS.map((prompt) => (
-                        <Button
+                      {SUGGESTED_PROMPTS.map((prompt, idx) => (
+                        <motion.div
                           key={prompt}
-                          variant='outline'
-                          className='h-auto py-2.5 px-3 text-xs justify-start text-left font-normal hover:bg-primary/5 hover:border-primary/30 transition-colors whitespace-normal'
-                          onClick={() => handlePromptClick(prompt)}
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.05 * idx, duration: 0.2 }}
+                          whileHover={{ scale: 1.015, y: -1 }}
+                          whileTap={{ scale: 0.985 }}
                         >
-                          <Icons.chevronRight className='mr-1.5 h-3.5 w-3.5 shrink-0 text-primary' />
-                          <span>{prompt}</span>
-                        </Button>
+                          <Button
+                            variant='outline'
+                            className='w-full h-full py-2.5 px-3 text-xs justify-start text-left font-normal hover:bg-primary/5 hover:border-primary/30 transition-colors whitespace-normal shadow-2xs'
+                            onClick={() => handlePromptClick(prompt)}
+                          >
+                            <Icons.chevronRight className='mr-1.5 h-3.5 w-3.5 shrink-0 text-primary' />
+                            <span>{prompt}</span>
+                          </Button>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -173,54 +187,60 @@ export function AiChatInterface() {
                         messageId={message.id}
                         scrollAnchor={isUser}
                       >
-                        <Message align={isUser ? 'end' : 'start'}>
-                          {!isUser && (
-                            <MessageAvatar className='h-8 w-8 rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0 self-start mt-1'>
-                              <Icons.sparkles className='h-4 w-4' />
-                            </MessageAvatar>
-                          )}
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ duration: 0.22, ease: 'easeOut' }}
+                        >
+                          <Message align={isUser ? 'end' : 'start'}>
+                            {!isUser && (
+                              <MessageAvatar className='h-8 w-8 rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0 self-start mt-1 shadow-2xs'>
+                                <Icons.sparkles className='h-4 w-4' />
+                              </MessageAvatar>
+                            )}
 
-                          <MessageContent className='max-w-2xl'>
-                            {message.parts?.map((part, index) => {
-                              const key = `${message.id}-${index}`;
-                              if (part.type === 'text') {
-                                return (
-                                  <Bubble
-                                    key={key}
-                                    variant={isUser ? 'default' : 'secondary'}
-                                    className='text-sm leading-relaxed whitespace-pre-wrap'
-                                  >
-                                    <BubbleContent>{part.text}</BubbleContent>
-                                  </Bubble>
-                                );
-                              }
-                              if (part.type === 'reasoning') {
-                                return (
-                                  <Marker key={key}>
-                                    <MarkerIcon>
-                                      <Icons.sparkles className='h-3.5 w-3.5' />
-                                    </MarkerIcon>
-                                    <MarkerContent className='italic text-xs text-muted-foreground'>
-                                      {part.text}
-                                    </MarkerContent>
-                                  </Marker>
-                                );
-                              }
-                              if (
-                                part.type === 'dynamic-tool' ||
-                                part.type.startsWith('tool-')
-                              ) {
-                                return (
-                                  <ToolMarker
-                                    key={key}
-                                    part={part as unknown as ToolPart}
-                                  />
-                                );
-                              }
-                              return null;
-                            })}
-                          </MessageContent>
-                        </Message>
+                            <MessageContent className='max-w-2xl'>
+                              {message.parts?.map((part, index) => {
+                                const key = `${message.id}-${index}`;
+                                if (part.type === 'text') {
+                                  return (
+                                    <Bubble
+                                      key={key}
+                                      variant={isUser ? 'default' : 'secondary'}
+                                      className='text-sm leading-relaxed whitespace-pre-wrap'
+                                    >
+                                      <BubbleContent>{part.text}</BubbleContent>
+                                    </Bubble>
+                                  );
+                                }
+                                if (part.type === 'reasoning') {
+                                  return (
+                                    <Marker key={key}>
+                                      <MarkerIcon>
+                                        <Icons.sparkles className='h-3.5 w-3.5' />
+                                      </MarkerIcon>
+                                      <MarkerContent className='italic text-xs text-muted-foreground'>
+                                        {part.text}
+                                      </MarkerContent>
+                                    </Marker>
+                                  );
+                                }
+                                if (
+                                  part.type === 'dynamic-tool' ||
+                                  part.type.startsWith('tool-')
+                                ) {
+                                  return (
+                                    <ToolMarker
+                                      key={key}
+                                      part={part as unknown as ToolPart}
+                                    />
+                                  );
+                                }
+                                return null;
+                              })}
+                            </MessageContent>
+                          </Message>
+                        </motion.div>
                       </MessageScrollerItem>
                     );
                   })

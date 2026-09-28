@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T18-00-00Z__PSI-111__hermes",
+  "task_ids": [
+    "PSI-111"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-28T17:15:00Z",
+    "ended_at": "2026-09-28T18:00:00Z",
+    "branch": "task/PSI-111"
+  },
+  "intent": "Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.",
+  "outcome": "done",
+  "summary": "Implemented the interactive 'Take Tour' contextual onboarding subsystem (PSI-111). CODE: (1) Route tour configuration in src/features/tour/config/routes-tour.ts: unique multi-step tours configured for /dashboard/overview (AI digest, KPIs, charts), /dashboard/finance (ledger, add entry, category trends, AI tools), /dashboard/kanban & /dashboard/boards (multi-board tabs, drag-and-drop, task detail dialog), /dashboard/calendar (Google 2-way sync, agenda, event-to-board streamline), /dashboard/ai-chat (grounded tools, prompt starters, multi-model inference), /dashboard/documents (Drive sync, RBAC scoping), /dashboard/talent (pipeline, CV upload, skill taxonomy), and /dashboard/settings (connected apps, OAuth revocation), plus default fallback. (2) State & Onboarding provider src/features/tour/context/tour-context.tsx: manages tour state, step navigation, and localStorage persistence (p3md_tour_seen_<route>), auto-prompting first-time visitors per route after gentle 1.2s delay. (3) TourModal UI src/features/tour/components/tour-modal.tsx: accessible spotlight modal with progress bar, step badges, rich descriptions, actionable tips, interactive dot indicators, keyboard arrow controls, and 'Don't auto-show again' toggle. (4) Header ? trigger src/features/tour/components/tour-trigger.tsx: Help popover integrated into global Header next to NotificationCenter with pulsing unread dot for unseen tours and 'Take Tour' / 'Reset all tours' actions. (5) Integrated globally via Providers and Header. (6) Unit tests: 3 comprehensive tests in src/features/tour/__tests__/tour.test.ts (123 frontend tests passing, 22 edge function tests passing, typecheck clean, lint clean).",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/tour/types.ts",
+      "action": "added",
+      "note": "TourStep, RouteTourConfig, and TourContextValue type definitions"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/config/routes-tour.ts",
+      "action": "added",
+      "note": "Route-specific tour step configurations across all dashboard features"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/context/tour-context.tsx",
+      "action": "added",
+      "note": "TourProvider and useTour hook with route detection and localStorage tracking"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/components/tour-modal.tsx",
+      "action": "added",
+      "note": "Step-by-step interactive tour dialog with progress bar and keyboard controls"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/components/tour-trigger.tsx",
+      "action": "added",
+      "note": "Header ? icon trigger with feature preview popover"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/__tests__/tour.test.ts",
+      "action": "added",
+      "note": "Unit tests for route matching and tour step validation"
+    },
+    {
+      "path": "frontend-architecture/src/components/layout/providers.tsx",
+      "action": "modified",
+      "note": "Wrapped application in TourProvider with TourModal"
+    },
+    {
+      "path": "frontend-architecture/src/components/layout/header.tsx",
+      "action": "modified",
+      "note": "Added TourTrigger to top navigation bar"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "Added and updated PSI-111 status to review/done"
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Tested route matching across all 8 major dashboard sections; verified default fallback for unknown sub-routes; verified step progression and localStorage tracking; verified ? header trigger popover; verified accessibility attributes and clean oxlint/typecheck. 123 frontend tests and 22 edge function tests pass."
+  },
+  "human_review": {
+    "required": false
+  },
+  "follow_ups": [],
+  "risks": [],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": []
+}

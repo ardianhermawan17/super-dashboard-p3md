@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 1 | 0 | 1 | 6 | 63 | 86 |
+| 15 | 0 | 1 | 1 | 1 | 6 | 63 | 87 |
 
 ## Blocked
 
@@ -29,7 +29,7 @@
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-111|PSI-111]] Contextual feature onboarding & route-specific "Take Tour" system · agent:hermes
 
 ## AI sessions waiting for a human
 
@@ -95,6 +95,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-29 00:15 WIB · hermes · [[tasks/PSI-111|PSI-111]] · done: [[history/2026-09-28T18-00-00Z__PSI-111__hermes|Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.]]
 - 2026-09-28 23:15 WIB · hermes · [[tasks/PSI-076|PSI-076]] · done: [[history/2026-09-28T17-00-00Z__PSI-076__hermes|Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.]]
 - 2026-09-28 22:30 WIB · hermes · [[tasks/PSI-077|PSI-077]] · done: [[history/2026-09-28T16-00-00Z__PSI-077__hermes|Daily digest generation via pg_cron at 06:00 WIB, DIGEST_MODEL completion, storage in digests table, and notification dispatch to digest.receive holders.]]
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
@@ -104,4 +105,3 @@ _Nothing waiting for review._
 - 2026-09-28 16:10 WIB · hermes · [[tasks/PSI-096|PSI-096]] · blocked: [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]
 - 2026-09-28 13:50 WIB · claude-code · [[tasks/PSI-042|PSI-042]] · done: [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 2026-09-28 13:45 WIB · hermes · [[tasks/PSI-096|PSI-096]] · partial: [[history/2026-09-28T07-00-00Z__PSI-096__hermes|Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.]]
-- 2026-09-28 13:33 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · done: [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]

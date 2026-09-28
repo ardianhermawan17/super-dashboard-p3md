@@ -7,6 +7,7 @@ import { ThemeSelector } from '../themes/theme-selector';
 import { ThemeModeToggle } from '../themes/theme-mode-toggle';
 import CtaGithub from './cta-github';
 import { NotificationCenter } from '@/features/notifications/components/notification-center';
+import { TourTrigger } from '@/features/tour/components/tour-trigger';
 
 export default function Header() {
   return (
@@ -26,6 +27,7 @@ export default function Header() {
         <div className='hidden sm:block'>
           <ThemeSelector />
         </div>
+        <TourTrigger />
         <NotificationCenter />
       </div>
     </header>

@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T06-40-00Z__PSI-107__claude-code",
+  "task_ids": ["PSI-107"],
+  "agent": { "name": "claude-code", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-28T06:33:00Z",
+    "ended_at": "2026-09-28T06:45:00Z",
+    "branch": "task/PSI-107",
+    "commits": ["2cdd98f", "6b66aa1"]
+  },
+  "intent": "Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.",
+  "outcome": "done",
+  "summary": "Docker became available in this session. Ran `supabase db reset` on task/PSI-107: all 12 migrations including 20260928062634_fix_task_activity_board_delete.sql applied cleanly, seed ran, no errors. Ran `supabase test db`: all 10 pgTAP files ok, 137/137 tests pass, Result: PASS -- includes supabase/tests/activity_log.test.sql (plan 11), whose 2 new PSI-107 cases (#9 lives_ok deleting a board with a column and task; #10 confirming a task delete on a still-live board still logs with board_id populated) passed alongside the 9 pre-existing cases. This proves the accept criterion: log_task_activity() no longer raises activity_log_board_id_fkey when a board with tasks is deleted, and normal live-board task-delete logging is unaffected. No code changes this session -- flipped docs/list-task-project.md PSI-107 to status: review (owner agent:claude-code, 1 run) now that verification is real, not assumed.",
+  "changes": [
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-107 doing -> review after supabase db reset + supabase test db both passed" }
+  ],
+  "decisions": [],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "n/a",
+    "db_reset": "pass",
+    "db_tests": "pass",
+    "manual": "supabase db reset (12 migrations applied clean) then supabase test db: Files=10, Tests=137, Result: PASS, including the 2 new activity_log.test.sql cases for PSI-107. bunx tsc --noEmit and bun run lint (oxlint) also re-run for full DoD coverage: both clean, though this session touched no frontend files."
+  },
+  "migrations": [],
+  "dependencies_added": [],
+  "contract_deviations": [],
+  "risks": [],
+  "follow_ups": [
+    { "task_id": "PSI-107", "note": "Ready for human review/merge: task/PSI-107 (commits 2cdd98f, 6b66aa1) is green on db_reset + pgTAP. Branch not pushed and no PR opened yet -- pending explicit go-ahead." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Per C-21, only the operator's stamp on the board moves a task from review to done."
+  },
+  "supersedes": "2026-09-28T06-00-00Z__PSI-107__claude-code"
+}

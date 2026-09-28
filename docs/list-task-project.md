@@ -557,7 +557,7 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: `src/agent/models.ts` and `supabase/functions/_shared/llm.ts` as in backend-architecture/agent-layer-mcp.md; `CHAT_MODEL`, `DIGEST_MODEL`, `CV_MODEL` specs work for `anthropic:` and `hermes:`; the 10-question tool-answer evaluation run against at least one Claude and one Hermes model with results in the history entry; defaults chosen by a human.
 
 ### PSI-107 · Fix: deleting a board that has tasks fails (M7 task activity trigger)
-- status: doing
+- status: review
 - area: db
 - owner: agent:claude-code
 - depends: PSI-070

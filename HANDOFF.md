@@ -5,12 +5,14 @@ project: super-dashboard-p3md-architecture
 
 ## Current Card
 
-**PSI-107 · Fix: deleting a board that has tasks fails** — code done on `task/PSI-107` (commit `2cdd98f`), **not yet verified**: this session ran in a sandbox with no Docker (`supabase db reset` / `supabase test db` both fail immediately — no `dockerDesktopLinuxEngine` pipe, no `psql`/`pg_prove` on PATH either), so the new pgTAP cases were never executed. Root cause and fix:
+**PSI-107 · Fix: deleting a board that has tasks fails** — **VERIFIED**, `status: review` on `task/PSI-107` (commits `2cdd98f`, `6b66aa1`). Docker came up mid-session; ran `supabase db reset` (all 12 migrations applied clean) then `supabase test db`: **Files=10, Tests=137, Result: PASS**, including the 2 new PSI-107 cases in `activity_log.test.sql`.
+
+Root cause and fix:
 - `tasks.board_id` and `activity_log.board_id` both `references boards(id) on delete cascade`. Deleting a board cascades into `tasks`, firing the `tasks_activity` AFTER DELETE trigger per row; that trigger inserted an `activity_log` row with `board_id = old.board_id`, but by the time the cascade reaches `tasks` the parent `boards` row is already gone, so the insert violated `activity_log_board_id_fkey`.
 - New migration `supabase/migrations/20260928062634_fix_task_activity_board_delete.sql` re-creates `log_task_activity()` (M7 itself untouched, C-06): in the `DELETE` branch it nulls `board_id` when the board no longer exists instead of failing; `INSERT`/`UPDATE` branches unchanged.
 - `supabase/tests/activity_log.test.sql`: plan 9 → 11, added a `lives_ok` case (delete a board with a column + task) and a case proving task deletes on a still-live board still log with `board_id` populated.
 
-**Exact next action:** on a machine/session with Docker, `cd` to the repo, `git checkout task/PSI-107`, then `supabase db reset && supabase test db` (or the equivalent CI job). If green, flip `docs/list-task-project.md` PSI-107 to `status: review` and open the PR; if red, fix and re-run before touching status. Task list still reads `status: doing` on purpose — it was left there rather than `review` because the accept criterion ("pgTAP proves...") is unproven.
+**Exact next action:** branch is not pushed and no PR is open yet. Push `task/PSI-107` and open a PR (title `PSI-107: Fix: deleting a board that has tasks fails`), or say go-ahead and it'll be pushed. `bunx tsc --noEmit` and `bun run lint` also re-run clean (DB-only change, no frontend files touched, but full DoD now covered).
 
 ## Previous Card
 

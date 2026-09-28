@@ -36,7 +36,6 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
-- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 1 run #db #phase-7
 
 
 ## Review
@@ -44,6 +43,7 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
+- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10

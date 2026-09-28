@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 1 | 0 | 1 | 7 | 62 | 86 |
+| 15 | 0 | 1 | 1 | 1 | 6 | 62 | 86 |
 
 ## Blocked
 
@@ -16,7 +16,6 @@
 
 ## On Hold
 
-- [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · unassigned
 - [[tasks/PSI-081|PSI-081]] Consent and CV intake · agent:hermes
 - [[tasks/PSI-082|PSI-082]] Edge Function parse-cv · unassigned
 - [[tasks/PSI-083|PSI-083]] Skill taxonomy admin · unassigned
@@ -30,7 +29,7 @@
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · agent:hermes
 
 ## AI sessions waiting for a human
 
@@ -96,6 +95,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-28 23:15 WIB · hermes · [[tasks/PSI-076|PSI-076]] · done: [[history/2026-09-28T17-00-00Z__PSI-076__hermes|Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.]]
 - 2026-09-28 22:30 WIB · hermes · [[tasks/PSI-077|PSI-077]] · done: [[history/2026-09-28T16-00-00Z__PSI-077__hermes|Daily digest generation via pg_cron at 06:00 WIB, DIGEST_MODEL completion, storage in digests table, and notification dispatch to digest.receive holders.]]
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
@@ -105,4 +105,3 @@ _Nothing waiting for review._
 - 2026-09-28 13:50 WIB · claude-code · [[tasks/PSI-042|PSI-042]] · done: [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|Event form with audience picker, WIB display: create/edit/delete events, mixed user/role/group audience in one insert, times shown in WIB, recurring events expand from rrule.]]
 - 2026-09-28 13:45 WIB · hermes · [[tasks/PSI-096|PSI-096]] · partial: [[history/2026-09-28T07-00-00Z__PSI-096__hermes|Schedule the four Hermes standing jobs (pulse, contract check, graph, stale) from hermes.md to the team chat; keep status doing pending a week of reviewed runs.]]
 - 2026-09-28 13:33 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · done: [[history/2026-09-28T06-40-00Z__PSI-107__claude-code|Verify the PSI-107 fix (previous session was code-complete but unverified: no Docker in that sandbox) now that Docker is available.]]
-- 2026-09-28 13:00 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · partial: [[history/2026-09-28T06-00-00Z__PSI-107__claude-code|Fix deleting a board with tasks raising activity_log_board_id_fkey (M7 task activity trigger), continuing Hermes's handoff.]]

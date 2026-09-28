@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T17-00-00Z__PSI-076__hermes",
+  "task_ids": [
+    "PSI-076"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-28T16:15:00Z",
+    "ended_at": "2026-09-28T17:00:00Z",
+    "branch": "task/PSI-076"
+  },
+  "intent": "Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.",
+  "outcome": "done",
+  "summary": "Implemented the live in-app AI chat assistant (PSI-076). CODE: (1) Model resolver extended in src/agent/models.ts to support deepseek: (<model_id>), openrouter: (<model_id>), openai-compatible:, and hermes: in addition to anthropic: for cheaper inference. (2) AI SDK tools adapter src/agent/adapters/ai-sdk.ts: converts all 6 shared agent tools (get_board, get_agenda, get_activity, get_inbox, get_finance, search_documents) into AI SDK tool definitions executing within the caller's RLS session and audited with client_id: 'in-app'. (3) Streaming chat route src/app/api/chat/route.ts: gated by agent.chat permission, executes streamText with stopWhen: stepCountIs(5), system prompt grounding responses to tool outputs, and streams responses via toUIMessageStreamResponse(). (4) Interactive Chat UI in src/features/ai-chat/components/ai-chat-interface.tsx: uses DefaultChatTransport to /api/chat, renders dynamic tool calling markers/outputs, citations, reasoning parts, suggested starters, and clear chat. (5) Unit tests: 2 tests in src/agent/adapters/ai-sdk.test.ts, 3 tests in src/app/api/chat/__tests__/chat-route.test.ts, 5 tests in src/agent/__tests__/models.test.ts. Suite: 120 frontend tests pass, 22 edge function tests pass, typecheck clean, lint clean.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/agent/models.ts",
+      "action": "modified",
+      "note": "Extended model resolver with deepseek, openrouter, and openai-compatible provider adapters"
+    },
+    {
+      "path": "frontend-architecture/src/agent/adapters/ai-sdk.ts",
+      "action": "added",
+      "note": "AI SDK tools converter for shared read-only agent tools"
+    },
+    {
+      "path": "frontend-architecture/src/agent/adapters/ai-sdk.test.ts",
+      "action": "added",
+      "note": "Unit tests for AI SDK tools adapter"
+    },
+    {
+      "path": "frontend-architecture/src/agent/__tests__/models.test.ts",
+      "action": "modified",
+      "note": "Unit tests for deepseek and openrouter model resolution"
+    },
+    {
+      "path": "frontend-architecture/src/app/api/chat/route.ts",
+      "action": "added",
+      "note": "Streaming in-app chat endpoint gated by agent.chat permission"
+    },
+    {
+      "path": "frontend-architecture/src/app/api/chat/__tests__/chat-route.test.ts",
+      "action": "added",
+      "note": "Unit tests for /api/chat authentication, permissions, and streaming"
+    },
+    {
+      "path": "frontend-architecture/src/features/ai-chat/components/ai-chat-interface.tsx",
+      "action": "added",
+      "note": "Interactive in-app AI assistant chat UI with DefaultChatTransport"
+    },
+    {
+      "path": "frontend-architecture/src/app/dashboard/ai-chat/page.tsx",
+      "action": "modified",
+      "note": "Render AiChatInterface on /dashboard/ai-chat"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "Updated PSI-076 status to review/done"
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Tested /api/chat unauthorized (401), missing agent.chat permission (403), and authorized streaming (200). Verified AI SDK tool conversion for all 6 shared tools. Verified model resolver across anthropic, deepseek, openrouter, hermes. 120 frontend tests and 22 edge function tests pass."
+  },
+  "human_review": {
+    "required": false
+  },
+  "follow_ups": [],
+  "risks": [],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": []
+}

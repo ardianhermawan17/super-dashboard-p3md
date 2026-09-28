@@ -26,6 +26,20 @@ describe('AI SDK Model Resolver (PSI-098)', () => {
     expect(m.modelId).toBe('nousresearch/hermes-3-llama-3.1-8b:free');
   });
 
+  it('resolves deepseek model spec correctly', () => {
+    const m = model('deepseek:deepseek-chat');
+    expect(m).toBeDefined();
+    expect(m.modelId).toBe('deepseek-chat');
+    expect(m.provider).toBe('deepseek.chat');
+  });
+
+  it('resolves openrouter model spec correctly', () => {
+    const m = model('openrouter:deepseek/deepseek-chat');
+    expect(m).toBeDefined();
+    expect(m.modelId).toBe('deepseek/deepseek-chat');
+    expect(m.provider).toBe('openrouter.chat');
+  });
+
   it('throws a helpful error on unknown provider', () => {
     expect(() => model('gemini:gemini-pro')).toThrow(
       'Unknown model provider "gemini" in "gemini:gemini-pro"',

@@ -1,14 +1,10 @@
-import PageContainer from '@/components/layout/page-container';
-import { AiChatDemo } from '@/features/ai-chat/components/ai-chat-demo';
+import { AiChatInterface } from '@/features/ai-chat/components/ai-chat-interface';
 
 export const metadata = {
-  title: 'Dashboard: AI Chat'
+  title: 'Dashboard: AI Assistant',
+  description: 'In-app AI assistant grounded on your P3MD boards, calendar, activity, and finance data.',
 };
 
 export default function Page() {
-  return (
-    <PageContainer>
-      <AiChatDemo />
-    </PageContainer>
-  );
+  return <AiChatInterface />;
 }

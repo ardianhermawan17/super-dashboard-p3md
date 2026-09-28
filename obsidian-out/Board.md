@@ -22,7 +22,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
-- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -44,6 +43,7 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-097|PSI-097]] AgentShield in CI · agent:hermes · 1 run #security #phase-0
 - [ ] [[tasks/PSI-066|PSI-066]] google-calendar /push · agent:hermes · 1 run #integration #phase-6
 - [ ] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7
+- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7
 - [ ] [[tasks/PSI-100|PSI-100]] Design event finance and the event → board → finance streamline · agent:claude-code · 2 runs #docs #phase-10
 - [ ] [[tasks/PSI-101|PSI-101]] Migration M10 finance and event ↔ board link · agent:claude-code · 1 run #db #phase-10
 - [ ] [[tasks/PSI-102|PSI-102]] Create an event board from the calendar · agent:hermes · 1 run #frontend #phase-10

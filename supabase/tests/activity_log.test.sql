@@ -3,7 +3,7 @@
 -- ============================================================
 
 begin;
-select plan(9);
+select plan(11);
 
 set local role postgres;
 
@@ -121,6 +121,36 @@ select is(
   (select count(*)::int from public.activity_log where board_id = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'),
   0,
   'Non-board-member Bob cannot see Alice board activity log'
+);
+
+-- 9. Deleting a board with columns and tasks succeeds (PSI-107): the tasks_activity
+-- DELETE trigger must not insert an activity_log row referencing the board being deleted.
+set local role postgres;
+
+insert into public.boards (id, name, created_by)
+values ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Doomed Board', '11111111-1111-1111-1111-111111111111');
+
+insert into public.board_columns (id, board_id, title, position)
+values ('dddddddd-1111-1111-1111-111111111111', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'To Do', 'a0');
+
+insert into public.tasks (id, board_id, column_id, title, position)
+values ('99999999-9999-9999-9999-999999999999', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'dddddddd-1111-1111-1111-111111111111', 'Doomed Task', 'p0');
+
+select lives_ok(
+  $$ delete from public.boards where id = 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb' $$,
+  'Deleting a board with columns and tasks does not raise activity_log_board_id_fkey'
+);
+
+-- 10. Task deletes on a still-live board keep logging normally with board_id set.
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub', '11111111-1111-1111-1111-111111111111', 'role', 'authenticated')::text, true);
+
+delete from public.tasks where id = '33333333-3333-3333-3333-333333333333';
+
+select results_eq(
+  $$ select verb, board_id from public.activity_log where entity_id = '33333333-3333-3333-3333-333333333333' and verb = 'deleted' $$,
+  $$ values ('deleted'::text, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'::uuid) $$,
+  'Task delete on a live board still logs with board_id populated'
 );
 
 select * from finish();

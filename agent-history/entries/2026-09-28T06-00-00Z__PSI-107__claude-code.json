@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-28T06-00-00Z__PSI-107__claude-code",
+  "task_ids": ["PSI-107"],
+  "agent": { "name": "claude-code", "operator": "ardian" },
+  "session": {
+    "started_at": "2026-09-28T06:00:00Z",
+    "ended_at": "2026-09-28T06:45:00Z",
+    "branch": "task/PSI-107"
+  },
+  "intent": "Fix deleting a board with tasks raising activity_log_board_id_fkey (M7 task activity trigger), continuing Hermes's handoff.",
+  "outcome": "partial",
+  "summary": "Root cause: `delete from boards` cascades to `tasks` (board_id on delete cascade), firing the tasks_activity AFTER DELETE trigger per row. log_task_activity() inserted an activity_log row with board_id = old.board_id, but by the time the tasks cascade runs, the boards row is already gone, so the insert violates activity_log_board_id_fkey. Added new migration 20260928062634_fix_task_activity_board_delete.sql (M7 itself untouched, C-06) that re-creates log_task_activity() with a guard: in the DELETE branch, if the board no longer exists (not exists check against public.boards) the inserted board_id is nulled instead of raising; INSERT/UPDATE branches unchanged. Added 2 new pgTAP cases to supabase/tests/activity_log.test.sql (plan 9 -> 11): #9 lives_ok on deleting a board with a column and task, #10 confirms a task delete on a still-live board still logs with board_id populated. Could not execute db_reset/test db in this session: Docker Desktop's engine pipe is unreachable in this remote sandbox (`supabase db reset` fails immediately trying to reach dockerDesktopLinuxEngine), so the migration and new pgTAP assertions are unverified by an actual run. Everything else (task claim, branch, migration, test) is in place; marking partial pending a real `supabase db reset && supabase test db` pass in an environment with Docker.",
+  "changes": [
+    { "path": "supabase/migrations/20260928062634_fix_task_activity_board_delete.sql", "action": "added", "note": "log_task_activity() nulls board_id on DELETE when the board no longer exists, avoiding activity_log_board_id_fkey during board-cascade deletes" },
+    { "path": "supabase/tests/activity_log.test.sql", "action": "modified", "note": "plan 9 -> 11; added board-with-tasks delete lives_ok case and live-board task-delete-still-logs case" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "PSI-107 -> doing (claimed)" }
+  ],
+  "decisions": [
+    {
+      "decision": "Null board_id on the deleted-task activity row instead of skipping the insert entirely",
+      "reason": "Accept criteria explicitly allows either; nulling keeps a 'deleted' audit trail entry for the task even when its board vanished in the same statement, whereas skipping would silently drop it. board_id is nullable already."
+    },
+    {
+      "decision": "New migration re-creates the whole log_task_activity() function rather than a partial patch",
+      "reason": "C-06 forbids editing the applied M7 migration; `create or replace function` is the standard way to ship a follow-up fix without a second trigger object, and it keeps the function body diffable against the M7 doc."
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "skipped",
+    "db_tests": "skipped",
+    "manual": "none — could not run supabase db reset / supabase test db: Docker Desktop engine unreachable in this remote sandbox (docker ps and supabase status both fail to connect to dockerDesktopLinuxEngine pipe). Needs a real run before this can be marked done."
+  },
+  "migrations": ["supabase/migrations/20260928062634_fix_task_activity_board_delete.sql"],
+  "dependencies_added": [],
+  "contract_deviations": [],
+  "risks": [
+    "Migration and pgTAP additions are unexecuted in this session; logic was verified by reading the M7 trigger source and FK cascade chain (tasks.board_id and activity_log.board_id both reference boards(id) on delete cascade), not by a live DB run."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-107", "note": "Run `supabase db reset && supabase test db` (or CI) in an environment with Docker to confirm the 2 new pgTAP cases pass and no existing case regresses, then move status to review." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "db_reset and db_tests could not be executed in this sandbox (no Docker). Needs a real pgTAP run before status can move past doing/review."
+  }
+}

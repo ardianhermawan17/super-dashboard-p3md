@@ -542,11 +542,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: User sees their OAuth grants and can revoke one; a revoked client gets 401 on its next call.
 
 ### PSI-076 · Live in-app AI chat on the shared tools
-- status: review
+- status: done
 - area: frontend
 - owner: agent:hermes
 - depends: PSI-072, PSI-098
-- history: [[2026-09-28T17-00-00Z__PSI-076__hermes]]
+- merged: PR #64 (2026-09-28, 6dfd80f) — stamped done by operator 2026-09-28
+- history: obsidian-out/history/2026-09-28T17-00-00Z__PSI-076__hermes.md
 - accept: Template AI chat uses DefaultChatTransport to /api/chat with the model from `model(CHAT_MODEL)`; answers "what happened this week" from tool results with deep links; calls audited with client_id `in-app`; guarded by `agent.chat`.
 
 ### PSI-077 · Daily digest

@@ -34,7 +34,6 @@ kanban-plugin: board
 
 ## Review
 
-- [ ] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Blocked
@@ -105,6 +104,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-073|PSI-073]] MCP endpoint with mcp-handler 2.x · agent:hermes · 2 runs #backend #phase-7 ✅ 2026-09-27
 - [x] [[tasks/PSI-074|PSI-074]] Supabase OAuth 2.1 server, consent page, resource metadata · agent:hermes · 1 run #security #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-075|PSI-075]] Connected apps page · agent:hermes · 1 run #frontend #phase-7 ✅ 2026-09-28
+- [x] [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · agent:hermes · 1 run #frontend #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-077|PSI-077]] Daily digest · agent:hermes · 1 run #backend #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · agent:hermes · 1 run #security #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · agent:hermes · 1 run #backend #phase-7 ✅ 2026-09-28

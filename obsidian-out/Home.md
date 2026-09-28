@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 1 | 1 | 1 | 6 | 62 | 86 |
+| 15 | 0 | 1 | 0 | 1 | 6 | 63 | 86 |
 
 ## Blocked
 
@@ -29,7 +29,7 @@
 
 ## Review
 
-- [[tasks/PSI-076|PSI-076]] Live in-app AI chat on the shared tools · agent:hermes
+_Nothing waiting for review._
 
 ## AI sessions waiting for a human
 

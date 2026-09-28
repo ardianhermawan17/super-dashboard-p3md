@@ -22,7 +22,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-075|PSI-075]] Connected apps page #frontend #phase-7
 - [ ] [[tasks/PSI-077|PSI-077]] Daily digest #backend #phase-7
 - [ ] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · human #security #phase-7
-- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) #db #phase-7
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -37,6 +36,7 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
+- [ ] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 1 run #db #phase-7
 
 
 ## Review

@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 22 | 0 | 1 | 7 | 0 | 8 | 48 | 86 |
+| 21 | 0 | 2 | 7 | 0 | 8 | 48 | 86 |
 
 ## Blocked
 
@@ -28,6 +28,7 @@ _Nothing blocked._
 ## Doing
 
 - [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
+- [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code
 
 ## Review
 
@@ -41,6 +42,7 @@ _Nothing blocked._
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-28T06-00-00Z__PSI-107__claude-code|2026-09-28 13:00 WIB · claude-code · PSI-107]]: db_reset and db_tests could not be executed in this sandbox (no Docker). Needs a real pgTAP run before status can move past doing/review.
 - [[history/2026-09-27T13-30-00Z__PSI-103__claude-code|2026-09-27 19:40 WIB · claude-code · PSI-103]]: Authenticated browser walkthrough not run this session; also the first real use of the template's useDataTable system in this app, worth a second look.
 - [[history/2026-09-27T10-15-54Z__PSI-102__hermes|2026-09-27 16:20 WIB · hermes · PSI-102]]: Agent may set review; browser acceptance blocked by pre-existing sign-in bug, so reviewer should run the calendar -> board flow once sign-in is fixed.
 - [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|2026-09-27 14:45 WIB · claude-code · PSI-109]]: Confirm the onhold moves (PSI-076, PSI-098, Phase 8 talent tasks) match intent, and that PSI-109's design is right before it's built
@@ -98,6 +100,7 @@ _Nothing blocked._
 
 ## Latest AI sessions
 
+- 2026-09-28 13:00 WIB · claude-code · [[tasks/PSI-107|PSI-107]] · partial: [[history/2026-09-28T06-00-00Z__PSI-107__claude-code|Fix deleting a board with tasks raising activity_log_board_id_fkey (M7 task activity trigger), continuing Hermes's handoff.]]
 - 2026-09-28 06:30 WIB · hermes · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-28T00-30-00Z__PSI-109__hermes|Kanban task detail panel: click task card to open Dialog with full task fields, linked calendar event if set, finance section (finance.read only) with entries and prefilled Add entry; drag-safe.]]
 - 2026-09-28 00:00 WIB · hermes · [[tasks/PSI-106|PSI-106]] · done: [[history/2026-09-27T17-50-00Z__PSI-106__hermes|Finance charts on the overview: monthly inflow vs outflow (bar) + outflow by category (pie) per finance.md contract, finance.read only, with loading skeletons and empty states.]]
 - 2026-09-27 22:50 WIB · hermes · [[tasks/PSI-105|PSI-105]] · done: [[history/2026-09-27T16-45-00Z__PSI-105__hermes|Agent tool get_finance per finance.md: RLS-scoped totals by category + recent entries, decimal amounts, no identities, max 50, deep links, audited; no finance.read -> nothing.]]
@@ -107,4 +110,3 @@ _Nothing blocked._
 - 2026-09-27 16:20 WIB · hermes · [[tasks/PSI-102|PSI-102]] · done: [[history/2026-09-27T10-15-54Z__PSI-102__hermes|Create an event board from the calendar: board named after event, event_id set, group audience copied; header links back; second click never duplicates.]]
 - 2026-09-27 14:45 WIB · claude-code · [[tasks/PSI-109|PSI-109]] · done: [[history/2026-09-27T08-10-00Z__PSI-109__claude-code|Confirm calendar->kanban->finance integration is on track, audit notification RBAC, put AI chat + talent screening onhold, design a clickable kanban task-detail panel.]]
 - 2026-09-27 13:55 WIB · claude-code · [[tasks/PSI-108|PSI-108]] · done: [[history/2026-09-27T07-18-00Z__PSI-108__claude-code|Investigate reported 'looping' in Hermes' recent sessions, fix the root cause, and add rules to stop it recurring.]]
-- 2026-09-27 13:05 WIB · hermes · [[tasks/PSI-081|PSI-081]] · partial: [[history/2026-09-27T06-20-00Z__PSI-081__hermes|Build PSI-081 consent and CV intake: consent gated before any processing, PDF under 2 MB into the private cvs bucket at <user_id>/, or a CV picked from the talent Drive root, with no public URL.]]

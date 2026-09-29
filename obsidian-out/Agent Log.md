@@ -6,6 +6,8 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-29
 
+- 22:07 · **hermes** · [[tasks/PSI-123|PSI-123]] · done (needs review): [[history/2026-09-29T15-07-47Z__PSI-123__hermes|Verify access to the super-dashboard-p3md-architecture repo, orient on the Phase 11 board state, and put this session's record into the project under PSI-123 as the operator asked.]]
+- 18:00 · **hermes** · [[tasks/PSI-123|PSI-123]] · done (needs review): [[history/2026-09-29T11-00-00Z__PSI-123__hermes|Fix the four kanban/finance UI bugs from the 2026-09-29 RBAC walkthrough (PSI-123), which block PSI-118's drag gates, and record PSI-123 on the board.]]
 - 16:00 · **claude-code** · [[tasks/PSI-114|PSI-114]] · done (needs review): [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
 - 13:30 · **hermes** · [[tasks/PSI-113|PSI-113]] · done: [[history/2026-09-29T07-00-00Z__PSI-113__hermes|Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.]]
 - 09:30 · **hermes** · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]

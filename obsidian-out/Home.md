@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 2 | 0 | 1 | 6 | 64 | 88 |
+| 15 | 0 | 1 | 0 | 1 | 6 | 65 | 88 |
 
 ## Blocked
 
@@ -26,7 +26,6 @@
 ## Doing
 
 - [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
-- [[tasks/PSI-112|PSI-112]] Motion accessibility guardrails and Kanban state coverage · agent:hermes
 
 ## Review
 

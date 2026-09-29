@@ -578,6 +578,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - history: obsidian-out/history/2026-09-29T03-00-00Z__PSI-112__hermes.md
 - accept: Every animated component honors `prefers-reduced-motion` — staggered reveals, spring counters, the infinite live pulse, hover/tap physics, accordions and tour transitions all collapse to static; Kanban ships skeleton loading, composed empty-column and empty-board states, and a contextual error state with retry; unit tests cover both motion branches and every state.
 
+### PSI-113 · Internationalization (i18n) with i18n-js
+- status: doing
+- area: frontend
+- owner: agent:hermes
+- depends: —
+- accept: `i18n-js` is installed; an `I18nProvider` with `en`/`id` locales and a `useI18n` hook are exposed; a header language switcher toggles locale (persisted); at least one dashboard surface uses translated strings; unit tests cover translation lookup, interpolation, and the locale switcher; `tsc`, `oxlint`, `bun test`, and `next build` are clean.
+
 ### PSI-078 · Verify MCP client compatibility (CIMD vs DCR)
 - status: done
 - area: security

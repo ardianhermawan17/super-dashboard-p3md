@@ -30,6 +30,7 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
+- [ ] [[tasks/PSI-113|PSI-113]] Internationalization (i18n) with i18n-js · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Review

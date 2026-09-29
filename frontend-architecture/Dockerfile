@@ -34,7 +34,13 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build-time env vars — override these with --build-arg or in compose.yml
 ARG NEXT_PUBLIC_SENTRY_DISABLED=true
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
+# NEXT_PUBLIC_* vars are inlined into the client bundle at build time, so they
+# must be ENV (not just ARG) before `next build` runs.
+ENV NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+ENV NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
 ENV BUILD_STANDALONE=true
 
 RUN npm run build

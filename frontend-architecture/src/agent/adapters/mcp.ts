@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import type { ServerContext } from '@modelcontextprotocol/server';
 import type { createMcpHandler } from 'mcp-handler';
 import type { Database } from '@/lib/supabase/database.types';
+import { serverSupabaseUrl } from '@/lib/supabase/server-url';
 import { agentTools } from '../registry';
 import { runTool } from '../runtime';
 
@@ -23,11 +24,11 @@ export function registerAgentTools(server: McpServer) {
       // stops the overload from inferring the callback's own argument types.
       // mcp-handler 2.x: auth info lives on ctx.http, not the 1.x `extra.authInfo`.
       async (args: Record<string, unknown>, ctx: ServerContext) => {
-        const auth = ctx.http?.authInfo;
+      const auth = ctx.http?.authInfo;
 
-        const db = createClient<Database>(
-          process.env.NEXT_PUBLIC_SUPABASE_URL!,
-          process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+      const db = createClient<Database>(
+      serverSupabaseUrl(),
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
           {
             global: { headers: { Authorization: `Bearer ${auth?.token}` } },
             auth: { persistSession: false },

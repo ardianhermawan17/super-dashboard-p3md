@@ -1,5 +1,6 @@
 import 'server-only';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
+import { serverSupabaseUrl } from '@/lib/supabase/server-url';
 
 export type AuthInfo = {
   token: string;
@@ -24,8 +25,7 @@ export async function verifySupabaseToken(
 ): Promise<AuthInfo | undefined> {
   if (!bearer) return undefined;
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!supabaseUrl) return undefined;
+  const supabaseUrl = serverSupabaseUrl();
 
   const issuer = `${supabaseUrl}/auth/v1`;
 

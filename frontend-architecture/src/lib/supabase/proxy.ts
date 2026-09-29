@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { serverSupabaseUrl } from './server-url';
 
 // Never redirect these to sign-in:
 // - /api/mcp needs a real 401 so MCP clients start OAuth discovery
@@ -13,7 +14,7 @@ const PUBLIC_PREFIXES = [
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    serverSupabaseUrl(),
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
       cookies: {

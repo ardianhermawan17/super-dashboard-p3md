@@ -31,6 +31,7 @@ So: **three layer folders** (frontend, backend, database). A feature usually tou
 | [m8-agent-layer.md](m8-agent-layer.md) | M8: agent views, audit log, digests | PSI-071 |
 | [m9-talent.md](m9-talent.md) | M9: talent (outline) | PSI-080 |
 | [m10-finance.md](m10-finance.md) | M10: finance categories and entries, event ↔ board link, `finance.*` permissions, `agent_finance` | PSI-101 |
+| [m12-task-lifecycle-cpm.md](m12-task-lifecycle-cpm.md) | M12: sub-tasks, user/group delegation, column kinds, `task_budgets`, start/finish gates, `task.budget`, ledger auto-post · M13: `task_links`, PERT estimates, cycle guard | PSI-115, PSI-116 |
 | [testing-pgtap.md](testing-pgtap.md) | Test pattern + RBAC assertions | every DB task |
 
 Logical names; the CLI prefixes real files with a timestamp (`supabase migration new rbac` → `supabase/migrations/<timestamp>_rbac.sql`). Order follows the build phases in the task list.

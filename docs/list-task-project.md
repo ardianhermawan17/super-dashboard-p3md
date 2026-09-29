@@ -733,6 +733,79 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - depends: PSI-103
 - accept: Overview shows inflow vs outflow per month and outflow by category using the template bar and pie graphs, only for users with `finance.read`, with loading skeletons and an empty state.
 
+## Phase 11 — Task lifecycle, CPM network and earned value (kanban → CPM → EVM)
+
+### PSI-114 · Design task lifecycle, CPM/PERT network and earned value
+- status: review
+- area: docs
+- owner: agent:claude-code
+- history: [[2026-09-29T09-00-00Z__PSI-114__claude-code]]
+- depends: PSI-050, PSI-101, PSI-109
+- accept: database-architecture/m12-task-lifecycle-cpm.md (sub-tasks, user-or-group delegation, board_columns.kind todo/doing/done, task money fields planned/initial/final cash, start/finish gates, task links, PERT fields, RLS, pgTAP list) and frontend-architecture/features/cpm-evm.md (lifecycle UI, CPM engine contract, Gantt, EVM chart, pipeline) committed and linked from system-overview.md; operator decisions of 2026-09-29 (C-15) written into both docs and quoted in the history entry: EV is standard EVM (EV = planned cash × completion, so CPI and SPI are shown); task cash is gated by a new permission key `task.budget` granted to admin, project-manager and operation, scoped to tasks the caller authored or is delegated, with the ledger still hidden without `finance.read`; finishing a task auto-posts its final cash as an outflow `finance_entries` row linked to the task; charts use `frappe-gantt` (new, C-10) and the existing `recharts` (no chart.js); PERT durations stored in days, shown in days or weeks.
+
+### PSI-115 · Migration M12 task lifecycle: sub-tasks, delegation, cash and gates
+- status: backlog
+- area: db
+- owner: unassigned
+- depends: PSI-114
+- accept: tasks.parent_id (same board, max depth per design, cascade), delegation to exactly one of assignee_id or assignee_group_id (group must be on the board), board_columns.kind in (todo, doing, done) backfilled for existing boards; planned_cash set on create and editable only by the task author; initial_cost required to move a task into a `doing` column (started_at stamped) and final_cash required to move into `done` (finished_at stamped), enforced by a trigger, not only the UI; amounts numeric IDR > 0; new key `task.budget` inserted and granted to admin, project-manager and operation (C-17); finishing a task inserts an outflow `finance_entries` row for its final cash, linked to the task; RLS in the same migration; activity-log rows for start/finish; pgTAP covers every gate, a non-author editing planned cash, a delegate group member starting a task, the auto-posted ledger row, and a member without `task.budget` seeing no amounts; `supabase db reset` clean; types regenerated.
+
+### PSI-116 · Migration M13 CPM network: task links and PERT estimates
+- status: backlog
+- area: db
+- owner: unassigned
+- depends: PSI-115
+- accept: task_links (predecessor → successor, finish-to-start, task↔task and task↔sub-task, same board only, no self-link, cycle rejected by trigger); per-task optimistic (a), most likely (m), pessimistic (b) durations with a ≤ m ≤ b and a planned project start per board; RLS via board membership in the same migration; pgTAP covers a cycle, a cross-board link and a non-member; types regenerated.
+
+### PSI-117 · Sub-tasks and delegation in the task panel
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-115
+- accept: New-task dialog requires planned cash from the author (Zod, "Rp 2.000.000" display); task detail panel lists, adds and completes sub-tasks with a progress count on the card; author delegates to a user or a group (picker limited to board members and board groups); delegated users and group members see the task in a "Delegated to me" filter; fields a caller may not edit are read-only, not hidden errors.
+
+### PSI-118 · Start and finish gates on drag (todo → doing → done)
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-115, PSI-117, PSI-123
+- accept: Dragging a card into a `doing` column opens a "Start task" dialog asking initial cost, and into a `done` column a "Finish task" dialog asking final cash; cancel returns the card to its original column and position; confirm writes through a Server Action and the DB gate, so a failed write also reverts the card with a toast; the same dialogs are reachable from the task panel buttons "Start" and "Finish" for keyboard users.
+
+### PSI-119 · CPM/PERT calculation engine
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-114
+- accept: Pure TypeScript module with unit tests: TE = (a + 4m + b) / 6, variance = ((b − a) / 6)², σ = √variance per task; forward and backward pass giving ES, EF, LS, LF and slack (LS − ES) per node; critical path; path TE and σ as sums along the critical path; for a target duration (e.g. 38 weeks) returns z and probability; for an operator-chosen k (e.g. 2) returns the range TE − kσ … TE + kσ with slack shown as ± measurable time; cycle and missing-estimate inputs return typed errors, never throw; tests include the textbook 38-week example.
+
+### PSI-120 · CPM network editor and Gantt timeline
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-116, PSI-119
+- accept: Board gets a "Schedule" tab: link tasks and sub-tasks as predecessors, edit a/m/b per task; a Gantt timeline built on frappe-gantt places every task automatically at its computed ES from the board's project start, with dependency arrows, critical path highlighted and slack shown per bar; a table lists ES, EF, LS, LF, slack, TE, variance and σ; target duration and k·σ selector recompute live; no Radix, icons only from `@/components/icons`; dependency recorded with a reason (C-10).
+
+### PSI-121 · Earned value line chart (PV, EV, AC)
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-115, PSI-119
+- accept: Board "Earned value" panel, only for users with `task.budget` or `finance.read`, shows a recharts line chart with styled points per series: PV = planned cash spread over each task's scheduled ES–EF, EV = planned cash × completion (standard EVM), AC = initial cost from start until finish, then replaced (not added) by final cash; cumulative Rp on the y-axis; x-axis buckets default 1 week with 1, 7, 14 days and 1 month options kept in the URL (nuqs); CPI = EV/AC and SPI = EV/PV shown with the latest bucket; empty and loading states.
+
+### PSI-122 · Pipeline: task → CPM network → earned value, end to end
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: PSI-118, PSI-120, PSI-121
+- accept: Creating, linking, starting or finishing a task recalculates the schedule and the EVM chart without a reload (query invalidation plus board realtime); a board created from a calendar event uses the event date as project start; an e2e test walks create task with planned cash → link → start with initial cost → finish with final cash and asserts the Gantt position and the PV/EV/AC points; verified by hand as project-manager, operation and accountant.
+
+### PSI-123 · Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough
+- status: backlog
+- area: frontend
+- owner: unassigned
+- depends: —
+- accept: The event form's date-time picker popup stays open until a date is chosen; the finance entry dialog's Category combobox lists the non-archived categories; the card's "Add finance entry for this task" button opens its dialog instead of starting a drag; BoardFinancePanel no longer logs the Base UI `nativeButton` error. (The Docker server-side Supabase URL finding is already fixed by PR #73.)
+
 ## Phase 9 — Release
 
 ### PSI-090 · Vercel project and environments

@@ -21,6 +21,7 @@ import {
   type EventFormInput
 } from '../actions';
 import { isoToWibInputValue, wibInputValueToISO } from '../lib/format';
+import { DateTimePicker } from './date-time-picker';
 import type { CalendarEvent } from '../types';
 
 type AudienceKind = 'user' | 'role' | 'group';
@@ -213,32 +214,25 @@ export function EventFormDialog({
           </div>
 
           <div className='grid grid-cols-2 gap-3'>
-            <div className='space-y-1'>
-              <label htmlFor='starts_at' className='text-sm font-medium'>
-                Start (WIB)
-              </label>
-              <Input
-                id='starts_at'
-                name='starts_at'
-                type={allDay ? 'date' : 'datetime-local'}
-                required
-                disabled={loading}
-                defaultValue={allDay ? startDefault.slice(0, 10) : startDefault}
-              />
-            </div>
-            <div className='space-y-1'>
-              <label htmlFor='ends_at' className='text-sm font-medium'>
-                End (WIB)
-              </label>
-              <Input
-                id='ends_at'
-                name='ends_at'
-                type={allDay ? 'date' : 'datetime-local'}
-                required
-                disabled={loading}
-                defaultValue={allDay ? endDefault.slice(0, 10) : endDefault}
-              />
-            </div>
+            <DateTimePicker
+              id='starts_at'
+              name='starts_at'
+              label='Start (WIB)'
+              required
+              disabled={loading}
+              allDay={allDay}
+              defaultValue={allDay ? startDefault.slice(0, 10) : startDefault}
+            />
+            <DateTimePicker
+              id='ends_at'
+              name='ends_at'
+              label='End (WIB)'
+              required
+              disabled={loading}
+              allDay={allDay}
+              defaultValue={allDay ? endDefault.slice(0, 10) : endDefault}
+              defaultTime='17:00'
+            />
           </div>
 
           <div className='space-y-1'>

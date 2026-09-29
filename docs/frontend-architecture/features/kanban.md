@@ -54,3 +54,7 @@ A click on a card (not a drag) opens a `Sheet` with the full task — same field
 - **Finance:** when the caller has `finance.read`, this task's `finance_entries` (`task_id = this task`) in a compact list, with "Add entry" pre-filled with board + task, reusing finance's `entry-form-sheet` ([finance.md](finance.md#module-layout-five-file-pattern)). Nothing renders here for a caller without `finance.read` — RLS would return no rows anyway, but the section itself is omitted so its absence doesn't read as "no entries yet".
 
 dnd-kit's `KanbanItem` already distinguishes a click from a drag; open the sheet from `onClick`, not from the drag handlers, so an in-progress drag never gets interrupted by the panel opening.
+
+## Task lifecycle and schedule (Phase 11)
+
+Sub-tasks, delegation to a user or group, the start/finish cash gates on drag, and the Schedule / Earned value tabs are specified in [cpm-evm.md](cpm-evm.md). Gates key on `board_columns.kind`, never on column titles.

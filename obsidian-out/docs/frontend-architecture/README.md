@@ -19,6 +19,7 @@
 | [features/ai-chat.md](features/ai-chat.md) | In-app assistant, connected apps (external agents) |
 | [features/talent.md](features/talent.md) | CV intake and candidate views |
 | [features/finance.md](features/finance.md) | Event cashflow (inflow / outflow by category), event → board → finance streamline, `get_finance` tool |
+| [features/cpm-evm.md](features/cpm-evm.md) | Task lifecycle (sub-tasks, delegation, start/finish cash gates), CPM/PERT engine, Schedule tab + frappe-gantt, earned value (PV/EV/AC) chart |
 | [conventions-and-testing.md](conventions-and-testing.md) | Before every PR: conventions, guardrails, tests |
 
 ## Decisions at a glance

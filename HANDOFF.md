@@ -1,7 +1,16 @@
 ---
-updated: 2026-09-29 02:00 WIB
+updated: 2026-09-29 16:40 WIB
 project: super-dashboard-p3md-architecture
 ---
+
+## Current priority: Phase 11 (kanban task → CPM network → earned value)
+
+**Read [docs/agent-operations/phase-11-brief.md](docs/agent-operations/phase-11-brief.md) before claiming any Phase 11 task.** It holds the job description, the operator's frozen decisions (D1–D9), the glossary with the test fixture, the task order and the per-task traps.
+
+- **PSI-114** · Design (claude-code, branch `task/PSI-114`): `m12-task-lifecycle-cpm.md` + `features/cpm-evm.md` + the brief. Wait for it to merge before building on it.
+- **Can start now (no dependency on PSI-114):** PSI-123 (kanban/finance UI bug fixes; PSI-118 depends on it).
+- **After PSI-114 merges:** PSI-119 (pure CPM/PERT engine, TDD) · PSI-115 (M12 migration, needs a human RLS review) → PSI-116, PSI-117 → PSI-118, PSI-120, PSI-121 → PSI-122.
+- The operator assigns tasks; the brief's §4 has a suggested Hermes / Claude Code split.
 
 ## Latest Delivered Features
 
@@ -23,12 +32,9 @@ project: super-dashboard-p3md-architecture
 - **PSI-096** · Hermes standing jobs: **BLOCKED** per operator instruction. All 4 jobs **paused** in scheduler (enabled=false). Nothing fires. Do not resume without explicit operator instruction.
 - **PSI-077** · Daily digest uses Supabase database `pg_cron` (independent of Hermes host scheduler).
 
-## Next Unblocked Candidate Tasks (Phase 8: Talent Search)
+## Phase 8 (Talent) is on hold
 
-1. **PSI-081 · Consent and CV intake** (`#frontend`, depends: PSI-080):
-   - PDF upload to Supabase storage bucket `cvs`, background parsing with `CV_MODEL`, and candidate profile creation with consent checkbox.
-2. **PSI-083 · Skill taxonomy admin** (`#frontend`, depends: PSI-080):
-   - Admin UI for managing skill taxonomy categories and synonyms.
+Put on hold by the operator on 2026-09-27 to prioritise the calendar → kanban → finance streamline, now extended by Phase 11. Do not pick PSI-081 / PSI-083 until the operator moves them back.
 
 ## Human / Infra Next Actions
 
@@ -45,4 +51,4 @@ project: super-dashboard-p3md-architecture
 
 ## Master State
 
-- `master` @ `4681125` (PR #70 merge). Working tree clean.
+- `master` @ `d8bf781` (PSI-113 stamped, PR #74). Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).

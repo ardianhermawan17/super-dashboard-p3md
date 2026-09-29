@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 1 | 0 | 1 | 6 | 66 | 89 |
+| 24 | 0 | 1 | 1 | 1 | 6 | 66 | 99 |
 
 ## Blocked
 
@@ -29,10 +29,11 @@
 
 ## Review
 
-_Nothing waiting for review._
+- [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|2026-09-29 16:00 WIB · claude-code · PSI-114]]: Design introduces a permission key (task.budget) and an RLS change on finance_entries; operator should confirm the design before PSI-115.
 - [[history/2026-09-28T12-00-00Z__PSI-074__hermes|2026-09-28 17:00 WIB · hermes · PSI-074]]: Hosted Supabase project settings (OAuth server + asymmetric JWT keys + consent URL) and Claude end-to-end connection on hosted are operator actions (no credentials in scope).
 - [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|2026-09-28 16:10 WIB · hermes · PSI-096]]: Operator must decide how to re-enable standing jobs without destabilizing the host.
 - [[history/2026-09-28T07-20-00Z__PSI-042__claude-code|2026-09-28 13:50 WIB · claude-code · PSI-042]]: Per C-21, only the operator's stamp on the board moves a task from review to done. Also flagging the browser-walkthrough gap above.
@@ -95,6 +96,7 @@ _Nothing waiting for review._
 
 ## Latest AI sessions
 
+- 2026-09-29 16:00 WIB · claude-code · [[tasks/PSI-114|PSI-114]] · done: [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
 - 2026-09-29 13:30 WIB · hermes · [[tasks/PSI-113|PSI-113]] · done: [[history/2026-09-29T07-00-00Z__PSI-113__hermes|Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.]]
 - 2026-09-29 09:30 WIB · hermes · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]
 - 2026-09-29 00:15 WIB · hermes · [[tasks/PSI-111|PSI-111]] · done: [[history/2026-09-28T18-00-00Z__PSI-111__hermes|Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.]]
@@ -104,4 +106,3 @@ _Nothing waiting for review._
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
 - 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
 - 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]
-- 2026-09-28 16:10 WIB · hermes · [[tasks/PSI-096|PSI-096]] · blocked: [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|Turn off the Hermes cron scheduler (all four PSI-096 standing jobs) and block cron-connected tasks: recurring background jobs caused system instability.]]

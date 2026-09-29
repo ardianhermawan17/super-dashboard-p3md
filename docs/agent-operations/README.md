@@ -11,6 +11,7 @@
 | [hermes.md](hermes.md) | Setting up or working in Hermes (`.hermes.md`, gateway security, cron jobs, skills) |
 | [ecc.md](ecc.md) | Installing ECC per harness, which ECC command or skill to use when, AgentShield, Memory Vault |
 | [review-workflow.md](review-workflow.md) | Mandatory protocol for task review mode: branch rebase on master, Obsidian review card generation, sync |
+| [phase-11-brief.md](phase-11-brief.md) | Job description for Phase 11 (kanban task → CPM network → earned value): frozen decisions, glossary + test fixture, task order and lanes, per-task traps. Read before claiming PSI-115 … PSI-123 |
 | [../graphify-architecture/README.md](../graphify-architecture/README.md) | Building and querying the code graph from either agent |
 
 ## Lanes

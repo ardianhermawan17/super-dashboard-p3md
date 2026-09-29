@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 15 | 0 | 2 | 0 | 1 | 6 | 65 | 89 |
+| 15 | 0 | 1 | 0 | 1 | 6 | 66 | 89 |
 
 ## Blocked
 
@@ -26,7 +26,6 @@
 ## Doing
 
 - [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human
-- [[tasks/PSI-113|PSI-113]] Internationalization (i18n) with i18n-js · agent:hermes
 
 ## Review
 

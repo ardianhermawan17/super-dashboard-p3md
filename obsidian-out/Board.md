@@ -30,7 +30,6 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
-- [ ] [[tasks/PSI-113|PSI-113]] Internationalization (i18n) with i18n-js · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Review
@@ -109,6 +108,7 @@ kanban-plugin: board
 - [x] [[tasks/PSI-077|PSI-077]] Daily digest · agent:hermes · 1 run #backend #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-111|PSI-111]] Contextual feature onboarding & route-specific "Take Tour" system · agent:hermes · 1 run #frontend #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-112|PSI-112]] Motion accessibility guardrails and Kanban state coverage · agent:hermes · 1 run #frontend #phase-7 ✅ 2026-09-29
+- [x] [[tasks/PSI-113|PSI-113]] Internationalization (i18n) with i18n-js · agent:hermes · 1 run #frontend #phase-7 ✅ 2026-09-29
 - [x] [[tasks/PSI-078|PSI-078]] Verify MCP client compatibility (CIMD vs DCR) · agent:hermes · 1 run #security #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-098|PSI-098]] Provider-agnostic LLM layer (Claude + Hermes) and evaluation · agent:hermes · 1 run #backend #phase-7 ✅ 2026-09-28
 - [x] [[tasks/PSI-107|PSI-107]] Fix: deleting a board that has tasks fails (M7 task activity trigger) · agent:claude-code · 2 runs #db #phase-7 ✅ 2026-09-28

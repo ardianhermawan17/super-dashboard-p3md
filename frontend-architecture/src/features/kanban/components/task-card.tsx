@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Badge } from '@/components/ui/badge';
 import { KanbanItem } from '@/components/ui/kanban';
 import { TaskFinanceButton } from './task-finance-button';
@@ -17,6 +17,7 @@ interface TaskCardProps extends Omit<React.ComponentProps<typeof KanbanItem>, 'v
 const DRAG_THRESHOLD_PX = 6;
 
 export function TaskCard({ task, canWriteFinance = false, onTaskClick, ...props }: TaskCardProps) {
+  const reduced = useReducedMotion() ?? false;
   const assigneeName = task.assignee?.full_name || null;
   const pointerStart = React.useRef<{ x: number; y: number } | null>(null);
 
@@ -37,22 +38,24 @@ export function TaskCard({ task, canWriteFinance = false, onTaskClick, ...props 
   };
 
   return (
-    <KanbanItem
-      key={task.id}
-      value={task.id}
-      {...props}
-      render={
-        <div className='bg-card rounded-md border p-3 shadow-xs hover:border-primary/30 transition-all duration-200' />
-      }
-    >
-      <motion.div
-        whileHover={{ y: -1.5, scale: 1.008 }}
-        whileTap={{ scale: 0.985 }}
-        transition={{ duration: 0.15, ease: 'easeOut' }}
-        className='flex flex-col gap-2'
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
+      <KanbanItem
+        key={task.id}
+        value={task.id}
+        {...props}
+        render={
+          <div className='bg-card rounded-md border p-3 shadow-xs hover:border-primary/30 transition-colors duration-200' />
+        }
       >
+        <motion.div
+          {...(reduced ? {} : {
+            whileHover: { y: -1.5, scale: 1.008 },
+            whileTap: { scale: 0.985 },
+            transition: { duration: 0.15, ease: 'easeOut' },
+          })}
+          className='flex flex-col gap-2'
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+        >
         <div className='flex items-start justify-between gap-2'>
           <span className='line-clamp-2 text-sm font-medium'>{task.title}</span>
           <Badge

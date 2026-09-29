@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { KanbanColumn, KanbanColumnHandle } from '@/components/ui/kanban';
 import type { KanbanTask } from '../types';
 import { TaskCard } from './task-card';
+import { KanbanColumnEmptyState } from './kanban-state';
 
 interface TaskColumnProps extends Omit<React.ComponentProps<typeof KanbanColumn>, 'children'> {
   title: string;
@@ -36,7 +37,10 @@ export function TaskColumn({
         </KanbanColumnHandle>
       </div>
       <div className='flex flex-col gap-2 p-0.5 min-h-[100px]'>
-              {tasks.map((task) => (
+            {tasks.length === 0 ? (
+              <KanbanColumnEmptyState />
+            ) : (
+              tasks.map((task) => (
                 <TaskCard
                   key={task.id}
                   task={task}
@@ -44,8 +48,9 @@ export function TaskColumn({
                   canWriteFinance={canWriteFinance}
                   onTaskClick={onTaskClick}
                 />
-              ))}
-            </div>
+              ))
+            )}
+          </div>
     </KanbanColumn>
   );
 }

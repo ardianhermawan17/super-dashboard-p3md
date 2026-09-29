@@ -11,6 +11,8 @@ import {
 import { TaskColumn } from './board-column';
 import { TaskCard } from './task-card';
 import { TaskDetailDialog } from './task-detail-dialog';
+import { KanbanBoardSkeleton } from './kanban-board-skeleton';
+import { KanbanBoardEmptyState, KanbanBoardErrorState } from './kanban-state';
 import { getBoardAction, moveTaskAction } from '../actions';
 import { kanbanKeys } from '../api/keys';
 import { positionBetween } from '../lib/position';
@@ -151,20 +153,24 @@ export function KanbanBoard({
   );
 
   if (isLoading && !board) {
-    return (
-      <div className='flex items-center justify-center p-12 text-sm text-muted-foreground'>
-        Loading board...
-      </div>
-    );
-  }
+      return <KanbanBoardSkeleton />;
+    }
 
-  if (isError || !board) {
-    return (
-      <div className='flex items-center justify-center p-12 text-sm text-destructive'>
-        Failed to load board: {(error as Error)?.message || 'Unknown error'}
-      </div>
-    );
-  }
+    if (isError || !board) {
+      return (
+        <KanbanBoardErrorState
+          message={(error as Error)?.message || 'Unknown error'}
+          onRetry={() => {
+            void qc.resetQueries({ queryKey });
+            void qc.invalidateQueries({ queryKey });
+          }}
+        />
+      );
+    }
+
+    if (board.columns.length === 0) {
+      return <KanbanBoardEmptyState />;
+    }
 
   return (
       <>

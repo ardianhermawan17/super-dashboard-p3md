@@ -1,35 +1,14 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'motion/react';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 12, scale: 0.98 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.32,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
+import { motion, useReducedMotion } from 'motion/react';
+import { fadeRiseItem, staggerContainer, tapPhysics } from '@/components/ui/motion-safe';
 
 export function AnimatedStatsGrid({ children }: { children: React.ReactNode }) {
-  // Convert children to array to animate each card individually
+  const reduced = useReducedMotion() ?? false;
   const items = React.Children.toArray(children);
+  const containerVariants = staggerContainer(reduced, 0.07, 0.05);
+  const itemVariants = fadeRiseItem(reduced, 12, 0.32);
 
   return (
     <motion.div
@@ -42,7 +21,7 @@ export function AnimatedStatsGrid({ children }: { children: React.ReactNode }) {
         <motion.div
           key={idx}
           variants={itemVariants}
-          whileHover={{ y: -3, transition: { duration: 0.2, ease: 'easeOut' } }}
+          {...(reduced ? {} : { whileHover: { y: -3, transition: { duration: 0.2, ease: 'easeOut' } } })}
           className='h-full'
         >
           {item}

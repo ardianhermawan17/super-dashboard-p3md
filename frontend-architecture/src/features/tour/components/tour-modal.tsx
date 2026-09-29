@@ -1,19 +1,20 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useTour } from '../context/tour-context';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
+Dialog,
+DialogContent,
+DialogHeader,
+DialogTitle,
+DialogDescription,
+DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { motionTransition } from '@/components/ui/motion-safe';
 
 export function TourModal() {
   const {
@@ -28,13 +29,14 @@ export function TourModal() {
   } = useTour();
 
   const [dontShowAgain, setDontShowAgain] = React.useState(true);
+    const reduced = useReducedMotion() ?? false;
 
-  if (!isOpen || !currentTour) return null;
+    if (!isOpen || !currentTour) return null;
 
-  const step = currentTour.steps[currentStepIndex];
-  const isFirstStep = currentStepIndex === 0;
-  const isLastStep = currentStepIndex === totalSteps - 1;
-  const progressPercent = Math.round(((currentStepIndex + 1) / totalSteps) * 100);
+    const step = currentTour.steps[currentStepIndex];
+    const isFirstStep = currentStepIndex === 0;
+    const isLastStep = currentStepIndex === totalSteps - 1;
+    const progressPercent = Math.round(((currentStepIndex + 1) / totalSteps) * 100);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight' && !isLastStep) {
@@ -52,26 +54,26 @@ export function TourModal() {
         className='sm:max-w-md p-0 overflow-hidden border-primary/30 shadow-xl'
         onKeyDown={handleKeyDown}
       >
-        {/* Animated Progress line */}
-        <div className='h-1.5 w-full bg-muted/60 overflow-hidden'>
-          <motion.div
-            className='h-full bg-primary'
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ type: 'spring', stiffness: 260, damping: 28 }}
-          />
-        </div>
+        {/* Animated Progress line - transform-only (scaleX), never width */}
+                <div className='h-1.5 w-full bg-muted/60 overflow-hidden'>
+                  <motion.div
+                    className='h-full bg-primary origin-left'
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: progressPercent / 100 }}
+                    transition={motionTransition(reduced, { type: 'spring', stiffness: 260, damping: 28 })}
+                  />
+                </div>
 
         <div className='p-6 space-y-4'>
           <AnimatePresence mode='wait'>
             <motion.div
-              key={step.id}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
-              className='space-y-4'
-            >
+                          key={step.id}
+                          initial={reduced ? { opacity: 1 } : { opacity: 0, x: 12 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={reduced ? { opacity: 1 } : { opacity: 0, x: -12 }}
+                          transition={motionTransition(reduced, { duration: 0.22, ease: 'easeOut' })}
+                          className='space-y-4'
+                        >
               {/* Header */}
               <DialogHeader className='space-y-1.5'>
                 <div className='flex items-center justify-between gap-2'>
@@ -95,34 +97,34 @@ export function TourModal() {
               </DialogHeader>
 
               {/* Action Hint / Tip callout */}
-              {step.actionHint && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.08, duration: 0.2 }}
-                  className='rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs flex items-start gap-2.5 text-foreground/90'
-                >
-                  <Icons.sparkles className='h-4 w-4 text-primary shrink-0 mt-0.5' />
-                  <span>{step.actionHint}</span>
-                </motion.div>
-              )}
-            </motion.div>
-          </AnimatePresence>
+                    {step.actionHint && (
+                      <motion.div
+                        initial={reduced ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={motionTransition(reduced, { delay: 0.08, duration: 0.2 })}
+                        className='rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs flex items-start gap-2.5 text-foreground/90'
+                      >
+                        <Icons.sparkles className='h-4 w-4 text-primary shrink-0 mt-0.5' />
+                        <span>{step.actionHint}</span>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                  </AnimatePresence>
 
-          {/* Step indicator dots */}
-          <div className='flex items-center justify-center gap-1.5 pt-2'>
-            {currentTour.steps.map((_, idx) => (
-              <button
-                key={idx}
-                type='button'
-                onClick={() => goToStep(idx)}
-                aria-label={`Go to step ${idx + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === currentStepIndex
-                    ? 'w-6 bg-primary shadow-xs'
-                    : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
-                }`}
-              />
+                  {/* Step indicator dots - transform-only (scaleX), never width */}
+                  <div className='flex items-center justify-center gap-1.5 pt-2'>
+                    {currentTour.steps.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type='button'
+                        onClick={() => goToStep(idx)}
+                        aria-label={`Go to step ${idx + 1}`}
+                        className={`h-2 rounded-full transition-transform duration-300 origin-left ${
+                          idx === currentStepIndex
+                            ? 'w-6 bg-primary shadow-xs'
+                            : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60'
+                        }`}
+                      />
             ))}
           </div>
         </div>

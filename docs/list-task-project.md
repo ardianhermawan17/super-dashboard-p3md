@@ -769,3 +769,12 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - owner: human
 - depends: PSI-074, PSI-086, PSI-063
 - accept: RLS audit of every table; RBAC escalation tests re-run; secret scan of the repo; agent tool outputs and push payloads checked for PII; Drive root access reviewed; findings recorded as tasks.
+
+## Phase 11 — Task lifecycle, CPM network and earned value (kanban → CPM → EVM)
+
+### PSI-123 · Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough
+- status: doing
+- area: frontend
+- owner: agent:hermes
+- depends: —
+- accept: The event form's date-time picker popup stays open until a date is chosen; the finance entry dialog's Category combobox lists the non-archived categories; the card's "Add finance entry for this task" button opens its dialog instead of starting a drag; BoardFinancePanel no longer logs the Base UI `nativeButton` error. (The Docker server-side Supabase URL finding is already fixed by PR #73.)

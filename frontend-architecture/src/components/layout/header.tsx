@@ -8,6 +8,7 @@ import { ThemeModeToggle } from '../themes/theme-mode-toggle';
 import CtaGithub from './cta-github';
 import { NotificationCenter } from '@/features/notifications/components/notification-center';
 import { TourTrigger } from '@/features/tour/components/tour-trigger';
+import { LanguageSwitcher } from '@/features/i18n/components/language-switcher';
 
 export default function Header() {
   return (
@@ -19,16 +20,17 @@ export default function Header() {
       </div>
 
       <div className='flex items-center gap-2 px-4'>
-        <CtaGithub />
-        <div className='hidden md:flex'>
-          <SearchInput />
-        </div>
-        <ThemeModeToggle />
-        <div className='hidden sm:block'>
-          <ThemeSelector />
-        </div>
-        <TourTrigger />
-        <NotificationCenter />
+      <CtaGithub />
+      <div className='hidden md:flex'>
+      <SearchInput />
+      </div>
+      <LanguageSwitcher />
+      <ThemeModeToggle />
+      <div className='hidden sm:block'>
+      <ThemeSelector />
+      </div>
+      <TourTrigger />
+      <NotificationCenter />
       </div>
     </header>
   );

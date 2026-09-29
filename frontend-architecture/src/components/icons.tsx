@@ -18,6 +18,7 @@ import {
   IconChevronUp,
   IconChevronsDown,
   IconChevronsLeft,
+  IconLanguage,
   IconChevronsRight,
   IconCircle,
   IconCircleCheck,
@@ -188,11 +189,12 @@ export const Icons = {
   minus: IconMinus,
 
   // Theme
-  sun: IconSun,
-  moon: IconMoon,
-  brightness: IconBrightness,
-  laptop: IconDeviceLaptop,
-  palette: IconPalette,
+    sun: IconSun,
+    moon: IconMoon,
+    brightness: IconBrightness,
+    laptop: IconDeviceLaptop,
+    palette: IconPalette,
+    language: IconLanguage,
 
   // Commerce / Plans
   billing: IconCreditCard,

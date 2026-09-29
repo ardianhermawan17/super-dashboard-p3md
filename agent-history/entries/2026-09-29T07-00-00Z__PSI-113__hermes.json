@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-29T07-00-00Z__PSI-113__hermes",
+  "task_ids": [
+    "PSI-113"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-29T06:30:00Z",
+    "ended_at": "2026-09-29T07:00:00Z",
+    "branch": "feat/i18n-js"
+  },
+  "intent": "Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.",
+  "outcome": "done",
+  "summary": "Internationalization with i18n-js (PSI-113). CODE: (1) Installed i18n-js@4.5.3. (2) src/features/i18n: en.ts + id.ts translation catalogs (typed via TranslationSchema), i18n.ts registry (createI18n, LOCALES, isLocale, storage key), i18n-provider.tsx (I18nProvider + useI18n with persisted locale + %{var} interpolation), components/language-switcher.tsx (header dropdown). (3) Registered I18nProvider in layout/providers.tsx and LanguageSwitcher in layout/header.tsx; added IconLanguage to icons.tsx. (4) overview welcome banner now renders translated copy via WelcomeBanner client component. (5) Unit tests: i18n.test.ts (8 tests). 141 frontend + 22 edge-function tests pass; typecheck, lint, and next build clean.",
+  "changes": [
+    { "path": "frontend-architecture/package.json", "action": "modified", "note": "added i18n-js@^4.5.3" },
+    { "path": "frontend-architecture/src/features/i18n/locales/en.ts", "action": "added", "note": "English catalog + TranslationSchema" },
+    { "path": "frontend-architecture/src/features/i18n/locales/id.ts", "action": "added", "note": "Indonesian catalog" },
+    { "path": "frontend-architecture/src/features/i18n/i18n.ts", "action": "added", "note": "registry: createI18n, LOCALES, isLocale" },
+    { "path": "frontend-architecture/src/features/i18n/i18n-provider.tsx", "action": "added", "note": "I18nProvider + useI18n hook" },
+    { "path": "frontend-architecture/src/features/i18n/components/language-switcher.tsx", "action": "added", "note": "header locale switcher" },
+    { "path": "frontend-architecture/src/features/i18n/__tests__/i18n.test.ts", "action": "added", "note": "8 unit tests" },
+    { "path": "frontend-architecture/src/components/layout/providers.tsx", "action": "modified", "note": "register I18nProvider" },
+    { "path": "frontend-architecture/src/components/layout/header.tsx", "action": "modified", "note": "mount LanguageSwitcher" },
+    { "path": "frontend-architecture/src/components/icons.tsx", "action": "modified", "note": "add IconLanguage" },
+    { "path": "frontend-architecture/src/features/overview/components/welcome-banner.tsx", "action": "added", "note": "translated welcome banner" },
+    { "path": "frontend-architecture/src/app/dashboard/overview/layout.tsx", "action": "modified", "note": "use WelcomeBanner" }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "141 frontend tests (596 expect) and 22 edge-function tests pass; tsc --noEmit, oxlint, next build clean. i18n.test.ts covers lookup, interpolation, fallback, and locale validity."
+  },
+  "human_review": {
+    "required": false
+  },
+  "follow_ups": [],
+  "risks": [
+    "i18n-js v4 exports a named I18n class (not default); interpolation uses %{var} syntax."
+  ],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": [
+    { "name": "i18n-js", "version": "4.5.3", "reason": "i18n-js internationalization library" }
+  ]
+}

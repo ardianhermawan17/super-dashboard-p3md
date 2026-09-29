@@ -15,7 +15,7 @@ import { DailyDigestCard } from '@/features/overview/components/daily-digest-car
 import { AnimatedStatsGrid } from '@/features/overview/components/animated-stats-grid';
 import { AnimatedChartsGrid } from '@/features/overview/components/animated-charts-grid';
 import { AnimatedNumber } from '@/components/ui/animated-number';
-import { LivePulseBadge } from '@/components/ui/live-pulse';
+import { WelcomeBanner } from '@/features/overview/components/welcome-banner';
 import React from 'react';
 
 export default async function OverViewLayout({
@@ -44,10 +44,7 @@ export default async function OverViewLayout({
   return (
     <PageContainer>
       <div className='flex flex-1 flex-col gap-4'>
-        <div className='flex items-center justify-between'>
-          <h2 className='text-2xl font-bold tracking-tight'>Hi, Welcome back 👋</h2>
-          <LivePulseBadge label='Live · Operational' />
-        </div>
+      <WelcomeBanner />
 
         {canReceiveDigest && digest ? <DailyDigestCard digest={digest} /> : null}
 

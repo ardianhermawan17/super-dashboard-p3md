@@ -11,6 +11,9 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_SENTRY_DISABLED: "true"
+        # Inlined into the client bundle at build time — must match runtime values below.
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-http://127.0.0.1:54371}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:-sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH}
     ports:
       - "3000:3000"
     env_file:
@@ -23,8 +26,10 @@ services:
       - PORT=3000
       - HOSTNAME=0.0.0.0
       - NEXT_TELEMETRY_DISABLED=1
-      # Client-side (browser) Supabase URL
+      # Client-side (browser) Supabase URL — must match the build args above,
+      # since NEXT_PUBLIC_* is already inlined into the bundle at build time.
       - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-http://127.0.0.1:54371}
+      - NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:-sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH}
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
       # Server-side (inside container) Supabase URL
       - SUPABASE_URL=${SUPABASE_URL:-http://host.docker.internal:54371}

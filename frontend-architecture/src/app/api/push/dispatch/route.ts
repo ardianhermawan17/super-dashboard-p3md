@@ -1,12 +1,13 @@
 import 'server-only';
 import webpush from 'web-push';
 import { createClient } from '@supabase/supabase-js';
+import { serverSupabaseUrl } from '@/lib/supabase/server-url';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 function getAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321';
+  const supabaseUrl = serverSupabaseUrl();
   const supabaseSecretKey =
     process.env.SUPABASE_SECRET_KEY ||
     process.env.SUPABASE_SERVICE_ROLE_KEY ||

@@ -1,0 +1,61 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-29T09-00-00Z__PSI-114__claude-code",
+  "task_ids": ["PSI-114"],
+  "agent": {
+    "name": "claude-code",
+    "model": "claude-opus-5-5",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-29T09:00:00Z",
+    "ended_at": "2026-09-29T09:45:00Z",
+    "branch": "task/PSI-114"
+  },
+  "intent": "Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.",
+  "outcome": "done",
+  "summary": "PSI-114: added Phase 11 to docs/list-task-project.md (PSI-114..PSI-123, backlog) after the operator asked to plan first; asked the operator the four C-15 questions and recorded the answers in the task accepts. Wrote docs/database-architecture/m12-task-lifecycle-cpm.md (M12: sub-tasks one level deep, delegation to one user or one board group, board_columns.kind todo/doing/done with is_done kept in sync, task_budgets table with its own RLS for planned/initial/final cash, task.budget key for admin/project-manager/operation, trigger-enforced start/finish gates, start_task/finish_task RPCs, finish auto-posts one outflow finance_entries row with source task_final; M13: PERT estimates in days, boards.project_start, task_links with advisory-lock cycle guard; full pgTAP list) and docs/frontend-architecture/features/cpm-evm.md (module layout, permission-to-UI table, drag-gate flow without optimistic move, pure engine API with typed errors, verified 38-week fixture, frappe-gantt wrapper rules, recharts EVM with standard PV/EV/AC definitions, one-query pipeline, e2e). Added docs/agent-operations/phase-11-brief.md as Hermes' job description (frozen decisions D1-D9, glossary, fixture, order and lanes, per-task traps) and repointed HANDOFF.md from the on-hold Phase 8 to Phase 11. Linked from system-overview.md, both layer READMEs, agent-operations README and kanban.md. Corrected two draft accepts: PSI-121 AC is initial cost replaced (not added) by final cash; PSI-123 drops the Docker URL bullet already fixed by PR #73. Remaining: operator review/merge; PSI-115 onward.",
+  "changes": [
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "Phase 11 tasks PSI-114..PSI-123; PSI-114 claimed then set to review" },
+    { "path": "docs/database-architecture/m12-task-lifecycle-cpm.md", "action": "added", "note": "M12 lifecycle + cash + gates, M13 CPM links + estimates, RLS, pgTAP list" },
+    { "path": "docs/frontend-architecture/features/cpm-evm.md", "action": "added", "note": "Lifecycle UI, drag gates, PERT engine contract + fixture, Gantt, EVM, pipeline" },
+    { "path": "docs/agent-operations/phase-11-brief.md", "action": "added", "note": "Job description for Hermes and other agents" },
+    { "path": "docs/agent-operations/README.md", "action": "modified", "note": "Link to the brief" },
+    { "path": "docs/system-overview.md", "action": "modified", "note": "Feature x layer row" },
+    { "path": "docs/database-architecture/README.md", "action": "modified", "note": "Index row" },
+    { "path": "docs/frontend-architecture/README.md", "action": "modified", "note": "Index row" },
+    { "path": "docs/frontend-architecture/features/kanban.md", "action": "modified", "note": "Pointer to cpm-evm.md" },
+    { "path": "HANDOFF.md", "action": "modified", "note": "Phase 11 is the current priority; Phase 8 marked on hold; master state" }
+  ],
+  "decisions": [
+    { "decision": "Operator (C-15), AskUserQuestion answer: \"Standard EVM (Recommended)\" - EV = planned cash x completion (0/50/100 by column kind); CPI and SPI shown.", "reason": "Keeps PV, EV and AC comparable.", "alternatives": ["EV = initial cash (operator's first wording)", "Show both"] },
+    { "decision": "Operator (C-15): \"New task.budget key (Recommended)\" granted to admin, project-manager and operation, scoped to tasks the caller authored or is delegated.", "reason": "Operation delegates must enter costs without finance.* and without breaking PSI-104's no-amounts rule.", "alternatives": ["Require finance.write", "Delegate enters, can't read"] },
+    { "decision": "Operator (C-15): \"Yes, auto-post (Recommended)\" - finishing a task upserts one outflow finance_entries row (source task_final); reopening deletes it.", "reason": "Ledger and EVM always agree.", "alternatives": ["Keep task cash separate from the ledger"] },
+    { "decision": "Operator (C-10): \"frappe-gantt + recharts\" - no chart.js.", "reason": "Only one new dependency; recharts custom dots give point styling.", "alternatives": ["frappe-gantt + chart.js"] },
+    { "decision": "Task cash lives in a separate task_budgets table with its own RLS, not in columns on tasks.", "reason": "RLS is row-level and every board member reads tasks, so amounts on that row would leak." },
+    { "decision": "AC = initial cost from start, replaced (not added) by final cash at finish.", "reason": "Adding both double counts the same spend; corrected in PSI-121's draft accept." },
+    { "decision": "Gates key on a new board_columns.kind and are enforced by DB triggers; new tasks must be created in a todo column.", "reason": "Column titles are free text; a budget row cannot exist before its task." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Docs only. The 38-week CPM/PERT fixture was recomputed with a node script (TE 35, var 8.667, sd 2.944, z 1.019, P 0.8459, 2-sigma 29.11-40.89) before being written into cpm-evm.md and the brief."
+  },
+  "risks": [
+    "PSI-115 changes RLS on finance_entries (new source column) and adds a permission key: needs a human review before merge (C-15).",
+    "frappe-gantt's options API changed between major versions; PSI-120 must check the current docs and pin the version."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-123", "note": "Can start now; PSI-118 depends on the card-button drag fix." },
+    { "task_id": "PSI-119", "note": "Pure engine, independent of the migrations; start after this design merges." },
+    { "task_id": "NEW", "note": "Branch naming is inconsistent: AGENTS.md says task/PSI-NNN, README_AI_AGENT.md and hermes.md say agent/PSI-0XX-slug. Needs a human to pick one (agent-config change, C-15)." }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Design introduces a permission key (task.budget) and an RLS change on finance_entries; operator should confirm the design before PSI-115."
+  }
+}

@@ -16,6 +16,15 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-062|PSI-062]] google-drive /sync #integration #phase-6
 - [ ] [[tasks/PSI-063|PSI-063]] google-drive /file and /search #integration #phase-6
 - [ ] [[tasks/PSI-064|PSI-064]] Documents module UI #frontend #phase-6
+- [ ] [[tasks/PSI-115|PSI-115]] Migration M12 task lifecycle: sub-tasks, delegation, cash and gates #db #phase-11
+- [ ] [[tasks/PSI-116|PSI-116]] Migration M13 CPM network: task links and PERT estimates #db #phase-11
+- [ ] [[tasks/PSI-117|PSI-117]] Sub-tasks and delegation in the task panel #frontend #phase-11
+- [ ] [[tasks/PSI-118|PSI-118]] Start and finish gates on drag (todo → doing → done) #frontend #phase-11
+- [ ] [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine #frontend #phase-11
+- [ ] [[tasks/PSI-120|PSI-120]] CPM network editor and Gantt timeline #frontend #phase-11
+- [ ] [[tasks/PSI-121|PSI-121]] Earned value line chart (PV, EV, AC) #frontend #phase-11
+- [ ] [[tasks/PSI-122|PSI-122]] Pipeline: task → CPM network → earned value, end to end #frontend #phase-11
+- [ ] [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough #frontend #phase-11
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -34,6 +43,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code · 1 run #docs #phase-11
 
 
 ## Blocked

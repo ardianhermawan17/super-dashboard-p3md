@@ -14,6 +14,8 @@ import { getLatestDigestAction } from '@/features/overview/actions';
 import { DailyDigestCard } from '@/features/overview/components/daily-digest-card';
 import { AnimatedStatsGrid } from '@/features/overview/components/animated-stats-grid';
 import { AnimatedChartsGrid } from '@/features/overview/components/animated-charts-grid';
+import { AnimatedNumber } from '@/components/ui/animated-number';
+import { LivePulseBadge } from '@/components/ui/live-pulse';
 import React from 'react';
 
 export default async function OverViewLayout({
@@ -44,6 +46,7 @@ export default async function OverViewLayout({
       <div className='flex flex-1 flex-col gap-4'>
         <div className='flex items-center justify-between'>
           <h2 className='text-2xl font-bold tracking-tight'>Hi, Welcome back 👋</h2>
+          <LivePulseBadge label='Live · Operational' />
         </div>
 
         {canReceiveDigest && digest ? <DailyDigestCard digest={digest} /> : null}
@@ -53,7 +56,7 @@ export default async function OverViewLayout({
             <CardHeader>
               <CardDescription>Total Revenue</CardDescription>
               <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                $1,250.00
+                <AnimatedNumber value={1250} prefix='$' decimals={2} />
               </CardTitle>
               <CardAction>
                 <Badge variant='outline'>
@@ -73,7 +76,7 @@ export default async function OverViewLayout({
             <CardHeader>
               <CardDescription>New Customers</CardDescription>
               <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                1,234
+                <AnimatedNumber value={1234} />
               </CardTitle>
               <CardAction>
                 <Badge variant='outline'>
@@ -93,7 +96,7 @@ export default async function OverViewLayout({
             <CardHeader>
               <CardDescription>Active Accounts</CardDescription>
               <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                45,678
+                <AnimatedNumber value={45678} />
               </CardTitle>
               <CardAction>
                 <Badge variant='outline'>
@@ -113,7 +116,7 @@ export default async function OverViewLayout({
             <CardHeader>
               <CardDescription>Growth Rate</CardDescription>
               <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                4.5%
+                <AnimatedNumber value={4.5} suffix='%' decimals={1} />
               </CardTitle>
               <CardAction>
                 <Badge variant='outline'>

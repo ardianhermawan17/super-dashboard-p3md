@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, type UIMessage } from 'ai';
 import { Badge } from '@/components/ui/badge';
@@ -37,7 +37,7 @@ type ToolPart = {
   errorText?: string;
 };
 
-function ToolMarker({ part }: { part: ToolPart }) {
+function ToolMarker({ part, reduced }: { part: ToolPart; reduced: boolean }) {
   const name = part.toolName ?? part.type.replace(/^tool-/, '');
   const running = part.state === 'input-streaming' || part.state === 'input-available';
   const done = part.state === 'output-available';
@@ -45,9 +45,9 @@ function ToolMarker({ part }: { part: ToolPart }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 4 }}
+      initial={reduced ? { opacity: 1 } : { opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2 }}
+      transition={reduced ? { duration: 0 } : { duration: 0.2 }}
       className='flex flex-col gap-1.5'
     >
       <Marker>
@@ -80,6 +80,7 @@ function ToolMarker({ part }: { part: ToolPart }) {
 }
 
 export function AiChatInterface() {
+  const reduced = useReducedMotion() ?? false;
   const [input, setInput] = React.useState('');
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -158,11 +159,10 @@ export function AiChatInterface() {
                       {SUGGESTED_PROMPTS.map((prompt, idx) => (
                         <motion.div
                           key={prompt}
-                          initial={{ opacity: 0, y: 8 }}
+                          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.05 * idx, duration: 0.2 }}
-                          whileHover={{ scale: 1.015, y: -1 }}
-                          whileTap={{ scale: 0.985 }}
+                          transition={reduced ? { duration: 0 } : { delay: 0.05 * idx, duration: 0.2 }}
+                          {...(reduced ? {} : { whileHover: { scale: 1.015, y: -1 }, whileTap: { scale: 0.985 } })}
                         >
                           <Button
                             variant='outline'
@@ -230,11 +230,12 @@ export function AiChatInterface() {
                                   part.type.startsWith('tool-')
                                 ) {
                                   return (
-                                    <ToolMarker
-                                      key={key}
-                                      part={part as unknown as ToolPart}
-                                    />
-                                  );
+                                      <ToolMarker
+                                        key={key}
+                                        part={part as unknown as ToolPart}
+                                        reduced={reduced}
+                                      />
+                                    );
                                 }
                                 return null;
                               })}

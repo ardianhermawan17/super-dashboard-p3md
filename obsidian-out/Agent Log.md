@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-29
 
+- 09:30 · **hermes** · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]
 - 00:15 · **hermes** · [[tasks/PSI-111|PSI-111]] · done: [[history/2026-09-28T18-00-00Z__PSI-111__hermes|Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.]]
 ## 2026-09-28
 

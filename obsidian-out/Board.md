@@ -30,6 +30,7 @@ kanban-plugin: board
 ## Doing
 
 - [ ] [[tasks/PSI-060|PSI-060]] Google Cloud project, service account, sharing · human #integration #phase-6
+- [ ] [[tasks/PSI-112|PSI-112]] Motion accessibility guardrails and Kanban state coverage · agent:hermes · 1 run #frontend #phase-7
 
 
 ## Review

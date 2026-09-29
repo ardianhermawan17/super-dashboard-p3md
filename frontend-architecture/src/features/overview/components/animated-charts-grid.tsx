@@ -1,31 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'motion/react';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.09,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 16, scale: 0.99 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.38,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
+import { motion, useReducedMotion } from 'motion/react';
+import { fadeRiseItem, staggerContainer } from '@/components/ui/motion-safe';
 
 interface AnimatedChartsGridProps {
   barStats: React.ReactNode;
@@ -40,6 +17,10 @@ export function AnimatedChartsGrid({
   areaStats,
   pieStats,
 }: AnimatedChartsGridProps) {
+  const reduced = useReducedMotion() ?? false;
+  const containerVariants = staggerContainer(reduced, 0.09, 0.15);
+  const itemVariants = fadeRiseItem(reduced, 16, 0.38);
+
   return (
     <motion.div
       variants={containerVariants}

@@ -1,11 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardAction } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { motionTransition } from '@/components/ui/motion-safe';
 import type { DigestRow } from '../types';
 
 interface DailyDigestCardProps {
@@ -13,6 +14,7 @@ interface DailyDigestCardProps {
 }
 
 export function DailyDigestCard({ digest }: DailyDigestCardProps) {
+  const reduced = useReducedMotion() ?? false;
   const [expanded, setExpanded] = React.useState(true);
   const [dismissed, setDismissed] = React.useState(false);
 
@@ -39,8 +41,8 @@ export function DailyDigestCard({ digest }: DailyDigestCardProps) {
       <motion.div
         initial={{ opacity: 0, y: -10, scale: 0.99 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.96, height: 0 }}
-        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.96 }}
+        transition={motionTransition(reduced, { duration: 0.28, ease: [0.16, 1, 0.3, 1] })}
       >
         <Card className='border-primary/20 bg-gradient-to-r from-primary/5 via-card to-card shadow-xs transition-all overflow-hidden'>
           <CardHeader className='pb-3'>
@@ -90,24 +92,26 @@ export function DailyDigestCard({ digest }: DailyDigestCardProps) {
           </CardHeader>
 
           <AnimatePresence initial={false}>
-            {expanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-                className='overflow-hidden'
-              >
-                <CardContent className='pt-0 pb-4 text-sm'>
-                  <div className='rounded-md border bg-muted/20 p-4 font-sans text-xs leading-relaxed space-y-2 whitespace-pre-wrap text-foreground/90'>
-                    {digest.content_md}
-                  </div>
-                </CardContent>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Card>
-      </motion.div>
-    </AnimatePresence>
-  );
+                {expanded && (
+                  <motion.div
+                    initial={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    animate={{ gridTemplateRows: '1fr', opacity: 1 }}
+                    exit={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    transition={motionTransition(reduced, { duration: 0.24, ease: [0.16, 1, 0.3, 1] })}
+                    className='grid overflow-hidden'
+                  >
+                    <div className='min-h-0'>
+                      <CardContent className='pt-0 pb-4 text-sm'>
+                        <div className='rounded-md border bg-muted/20 p-4 font-sans text-xs leading-relaxed space-y-2 whitespace-pre-wrap text-foreground/90'>
+                          {digest.content_md}
+                        </div>
+                      </CardContent>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Card>
+            </motion.div>
+            </AnimatePresence>
+            );
 }

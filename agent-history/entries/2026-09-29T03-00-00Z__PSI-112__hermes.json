@@ -1,0 +1,110 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-29T03-00-00Z__PSI-112__hermes",
+  "task_ids": [
+    "PSI-112"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-29T02:30:00Z",
+    "ended_at": "2026-09-29T03:00:00Z",
+    "branch": "feat/ui-ux-motion-guardrails"
+  },
+  "intent": "Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.",
+  "outcome": "done",
+  "summary": "Motion accessibility guardrails and Kanban state coverage (PSI-112). CODE: (1) Added shared motion-safe.ts token helper collapsing staggers, fades, tap/hover physics, and transitions to static under prefers-reduced-motion; wired useReducedMotion() into animated-number, live-pulse (infinite halo now static), animated-stats-grid, animated-charts-grid, task-card, daily-digest-card, tour-modal (progress bar and step dots now transform-only scaleX instead of width), and ai-chat-interface. (2) Replaced Kanban height-based accordion with grid-template-rows collapse (transform/opacity only). (3) Added KanbanBoardSkeleton (shape-matching loader), KanbanBoardEmptyState / KanbanColumnEmptyState (composed empty states), and KanbanBoardErrorState with retry in kanban-board/board-column. (4) Unit tests: motion-safe.test.ts (reduced-motion branches) and kanban-state.test.ts. 130 frontend tests and 22 edge function tests pass; typecheck and oxlint clean.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/components/ui/motion-safe.ts",
+      "action": "added",
+      "note": "Shared reduced-motion token helpers (staggerContainer, fadeRiseItem, tapPhysics, motionTransition)"
+    },
+    {
+      "path": "frontend-architecture/src/components/ui/animated-number.tsx",
+      "action": "modified",
+      "note": "spring.jump(value) under reduced motion"
+    },
+    {
+      "path": "frontend-architecture/src/components/ui/live-pulse.tsx",
+      "action": "modified",
+      "note": "infinite halo animation disabled under reduced motion; solid dot retained"
+    },
+    {
+      "path": "frontend-architecture/src/features/overview/components/animated-stats-grid.tsx",
+      "action": "modified",
+      "note": "stagger + hover collapse under reduced motion"
+    },
+    {
+      "path": "frontend-architecture/src/features/overview/components/animated-charts-grid.tsx",
+      "action": "modified",
+      "note": "stagger collapse under reduced motion"
+    },
+    {
+      "path": "frontend-architecture/src/features/overview/components/daily-digest-card.tsx",
+      "action": "modified",
+      "note": "height accordion replaced with grid-template-rows (transform/opacity only); reduced-motion gated"
+    },
+    {
+      "path": "frontend-architecture/src/features/tour/components/tour-modal.tsx",
+      "action": "modified",
+      "note": "progress bar and step dots use scaleX (transform-only); step/callout transitions reduced-motion gated"
+    },
+    {
+      "path": "frontend-architecture/src/features/ai-chat/components/ai-chat-interface.tsx",
+      "action": "modified",
+      "note": "ToolMarker + prompt cards reduced-motion gated"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-board-skeleton.tsx",
+      "action": "added",
+      "note": "shape-matching skeleton loader for board"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-state.tsx",
+      "action": "added",
+      "note": "composed empty states and error state with retry"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/kanban-board.tsx",
+      "action": "modified",
+      "note": "wire skeleton, empty-board, and error-with-retry states"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/components/board-column.tsx",
+      "action": "modified",
+      "note": "empty column state"
+    },
+    {
+      "path": "frontend-architecture/src/components/ui/__tests__/motion-safe.test.ts",
+      "action": "added",
+      "note": "unit tests for reduced-motion branches"
+    },
+    {
+      "path": "frontend-architecture/src/features/kanban/__tests__/kanban-state.test.ts",
+      "action": "added",
+      "note": "unit tests for skeleton, empty, and error states"
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "130 frontend unit tests pass (574 expect calls), 22 edge function tests pass; tsc --noEmit and oxlint clean. Confirmed reduced-motion branches via motion-safe tests and instantiation of skeleton/empty/error states."
+  },
+  "human_review": {
+    "required": false
+  },
+  "follow_ups": [],
+  "risks": [
+    "Motion components now depend on useReducedMotion() context; all call sites verified under both motion settings."
+  ],
+  "contract_deviations": [],
+  "migrations": [],
+  "dependencies_added": []
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useSpring, useTransform, motion } from 'motion/react';
+import { motion, useReducedMotion, useSpring, useTransform } from 'motion/react';
 
 interface AnimatedNumberProps {
   value: number;
@@ -12,9 +12,8 @@ interface AnimatedNumberProps {
 }
 
 /**
- * AnimatedNumber - Spring-physics driven metric counter
- * Grounded in the Von Restorff & Zeigarnik UX principles:
- * Animates key numerical changes to signal freshness and real-time vitality.
+ * AnimatedNumber - Spring-physics driven metric counter.
+ * Falls back to the final value directly when the user prefers reduced motion.
  */
 export function AnimatedNumber({
   value,
@@ -23,6 +22,7 @@ export function AnimatedNumber({
   decimals = 0,
   className = '',
 }: AnimatedNumberProps) {
+  const reduced = useReducedMotion() ?? false;
   const spring = useSpring(0, {
     mass: 0.8,
     stiffness: 85,
@@ -38,8 +38,12 @@ export function AnimatedNumber({
   });
 
   React.useEffect(() => {
-    spring.set(value);
-  }, [spring, value]);
+    if (reduced) {
+      spring.jump(value);
+    } else {
+      spring.set(value);
+    }
+  }, [spring, value, reduced]);
 
   return <motion.span className={className}>{display}</motion.span>;
 }

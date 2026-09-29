@@ -569,6 +569,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - history: obsidian-out/history/2026-09-28T18-00-00Z__PSI-111__hermes.md
 - accept: Top header contains a `?` (Help) button triggering a route-specific "Take Tour" walkthrough; auto-prompts first-time visitors per route via localStorage memory; bespoke step-by-step guidance for Overview, Boards/Kanban, Calendar, Finance, AI Chat, Documents, Talent, and Settings; interactive step progression (Next/Prev/Skip/Finish) with accessible modal spotlight.
 
+### PSI-112 · Motion accessibility guardrails and Kanban state coverage
+- status: doing
+- area: frontend
+- owner: agent:hermes
+- depends: PSI-111
+- accept: Every animated component honors `prefers-reduced-motion` — staggered reveals, spring counters, the infinite live pulse, hover/tap physics, accordions and tour transitions all collapse to static; Kanban ships skeleton loading, composed empty-column and empty-board states, and a contextual error state with retry; unit tests cover both motion branches and every state.
+
 ### PSI-078 · Verify MCP client compatibility (CIMD vs DCR)
 - status: done
 - area: security

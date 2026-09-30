@@ -1,0 +1,47 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-30T10-00-00Z__PSI-124__claude-code",
+  "task_ids": ["PSI-124"],
+  "agent": {
+    "name": "claude-code",
+    "model": "claude-sonnet-5-5",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-30T09:30:00Z",
+    "ended_at": "2026-09-30T10:00:00Z",
+    "branch": "task/PSI-124"
+  },
+  "intent": "Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.",
+  "outcome": "done",
+  "summary": "PSI-124: .scratch/ was untracked but not ignored, and holds .scratch/cdp-profile (660 files: extension JS, LevelDB) that may contain cookies and session tokens, so one git add -A or git add . from any agent would have committed a live browser profile. Added PSI-124 to docs/list-task-project.md (Phase 0, backlog, then claimed and set to review) because C-01 requires a card for every session, then added a commented .scratch/ rule to .gitignore (CRLF preserved) next to the .ecc/ entry. Verified: git check-ignore -v .scratch/cdp-profile prints .gitignore:21, and git status no longer lists .scratch/. The profile itself was left in place: the operator may still be running the headless-Chrome session that owns it, so deleting it is their call. Not done here: Priority 1 of the operator brief (re-render obsidian-out after the PSI-123/PSI-119 merge) is blocked until one of PRs #76 and #77 merges; Priority 3 items wait for the operator to choose.",
+  "changes": [
+    { "path": ".gitignore", "action": "modified", "note": "Added .scratch/ with a one-line reason" },
+    { "path": "docs/list-task-project.md", "action": "modified", "note": "New card PSI-124 (Phase 0), claimed then set to review" }
+  ],
+  "decisions": [
+    { "decision": "Operator chose option A: a dedicated backlog card and its own small PR for the .gitignore change.", "reason": "C-01 requires every session to have a task, and C-02 forbids putting an unrelated change on task/PSI-119.", "alternatives": ["Commit on task/PSI-119 (breaks C-02)", "Local .git/info/exclude only (does not protect other agents' clones)"] },
+    { "decision": "Did not delete .scratch/cdp-profile.", "reason": "It may belong to a live headless-Chrome session; the operator decides.", "alternatives": ["Delete the profile"] },
+    { "decision": "Inserted the card at the end of Phase 0.", "reason": "Far from the PSI-119 and PSI-123 cards edited by PRs #76 and #77, so the task list should auto-merge." }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "git check-ignore -v .scratch/cdp-profile printed the .gitignore:21 rule; git status --short no longer lists .scratch/; find counted 660 files in .scratch/cdp-profile; file confirms .gitignore and the task list keep CRLF."
+  },
+  "risks": [
+    "Any copy of .scratch/ content already committed elsewhere is not covered; none was found in this repo's tracked files."
+  ],
+  "follow_ups": [
+    { "task_id": "PSI-119", "note": "After PR #76 or #77 merges, merge origin/master into the other branch and re-run obsidian:sync to clear the Board.md/Home.md conflict." },
+    { "task_id": "NEW", "note": "Operator to decide whether to delete .scratch/cdp-profile (660 files) once the headless-Chrome session ends." }
+  ],
+  "human_review": {
+    "required": false,
+    "reason": "One-line .gitignore change; no code, auth, RLS or permission change."
+  }
+}

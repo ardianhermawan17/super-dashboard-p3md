@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 23 | 0 | 1 | 2 | 1 | 6 | 66 | 99 |
+| 23 | 0 | 1 | 3 | 1 | 6 | 66 | 100 |
 
 ## Blocked
 
@@ -29,6 +29,7 @@
 
 ## Review
 
+- [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code
 - [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
 - [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine · agent:hermes
 
@@ -98,6 +99,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-30 16:30 WIB · claude-code · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 - 2026-09-30 15:52 WIB · hermes · [[tasks/PSI-119|PSI-119]] · done: [[history/2026-09-30T08-52-54Z__PSI-119__hermes|Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.]]
 - 2026-09-29 16:00 WIB · claude-code · [[tasks/PSI-114|PSI-114]] · done: [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
 - 2026-09-29 13:30 WIB · hermes · [[tasks/PSI-113|PSI-113]] · done: [[history/2026-09-29T07-00-00Z__PSI-113__hermes|Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.]]
@@ -107,4 +109,3 @@
 - 2026-09-28 22:30 WIB · hermes · [[tasks/PSI-077|PSI-077]] · done: [[history/2026-09-28T16-00-00Z__PSI-077__hermes|Daily digest generation via pg_cron at 06:00 WIB, DIGEST_MODEL completion, storage in digests table, and notification dispatch to digest.receive holders.]]
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
-- 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]

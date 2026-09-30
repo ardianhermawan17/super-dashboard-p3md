@@ -17,6 +17,8 @@ node_modules/
 # graphify leaves transient backup files during its replace step
 graphify-out/cache/.gfy-replace-bak-*.tmp
 .ecc/
+# agent scratch: working files, logs, and a headless-Chrome profile that may hold cookies
+.scratch/
 # agent-evaluate: per-step telemetry and raw billing exports stay local (reports/ is committed)
 agent-evaluate/out/
 agent-evaluate/data/

@@ -140,6 +140,13 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - merged: PR #46 (2026-09-27, dd3e86e)
 - accept: `obsidian-out/.obsidian/{app,appearance,graph,types,workspace}.json` and `.obsidian/plugins/` untracked and gitignored (none of it is written by scripts/obsidian-sync.ts; a plugin's own data.json can carry local secrets); docs/agent-operations/README.md gets rules against switching branches in a dirty shared working directory and against retrying a blocker already hit once instead of escalating.
 
+### PSI-124 · Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs)
+- status: review
+- area: repo
+- owner: agent:claude-code
+- depends: —
+- accept: `.scratch/` is listed in `.gitignore` with a one-line reason; `git check-ignore -v .scratch/cdp-profile` prints the matching rule and `git status` no longer lists `.scratch/`, so no `git add -A` or `git add .` can commit the headless-Chrome profile (cookies, session tokens) or scratch logs; the existing profile is not deleted (the operator decides). Created as a C-01 card for a one-line chore.
+
 ## Phase 1 — Auth and RBAC (users, groups, roles, permissions)
 
 ### PSI-010 · Supabase clients and proxy.ts session refresh

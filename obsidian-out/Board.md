@@ -42,6 +42,7 @@ kanban-plugin: board
 
 ## Review
 
+- [ ] [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code · 1 run #repo #phase-0
 - [ ] [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code · 1 run #docs #phase-11
 - [ ] [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine · agent:hermes · 1 run #frontend #phase-11
 

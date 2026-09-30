@@ -4,6 +4,9 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-30
+
+- 16:30 · **claude-code** · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 ## 2026-09-29
 
 - 16:00 · **claude-code** · [[tasks/PSI-114|PSI-114]] · done (needs review): [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]

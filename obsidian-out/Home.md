@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 24 | 0 | 1 | 1 | 1 | 6 | 66 | 99 |
+| 24 | 0 | 1 | 2 | 1 | 6 | 66 | 100 |
 
 ## Blocked
 
@@ -29,6 +29,7 @@
 
 ## Review
 
+- [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code
 - [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
 
 ## AI sessions waiting for a human
@@ -96,6 +97,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-30 16:30 WIB · claude-code · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 - 2026-09-29 16:00 WIB · claude-code · [[tasks/PSI-114|PSI-114]] · done: [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
 - 2026-09-29 13:30 WIB · hermes · [[tasks/PSI-113|PSI-113]] · done: [[history/2026-09-29T07-00-00Z__PSI-113__hermes|Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.]]
 - 2026-09-29 09:30 WIB · hermes · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]
@@ -105,4 +107,3 @@
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
 - 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
-- 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]

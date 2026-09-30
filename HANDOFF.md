@@ -52,4 +52,4 @@ Put on hold by the operator on 2026-09-27 to prioritise the calendar → kanban 
 
 ## Master State
 
-- `master` @ `2159b71` (PR #75, PSI-114 design); local `master` fast-forwarded to it. Open PR: **#76** (PSI-123), plus PSI-119's. Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).
+- `master` @ `2159b71` (PR #75, PSI-114 design); local `master` fast-forwarded to it. Open PRs: **#76** (PSI-123) and **#77** (PSI-119), both against `master`. Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).

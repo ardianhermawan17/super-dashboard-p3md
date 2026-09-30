@@ -61,6 +61,23 @@ describe('linkBlockReason', () => {
     expect(linkBlockReason(tasks, diamond, 'C', 'B')).toBeNull();
   });
 
+  test('terminates on an already-cyclic network instead of looping forever', () => {
+    // The DB guard should prevent this, but the client must not hang if it ever sees one: the walk
+    // marks visited nodes, so a loop in the data cannot become a loop in the program.
+    const cyclic = [
+      { from: 'A', to: 'B' },
+      { from: 'B', to: 'C' },
+      { from: 'C', to: 'A' }
+    ];
+    expect(linkBlockReason(tasks, cyclic, 'D', 'E')).toBeNull();
+    expect(linkBlockReason(tasks, cyclic, 'A', 'B')).toBe('duplicate');
+    // D is a sink in this network, so nothing downstream of it exists: every other task may precede it
+    expect(predecessorCandidates(tasks, cyclic, 'D')).toEqual(['A', 'B', 'C', 'E']);
+    // A sits in an A→B→C→A loop, so B and C already reach it and are excluded; D and E are unrelated
+    // and may still precede it.
+    expect(predecessorCandidates(tasks, cyclic, 'A')).toEqual(['D', 'E']);
+  });
+
   test('duplicate is reported before cycle (the shorter explanation wins)', () => {
     expect(linkBlockReason(tasks, [{ from: 'A', to: 'B' }], 'A', 'B')).toBe('duplicate');
   });

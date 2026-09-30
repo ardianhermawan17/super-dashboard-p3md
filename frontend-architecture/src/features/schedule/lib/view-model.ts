@@ -87,8 +87,11 @@ export function orderTasksForView(order: string[], tasks: ScheduleTask[]): Sched
     const task = byId.get(id);
     if (!task || seen.has(id)) continue;
     // A child whose parent is also on this view is emitted next to the parent, wherever the parent
-    // falls in the topological order (a child can be ordered before its parent by the engine).
-    if (task.parentId && ordered.has(task.parentId)) continue;
+    // falls in the topological order (a child can be ordered before its parent by the engine). The
+    // second half of the test matters: if the parent is in the engine's order but NOT in the task list
+    // this view was given, nothing would ever emit the child — so it is emitted here instead of being
+    // dropped.
+    if (task.parentId && ordered.has(task.parentId) && byId.has(task.parentId)) continue;
     emit(task);
   }
   return out;

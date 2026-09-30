@@ -215,9 +215,13 @@ function Kanban<T>(props: KanbanProps<T>) {
   const [activeId, setActiveId] = React.useState<UniqueIdentifier | null>(null);
   const lastOverIdRef = React.useRef<UniqueIdentifier | null>(null);
   const hasMovedRef = React.useRef(false);
+  // PSI-123: the MouseSensor starts a drag on mousedown, which cancels the click
+  // event and swallowed every click target inside a card (the finance button and the
+  // card itself). A distance constraint makes dnd-kit wait for real movement, so a
+  // plain click reaches the element. 5 px matches docs/frontend-architecture/features/cpm-evm.md.
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter
     })

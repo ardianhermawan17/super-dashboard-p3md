@@ -132,6 +132,7 @@ export function BoardFinancePanel({ boardId, canWrite }: Props) {
         <Button
           variant='outline'
           size='sm'
+          nativeButton={false}
           render={<Link href='/dashboard/finance' aria-label='View full ledger' />}
         >
           <Icons.billing className='mr-1.5 h-3.5 w-3.5' />

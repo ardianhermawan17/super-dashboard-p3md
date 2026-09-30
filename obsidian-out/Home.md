@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 23 | 0 | 1 | 2 | 1 | 6 | 66 | 99 |
+| 23 | 0 | 1 | 3 | 1 | 6 | 66 | 100 |
 
 ## Blocked
 
@@ -29,6 +29,7 @@
 
 ## Review
 
+- [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code
 - [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
 - [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough · agent:hermes
 
@@ -99,6 +100,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-30 16:30 WIB · claude-code · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 - 2026-09-29 22:07 WIB · hermes · [[tasks/PSI-123|PSI-123]] · done: [[history/2026-09-29T15-07-47Z__PSI-123__hermes|Verify access to the super-dashboard-p3md-architecture repo, orient on the Phase 11 board state, and put this session's record into the project under PSI-123 as the operator asked.]]
 - 2026-09-29 18:00 WIB · hermes · [[tasks/PSI-123|PSI-123]] · done: [[history/2026-09-29T11-00-00Z__PSI-123__hermes|Fix the four kanban/finance UI bugs from the 2026-09-29 RBAC walkthrough (PSI-123), which block PSI-118's drag gates, and record PSI-123 on the board.]]
 - 2026-09-29 16:00 WIB · claude-code · [[tasks/PSI-114|PSI-114]] · done: [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
@@ -108,4 +110,3 @@
 - 2026-09-28 23:15 WIB · hermes · [[tasks/PSI-076|PSI-076]] · done: [[history/2026-09-28T17-00-00Z__PSI-076__hermes|Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.]]
 - 2026-09-28 22:30 WIB · hermes · [[tasks/PSI-077|PSI-077]] · done: [[history/2026-09-28T16-00-00Z__PSI-077__hermes|Daily digest generation via pg_cron at 06:00 WIB, DIGEST_MODEL completion, storage in digests table, and notification dispatch to digest.receive holders.]]
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
-- 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]

@@ -4,6 +4,9 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-30
+
+- 16:30 · **claude-code** · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 ## 2026-09-29
 
 - 22:07 · **hermes** · [[tasks/PSI-123|PSI-123]] · done (needs review): [[history/2026-09-29T15-07-47Z__PSI-123__hermes|Verify access to the super-dashboard-p3md-architecture repo, orient on the Phase 11 board state, and put this session's record into the project under PSI-123 as the operator asked.]]

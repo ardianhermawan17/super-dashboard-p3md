@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 24 | 0 | 1 | 1 | 1 | 6 | 66 | 99 |
+| 23 | 0 | 1 | 2 | 1 | 6 | 66 | 99 |
 
 ## Blocked
 
@@ -30,9 +30,11 @@
 ## Review
 
 - [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
+- [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-30T08-52-54Z__PSI-119__hermes|2026-09-30 15:52 WIB · hermes · PSI-119]]: Agents set review and a human moves the card to done after merge; the accept-wording clash on sigma needs the operator to confirm the glossary reading (not a sum of sigmas).
 - [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|2026-09-29 16:00 WIB · claude-code · PSI-114]]: Design introduces a permission key (task.budget) and an RLS change on finance_entries; operator should confirm the design before PSI-115.
 - [[history/2026-09-28T12-00-00Z__PSI-074__hermes|2026-09-28 17:00 WIB · hermes · PSI-074]]: Hosted Supabase project settings (OAuth server + asymmetric JWT keys + consent URL) and Claude end-to-end connection on hosted are operator actions (no credentials in scope).
 - [[history/2026-09-28T09-15-00Z__PSI-096__hermes-blocked|2026-09-28 16:10 WIB · hermes · PSI-096]]: Operator must decide how to re-enable standing jobs without destabilizing the host.
@@ -96,6 +98,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-30 15:52 WIB · hermes · [[tasks/PSI-119|PSI-119]] · done: [[history/2026-09-30T08-52-54Z__PSI-119__hermes|Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.]]
 - 2026-09-29 16:00 WIB · claude-code · [[tasks/PSI-114|PSI-114]] · done: [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]
 - 2026-09-29 13:30 WIB · hermes · [[tasks/PSI-113|PSI-113]] · done: [[history/2026-09-29T07-00-00Z__PSI-113__hermes|Add i18n-js internationalization with en/id locales, a useI18n hook and header switcher, tests, and log it as PSI-113 on the Obsidian board.]]
 - 2026-09-29 09:30 WIB · hermes · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]
@@ -105,4 +108,3 @@
 - 2026-09-28 21:30 WIB · hermes · [[tasks/PSI-098|PSI-098]] · done: [[history/2026-09-28T15-00-00Z__PSI-098__hermes|Provider-agnostic LLM layer (Claude + Hermes) for Next.js AI SDK and Edge Functions, and 10-question tool-answer evaluation.]]
 - 2026-09-28 20:30 WIB · hermes · [[tasks/PSI-078|PSI-078]] · done: [[history/2026-09-28T14-00-00Z__PSI-078__hermes|Verify MCP client compatibility (CIMD vs DCR) across Claude Desktop, ChatGPT, Hermes Agent, and Cursor against Supabase OAuth 2.1 server.]]
 - 2026-09-28 19:30 WIB · hermes · [[tasks/PSI-075|PSI-075]] · done: [[history/2026-09-28T13-30-00Z__PSI-075__hermes|Connected apps page in settings (list granted client_ids, revoke button) with OAuth 2.1 grant lifecycle.]]
-- 2026-09-28 17:00 WIB · hermes · [[tasks/PSI-074|PSI-074]] · done: [[history/2026-09-28T12-00-00Z__PSI-074__hermes|Supabase OAuth 2.1 server for agents: /auth/consent approve/deny page, config for asymmetric JWT + OAuth server + consent URL, verify end to end.]]

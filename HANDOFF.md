@@ -1,5 +1,5 @@
 ---
-updated: 2026-09-29 16:40 WIB
+updated: 2026-09-30 16:03 WIB
 project: super-dashboard-p3md-architecture
 ---
 
@@ -7,10 +7,11 @@ project: super-dashboard-p3md-architecture
 
 **Read [docs/agent-operations/phase-11-brief.md](docs/agent-operations/phase-11-brief.md) before claiming any Phase 11 task.** It holds the job description, the operator's frozen decisions (D1–D9), the glossary with the test fixture, the task order and the per-task traps.
 
-- **PSI-114** · Design (claude-code, branch `task/PSI-114`): `m12-task-lifecycle-cpm.md` + `features/cpm-evm.md` + the brief. Wait for it to merge before building on it.
-- **Can start now (no dependency on PSI-114):** PSI-123 (kanban/finance UI bug fixes; PSI-118 depends on it).
-- **After PSI-114 merges:** PSI-119 (pure CPM/PERT engine, TDD) · PSI-115 (M12 migration, needs a human RLS review) → PSI-116, PSI-117 → PSI-118, PSI-120, PSI-121 → PSI-122.
-- The operator assigns tasks; the brief's §4 has a suggested Hermes / Claude Code split.
+- **PSI-114** · Design (claude-code): **MERGED** (`7889569`, PR #75). `m12-task-lifecycle-cpm.md`, `features/cpm-evm.md` and the brief are on `master`.
+- **PSI-123** · kanban/finance UI bug fixes: **in review** — PR **#76** open against `master`, branch `task/PSI-123`. Four walkthrough bugs fixed; PSI-118's drag gates depend on it.
+- **PSI-119** · pure CPM/PERT engine: **in review** — branch `task/PSI-119` (`93472ff`). `schedule/lib/pert.ts` + `normal-cdf.ts`, 23 unit tests, the brief's 38-week fixture reproduced. PSI-120 and PSI-121 must consume it.
+- **Next, once those two PRs merge:** PSI-115 (M12 migration, needs a human RLS review) → PSI-116, PSI-117 → PSI-118, PSI-120, PSI-121 → PSI-122.
+- The operator assigns tasks; the brief's §4 has a suggested Hermes / Claude Code split (Hermes: PSI-119 done → PSI-120, PSI-121).
 
 ## Latest Delivered Features
 
@@ -44,11 +45,11 @@ Put on hold by the operator on 2026-09-27 to prioritise the calendar → kanban 
 
 ## Test & Build Status
 
-- Frontend tests: **123/123 passing** (`bun test src/`)
-- Edge fns: **22/22 passing** (`bun test supabase/functions`)
-- Typecheck: **clean (0 errors)** · Lint: **0 warnings / 0 errors**
-- `agent:check`: **ok (87 tasks, 79 history entries)**
+- Frontend tests: **164/164 passing** (`bun test` in `frontend-architecture`, 28 files) — re-run on `task/PSI-119`
+- Edge fns: **22/22 passing** (last recorded; not re-run on `task/PSI-119`, which touches no edge function)
+- Typecheck: **clean (0 errors)** · Lint: **0 errors / 9 pre-existing warnings** · `bun run build`: **exit 0**
+- `agent:check`: **ok (99 tasks, 83 history entries)** on `task/PSI-119`
 
 ## Master State
 
-- `master` @ `d8bf781` (PSI-113 stamped, PR #74). Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).
+- `master` @ `2159b71` (PR #75, PSI-114 design); local `master` fast-forwarded to it. Open PR: **#76** (PSI-123), plus PSI-119's. Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).

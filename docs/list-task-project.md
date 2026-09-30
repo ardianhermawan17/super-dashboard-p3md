@@ -772,9 +772,10 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Dragging a card into a `doing` column opens a "Start task" dialog asking initial cost, and into a `done` column a "Finish task" dialog asking final cash; cancel returns the card to its original column and position; confirm writes through a Server Action and the DB gate, so a failed write also reverts the card with a toast; the same dialogs are reachable from the task panel buttons "Start" and "Finish" for keyboard users.
 
 ### PSI-119 · CPM/PERT calculation engine
-- status: doing
+- status: review
 - area: frontend
 - owner: agent:hermes
+- history: [[2026-09-30T08-52-54Z__PSI-119__hermes]]
 - depends: PSI-114
 - accept: Pure TypeScript module with unit tests: TE = (a + 4m + b) / 6, variance = ((b − a) / 6)², σ = √variance per task; forward and backward pass giving ES, EF, LS, LF and slack (LS − ES) per node; critical path; path TE and σ as sums along the critical path; for a target duration (e.g. 38 weeks) returns z and probability; for an operator-chosen k (e.g. 2) returns the range TE − kσ … TE + kσ with slack shown as ± measurable time; cycle and missing-estimate inputs return typed errors, never throw; tests include the textbook 38-week example.
 

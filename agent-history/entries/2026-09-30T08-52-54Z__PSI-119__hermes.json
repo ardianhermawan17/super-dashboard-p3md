@@ -1,0 +1,119 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-30T08-52-54Z__PSI-119__hermes",
+  "task_ids": [
+    "PSI-119"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-30T08:52:54Z",
+    "ended_at": "2026-09-30T09:02:03Z",
+    "branch": "task/PSI-119",
+    "commits": [
+      "ddb69d2",
+      "93472ff"
+    ]
+  },
+  "intent": "Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.",
+  "outcome": "done",
+  "summary": "PSI-119, the pure CPM/PERT engine, built test-first as the brief's §4 lane assigns. Added src/features/schedule/lib/pert.ts (computeSchedule, targetProbability, sigmaRange, slackBand and the PertTask/TaskLink/NodeResult/Schedule/ScheduleError types exactly as cpm-evm.md -> PSI-119 fixes them) and src/features/schedule/lib/normal-cdf.ts (Abramowitz & Stegun 7.1.26 erf, |error| < 1.5e-7, no dependency), with 23 unit tests in pert.test.ts. The brief's 38-week fixture reproduces exactly: A ES 0 EF 8, B 8-18, C 8-14 slack 4, D 18-31, E 31-35, critical path A-B-D-E, TE 35 w, variance 8.667 w^2, sigma 2.944 w, z(38) 1.019, P 0.846, 2-sigma range 29.112-40.888 w. Also covered: a cycle (including a one-node self-link), a link to an id with no estimate, estimates breaking 0 <= a <= m <= b (a>m, m>b, negative, NaN, Infinity), an empty network, a zero-duration milestone, zero sigma, two equal-length critical paths, a fan-in, an unlinked task, input immutability and a purity guard that greps the module for new Date/Date.now/Math.random. Two things worth flagging rather than hiding: (1) the card's accept line says 'path TE and sigma as sums along the critical path', but the brief's glossary and the fixture define project sigma as the SQUARE ROOT of the summed variances - I implemented the glossary/fixture (variance sums to 8.667 w^2, sigma is 2.944 w) and recorded the wording clash as a follow-up, because the card as written would have you sum sigmas to 7.0 w; (2) on a duration tie the reported critical path is the one carrying the larger variance, so a task with zero slack that is not on that path still reports critical: true - correct CPM, but PSI-120 must not treat the boolean as membership in criticalPath. No React, no Date, no I/O, no new dependency. PSI-120/PSI-121 consume this module; nothing else imports it yet.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/pert.ts",
+      "action": "added",
+      "note": "computeSchedule + targetProbability + sigmaRange + slackBand, pure, typed errors"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/normal-cdf.ts",
+      "action": "added",
+      "note": "Phi(z) via A&S 7.1.26 erf, |error| < 1.5e-7, zero dependencies"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/pert.test.ts",
+      "action": "added",
+      "note": "23 tests: the 38-week fixture, error cases, edges, purity"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-119 claimed (doing) then moved to review with its history link"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Treat `missing-estimate` as a link whose endpoint is absent from `tasks`",
+      "reason": "PertTask has non-nullable a/m/b, so the caller passes only the tasks that have estimates; the design's 'a linked task has no a/m/b' is exactly an endpoint that is not in that list. It also keeps 'unestimated AND unlinked tasks are left out, not an error' true without inventing a nullable estimate field the design does not have.",
+      "alternatives": [
+        "widen PertTask to a: number | null and filter inside the engine",
+        "ignore unknown endpoints and schedule the rest"
+      ]
+    },
+    {
+      "decision": "Fixed the error check order as invalid-estimate, then missing-estimate, then cycle, with each id list sorted",
+      "reason": "Two faults can coexist (a broken estimate plus a cycle), so a deterministic order keeps the same input always producing the same single error; sorting makes the reported ids stable rather than dependent on Map iteration.",
+      "alternatives": [
+        "return every error found at once (the union has one error, not a list)",
+        "report cycle first, since it is the deepest fault"
+      ]
+    },
+    {
+      "decision": "Resolve duration ties by the path with the larger accumulated variance, and break topological ties by input order",
+      "reason": "The design fixes projectVariance as 'ties -> the larger', which only falls out if the driving predecessor is chosen that way in the forward pass; input order for the topological queue keeps `order` reproducible for the same input, which the deterministic-output test pins.",
+      "alternatives": [
+        "pick the first predecessor found (Map order, not reproducible)",
+        "pick the smaller variance on a tie"
+      ]
+    },
+    {
+      "decision": "Keep the driving-predecessor map as per-call state rather than a field on NodeResult",
+      "reason": "NodeResult's shape is fixed by the design for PSI-120/121. An earlier draft also had it as a module-level Map, which would have leaked ids between boards and broken purity; the test asserting two identical calls return deep-equal results would not have caught that, so it is called out here.",
+      "alternatives": [
+        "add a driver field to NodeResult (changes the shape PSI-120 consumes)",
+        "recompute the path by walking slack-0 predecessors afterwards (breaks on ties)"
+      ]
+    },
+    {
+      "decision": "Create lib/normal-cdf.ts in this task",
+      "reason": "cpm-evm.md's file layout lists normal-cdf.ts under the schedule feature as 'Phi(z), no dependency', and targetProbability cannot be implemented without it. PSI-121's evm.ts will reuse it.",
+      "alternatives": [
+        "inline erf inside pert.ts and duplicate it in evm.ts later",
+        "add a stats dependency (C-10 says no)"
+      ]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "No UI or API path: PSI-119 is a pure library module and the schedule feature has no route yet, so the accept criteria are entirely unit assertions. Exercised by hand through `bun test src/features/schedule/lib/pert.test.ts` (23 tests, 152 assertions, 0 fail) and checked the frozen fixture numbers against the brief's table. Full frontend suite: 164 tests across 28 files, 0 fail. `bunx tsc --noEmit` clean; `bun run lint` 0 errors (9 pre-existing warnings, none in the new files); `bun run build` exit 0."
+  },
+  "dependencies_added": [],
+  "risks": [
+    "The card's accept line calls sigma a sum along the critical path; the glossary and fixture define it as the square root of the summed variances. Implemented per the glossary - the card wording should be corrected so the next reader does not sum sigmas to 7.0 w instead of 2.944 w.",
+    "A zero-slack task that is not on the reported critical path still carries critical: true, so PSI-120 must render criticality from criticalPath membership and use the boolean only as a per-task flag."
+  ],
+  "follow_ups": [
+    {
+      "task_id": "PSI-119",
+      "note": "Reword the card's accept: project sigma is sqrt(sum of variances on the critical path), not a sum of sigmas"
+    },
+    {
+      "task_id": "PSI-120",
+      "note": "Gantt bars and the network table read NodeResult directly; do not equate critical: true with membership in criticalPath"
+    },
+    {
+      "task_id": "PSI-121",
+      "note": "Reuse lib/normal-cdf.ts for the EVM chart instead of adding a stats dependency"
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Agents set review and a human moves the card to done after merge; the accept-wording clash on sigma needs the operator to confirm the glossary reading (not a sum of sigmas)."
+  }
+}

@@ -4,6 +4,9 @@
 
 Every AI session, newest first (times in WIB). Back to [[Home]].
 
+## 2026-09-30
+
+- 15:52 · **hermes** · [[tasks/PSI-119|PSI-119]] · done (needs review): [[history/2026-09-30T08-52-54Z__PSI-119__hermes|Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.]]
 ## 2026-09-29
 
 - 16:00 · **claude-code** · [[tasks/PSI-114|PSI-114]] · done (needs review): [[history/2026-09-29T09-00-00Z__PSI-114__claude-code|Plan Phase 11 (kanban task -> CPM network -> earned value) on the board and write its design plus a Hermes-readable job brief.]]

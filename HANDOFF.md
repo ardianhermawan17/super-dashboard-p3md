@@ -1,5 +1,5 @@
 ---
-updated: 2026-09-30 16:03 WIB
+updated: 2026-09-30 19:46 WIB
 project: super-dashboard-p3md-architecture
 ---
 
@@ -8,10 +8,11 @@ project: super-dashboard-p3md-architecture
 **Read [docs/agent-operations/phase-11-brief.md](docs/agent-operations/phase-11-brief.md) before claiming any Phase 11 task.** It holds the job description, the operator's frozen decisions (D1–D9), the glossary with the test fixture, the task order and the per-task traps.
 
 - **PSI-114** · Design (claude-code): **MERGED** (`7889569`, PR #75). `m12-task-lifecycle-cpm.md`, `features/cpm-evm.md` and the brief are on `master`.
-- **PSI-123** · kanban/finance UI bug fixes: **in review** — PR **#76** open against `master`, branch `task/PSI-123`. Four walkthrough bugs fixed; PSI-118's drag gates depend on it.
-- **PSI-119** · pure CPM/PERT engine: **in review** — branch `task/PSI-119` (`93472ff`). `schedule/lib/pert.ts` + `normal-cdf.ts`, 23 unit tests, the brief's 38-week fixture reproduced. PSI-120 and PSI-121 must consume it.
-- **Next, once those two PRs merge:** PSI-115 (M12 migration, needs a human RLS review) → PSI-116, PSI-117 → PSI-118, PSI-120, PSI-121 → PSI-122.
-- The operator assigns tasks; the brief's §4 has a suggested Hermes / Claude Code split (Hermes: PSI-119 done → PSI-120, PSI-121).
+- **PSI-119** · pure CPM/PERT engine: **MERGED** (`e77350b`, PR #77). `schedule/lib/pert.ts` + `normal-cdf.ts`, 23 unit tests, the brief's 38-week fixture reproduced. `accept:` says σ is a sum along the critical path; the glossary and the code use √Σvariance (2.944 w) — reword it.
+- **PSI-123** · kanban/finance UI fixes: **MERGED** (`95fd28c`, PR #76) · **PSI-124** · `.scratch` gitignore: **MERGED** (PR #78).
+- **PSI-120** · Schedule tab and Gantt: **in review** — branch `task/PSI-120`. Its DB-free half is done (types, view-model, controls, link guard; 45 new tests) while the migrations are built. Remaining and still gated on **PSI-116**: the frappe-gantt wrapper, the Schedule tab, the link/estimate editors, the board query.
+- **Critical path is PSI-115** (M12 migration): a new `task.budget` permission key and an RLS change on `finance_entries`, so it needs a **human RLS review before merge** (C-15) and is Claude Code's lane. Then PSI-116 (M13) → PSI-117 → PSI-118, and PSI-120 / PSI-121 complete, → PSI-122.
+- **Four cards are merged or built but await the operator's stamp (C-21):** PSI-114, PSI-119, PSI-123, PSI-124 — all `status: review`. PSI-115 reads as blocked on PSI-114 until it is stamped `done`.
 
 ## Latest Delivered Features
 
@@ -45,11 +46,11 @@ Put on hold by the operator on 2026-09-27 to prioritise the calendar → kanban 
 
 ## Test & Build Status
 
-- Frontend tests: **164/164 passing** (`bun test` in `frontend-architecture`, 28 files) — re-run on `task/PSI-119`
-- Edge fns: **22/22 passing** (last recorded; not re-run on `task/PSI-119`, which touches no edge function)
-- Typecheck: **clean (0 errors)** · Lint: **0 errors / 9 pre-existing warnings** · `bun run build`: **exit 0**
-- `agent:check`: **ok (99 tasks, 83 history entries)** on `task/PSI-119`
+- Frontend tests: **214/214 passing** (`bun test` in `frontend-architecture`, 32 files) — re-run on `task/PSI-120`
+- Edge fns: **22/22 passing** (last recorded; nothing on `task/PSI-120` touches an edge function)
+- Typecheck: **clean (0 errors)** · Lint: **0 errors / 10 pre-existing warnings, none in the new files** · `bun run build`: **exit 0**
+- `agent:check`: **ok (100 tasks, 87 history entries)** on `task/PSI-120`
 
 ## Master State
 
-- `master` @ `2159b71` (PR #75, PSI-114 design); local `master` fast-forwarded to it. Open PRs: **#76** (PSI-123) and **#77** (PSI-119), both against `master`. Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).
+- `master` @ `e77350b` — PR #75 (PSI-114 design), #78 (PSI-124 `.scratch` gitignore), #76 (PSI-123) and #77 (PSI-119) are all merged; `task/PSI-120` branched from it and is the only open PR. Also merged since the last handoff: PR #72 (PSI-112 motion guardrails), PR #73 (Docker server-side Supabase URL fix), `351ac1f` (seed `::uuid` casts for persona roles).

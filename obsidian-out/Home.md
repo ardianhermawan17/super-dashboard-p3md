@@ -8,7 +8,7 @@
 
 | Backlog | Todo | Doing | Review | Blocked | On Hold | Done | Total |
 |---|---|---|---|---|---|---|---|
-| 22 | 0 | 1 | 4 | 1 | 6 | 66 | 100 |
+| 21 | 0 | 1 | 5 | 1 | 6 | 66 | 100 |
 
 ## Blocked
 
@@ -32,10 +32,12 @@
 - [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code
 - [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code
 - [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine · agent:hermes
+- [[tasks/PSI-120|PSI-120]] CPM network editor and Gantt timeline · agent:hermes
 - [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough · agent:hermes
 
 ## AI sessions waiting for a human
 
+- [[history/2026-09-30T12-42-02Z__PSI-120__hermes|2026-09-30 19:42 WIB · hermes · PSI-120]]: Agents set review and a human moves the card to done (C-21). Also worth an operator read: PSI-120 is intentionally partial with its dependency unmet, so it should stay out of `done` until PSI-116 lands and the UI halves follow.
 - [[history/2026-09-30T08-52-54Z__PSI-119__hermes|2026-09-30 15:52 WIB · hermes · PSI-119]]: Agents set review and a human moves the card to done after merge; the accept-wording clash on sigma needs the operator to confirm the glossary reading (not a sum of sigmas).
 - [[history/2026-09-29T15-07-47Z__PSI-123__hermes|2026-09-29 22:07 WIB · hermes · PSI-123]]: PSI-123 sits in review awaiting the human walkthrough, and this session repaired another session's uncommitted draft after the fact - both should be visible to the operator.
 - [[history/2026-09-29T11-00-00Z__PSI-123__hermes|2026-09-29 18:00 WIB · hermes · PSI-123]]: User-visible behaviour changed in two places (the board's drag sensor and the event form's date-time picker); confirm both by hand before PSI-123 is stamped done.
@@ -102,6 +104,7 @@
 
 ## Latest AI sessions
 
+- 2026-09-30 19:42 WIB · hermes · [[tasks/PSI-120|PSI-120]] · partial: [[history/2026-09-30T12-42-02Z__PSI-120__hermes|Build PSI-120's DB-free half: the pure seam between the PSI-119 engine and the Schedule views (Gantt rows, network table), the URL controls, and the link editor's cycle guard.]]
 - 2026-09-30 16:30 WIB · claude-code · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 - 2026-09-30 15:52 WIB · hermes · [[tasks/PSI-119|PSI-119]] · done: [[history/2026-09-30T08-52-54Z__PSI-119__hermes|Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.]]
 - 2026-09-29 22:07 WIB · hermes · [[tasks/PSI-123|PSI-123]] · done: [[history/2026-09-29T15-07-47Z__PSI-123__hermes|Verify access to the super-dashboard-p3md-architecture repo, orient on the Phase 11 board state, and put this session's record into the project under PSI-123 as the operator asked.]]
@@ -111,4 +114,3 @@
 - 2026-09-29 09:30 WIB · hermes · [[tasks/PSI-112|PSI-112]] · done: [[history/2026-09-29T03-00-00Z__PSI-112__hermes|Add reduced-motion accessibility guardrails and Kanban loading, empty, and retryable error states; document PSI-112 in Obsidian.]]
 - 2026-09-29 00:15 WIB · hermes · [[tasks/PSI-111|PSI-111]] · done: [[history/2026-09-28T18-00-00Z__PSI-111__hermes|Implement contextual route-specific 'Take Tour' onboarding feature with header ? trigger, localStorage memory for new users, and interactive step-by-step feature walkthrough.]]
 - 2026-09-28 23:15 WIB · hermes · [[tasks/PSI-076|PSI-076]] · done: [[history/2026-09-28T17-00-00Z__PSI-076__hermes|Live in-app AI chat on the shared tools with multi-provider inference (Claude, DeepSeek, Hermes, OpenRouter) and audit logging.]]
-- 2026-09-28 22:30 WIB · hermes · [[tasks/PSI-077|PSI-077]] · done: [[history/2026-09-28T16-00-00Z__PSI-077__hermes|Daily digest generation via pg_cron at 06:00 WIB, DIGEST_MODEL completion, storage in digests table, and notification dispatch to digest.receive holders.]]

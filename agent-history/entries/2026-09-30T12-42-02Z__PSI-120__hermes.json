@@ -1,0 +1,167 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-30T12-42-02Z__PSI-120__hermes",
+  "task_ids": [
+    "PSI-120"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-30T12:42:02Z",
+    "ended_at": "2026-09-30T12:46:49Z",
+    "branch": "task/PSI-120",
+    "commits": [
+      "f5d4caf",
+      "153857f",
+      "0980951"
+    ]
+  },
+  "intent": "Build PSI-120's DB-free half: the pure seam between the PSI-119 engine and the Schedule views (Gantt rows, network table), the URL controls, and the link editor's cycle guard.",
+  "outcome": "partial",
+  "summary": "PSI-120's DB-free half, built test-first, started in parallel with the human-gated PSI-116/PSI-115 migrations (which stay with Claude Code). Added src/features/schedule/types.ts (ColumnKind + KIND_PROGRESS, the Zod estimateSchema/taskLinkInputSchema, GanttRow/NetworkRow/ScheduleTask) and three pure lib modules: view-model.ts (toPertTasks, toGanttRows, toNetworkRows, orderTasksForView, unscheduledTasks, durationInUnit/varianceInUnit/formatDuration), controls.ts (parseScheduleControls and the design's two headline strings) and link-guard.ts (linkBlockReason, predecessorCandidates). 45 new tests; the feature is 69 tests and the repo 214, all green, typecheck/lint/build clean. The Gantt rows reproduce the brief's fixture: from project_start 2026-10-01 WIB, A runs 2026-09-30T17:00Z (ES 0) to 2026-11-25T17:00Z (EF 56 d), C starts exactly on A's end, bars key on criticalPath membership, progress 100/50/0/50/0, and the headline reads \"TE 35 w ± 5.9 w (k=2)\" and \"P(finish ≤ 38 w) = 84.6 %\". Three decisions carry forward, with detail in decisions[]: an estimate is one all-or-none object matching M13's num_nonnulls check; toPertTasks DROPS unestimated tasks so a half-estimated board still renders, while a link pointing at one stays a typed missing-estimate error; and rows key criticality on criticalPath, never the node's own critical flag. Date maths uses an explicit +07:00 offset and millisecond arithmetic, never local-time parsing: tests pass identically under TZ=UTC and TZ=America/New_York, and the engine itself stays date-free. Deliberately not here: frappe-gantt is not installed and no Schedule tab is wired, because both need M13 and a DOM-only wrapper could not be verified by hand; the link and estimate writes wait for PSI-116 too. The accept is therefore not met: outcome partial, not done. Self-review found and fixed one real defect — a sub-task whose parent was in the engine's order but absent from the view's task list was silently dropped from both views.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/schedule/types.ts",
+      "action": "added",
+      "note": "ColumnKind + KIND_PROGRESS (D8), estimateSchema/taskLinkInputSchema (Zod), GanttRow/NetworkRow/ScheduleTask"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/view-model.ts",
+      "action": "added",
+      "note": "engine → views: toPertTasks, toGanttRows, toNetworkRows, orderTasksForView, unscheduledTasks, unit helpers"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/view-model.test.ts",
+      "action": "added",
+      "note": "20 tests: dates, progress by kind, slack bands, sub-task order, the engine seam"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/controls.ts",
+      "action": "added",
+      "note": "parseScheduleControls (target/k/unit/view) + formatRangeHeadline + formatTargetProbability"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/controls.test.ts",
+      "action": "added",
+      "note": "14 tests incl. the design's exact headline strings"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/link-guard.ts",
+      "action": "added",
+      "note": "linkBlockReason (self/unknown/duplicate/cycle) + predecessorCandidates for the combobox"
+    },
+    {
+      "path": "frontend-architecture/src/features/schedule/lib/link-guard.test.ts",
+      "action": "added",
+      "note": "11 tests incl. termination on an already-cyclic network"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-120 claimed (doing) then moved to review with its history link"
+    },
+    {
+      "path": "HANDOFF.md",
+      "action": "modified",
+      "note": "was stale: still said PRs #76/#77 were open, with 123/164 test counts"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Model an estimate as one all-or-none object (Estimate | null) rather than three nullable numbers",
+      "reason": "M13's columns are est_optimistic/est_likely/est_pessimistic with a num_nonnulls(...) in (0, 3) check, so a half-set estimate is forbidden in the DB; one value makes that state unrepresentable in the app, and the first draft (three required numbers) could not represent an unestimated task at all without faking values.",
+      "alternatives": [
+        "three `number | null` fields (mirrors the columns but allows the illegal half-set)",
+        "make a/m/b required and exclude unestimated tasks from the list entirely"
+      ]
+    },
+    {
+      "decision": "toPertTasks drops estimate-less tasks instead of letting the engine reject them",
+      "reason": "A real board is full of tasks nobody has estimated yet, and the design says such tasks are 'simply left out (\"unscheduled\" list), not an error'. The filter therefore lives at the engine seam, while a LINK pointing at an unestimated task stays the typed missing-estimate error the engine already returns.",
+      "alternatives": [
+        "pass everything and treat the engine's missing-estimate error as routine",
+        "require every caller to pre-filter (easy to get wrong in two places)"
+      ]
+    },
+    {
+      "decision": "Criticality in both views comes from schedule.criticalPath membership; the node's own `critical` flag is exposed separately as NetworkRow.critical / onCriticalPath",
+      "reason": "PSI-119 established that on a duration tie the reported path is the one carrying the larger variance, so a zero-slack task can be `critical: true` while sitting off the reported path. Exposing both, named, stops a UI from equating them.",
+      "alternatives": [
+        "only the boolean (would mis-highlight bars)",
+        "only path membership (loses the per-task zero-slack signal)"
+      ]
+    },
+    {
+      "decision": "Rows carry days; durationInUnit (÷7) and varianceInUnit (÷49) do the display conversion",
+      "reason": "Brief D7 stores calendar days and treats weeks as a display concern. Keeping variance's 7² scaling in one named helper guards the mistake from PSI-119's first draft, where variance was divided by 7.",
+      "alternatives": [
+        "convert inside the row builders (loses the canonical days, and the unit is a render-time choice)"
+      ]
+    },
+    {
+      "decision": "Date maths via an explicit +07:00 offset and millisecond arithmetic, never local-time parsing",
+      "reason": "boards.project_start is a WIB calendar date and Indonesia has no DST, so a fixed offset is exact; building the instant from '+07:00' and adding ms keeps output identical whatever the browser's timezone is. Verified under TZ=UTC and TZ=America/New_York.",
+      "alternatives": [
+        "new Date(`${date}T00:00:00`) (local time — silently shifts the whole Gantt by the viewer's offset)",
+        "round ES to whole days (loses the engine's fractional positions)"
+      ]
+    },
+    {
+      "decision": "link-guard is a client-side convenience only; the DB stays the authority",
+      "reason": "The design says the editor checks cycles client-side 'too ... The DB rejects cycles regardless'. Two concurrent inserts can both pass a client check, so this walk exists for a good error message and a sane combobox, not for integrity.",
+      "alternatives": [
+        "treat the client check as the guard (unsafe under concurrency)"
+      ]
+    },
+    {
+      "decision": "Do not install frappe-gantt yet",
+      "reason": "C-10/D6 authorise the dependency, but the brief's trap says to check its current API and pin the version at implementation time, and a DOM-only wrapper with no data path cannot be verified by hand this session.",
+      "alternatives": [
+        "install and write the wrapper now against fixture rows (unverifiable until M13 lands)"
+      ]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "None possible, deliberately: PSI-120's accept names a Schedule tab and a Gantt, but no route, component or data path exists yet (M13's task_links/estimates/project_start and the tab itself are PSI-116's). Everything delivered is a pure module exercised by its tests: 69 tests in src/features/schedule (45 new), 214 across the repo, 0 failures; `bunx tsc --noEmit` clean; `bun run lint` 0 errors and 0 warnings in the new files (10 pre-existing warnings elsewhere); `bun run build` exit 0. Date independence checked by re-running view-model.test.ts under TZ=UTC and TZ=America/New_York (20 tests, identical). DB checks are n/a: no schema, migration or query touched."
+  },
+  "dependencies_added": [],
+  "risks": [
+    "PSI-120 was started with its `depends: PSI-116` unmet, on the operator's explicit approval of a parallel DB-free slice. The remaining halves (link/estimate writes, the frappe-gantt wrapper, the Schedule tab, the wired board query) are still gated on M13 and must not be lost when the card reaches review.",
+    "The card's accept also names D6's frappe-gantt dependency; it is deliberately not installed or pinned yet, and the brief warns its API/CSS import changed between majors — check and pin it in the session that can run it.",
+    "A stale `git status` lists lib/pert.ts, lib/pert.test.ts and lib/normal-cdf.ts as modified on this Windows checkout while `git diff --quiet HEAD` reports them byte-identical: core.autocrlf=true line-ending noise from oxfmt rewriting LF files, not content. They are excluded from every commit on this branch."
+  ],
+  "follow_ups": [
+    {
+      "task_id": "PSI-116",
+      "note": "M13 unblocks the rest of PSI-120: task_links, est_* estimates and boards.project_start are exactly what toGanttRows/orderTasksForView were typed against"
+    },
+    {
+      "task_id": "PSI-120",
+      "note": "Remaining: frappe-gantt wrapper (next/dynamic, ssr:false, read-only bars, OKLCH theme), the Schedule tab, the link/estimate editors wired to Server Actions, and the board query"
+    },
+    {
+      "task_id": "PSI-121",
+      "note": "The EVM tab needs the same treatment for PV/EV/AC; durationInUnit/varianceInUnit are reusable and lib/normal-cdf.ts already exists"
+    },
+    {
+      "task_id": "PSI-119",
+      "note": "Its card accept still says σ is 'a sum along the critical path'; the glossary and the shipped engine use √Σvariance (2.944 w, not 7.0 w)"
+    },
+    {
+      "task_id": "PSI-006",
+      "note": "The history-entry limits (summary ≤2000 chars, intent ≤200) are only discoverable by reading agent-history/schema.json — this session failed agent:check twice for exceeding them. State them where an author looks first (README §7 or the entry docs)."
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "Agents set review and a human moves the card to done (C-21). Also worth an operator read: PSI-120 is intentionally partial with its dependency unmet, so it should stay out of `done` until PSI-116 lands and the UI halves follow."
+  }
+}

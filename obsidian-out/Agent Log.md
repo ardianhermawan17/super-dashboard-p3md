@@ -6,6 +6,7 @@ Every AI session, newest first (times in WIB). Back to [[Home]].
 
 ## 2026-09-30
 
+- 19:42 · **hermes** · [[tasks/PSI-120|PSI-120]] · partial (needs review): [[history/2026-09-30T12-42-02Z__PSI-120__hermes|Build PSI-120's DB-free half: the pure seam between the PSI-119 engine and the Schedule views (Gantt rows, network table), the URL controls, and the link editor's cycle guard.]]
 - 16:30 · **claude-code** · [[tasks/PSI-124|PSI-124]] · done: [[history/2026-09-30T10-00-00Z__PSI-124__claude-code|Stop .scratch/ (agent working files and a headless-Chrome profile that may hold cookies) from ever being committed by a broad git add.]]
 - 15:52 · **hermes** · [[tasks/PSI-119|PSI-119]] · done (needs review): [[history/2026-09-30T08-52-54Z__PSI-119__hermes|Build the pure CPM/PERT engine (PSI-119) test-first: the PERT maths, forward and backward pass, critical path, target probability and the sigma range, with typed errors instead of throws.]]
 ## 2026-09-29

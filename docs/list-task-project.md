@@ -787,9 +787,10 @@ Every task is an `###` heading followed by `- key: value` lines. `scripts/obsidi
 - accept: Pure TypeScript module with unit tests: TE = (a + 4m + b) / 6, variance = ((b − a) / 6)², σ = √variance per task; forward and backward pass giving ES, EF, LS, LF and slack (LS − ES) per node; critical path; path TE and σ as sums along the critical path; for a target duration (e.g. 38 weeks) returns z and probability; for an operator-chosen k (e.g. 2) returns the range TE − kσ … TE + kσ with slack shown as ± measurable time; cycle and missing-estimate inputs return typed errors, never throw; tests include the textbook 38-week example.
 
 ### PSI-120 · CPM network editor and Gantt timeline
-- status: doing
+- status: review
 - area: frontend
 - owner: agent:hermes
+- history: [[2026-09-30T12-42-02Z__PSI-120__hermes]]
 - depends: PSI-116, PSI-119
 - accept: Board gets a "Schedule" tab: link tasks and sub-tasks as predecessors, edit a/m/b per task; a Gantt timeline built on frappe-gantt places every task automatically at its computed ES from the board's project start, with dependency arrows, critical path highlighted and slack shown per bar; a table lists ES, EF, LS, LF, slack, TE, variance and σ; target duration and k·σ selector recompute live; no Radix, icons only from `@/components/icons`; dependency recorded with a reason (C-10).
 

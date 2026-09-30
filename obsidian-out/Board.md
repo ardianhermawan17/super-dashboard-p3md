@@ -20,7 +20,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-116|PSI-116]] Migration M13 CPM network: task links and PERT estimates #db #phase-11
 - [ ] [[tasks/PSI-117|PSI-117]] Sub-tasks and delegation in the task panel #frontend #phase-11
 - [ ] [[tasks/PSI-118|PSI-118]] Start and finish gates on drag (todo → doing → done) #frontend #phase-11
-- [ ] [[tasks/PSI-120|PSI-120]] CPM network editor and Gantt timeline #frontend #phase-11
 - [ ] [[tasks/PSI-121|PSI-121]] Earned value line chart (PV, EV, AC) #frontend #phase-11
 - [ ] [[tasks/PSI-122|PSI-122]] Pipeline: task → CPM network → earned value, end to end #frontend #phase-11
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
@@ -44,6 +43,7 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code · 1 run #repo #phase-0
 - [ ] [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code · 1 run #docs #phase-11
 - [ ] [[tasks/PSI-119|PSI-119]] CPM/PERT calculation engine · agent:hermes · 1 run #frontend #phase-11
+- [ ] [[tasks/PSI-120|PSI-120]] CPM network editor and Gantt timeline · agent:hermes · 1 run #frontend #phase-11
 - [ ] [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough · agent:hermes · 2 runs #frontend #phase-11
 
 

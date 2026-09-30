@@ -1,0 +1,192 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-29T15-07-47Z__PSI-123__hermes",
+  "task_ids": [
+    "PSI-123"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-29T15:07:47Z",
+    "ended_at": "2026-09-29T17:13:05Z",
+    "branch": "task/PSI-123"
+  },
+  "intent": "Verify access to the super-dashboard-p3md-architecture repo, orient on the Phase 11 board state, and put this session's record into the project under PSI-123 as the operator asked.",
+  "outcome": "done",
+  "summary": "What the operator asked: confirm access to this repo, then put this session's record into the project. Access confirmed - repo at D:/coding/pflp/super-dashboard-p3md-architecture, branch task/PSI-123 at a69fe7e, HANDOFF (2026-09-29 16:40 WIB) pointing at Phase 11 with docs/agent-operations/phase-11-brief.md as the pre-read. The operator chose a full contract record under PSI-123 (C-14/C-22). No PSI-123 code or acceptance work happened in this session and nothing from the four bug fixes was re-verified; the card stays in review for the human, and this entry claims no verification of its own. What this session did finish is what the 11:00Z session left behind: that entry was untracked and invalid (summary 2365 chars against the schema's 2000 limit), so agent:check failed and the write-mode sync skipped it - which is why obsidian-out/history/2026-09-29T11-00-00Z__PSI-123__hermes.md never existed even though docs/list-task-project.md already linked to it. Repaired by trimming 396 characters of redundant wording out of that uncommitted draft (all four bugs, their evidence, decisions, verification and follow_ups intact), then validated and rendered: agent:check ok with 83 entries and the missing note now present. One earlier read-only inspection of that file was blocked by the approval gate with no response and was not retried; the facts came from read_file and search_files. No push, no PR, no production or shared state touched.",
+  "changes": [
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-123 doing -> review plus its history link, from the 11:00Z session; carried into this commit unchanged"
+    },
+    {
+      "path": "obsidian-out/Agent Log.md",
+      "action": "modified",
+      "note": "regenerated: the two PSI-123 sessions appended to the AI work log"
+    },
+    {
+      "path": "obsidian-out/Board.md",
+      "action": "modified"
+    },
+    {
+      "path": "obsidian-out/Home.md",
+      "action": "modified",
+      "note": "regenerated vault view"
+    },
+    {
+      "path": "obsidian-out/docs/list-task-project.md",
+      "action": "modified"
+    },
+    {
+      "path": "obsidian-out/history/2026-09-29T09-00-00Z__PSI-114__claude-code.md",
+      "action": "modified"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-050.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-090.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-091.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-092.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-093.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-094.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-101.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-109.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-114.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-115.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-116.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-117.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-118.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-119.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-120.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-121.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-122.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "obsidian-out/tasks/PSI-123.md",
+      "action": "modified",
+      "note": "regenerated vault page from the task list"
+    },
+    {
+      "path": "agent-history/entries/2026-09-29T11-00-00Z__PSI-123__hermes.json",
+      "action": "added"
+    },
+    {
+      "path": "obsidian-out/history/2026-09-29T11-00-00Z__PSI-123__hermes.md",
+      "action": "added"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Trim the uncommitted 11:00Z entry's summary to the schema's 2000-character limit rather than superseding or deleting it",
+      "reason": "The file had never been committed or rendered, but its invalidity failed agent:check and made the write-mode sync skip it, so .husky/pre-commit (bun run agent:check) would have blocked every later commit on this branch, and the history link already sitting in docs/list-task-project.md stayed dangling. Superseding cannot repair a file that itself fails validation, and deleting it would have erased the only record of PSI-123's four fixes. Only redundant wording was removed; the repair is disclosed in the summary.",
+      "alternatives": [
+        "write a superseding entry and leave the invalid draft in place",
+        "delete the draft and reconstruct PSI-123 from the commit log",
+        "commit only this session's entry with --no-verify"
+      ]
+    },
+    {
+      "decision": "Record this session under PSI-123 with outcome done",
+      "reason": "The operator picked PSI-123, and this session's own objective - access verification plus the C-14/C-22 contract record - was met in full. PSI-123's four accept criteria were verified by the 11:00Z session and are unchanged here; the summary states plainly that nothing was re-verified in this session.",
+      "alternatives": [
+        "record under a new backlog card",
+        "outcome partial because no application code changed"
+      ]
+    }
+  ],
+  "verification": {
+    "typecheck": "n/a",
+    "lint": "n/a",
+    "build": "n/a",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Docs and JSON only; no UI or API path exercised. Ran bun run agent:check (green: 99 tasks, 83 history entries) and bun scripts/obsidian-sync.ts in write mode, which produced the missing 11:00Z note; branch and tip confirmed with git branch --show-current and git log."
+  },
+  "follow_ups": [
+    {
+      "task_id": "NEW",
+      "note": "Reject an over-limit entry where it is written (or check it in the editor/CI), so an invalid entry cannot sit uncommitted and unsynced while its board link looks fine"
+    },
+    {
+      "task_id": "NEW",
+      "note": "README_AI_AGENT.md section 5 still shows the older agent/PSI-0XX-slug branch name; the operator and the Phase 11 brief specify task/PSI-NNN"
+    },
+    {
+      "task_id": "NEW",
+      "note": ".hermes.md is 20128 chars and agent:context warns Hermes may truncate above 20000 - trim it before it silently loses its tail"
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "PSI-123 sits in review awaiting the human walkthrough, and this session repaired another session's uncommitted draft after the fact - both should be visible to the operator."
+  }
+}

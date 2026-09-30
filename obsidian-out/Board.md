@@ -24,7 +24,6 @@ kanban-plugin: board
 - [ ] [[tasks/PSI-120|PSI-120]] CPM network editor and Gantt timeline #frontend #phase-11
 - [ ] [[tasks/PSI-121|PSI-121]] Earned value line chart (PV, EV, AC) #frontend #phase-11
 - [ ] [[tasks/PSI-122|PSI-122]] Pipeline: task → CPM network → earned value, end to end #frontend #phase-11
-- [ ] [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough #frontend #phase-11
 - [ ] [[tasks/PSI-090|PSI-090]] Vercel project and environments #infra #phase-9
 - [ ] [[tasks/PSI-091|PSI-091]] Supabase production project · human #infra #phase-9
 - [ ] [[tasks/PSI-092|PSI-092]] Free-tier keep-alive #infra #phase-9
@@ -45,6 +44,7 @@ kanban-plugin: board
 
 - [ ] [[tasks/PSI-124|PSI-124]] Repo hygiene: gitignore the agent .scratch/ folder (browser profile, logs) · agent:claude-code · 1 run #repo #phase-0
 - [ ] [[tasks/PSI-114|PSI-114]] Design task lifecycle, CPM/PERT network and earned value · agent:claude-code · 1 run #docs #phase-11
+- [ ] [[tasks/PSI-123|PSI-123]] Fix: kanban and finance UI bugs found in the 2026-09-29 RBAC walkthrough · agent:hermes · 2 runs #frontend #phase-11
 
 
 ## Blocked

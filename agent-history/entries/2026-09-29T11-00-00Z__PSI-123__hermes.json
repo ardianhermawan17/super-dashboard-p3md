@@ -1,0 +1,112 @@
+{
+  "$schema": "../schema.json",
+  "schema_version": "1.0",
+  "id": "2026-09-29T11-00-00Z__PSI-123__hermes",
+  "task_ids": [
+    "PSI-123"
+  ],
+  "agent": {
+    "name": "hermes",
+    "operator": "ardian"
+  },
+  "session": {
+    "started_at": "2026-09-29T11:00:00Z",
+    "ended_at": "2026-09-29T15:05:00Z",
+    "branch": "task/PSI-123",
+    "commits": [
+      "2d93876",
+      "b3334da",
+      "ea63f9b",
+      "2c48401",
+      "f047db1",
+      "a69fe7e"
+    ]
+  },
+  "intent": "Fix the four kanban/finance UI bugs from the 2026-09-29 RBAC walkthrough (PSI-123), which block PSI-118's drag gates, and record PSI-123 on the board.",
+  "outcome": "done",
+  "summary": "PSI-123, four walkthrough bugs. (1) nativeButton: BoardFinancePanel's 'View full ledger' is <Button render={<Link/>}> without nativeButton={false}, so Base UI logged its native-button error and the element lost button semantics. Added nativeButton={false}; the console is clean on the Finance tab. (2) Drag swallows clicks: Kanban's useSensor(MouseSensor)/useSensor(TouchSensor) had no activation constraint, so dnd-kit started a drag on mousedown and the browser never fired a click - every click target inside a card was dead, not just the finance button (and keyboard 'Add New Task' was the only working path). Fixed with activationConstraint { distance: 5 } on both sensors, the remedy named in features/cpm-evm.md; verified by replaying a real pointerdown/mousedown/pointerup/mouseup/click sequence and seeing the finance dialog open. (3) Category combobox: NOT a combobox or SQL defect - listCategoriesAction already filters archived = false; it was only unreachable through the card, which (2) blocked; with (2) fixed the dialog lists the 11 seeded categories (0 archived in the DB) and selecting one sticks. Added categories.test.ts to pin the archived = false query and the signed-out refusal, because nothing covered it. (4) Event-form date-time picker: the fields were bare <input type='datetime-local'> inside a modal dialog, whose native popup does not survive the dialog taking focus back, so a date could not be chosen. Replaced with a DateTimePicker component (Popover + Calendar + a time input, the convention already used by DatePickerField) that keeps the WIB wall-clock string contract ('YYYY-MM-DDTHH:mm', wibInputValueToISO unchanged) and a hidden input for FormData. An early typecheck failed on 6 syntax errors in the gitignored .next/dev/types/routes.d.ts the dev server was rewriting; removing it made tsc exit 0. Branch naming: task/PSI-NNN per the operator and the Phase 11 brief; README_AI_AGENT.md section 5 still shows agent/PSI-0XX-slug.",
+  "changes": [
+    {
+      "path": "frontend-architecture/src/features/finance/components/board-finance-panel.tsx",
+      "action": "modified",
+      "note": "nativeButton={false} on the Link-rendering 'View full ledger' button (bug 1)"
+    },
+    {
+      "path": "frontend-architecture/src/components/ui/kanban.tsx",
+      "action": "modified",
+      "note": "MouseSensor/TouchSensor activationConstraint distance 5 (bug 2)"
+    },
+    {
+      "path": "frontend-architecture/src/features/calendar/components/date-time-picker.tsx",
+      "action": "added",
+      "note": "app-controlled Popover + Calendar + time input, WIB string in a hidden input (bug 4)"
+    },
+    {
+      "path": "frontend-architecture/src/features/calendar/components/event-form-dialog.tsx",
+      "action": "modified",
+      "note": "Start/End use DateTimePicker instead of native datetime-local inputs (bug 4)"
+    },
+    {
+      "path": "frontend-architecture/src/features/finance/categories.test.ts",
+      "action": "added",
+      "note": "4 tests: listCategoriesAction filters archived = false, omits archived rows, refuses when signed out (bug 3)"
+    },
+    {
+      "path": "docs/list-task-project.md",
+      "action": "modified",
+      "note": "PSI-123 claimed (status: doing, owner: agent:hermes); merged master's Phase 11 block and dropped the duplicate card the auto-merge produced"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Fix the drag bug with a dnd-kit activation constraint (distance 5 px) instead of stopping propagation on the button.",
+      "reason": "The card body and the task panel were dead too, so the bug was the sensor, not one button; stopPropagation on pointerdown cannot help because dnd-kit listens for mousedown. features/cpm-evm.md names the distance constraint as the remedy.",
+      "alternatives": [
+        "onPointerDown stopPropagation on TaskFinanceButton (already present and ineffective)",
+        "setActivatorNodeRef on a drag handle only"
+      ]
+    },
+    {
+      "decision": "Give the event form an app-controlled date-time picker rather than another native input.",
+      "reason": "The accept line requires the popup to stay open until a date is chosen; a native datetime-local popup is browser chrome that cannot be asserted or kept open. Popover + Calendar is the convention already used by DatePickerField and keeps the WIB string contract that wibInputValueToISO expects.",
+      "alternatives": [
+        "keep <input type='datetime-local'> and hope the dialog stops stealing focus",
+        "reuse DatePickerField (needs TanStack form context; the event form is plain FormData)"
+      ]
+    },
+    {
+      "decision": "Treat the Category combobox as fixed by bug 2 and add a test for the archived filter, rather than changing the combobox.",
+      "reason": "The action already filtered archived = false and the popover listed all 11 categories from the board; the only broken entry path was the card, blocked by the drag bug. A test was the missing piece, not a code change.",
+      "alternatives": [
+        "switch the field to SelectField as features/finance.md section 'Template parts reused' describes"
+      ]
+    }
+  ],
+  "verification": {
+    "typecheck": "pass",
+    "lint": "pass",
+    "build": "pass",
+    "db_reset": "n/a",
+    "db_tests": "n/a",
+    "manual": "Chrome via CDP (no browser-automation dependency) against the running dev server at localhost:3000, signed in as pm@p3md.test: 8/8 DOM assertions - Finance tab logs no nativeButton error; a real pointer sequence on the card's 'Add finance entry for this task' opens the entry dialog; the Category combobox lists the 11 non-archived categories and a pick sticks; the Start picker opens, stays open across a month step, then closes on a date choice and writes '2026-10-15T09:00' into the submitted value. Also 145 frontend + 22 edge-function tests, and the seeded DB confirms 11 finance_categories, 0 archived."
+  },
+  "risks": [
+    "Touch drag now needs 5 px of movement before a card lifts, matching mouse; intended, but worth a check on a real device (PSI-025 covers device QA).",
+    "The picker submits through a hidden input, so the browser's own 'required' validation no longer fires; the dialog's 'Start and end are required' guard and the action's Zod schema still reject an empty value.",
+    "All four fixes were exercised against the local dev server only; the operator should click through the board and calendar before stamping PSI-123 done."
+  ],
+  "follow_ups": [
+    {
+      "task_id": "PSI-118",
+      "note": "Unblocked: a card's buttons and the card body now receive clicks, which is the precondition its accept line names."
+    },
+    {
+      "task_id": "NEW",
+      "note": "Dev-server artifact, no task needed: a typecheck run while next dev is rewriting .next/dev/types/*.d.ts can fail on those gitignored generated files. Deleting the folder clears it."
+    }
+  ],
+  "human_review": {
+    "required": true,
+    "reason": "User-visible behaviour changed in two places (the board's drag sensor and the event form's date-time picker); confirm both by hand before PSI-123 is stamped done."
+  }
+}

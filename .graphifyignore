@@ -17,6 +17,10 @@ obsidian-out/
 agent-history/entries/
 src/lib/supabase/database.types.ts
 
+# local scratch: agent working files, logs, and a headless-Chrome profile (extension JS and
+# LevelDB files) that would otherwise flood the graph with thousands of foreign nodes
+.scratch/
+
 # vendored shadcn/Base UI primitives: they would dominate the "god nodes" ranking
 src/components/ui/
 

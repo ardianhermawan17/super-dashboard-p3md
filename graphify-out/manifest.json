@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "docs/agent-operations/README.md": {
-    "mtime": 1790493675.8151987,
-    "seen": 1790576939.12335,
-    "ast_hash": "2606645dc97a023cb21641bfe4db46cc",
+    "mtime": 1790686961.5223463,
+    "seen": 1790759086.6584914,
+    "ast_hash": "0a8777fb6dcad6d05eaea8f397690e2c",
     "semantic_hash": ""
   },
   "docs/agent-operations/claude-code.md": {
@@ -54,9 +54,9 @@
     "semantic_hash": "e5d48748eda09d5219c0602e3cd41b6b"
   },
   "docs/backend-architecture/agent-layer-mcp.md": {
-    "mtime": 1790478355.7198274,
-    "seen": 1790576939.1378152,
-    "ast_hash": "9d8db1406aaacfc992197df2ca6a1719",
+    "mtime": 1790601822.4701076,
+    "seen": 1790759086.6594715,
+    "ast_hash": "581f114684c984a00c73121902c2dcbc",
     "semantic_hash": ""
   },
   "docs/backend-architecture/auth-and-onboarding.md": {
@@ -84,10 +84,10 @@
     "semantic_hash": ""
   },
   "docs/backend-architecture/operations-and-risks.md": {
-    "mtime": 1790178413.0,
-    "seen": 1790215803.4713628,
-    "ast_hash": "50e40862f0c347f17cc94ec10b9566b2",
-    "semantic_hash": "50e40862f0c347f17cc94ec10b9566b2"
+    "mtime": 1790601822.472062,
+    "seen": 1790759086.660472,
+    "ast_hash": "d061ea918a3a2130be3a24b0c4fa7d81",
+    "semantic_hash": ""
   },
   "docs/backend-architecture/push-notifications.md": {
     "mtime": 1790178413.0,
@@ -96,9 +96,9 @@
     "semantic_hash": "e1b17de02c293484a031222d3adc8808"
   },
   "docs/database-architecture/README.md": {
-    "mtime": 1790478355.7214365,
-    "seen": 1790576939.1378152,
-    "ast_hash": "6672786554ad7a1a1331066e4ba36021",
+    "mtime": 1790686961.5240037,
+    "seen": 1790759086.660472,
+    "ast_hash": "099fd77cfff8ac79ef3581687e1d0baa",
     "semantic_hash": ""
   },
   "docs/database-architecture/m1-rbac.md": {
@@ -162,9 +162,9 @@
     "semantic_hash": "ef8b0467a46d6b4a800b4593126b9a32"
   },
   "docs/frontend-architecture/README.md": {
-    "mtime": 1790478355.723583,
-    "seen": 1790576939.1461744,
-    "ast_hash": "6e628070af512ec17bd7bfc0ff32e3f2",
+    "mtime": 1790686961.5268242,
+    "seen": 1790759086.66284,
+    "ast_hash": "61b927f3c1b2c2c4f17019f0caa49ad8",
     "semantic_hash": ""
   },
   "docs/frontend-architecture/conventions-and-testing.md": {
@@ -204,9 +204,9 @@
     "semantic_hash": "35c712abab45d7fd0a049f7782fcf6c8"
   },
   "docs/frontend-architecture/features/kanban.md": {
-    "mtime": 1790509572.5800505,
-    "seen": 1790576939.1538815,
-    "ast_hash": "9ea0e5e974b73ba1503787d8873c0f89",
+    "mtime": 1790686961.5292897,
+    "seen": 1790759086.6639087,
+    "ast_hash": "91cdb49bd541b57ce9b771a5d17ece10",
     "semantic_hash": ""
   },
   "docs/frontend-architecture/features/mail.md": {
@@ -258,15 +258,15 @@
     "semantic_hash": "7d7e64ec0e26f33ef8d6fe8c61f09bc1"
   },
   "docs/list-task-project.md": {
-    "mtime": 1790579986.2413466,
-    "seen": 1790580114.1569116,
-    "ast_hash": "3b88abdd443a2b82a66219205022a879",
+    "mtime": 1790758933.1541843,
+    "seen": 1790759086.6660013,
+    "ast_hash": "80c5a44e62d6633e20057ed5812e87d6",
     "semantic_hash": ""
   },
   "docs/system-overview.md": {
-    "mtime": 1790478355.725713,
-    "seen": 1790576939.1628892,
-    "ast_hash": "ba7f20963660b4a4fe16309fc83bae66",
+    "mtime": 1790686961.5326042,
+    "seen": 1790759086.6660013,
+    "ast_hash": "e08c287daa86f3260c9acf6f9c6214b5",
     "semantic_hash": ""
   },
   ".husky/pre-commit": {
@@ -366,9 +366,9 @@
     "semantic_hash": ""
   },
   "HANDOFF.md": {
-    "mtime": 1790578791.0107758,
-    "seen": 1790580114.1248825,
-    "ast_hash": "ceb096e04439abb707e711a8a22df421",
+    "mtime": 1790759006.1917107,
+    "seen": 1790759086.657472,
+    "ast_hash": "8fdc6bd3b582e8665263f93a647a8083",
     "semantic_hash": ""
   },
   "agent-evaluate/config.json": {
@@ -408,9 +408,9 @@
     "semantic_hash": ""
   },
   "supabase/functions/_shared/internal.ts": {
-    "mtime": 1790464449.5474515,
-    "seen": 1790576939.12335,
-    "ast_hash": "bdfed27f1a18ed1063fa54bb2a3259e3",
+    "mtime": 1790606454.7292092,
+    "seen": 1790759086.6554236,
+    "ast_hash": "d6b91fca626d5c4eecf7bb87f3d91c7e",
     "semantic_hash": ""
   },
   "supabase/functions/google-calendar/index.ts": {
@@ -477,6 +477,66 @@
     "mtime": 1790478355.7241194,
     "seen": 1790576939.1538815,
     "ast_hash": "59654bfa79b777447c9b55ea817ed56c",
+    "semantic_hash": ""
+  },
+  "supabase/functions/_shared/llm.test.ts": {
+    "mtime": 1790606454.7292092,
+    "seen": 1790759086.6554236,
+    "ast_hash": "9742188dd302c67f9f032c66baf2fedf",
+    "semantic_hash": ""
+  },
+  "supabase/functions/_shared/llm.ts": {
+    "mtime": 1790603051.2613108,
+    "seen": 1790759086.6554236,
+    "ast_hash": "192874a2ee7a59835914938269f64095",
+    "semantic_hash": ""
+  },
+  "supabase/functions/daily-digest/digest.test.ts": {
+    "mtime": 1790606454.7292092,
+    "seen": 1790759086.6554236,
+    "ast_hash": "e3dd354e61f25778c0fe525f2d969455",
+    "semantic_hash": ""
+  },
+  "supabase/functions/daily-digest/digest.ts": {
+    "mtime": 1790606454.7307253,
+    "seen": 1790759086.6554236,
+    "ast_hash": "f0212430deb473de302083d8edde676d",
+    "semantic_hash": ""
+  },
+  "supabase/functions/daily-digest/index.ts": {
+    "mtime": 1790606454.7317488,
+    "seen": 1790759086.6554236,
+    "ast_hash": "a23f1b5b368d21731e8a9ed93f2b33ef",
+    "semantic_hash": ""
+  },
+  "docker-compose.frontend.yml": {
+    "mtime": 1790662235.0204434,
+    "seen": 1790759086.6584914,
+    "ast_hash": "f27392294bdbcd9e0ef6e43ddfa58004",
+    "semantic_hash": ""
+  },
+  "docs/agent-operations/phase-11-brief.md": {
+    "mtime": 1790686961.5233464,
+    "seen": 1790759086.6594715,
+    "ast_hash": "74a5f92dc42a61e949472f4ec0905158",
+    "semantic_hash": ""
+  },
+  "docs/backend-architecture/mcp-client-compatibility.md": {
+    "mtime": 1790601822.4711165,
+    "seen": 1790759086.660472,
+    "ast_hash": "d07a11079bdea837d2234cbe74fc31a2",
+    "semantic_hash": ""
+  },
+  "docs/database-architecture/m12-task-lifecycle-cpm.md": {
+    "mtime": 1790686961.525668,
+    "seen": 1790759086.6611497,
+    "ast_hash": "04ed6bb2a0658c23d580e6f887bb2fc3",
+    "semantic_hash": ""
+  },
+  "docs/frontend-architecture/features/cpm-evm.md": {
+    "mtime": 1790686961.5287747,
+    "seen": 1790759086.6639087,
+    "ast_hash": "8021a9312a2e0287b2b4a8c80627b765",
     "semantic_hash": ""
   }
 }
